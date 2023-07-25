@@ -1,6 +1,6 @@
 # About WireShock
 
-[![GitHub](https://img.shields.io/badge/GitHub-yellowgreen?logo=github)](https://github.com/ViGEm/WireShock) ![Discontinued](https://img.shields.io/badge/Project%20discontinued-critical)
+[![GitHub](https://img.shields.io/badge/GitHub-yellowgreen?logo=github)](https://github.com/nefarius/WireShock) ![Discontinued](https://img.shields.io/badge/Project%20discontinued-critical)
 
 WireShock was a kernel-mode USB driver providing a custom Bluetooth stack for USB Bluetooth dongles to support Sony PlayStation 3 Controllers on Windows. It was in development from May 2018 to October 2018 until it got archived in favour of better solutions. Its direct successor is BthPS3.
 
