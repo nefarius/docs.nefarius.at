@@ -9,7 +9,7 @@ theme:
   name: material
   favicon: images/favicon.png
   palette:
-    primary: purple
+    primary: deep purple
   features:
     - navigation.tabs
   custom_dir: overrides
