@@ -1,6 +1,6 @@
-site_name: Virtual Gamepad Emulation Framework
-site_url: https://vigem.org
-repo_url: https://github.com/ViGEm/ViGEm.github.io
+site_name: Nefarius' Project Documentation
+site_url: https://docs.nefarius.at
+repo_url: https://github.com/nefarius/docs.nefarius.at
 site_description: Projects devoted to USB input device emulation and game peripherals reverse engineering
 copyright: |
   Copyright &copy; 2020 - 2023 <a href="https://github.com/nefarius" target="_blank" rel="noopener">Benjamin Höglinger-Stelzer</a>
@@ -9,7 +9,7 @@ theme:
   name: material
   favicon: images/favicon.png
   palette:
-    primary: teal
+    primary: purple
   features:
     - navigation.tabs
   custom_dir: overrides
@@ -17,9 +17,9 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/ViGEm
+      link: https://github.com/nefarius
     - icon: fontawesome/brands/discord
-      link: https://discord.vigem.org
+      link: https://discord.nefarius.at
 extra_css:
   - stylesheets/extra.css
   - stylesheets/glightbox.css
