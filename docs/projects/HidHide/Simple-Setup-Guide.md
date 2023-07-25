@@ -47,7 +47,7 @@ HidGuardian's installer utility can check if it's installed and correctly uninst
 !!! important "Attention!"
     This section is for users who know more or less what they are doing. If you want a more detailed, step-by-step guide, jump to the next section.
 
-- Download the [Latest release of HidHide](https://github.com/ViGEm/HidHide/releases) (It should be a file called HidHideMSI.msi). Remember to install its prerequisites as written on the page
+- Download the [Latest release of HidHide](https://github.com/nefarius/HidHide/releases) (It should be a file called HidHideMSI.msi). Remember to install its prerequisites as written on the page
 - After installation, reboot your computer
 - Open the `HidHide Configuration Client` in the start menu
 - On the `Applications` tab, add the applications that should be able to see the devices even when they are hidden
@@ -62,7 +62,7 @@ DONE. Be happy. Still, be sure to give a read on the last sections of this artic
 
 - Install [HidHide's prerequisites](https://support.microsoft.com/en-us/topic/the-latest-supported-visual-c-downloads-2647da03-1eea-4433-9aff-95f26a218cc0) according to your [Windows 10 version](https://vigem.org/research/How-to-check-architecture/)
 ![VisualCpp](images/HidHide_VisualCpp.png){: .glightbox }
-- Download the [Latest release of HidHide](https://github.com/ViGEm/HidHide/releases) (it should be a file called `HidHideMSI.msi`)
+- Download the [Latest release of HidHide](https://github.com/nefarius/HidHide/releases) (it should be a file called `HidHideMSI.msi`)
 - Open the downloaded file and install HidHide as instructed at default settings (just click `Next` until it finishes installing)
 - After the installation, reboot your computer
 

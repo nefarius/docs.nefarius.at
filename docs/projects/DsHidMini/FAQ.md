@@ -9,7 +9,7 @@
 
 ## What is DsHidMini?
 
-Check out the repository [README](https://github.com/ViGEm/DsHidMini/blob/master/README.md) and the [main project page](https://vigem.org/projects/DsHidMini/).
+Check out the repository [README](https://github.com/nefarius/DsHidMini/blob/master/README.md) and the [main project page](https://vigem.org/projects/DsHidMini/).
 
 ## I am already using ScpToolKit / MotionInJoy / Shibari / Whatever, should I move to DsHidMini?
 
@@ -34,7 +34,7 @@ Go back to the [_How do I use it?_](#how-do-i-use-it) question.
 
 ## What does my controllers' LED represent? How do I quickly disconnect the controller on Bluetooth?
 
-Read the [_Features_ section](https://github.com/ViGEm/DsHidMini#features) of the main GitHub page of DsHidMini.
+Read the [_Features_ section](https://github.com/nefarius/DsHidMini#features) of the main GitHub page of DsHidMini.
 
 ## How do I use my controller as a Xbox 360 or DualShock 4?
 

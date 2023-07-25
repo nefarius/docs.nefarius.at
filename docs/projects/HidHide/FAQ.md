@@ -16,4 +16,4 @@ Thanks to [driver signing](https://learn.microsoft.com/en-us/windows-hardware/dr
 
 ## Where can I download a 32-Bit or ARM64 (Mac, RasPi) version?
 
-At this point we only provide a setup for **Intel/AMD 64-Bit** installations. Follow [this issue](https://github.com/ViGEm/HidHide/issues/57) for potential news about this topic.
+At this point we only provide a setup for **Intel/AMD 64-Bit** installations. Follow [this issue](https://github.com/nefarius/HidHide/issues/57) for potential news about this topic.

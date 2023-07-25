@@ -18,8 +18,8 @@ No matter what software you may have preinstalled, this step is always the same 
 This is the current latest stable major version.
 
 - **Make sure your UAC is enabled** ([see here](https://articulate.com/support/article/how-to-turn-user-account-control-on-or-off-in-windows-10))!
-- **If you want Bluetooth support** you need to [install BthPS3 first](https://github.com/ViGEm/BthPS3/releases/latest) (optional for USB)
-- [Grab the release from GitHub](https://github.com/ViGEm/DsHidMini/releases/latest)
+- **If you want Bluetooth support** you need to [install BthPS3 first](https://github.com/nefarius/BthPS3/releases/latest) (optional for USB)
+- [Grab the release from GitHub](https://github.com/nefarius/DsHidMini/releases/latest)
 - Download the attached `dshidmini_vX.X.X.X.zip` archive to an arbitrary location on your machine
 - Extract the archive (doesn't matter where to, e.g. your Downloads folder)
 - [Make sure you know your architecture](https://vigem.org/research/How-to-check-architecture/)
@@ -46,8 +46,8 @@ By now if you plug in your controller (or reboot the machine) chances are high t
     !!! important "Obsolete version"
         Version 1 has been deprecated and replaced by version 2, which is not backwards compatible, so study the installations instructions carefully and make sure     you use the versions outlined!
     
-    - **If you want Bluetooth support** you need to [install BthPS3 first](https://github.com/ViGEm/BthPS3/releases/tag/setup-v1.3.127) (optional for USB)
-    - [Grab the release from GitHub](https://github.com/ViGEm/DsHidMini/releases/tag/v1.4.222.0)
+    - **If you want Bluetooth support** you need to [install BthPS3 first](https://github.com/nefarius/BthPS3/releases/tag/setup-v1.3.127) (optional for USB)
+    - [Grab the release from GitHub](https://github.com/nefarius/DsHidMini/releases/tag/v1.4.222.0)
     - Download the attached `dshidmini_vX.X.X.X.zip` archive to an arbitrary location on your machine
     - Extract the archive (doesn't matter where to, e.g. your Downloads folder)
     - [Make sure you know your architecture](https://vigem.org/research/How-to-check-architecture/)
@@ -123,7 +123,7 @@ If you've used [Shibari](https://github.com/ViGEm/Shibari) before you probably h
 Let's go step-by-step with this:
 
 - Open Device Manager by pressing ++win+x++ and select it from the menu
-- [Check if your Bluetooth Link Manager spec is supported](https://github.com/ViGEm/BthPS3#supported-bluetooth-host-devices)
+- [Check if your Bluetooth Link Manager spec is supported](https://github.com/nefarius/BthPS3#supported-bluetooth-host-devices)
 - Check if BthPS3 is correctly installed, its status and if its version is `v1.3.108` or higher:
 ![BthPS3](images/BthPS3_DeviceManager.png){: .glightbox }
 - Connect your controller by USB
@@ -135,6 +135,6 @@ Let's go step-by-step with this:
 If after all those tries the device still fails to connect, then ___maybe___:
 
 - Your Bluetooth dongle is somehow faulty/unsupported. Try with another model. Also, try using DsHidMini and BthPS3 in another computer or notebook with Bluetooth support to try your luck
-- You may have a fake, copy-cat DS3 controller that uses insecure connections (unsolvable issue). [Be sure to see how to check if this is the case](https://github.com/ViGEm/DsHidMini/issues/61)
+- You may have a fake, copy-cat DS3 controller that uses insecure connections (unsolvable issue). [Be sure to see how to check if this is the case](https://github.com/nefarius/DsHidMini/issues/61)
 - You have a fake/copycat controller that expects some specific PS3 behavior that is not mimicked by DsHidMini. __This project is focused on official Sony controllers, so aftermarket controllers may or may not work. As such, if a fake controller does not connect via Bluetooth you are on your own and we kindly ask you to refrain from opening support tickets__
     - You are free to [try reaching us through the proper means](https://vigem.org/Community-Support/) to verify _why_ the controller does not connect, but if it ends up being the controller's fault you are out of luck.
