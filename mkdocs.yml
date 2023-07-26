@@ -20,6 +20,8 @@ extra:
       link: https://github.com/nefarius
     - icon: fontawesome/brands/discord
       link: https://discord.nefarius.at
+    - icon: fontawesome/brands/mastodon
+      link: https://fosstodon.org/@Nefarius
 extra_css:
   - stylesheets/extra.css
   - stylesheets/glightbox.css
