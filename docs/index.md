@@ -13,3 +13,5 @@ The news feed is hosted and provided by [Fosstodon](https://fosstodon.org/about)
 <a class="mastodon-feed"
    href="https://fosstodon.org/@Nefarius"
    data-toot-limit="8">follow me on Mastodon</a>
+
+<a rel="me" href="https://fosstodon.org/@Nefarius">Nefarius on Mastodon</a>
