@@ -15,7 +15,7 @@ Here you'll find quick-links to binaries for popular projects 👇
 
 ## Mirrors & Archives
 
-You can explore mirror copies or archived binaries [on the file server](https://downloads.vigem.org/), these are typically in "working conditions" but may no longer be maintained or have been superseded by other solutions. Use with care ✨
+You can explore mirror copies or archived binaries [on the file server](https://downloads.nefarius.at/), these are typically in "working conditions" but may no longer be maintained or have been superseded by other solutions. Use with care ✨
 
 ## Buildbot Archive
 

@@ -42,7 +42,7 @@ Download and store all the fun listed here somewhere on your battle station :met
 
 - Get the latest `Shibari.zip` [from here](https://buildbot.vigem.org/builds/Shibari/master/) (always pick the highest version number from the bottom for most recent release)
     - This plays the "middle man" between all those drivers you'll install
-- Get the latest `FireShock.zip` [from here](https://downloads.vigem.org/projects/FireShock/stable/)
+- Get the latest `FireShock.zip` [from here](https://downloads.nefarius.at/projects/FireShock/stable/)
     - This is required for USB connection and automatic pairing
 - Get the latest `ViGEm Bus Driver` [from here](https://github.com/ViGEm/ViGEmBus/releases/latest)
     - This is required for presenting the devices as either Xbox 360 or DualShock 4 controllers to games

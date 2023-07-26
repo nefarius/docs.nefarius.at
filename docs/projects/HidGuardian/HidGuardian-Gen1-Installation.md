@@ -22,12 +22,12 @@ Check the [_Known Users of HidGuardian_ page](https://vigem.org/projects/HidGuar
 
 ## Preparations
 
-👉 [Grab the driver archive matching your systems architecture from here](https://downloads.vigem.org/projects/HidGuardian/stable/1.14.3.0/windows/) and extract them (e.g. to `C:\hg`)
+👉 [Grab the driver archive matching your systems architecture from here](https://downloads.nefarius.at/projects/HidGuardian/stable/1.14.3.0/windows/) and extract them (e.g. to `C:\hg`)
 
 !!! info "Hint"
     Some morons/trolls might have told you that you have to put drivers into `system32` folder. **Don't do that**, Windows can take care of its drivers by itself, fooling around in your system folders can brick your machine. You have been warned.
 
-👉 [Now get the Device Console (devcon) utility](https://downloads.vigem.org/other/microsoft/devcon.zip) and also extract it somewhere (e.g. to `C:\hg`)
+👉 [Now get the Device Console (devcon) utility](https://downloads.nefarius.at/other/microsoft/devcon.zip) and also extract it somewhere (e.g. to `C:\hg`)
 
 So the folder structure you end up with should look like so:
 
