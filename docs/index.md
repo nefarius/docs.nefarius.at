@@ -8,6 +8,8 @@ Feel free to look around, you'll find links and documents to popular projects li
 
 ## News
 
+The news feed is hosted and provided by [Fosstodon](https://fosstodon.org/about), a [Mastodon](https://joinmastodon.org/) instance.
+
 <a class="mastodon-feed"
    href="https://fosstodon.org/@Nefarius"
    data-toot-limit="8">follow me on Mastodon</a>
