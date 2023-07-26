@@ -1,5 +1,7 @@
 # docs.nefarius.at
 
+[![ci](https://github.com/nefarius/docs.nefarius.at/actions/workflows/ci.yml/badge.svg)](https://github.com/nefarius/docs.nefarius.at/actions/workflows/ci.yml) [![Website](https://img.shields.io/website-up-down-green-red/https/docs.nefarius.at.svg?label=docs.nefarius.at)](https://docs.nefarius.at/)
+
 Sources of [docs.nefarius.at](https://docs.nefarius.at/).
 
 ## 3rd party credits
