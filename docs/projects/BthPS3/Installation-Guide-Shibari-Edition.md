@@ -40,7 +40,7 @@ Fear not, we're almost at the finish line! Now comes the part that's a bit rough
 
 Download and store all the fun listed here somewhere on your battle station :metal:
 
-- Get the latest `Shibari.zip` [from here](https://buildbot.vigem.org/builds/Shibari/master/) (always pick the highest version number from the bottom for most recent release)
+- Get the latest `Shibari.zip` [from here](https://buildbot.nefarius.at/builds/Shibari/master/) (always pick the highest version number from the bottom for most recent release)
     - This plays the "middle man" between all those drivers you'll install
 - Get the latest `FireShock.zip` [from here](https://downloads.nefarius.at/projects/FireShock/stable/)
     - This is required for USB connection and automatic pairing
