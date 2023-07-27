@@ -27,8 +27,8 @@ The usual way consists in using its built-in uninstaller:
 
 - Open Windows 10's `Apps and Features` by pressing ++win+x++ and selecting it from the menu
 - Use the search box _in the center_ to look for `Emulation` or `Nefarius`
-- Click on `Nefarius Nefarius Gamepad Emulation Bus Driver` and select `Uninstall`
-![UninstallingViGEm](images/UninstallingViGEm.png){: .glightbox }  
+- Click on `Nefarius Nefarius Gamepad Emulation Bus Driver` and select `Uninstall`  
+  ![UninstallingViGEm](images/UninstallingViGEm.png){: .glightbox }  
 - Follow the uninstaller's instructions
 - Done. If you get prompted to reboot, do so and that's it!
 
@@ -45,7 +45,7 @@ That should do the trick. If you want to be absolutely sure that there are no tr
 ## Troubleshooting
 
 !!! important "Section based on the latest version!"
-    The whole troubleshooting section is based on top of the __latest version of ViGEmBus__. If you are using or trying to install an older version, then your experience will greatly differ and following this section may actually cause more issues. Use common sense 🙂
+    The whole troubleshooting section is based on top of the **latest version of ViGEmBus**. If you are using or trying to install an older version, then your experience will greatly differ and following this section may actually cause more issues. Use common sense 🙂
 
 ### General health checks
 
@@ -54,7 +54,7 @@ The ViGEmBus has no user interface, but don't worry, it's easy to verify if ever
 - Open Device Manager by pressing ++win+x++ and selecting it from the menu:  
 ![Device Manager](images/6dCenuSsFr.png){: .glightbox }  
 - Click on the `View` tab at the top and change the view type to `Devices by connection`
-- Look for entries named `Nefarius Virtual Gamepad Emulation Bus` _or_ `Virtual Gamepad Emulation Bus`
+- Look for entries named `Nefarius Virtual Gamepad Emulation Bus` *or* `Virtual Gamepad Emulation Bus`
 
 If more than one entry appears, you might have multiple version of ViGEmBus installed which may cause conflicts. Follow the [full clean section](#purging-every-trace-of-vigembus).
 
