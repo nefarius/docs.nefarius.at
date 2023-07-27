@@ -9,7 +9,7 @@
 
 ## What is DsHidMini?
 
-Check out the repository [README](https://github.com/nefarius/DsHidMini/blob/master/README.md) and the [main project page](https://vigem.org/projects/DsHidMini/).
+Check out the repository [README](https://github.com/nefarius/DsHidMini/blob/master/README.md) and the [main project page](index.md).
 
 ## I am already using ScpToolKit / MotionInJoy / Shibari / Whatever, should I move to DsHidMini?
 
@@ -26,7 +26,7 @@ After DsHidMini is active and the controller connected, you just need to change 
 
 ## Does my fake PS3 controller work with DsHidMini?
 
-Short answer: it depends. Long answer: [it depends](https://vigem.org/projects/BthPS3/About-Controller-Compatibility/) 🙂 This is community software with no ties to any hardware manufacturer, all we can provide is knowledge based on research and reverse engineering.
+Short answer: it depends. Long answer: [it depends](../BthPS3/About-Controller-Compatibility.md) 🙂 This is community software with no ties to any hardware manufacturer, all we can provide is knowledge based on research and reverse engineering.
 
 ## What are the HID Device Modes? Which one should I use?
 
