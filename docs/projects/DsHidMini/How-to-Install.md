@@ -108,15 +108,15 @@ We need to first determine if any other conflicting device driver is present on 
 
 #### ScpToolkit
 
-If you had ScpToolkit installed, you need to purge every remains from your machine. [Follow this comprehensive removal guide](https://vigem.org/projects/ScpToolkit/ScpToolkit-Removal-Guide/).
+If you had ScpToolkit installed, you need to purge every remains from your machine. [Follow this comprehensive removal guide](../ScpToolkit/ScpToolkit-Removal-Guide.md).
 
 #### Official Sony driver
 
-If you have/had PS Now installed, chances are high you have the official Sony `sixaxis.sys` on your system. [Follow this procedure to remove it](../SIXAXIS.SYS-to-DsHidMini-Guide).
+If you have/had PS Now installed, chances are high you have the official Sony `sixaxis.sys` on your system. [Follow this procedure to remove it](SIXAXIS.SYS-to-DsHidMini-Guide.md).
 
 #### FireShock
 
-If you've used [Shibari](https://github.com/ViGEm/Shibari) before you probably have FireShock installed. [Follow this procedure to remove it](../../FireShock/Removal-Guide).
+If you've used [Shibari](https://github.com/nefarius/Shibari) before you probably have FireShock installed. [Follow this procedure to remove it](../FireShock/Removal-Guide.md).
 
 ### Controller does not connect by Bluetooth
 
