@@ -22,7 +22,7 @@ This is the current latest stable major version.
 - [Grab the release from GitHub](https://github.com/nefarius/DsHidMini/releases/latest)
 - Download the attached `dshidmini_vX.X.X.X.zip` archive to an arbitrary location on your machine
 - Extract the archive (doesn't matter where to, e.g. your Downloads folder)
-- [Make sure you know your architecture](https://vigem.org/research/How-to-check-architecture/)
+- [Make sure you know your architecture](../../research/How-to-check-architecture.md)
     - On x64 navigate to `x64\dshidmini`
     - On x86 navigate to `x86\dshidmini`
 - Right-click on `dshidmini.inf` and select Install  
@@ -50,7 +50,7 @@ By now if you plug in your controller (or reboot the machine) chances are high t
     - [Grab the release from GitHub](https://github.com/nefarius/DsHidMini/releases/tag/v1.4.222.0)
     - Download the attached `dshidmini_vX.X.X.X.zip` archive to an arbitrary location on your machine
     - Extract the archive (doesn't matter where to, e.g. your Downloads folder)
-    - [Make sure you know your architecture](https://vigem.org/research/How-to-check-architecture/)
+    - [Make sure you know your architecture](../../research/How-to-check-architecture.md)
         - On x64 navigate to `x64\dshidmini`
         - On x86 navigate to `x86\dshidmini`
     - Right-click on `dshidmini.inf` and select Install
@@ -100,7 +100,7 @@ The driver can't do anything if it is not being used, so to check this:
 
 If the device appears there but the driver status indicates some error (e.g. `This device cannot start (Error Code 10)`) try pressing the `Reset` button on the back of your controller and then reconnecting it. Rebooting your computer is also worth a shot.
 
-If the controller does not appear under `Nefarius HID Devices` or if this section doesn't exist at all, you probably have another driver taking priority over DsHidMini. To solve this you need to remove those rogue drivers. See how to do so on the [_removing conflicting drivers_](#removing-conflicting-drivers) section.
+If the controller does not appear under `Nefarius HID Devices` or if this section doesn't exist at all, you probably have another driver taking priority over DsHidMini. To solve this you need to remove those rogue drivers. See how to do so on the [*removing conflicting drivers*](#removing-conflicting-drivers) section.
 
 ### Removing conflicting drivers
 
@@ -132,9 +132,9 @@ Let's go step-by-step with this:
 ![DSHMC_PairingCheck](images/DSHMC_PairingCheck.png){: .glightbox }
 - If the "pairing" check is _Ok_ like in the picture above but the device is still not connecting by Bluetooth, **try resetting your controller by pressing the `reset` button on its back**, connecting by USB again to have it re-paired to the current Bluetooth address then trying connecting wireless again. Remember to always confirm in the DsHidMini Control UI Tool if the pairing was successful before trying to connect wireless
 
-If after all those tries the device still fails to connect, then ___maybe___:
+If after all those tries the device still fails to connect, then ***maybe***:
 
 - Your Bluetooth dongle is somehow faulty/unsupported. Try with another model. Also, try using DsHidMini and BthPS3 in another computer or notebook with Bluetooth support to try your luck
 - You may have a fake, copy-cat DS3 controller that uses insecure connections (unsolvable issue). [Be sure to see how to check if this is the case](https://github.com/nefarius/DsHidMini/issues/61)
-- You have a fake/copycat controller that expects some specific PS3 behavior that is not mimicked by DsHidMini. __This project is focused on official Sony controllers, so aftermarket controllers may or may not work. As such, if a fake controller does not connect via Bluetooth you are on your own and we kindly ask you to refrain from opening support tickets__
-    - You are free to [try reaching us through the proper means](https://vigem.org/Community-Support/) to verify _why_ the controller does not connect, but if it ends up being the controller's fault you are out of luck.
+- You have a fake/copycat controller that expects some specific PS3 behavior that is not mimicked by DsHidMini. **This project is focused on official Sony controllers, so aftermarket controllers may or may not work. As such, if a fake controller does not connect via Bluetooth you are on your own and we kindly ask you to refrain from opening support tickets!**
+  - You are free to [try reaching us through the proper means](../../../Community-Support.md) to verify *why* the controller does not connect, but if it ends up being the controller's fault you are out of luck.

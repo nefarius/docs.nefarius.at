@@ -10,7 +10,7 @@
 
 Congratulations! That was it, ViGEmBus is now ready to use.
 
-In case you are experiencing issues, have a look at the [troubleshooting section](#Troubleshooting).
+In case you are experiencing issues, have a look at the [troubleshooting section](#troubleshooting).
 
 ## Updating
 
@@ -65,7 +65,7 @@ If you have only one entry and it is the one starting with `Nefarius` then conti
 - At the `Driver` tab the `Driver Version` should match the latest version you downloaded and installed  
 ![DeviceManagerViGEmBUS](images/DeviceManagerViGEmBUS.png){: .glightbox }  
 
-If everything matches the instructions, then things should work as expected. A special case is when the user has a laptop from the HP Omen Gaming line. If this is your case, have a look at the [_ViGEm issues in HP Omen laptops_ section](#vigem-issues-in-hp-omen-laptops).
+If everything matches the instructions, then things should work as expected. A special case is when the user has a laptop from the HP Omen Gaming line. If this is your case, have a look at the [*ViGEmBus issues in HP Omen laptops* section](#vigembus-issues-in-hp-omen-laptops).
 
 ### ViGEmBus issues in HP Omen laptops
 
@@ -97,4 +97,4 @@ And done, no ViGEmBus left anywhere! Now it's safe to try re-installing the late
 
 This guide should cover all known issues regarding the ViGEmBus setup, so give it a good read.
 
-If you are facing another issue that is not covered here, feel free to reach us [through the proper means](https://vigem.org/Community-Support/).
+If you are facing another issue that is not covered here, feel free to reach us [through the proper means](../../../Community-Support.md).
