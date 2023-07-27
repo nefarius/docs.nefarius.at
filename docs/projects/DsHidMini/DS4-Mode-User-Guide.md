@@ -27,13 +27,13 @@ In `DS4Windows` HID Device Mode, the controller appears as a custom device that 
 
 ## Using the controller with DS4Windows
 
-- To start, [the controller must be in `DS4Windows` mode](../HID-Device-Modes-Explained)
+- To start, [the controller must be in `DS4Windows` mode](HID-Device-Modes-Explained.md)
 - Download the latest [Ryochan7's DS4Windows](https://github.com/Ryochan7/DS4Windows/releases) release package according to your [system architecture](https://www.howtogeek.com/howto/21726/how-do-i-know-if-im-running-32-bit-or-64-bit-windows-answers/)
 - Extract the package to an easily accessible folder
 - Run DS4Windows.exe
 - Install the ViGEmBus Driver if asked to
 
-After that, the controller should be properly recognized by DS4Windows. If it's not, verify again if it is in "[DS4Windows mode](../HID-Device-Modes-Explained)".
+After that, the controller should be properly recognized by DS4Windows. If it's not, verify again if it is in "[DS4Windows mode](HID-Device-Modes-Explained.md)".
 
 ![DS4ModeDS4W](images/DS4ModeDS4W.png){: .glightbox }
 
@@ -55,7 +55,7 @@ From here, DS4Windows can be used _mostly_ as usual. XInput and DS4 emulation, a
 
 By setting the correct Light Bar color values in the profile settings it is possible to control the LEDs on the DS3, which can be useful to:
 
-- Make the controller's LEDs represent the current battery level 
+- Make the controller's LEDs represent the current battery level
 - Represent the current selected profile as a specific LED
 - Indicate the battery level by using _Special Actions_ in the profile's settings
 
@@ -146,7 +146,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
     - Click on the "New" button to create a new profile
     - When asked if a preset is to be used, choose "yes"
     - Select `Gamepad` and then `DualShock 4` at the Output Controller
-    - Adjust the Light Bar color to what you desire acordingly to the [_Light Bar to LEDs translation_ section](#light-bar-color-to-leds-translation) (in the example below the profile will be represented by LED 2)
+    - Adjust the Light Bar color to what you desire accordingly to the [_Light Bar to LEDs translation_ section](#light-bar-color-to-leds-translation) (in the example below the profile will be represented by LED 2)
     - Give a name to your profile (e.g.: DS3 to DS4)
     - Save the profile
     - Back in the _Controllers_ tab, click on the _Selected profile_ box and change from default to the profile you just created  
@@ -158,7 +158,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
 ??? question "_Do I need to use HidHide or the "hide ds4 controllers" option to hide my DS3 controller in order to prevent the "double controller" issue?_"
 
-    No need to. The "real" part of the DS3 controller in DsHidMini's DS4Windows Mode can only be recognized by DS4Windows and is therefore already imune to the "double controller" or "double input" issue. Games will only be able to detect the DS3's emulated/virtual Xbox 360/DS4 counterpart.
+    No need to. The "real" part of the DS3 controller in DsHidMini's DS4Windows Mode can only be recognized by DS4Windows and is therefore already immune to the "double controller" or "double input" issue. Games will only be able to detect the DS3's emulated/virtual Xbox 360/DS4 counterpart.
 
 ??? question "_Select button is not recognized in some games when emulating a DS4 / How do I use the Touch Pad button?_"
 
@@ -194,7 +194,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
     - First, double check if the game actually supports DS4 controllers _and_ has native PS icons when played with a DualShock 4. There is no direct way to check this besides just testing, Googling around and looking at forums
     - If the game does not support DualShock 4/PS icons then that's in no way related to us and we can't do anything about it
     - If you are 100% sure the game supports PS button icons/DualShock 4, then it may be detecting that DS4Windows is running and then ignoring DS4 controllers (super rare case, only 1 game is known to do it). Check the [topic above](#i-cant-control-steams-big-picture-when-using-a-emulated-ds4-steam-doesnt-detect-my-controller-when-its-emulated-as-a-ds4-only-when-emulated-as-a-xbox-360) on how to solve this
-    - If the game still doesn't recognize the emulated DualShock 4 then we have no idea what's going on and you are welcome on [reaching us through the proper means](https://vigem.org/Community-Support/)
+    - If the game still doesn't recognize the emulated DualShock 4 then we have no idea what's going on and you are welcome on [reaching us through the proper means](../../Community-Support.md)
 
 ??? question "_How do I do 'X' thing on DS4Windows?_"
 
