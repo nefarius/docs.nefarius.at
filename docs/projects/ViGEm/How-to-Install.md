@@ -5,7 +5,7 @@
 
 ## Installation
 
-- Download the [latest setup of ViGEmBus](https://github.com/ViGEm/ViGEmBus/releases) matching your [system architecture](../research/How-to-check-architecture/). It's a file named `ViGEmBusSetup_xXX.msi`
+- Download the [latest setup of ViGEmBus](https://github.com/ViGEm/ViGEmBus/releases) matching your [system architecture](../../../research/How-to-check-architecture/). It's a file named `ViGEmBusSetup_xXX.msi`
 - Run the setup and follow the instructions
 
 Congratulations! That was it, ViGEmBus is now ready to use.
