@@ -2,7 +2,7 @@
 
 ## I have a different question, how can I reach you folks?
 
-[Head over to the support page](https://vigem.org/Community-Support/), we prefer Discord.
+[Head over to the support page](../../Community-Support.md), we prefer Discord.
 
 ## Can it hide mice, keyboards, touch- or trackpads?
 

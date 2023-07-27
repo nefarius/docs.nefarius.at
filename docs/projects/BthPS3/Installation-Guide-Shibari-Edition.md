@@ -1,13 +1,13 @@
 # Installation Guide (Shibari Edition)
 
 !!! attention "🚨 Obsolete solution 🚨"
-    [DsHidMini](https://vigem.org/projects/DsHidMini/) (official successor) has been released, please use that instead! This article will remain online for historic reasons but use is discouraged as no more updates will follow!
+    [DsHidMini](../DsHidMini/index.md) (official successor) has been released, please use that instead! This article will remain online for historic reasons but use is discouraged as no more updates will follow!
 
 ## What's this
 
 Ever wanted to use those pesky outdated yet absolutely lovely game controller devices shipped with your PlayStation(R) 3 on the Windows platform without constantly tripping over wires in your living room and risking becoming a victim of gravity? :thinking_face: Well fear no more, you've come to the right place, mate! We got just the piece of magnificent software you need and all it will cost you is a few minutes of your precious time! :tada:
 
-Coming to you from the Austrian University of Awesome (AUA :school:), BthPS3 has surfaced as the result of [research and development](https://forums.vigem.org/topic/242/bluetooth-filter-driver-for-ds3-compatibility-research-notes/) by one crazed fella; [Dr. Nefarius](https://github.com/nefarius)! :eyes: Known for his expertise of building software nobody knows how to even install or, for that matter, getting rid of! :astonished:
+Coming to you from the Austrian University of Awesome (AUA :school:), BthPS3 has surfaced as the result of [research and development](https://web.archive.org/web/20220630164947/https://forums.vigem.org/topic/242/bluetooth-filter-driver-for-ds3-compatibility-research-notes/) by one crazed fella; [Dr. Nefarius](https://github.com/nefarius)! :eyes: Known for his expertise of building software nobody knows how to even install or, for that matter, getting rid of! :astonished:
 
 Sounds exciting? Want to join the herd and risk getting your PC turned into something even greater than before? Well, what are you even waiting for, keep on reading, spirited traveler! :point_down:
 
@@ -84,11 +84,11 @@ Starting with [this commit](https://github.com/nefarius/BthPS3/commit/7959c11960
 
 ~~I have plans for getting completely rid of this requirement, but that requires additional drivers which I've started working on but currently don't have the drive or capacity to deal with. Maybe if support and interest from the community rises above a certain threshold I'll tackle that topic some day again!~~
 
-No need, [use DsHidMini instead](https://vigem.org/projects/DsHidMini/) of Shibari and FireShock!
+No need, [use DsHidMini instead](../DsHidMini/index.md) of Shibari and FireShock!
 
 ### How do I get pressure sensitive buttons in PCSX2 with this?
 
-That is possible but out of the scope of this project. [DsHidMini can do that for you](https://vigem.org/projects/DsHidMini/)!
+That is possible but out of the scope of this project. [DsHidMini can do that for you](../DsHidMini/index.md)!
 
 ### Can I use the motion capabilities of the PS3 controllers?
 
@@ -96,11 +96,11 @@ That is possible but out of the scope of this project.
 
 ### I want some battery charge indicator, like SCP!
 
-That is possible but out of the scope of this project. [DsHidMini can do that for you](https://vigem.org/projects/DsHidMini/)!
+That is possible but out of the scope of this project. [DsHidMini can do that for you](../DsHidMini/index.md)!
 
 ### Can I have all SCP features like quick disconnect combo etc.?
 
-That is possible but out of the scope of this project. [DsHidMini can do that for you](https://vigem.org/projects/DsHidMini/)!
+That is possible but out of the scope of this project. [DsHidMini can do that for you](../DsHidMini/index.md)!
 
 ### I sometimes need to power on the controller twice or more until it stays connected...
 
@@ -120,7 +120,7 @@ Open `settings.json` in your Shibari folder and check out the comments in the `"
 
 [![7f5092c2-15e8-4dd8-bdb1-5a300607db15-image.png](/assets/uploads/files/7f5092c2-15e8-4dd8-bdb1-5a300607db15-image.png)](/assets/uploads/files/7f5092c2-15e8-4dd8-bdb1-5a300607db15-image.png){: .glightbox }
 
-[Use DsHidMini instead](https://vigem.org/projects/DsHidMini/) to get that feature back!
+[Use DsHidMini instead](../DsHidMini/index.md) to get that feature back!
 
 ### Ever since I've installed this, my DS4 isn't connecting anymore at all!
 
