@@ -15,7 +15,7 @@ Sounds exciting? Want to join the herd and risk getting your PC turned into some
 
 Simple! Just **latest Windows 10** and any Bluetooth USB device or integrated card (like those you commonly find in portable computers, a.k.a. Laptops) running stock (a.k.a vanilla) drivers! No [SCP](https://github.com/nefarius/ScpToolkit), no [AirBender](https://github.com/nefarius/AirBender), just the defaults :smiley: (well, not quite, but keep on reading 'till the bottom of the page! :eyes: )
 
-[![802ebf28-a2a8-4c78-902d-1370a3d01b25-image.png](/assets/uploads/files/802ebf28-a2a8-4c78-902d-1370a3d01b25-image.png)](/assets/uploads/files/802ebf28-a2a8-4c78-902d-1370a3d01b25-image.png){: .glightbox }
+[![802ebf28-a2a8-4c78-902d-1370a3d01b25-image.png](../../assets/uploads/files/802ebf28-a2a8-4c78-902d-1370a3d01b25-image.png)](../../assets/uploads/files/802ebf28-a2a8-4c78-902d-1370a3d01b25-image.png){: .glightbox }
 
 ## Sweet, give me! How to install
 
@@ -56,7 +56,7 @@ Download and store all the fun listed here somewhere on your battle station :met
 
 You made it this far? Great! Remember that `Shibari` archive from earlier? Extract that somewhere and have a look into the resulting folder. Simply fire up `Shibari.Dom.Server.exe` in there and your connected DS3 should spawn a virtual Xbox 360 and DualShock 4 controller which your games can pick up. **Keep `Shibari` running for everything to work properly!** Check the following F.A.Q. to see how to make it run permanently. Enjoy!
 
-[![a86fcc5f-bfd5-4c29-9b47-633d7ffbdc72-image.png](/assets/uploads/files/a86fcc5f-bfd5-4c29-9b47-633d7ffbdc72-image.png)](/assets/uploads/files/a86fcc5f-bfd5-4c29-9b47-633d7ffbdc72-image.png){: .glightbox }
+[![a86fcc5f-bfd5-4c29-9b47-633d7ffbdc72-image.png](../../assets/uploads/files/a86fcc5f-bfd5-4c29-9b47-633d7ffbdc72-image.png)](../../assets/uploads/files/a86fcc5f-bfd5-4c29-9b47-633d7ffbdc72-image.png){: .glightbox }
 
 ## F.A.Q.
 
@@ -118,7 +118,7 @@ Open `settings.json` in your Shibari folder and check out the comments in the `"
 
 `FireShock` and Sonys official `sixaxis` driver they ship with PSNow unfortunately can't coexist on the same system, if you want "traditional" USB support back you need to uninstall `FireShock`:
 
-[![7f5092c2-15e8-4dd8-bdb1-5a300607db15-image.png](/assets/uploads/files/7f5092c2-15e8-4dd8-bdb1-5a300607db15-image.png)](/assets/uploads/files/7f5092c2-15e8-4dd8-bdb1-5a300607db15-image.png){: .glightbox }
+[![7f5092c2-15e8-4dd8-bdb1-5a300607db15-image.png](../../assets/uploads/files/7f5092c2-15e8-4dd8-bdb1-5a300607db15-image.png)](../../assets/uploads/files/7f5092c2-15e8-4dd8-bdb1-5a300607db15-image.png){: .glightbox }
 
 [Use DsHidMini instead](../DsHidMini/index.md) to get that feature back!
 
@@ -132,7 +132,7 @@ This is a bit tricky at the moment; I've added a workaround to combat this where
 
 [Fire up PowerShell as Administrator](https://www.top-password.com/blog/5-ways-to-run-powershell-as-administrator-in-windows-10/) and run the `Shibari.Dom.Server.exe` file with `install` as an argument, like so:
 
-[![bca87e6e-473e-4445-8f6b-bc7017518e91-image.png](/assets/uploads/files/bca87e6e-473e-4445-8f6b-bc7017518e91-image.png)](/assets/uploads/files/bca87e6e-473e-4445-8f6b-bc7017518e91-image.png){: .glightbox }
+[![bca87e6e-473e-4445-8f6b-bc7017518e91-image.png](../../assets/uploads/files/bca87e6e-473e-4445-8f6b-bc7017518e91-image.png)](../../assets/uploads/files/bca87e6e-473e-4445-8f6b-bc7017518e91-image.png){: .glightbox }
 
 The path to the executable file has to match the one on your machine of course 😉
 
@@ -148,7 +148,7 @@ Check that the service is running:
 Get-Service Shibari.Dom.Server
 ```
 
-[![b99c4a26-c6fa-4c3d-8186-f63d21412955-image.png](/assets/uploads/files/b99c4a26-c6fa-4c3d-8186-f63d21412955-image.png)](/assets/uploads/files/b99c4a26-c6fa-4c3d-8186-f63d21412955-image.png){: .glightbox }
+[![b99c4a26-c6fa-4c3d-8186-f63d21412955-image.png](../../assets/uploads/files/b99c4a26-c6fa-4c3d-8186-f63d21412955-image.png)](../../assets/uploads/files/b99c4a26-c6fa-4c3d-8186-f63d21412955-image.png){: .glightbox }
 
 Done, delightful 😃
 
