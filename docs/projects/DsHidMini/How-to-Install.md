@@ -36,7 +36,7 @@ This is the current latest stable major version.
 - Now **connect your controller via USB**
     - 🐵 This will automatically pair it to your Windows Bluetooth host *if* you have working Bluetooth at the time of plugging it in 🐵
 - With your controller connected by USB, open the DsHidMini Control Utility (the `DSHMC.exe` file that comes along the driver archive) to see if the controller gets detected
-    - Run it as Administrator to change settings, [check the documentation for details](../HID-Device-Modes-Explained)
+    - Run it as Administrator to change settings, [check the documentation for details](HID-Device-Modes-Explained.md)
     - It is not required to keep the utility running for the driver to function, only if you want to observe battery level or change settings
 
 By now if you plug in your controller (or reboot the machine) chances are high that everything already works as expected. If it doesn't, worry not, [read on here](#troubleshooting)!
@@ -62,7 +62,7 @@ By now if you plug in your controller (or reboot the machine) chances are high t
     - Now **connect your controller via USB**
         - This will automatically pair it to your Windows Bluetooth host *if* you have working Bluetooth at the time of plugging it in
     - With your controller connected by USB, open the DsHidMini Control Utility (the `DSHMC.exe` file that comes along the driver archive) to see if the controller     gets detected
-        - Run it as Administrator to change settings, [check the documentation for details](../HID-Device-Modes-Explained)
+        - Run it as Administrator to change settings, [check the documentation for details](HID-Device-Modes-Explained.md)
         - It is not required to keep the utility running for the driver to function, only if you want to observe battery level or change settings
     
     By now if you plug in your controller (or reboot the machine) chances are high that everything already works as expected. If it doesn't, worry not, [read on here](#troubleshooting)!
