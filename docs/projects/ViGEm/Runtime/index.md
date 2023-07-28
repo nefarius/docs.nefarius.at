@@ -1,3 +1,0 @@
-# About ViGEm Runtime
-
-TBD
