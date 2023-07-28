@@ -6,6 +6,6 @@ FireShock was a [user-mode driver](https://docs.microsoft.com/en-us/windows-hard
 
 The driver is a minimal C-port of the C# implementation used in ScpToolkit and therefore replaces the Windows stock HID class drivers with a custom implementation.
 
-It requires the .NET companion service [Shibari](https://github.com/ViGEm/Shibari) to detect connected controllers and have them translated into virtual Xbox 360 or DualShock 4 devices using the ViGEm Framework.
+It requires the .NET companion service [Shibari](https://github.com/nefarius/Shibari) to detect connected controllers and have them translated into virtual Xbox 360 or DualShock 4 devices using the ViGEm Framework.
 
 It is not advised to use FireShock due to missing support and potentially remaining issues in design and code.
