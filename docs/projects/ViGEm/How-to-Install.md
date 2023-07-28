@@ -97,4 +97,4 @@ And done, no ViGEmBus left anywhere! Now it's safe to try re-installing the late
 
 This guide should cover all known issues regarding the ViGEmBus setup, so give it a good read.
 
-If you are facing another issue that is not covered here, feel free to reach us [through the proper means](../../../Community-Support.md).
+If you are facing another issue that is not covered here, feel free to reach us [through the proper means](../../Community-Support.md).
