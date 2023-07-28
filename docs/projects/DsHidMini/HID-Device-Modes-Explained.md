@@ -23,7 +23,7 @@ The games and tools outlined here are **recommendations**, please feel free to e
 ### SDF
 
 !!! important "TL;DR:"
-    Use this mode for best compatibility with the **older pre-Qt versions** of the [PCSX2 PlayStation 2 Emulator](https://pcsx2.net/). For **PCSX2 Qt** [follow this video guide](../SCP-XInput-Bridge/#pcsx2-qt-edition)!
+    Use this mode for best compatibility with the **older pre-Qt versions** of the [PCSX2 PlayStation 2 Emulator](https://pcsx2.net/). For **PCSX2 Qt** [follow this video guide](SCP-XInput-Bridge.md#pcsx2-qt-edition)!
 
 **Single Device** with **Force Feedback** mode. In this mode, the controller is presented as one "almost"-DirectInput-compatible HID device with **pressure sensitive** features exposed as additional sliders. The rumble motors can be controlled via **Force Feedback effects** (Constant Force Effect). The advantage of this mode is a 100% compatibility with all unmodified versions of PCSX2 with the LilyPad gamepad plugin (shipped by default).
 
@@ -63,7 +63,7 @@ The default LED behavior in this mode is the charging animation. Once the contro
 ### XInput
 
 !!! important "TL;DR:"
-    Use this mode with [RetroArch](https://www.retroarch.com/), [Steam](https://store.steampowered.com/) or any game with Xbox Controller support. [Read here for details](../XInput-Mode-Explained).
+    Use this mode with [RetroArch](https://www.retroarch.com/), [Steam](https://store.steampowered.com/) or any game with Xbox Controller support. [Read here for details](XInput-Mode-Explained.md).
 
 **Xbox One Controller** mode. This is the driver default when shipped. In this mode, the controller is emulating an Xbox One Controller with an artificial Vendor & Product ID. This mode guarantees the best potential compatibility with pretty much all modern PC games with Xbox (360/One) Controller support either standalone or shipped through Steam.
 
