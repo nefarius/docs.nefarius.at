@@ -40,7 +40,7 @@ Read the [_Features_ section](https://github.com/nefarius/DsHidMini#features) of
 
 ### Recommended method
 
-Set the controller into `DS4Windows Mode` and use it with **Ryochan7's DS4Windows**. For more detailed instructions and other information, follow the [_DS4Windows Mode User Guide_](../DS4-Mode-User-Guide) and you'll be good to go.
+Set the controller into `DS4Windows Mode` and use it with **Ryochan7's DS4Windows**. For more detailed instructions and other information, follow the [_DS4Windows Mode User Guide_](DS4-Mode-User-Guide.md) and you'll be good to go.
 
 ![DS4ModeDS4W](images/DS4ModeDS4W.png){: .glightbox }  
 
