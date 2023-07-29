@@ -4,7 +4,7 @@ Welcome to the weird and wonderful world of gaming peripherals, better known as 
 
 On this site you find tutorials and extensive documentation surrounding the creations of [Benjamin "Nefarius" Höglinger-Stelzer](https://github.com/nefarius), a madman with a love for puzzling and Sony hardware 😁
 
-Feel free to look around, you'll find links and documents to popular projects like ScpToolkit, ViGEm and more!
+Feel free to look around, you'll find links and documents to many of my popular projects!
 
 ## News
 
