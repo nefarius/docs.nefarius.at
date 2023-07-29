@@ -2,8 +2,9 @@ site_name: Nefarius' Project Documentation
 site_url: https://docs.nefarius.at
 repo_url: https://github.com/nefarius/docs.nefarius.at
 site_description: Projects devoted to USB input device emulation and game peripherals reverse engineering
-copyright: |
-  Copyright &copy; 2020 - 2023 <a href="https://github.com/nefarius" target="_blank" rel="noopener">Benjamin Höglinger-Stelzer</a>
+copyright: >
+  Copyright &copy; 2020 - 2023 <a href="https://github.com/nefarius" target="_blank" rel="noopener">Benjamin Höglinger-Stelzer</a> -
+  <a href="#__consent">Change cookie settings</a>
 
 theme:
   name: material
