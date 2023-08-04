@@ -1,3 +1,4 @@
+/*
 const lightbox = GLightbox({
     touchNavigation: true,
     loop: false,
@@ -16,3 +17,4 @@ const lightbox = GLightbox({
         }
     }
 });
+*/
