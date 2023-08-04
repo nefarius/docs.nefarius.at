@@ -6,7 +6,7 @@ Kernel Drivers typically don't write traditional log files that end up on the di
 
 Fire up PowerShell with administrative privileges by pressing ++win+x++ and selecting it from the appearing menu like so:
 
-[![Start PowerShell](../../images/Y2bzZWdYK4.png)](../../images/Y2bzZWdYK4.png)
+![Start PowerShell](../../images/Y2bzZWdYK4.png)
 
 Keep it open until we're done, we'll need it throughout the process 😉
 
@@ -35,7 +35,7 @@ Once you've got PowerShell open again, paste the following three lines into it "
 
 Should looks similar to this:
 
-[![PowerShell](../../images/35cnHUOIwv.png)](../../images/35cnHUOIwv.png)
+![PowerShell](../../images/35cnHUOIwv.png)
 
 ### Perform the action you want captured
 
@@ -52,7 +52,7 @@ Once everything we like to know has been captured, stop the session so the data 
 
 The log file should now exist under the C:\\-Drive:
 
-[![Folder](../../images/AnyDesk_LVe8LzooAQ.png)](../../images/AnyDesk_LVe8LzooAQ.png)
+![Folder](../../images/AnyDesk_LVe8LzooAQ.png)
 
 ## Great, I got it, what now
 
@@ -71,23 +71,23 @@ Obtain a copy of [MGTEK TraceView Plus 3](https://www.mgtek.com/traceview) and i
 
 You should now be able to simply double-click the `BthPS3.etl` we created before and it should open in TraceView Plus. If not, open Trace View Plus and use `File / Open Trace Log...` and navigate to the `BthPS3.etl` file like so:
 
-[![HaKTOUJbIE.png](../../images/HaKTOUJbIE.png)](../../images/HaKTOUJbIE.png)
+![HaKTOUJbIE.png](../../images/HaKTOUJbIE.png)
 
 Once opened you should see some oddly formatted lines similar to this:
 
-[![TraceView_PZJBtRmyn5.png](../../images/TraceView_PZJBtRmyn5.png)](../../images/TraceView_PZJBtRmyn5.png)
+![TraceView_PZJBtRmyn5.png](../../images/TraceView_PZJBtRmyn5.png)
 
 Trat's no good, TraceView Plus needs some information on how to decode the content into a useful format. So we navigate to `Session / Add Trace Files...` like so:
 
-[![TraceView_OtoTHylNPh.png](../../images/TraceView_OtoTHylNPh.png)](../../images/TraceView_OtoTHylNPh.png)
+![TraceView_OtoTHylNPh.png](../../images/TraceView_OtoTHylNPh.png)
 
 Now navigate to the BthPS3 installation folder on your local drive and select **both** PDB files like shown:
 
-[![TraceView_GC5KAg7ee8.png](../../images/TraceView_GC5KAg7ee8.png)](../../images/TraceView_GC5KAg7ee8.png)
+![TraceView_GC5KAg7ee8.png](../../images/TraceView_GC5KAg7ee8.png)
 
 Now the display should change and readable text will appear:
 
-[![TraceView_ju8ERmEEUL.png](../../images/TraceView_ju8ERmEEUL.png)](../../images/TraceView_ju8ERmEEUL.png)
+![TraceView_ju8ERmEEUL.png](../../images/TraceView_ju8ERmEEUL.png)
 
 Alright, now you can navigate the content of the trace, newest events on the bottom, oldest on top.
 
