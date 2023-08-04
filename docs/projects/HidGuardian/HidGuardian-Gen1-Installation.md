@@ -31,9 +31,9 @@ Check the [_Known Users of HidGuardian_ page](Hall-of-fame.md) for a list of sof
 
 So the folder structure you end up with should look like so:
 
-[![vmware_2018-08-15_16-02-58.png](images/vmware_2018-08-15_16-02-58.png)](images/vmware_2018-08-15_16-02-58.png){: .glightbox }
+[![vmware_2018-08-15_16-02-58.png](images/vmware_2018-08-15_16-02-58.png)](images/vmware_2018-08-15_16-02-58.png)
 
-[![2018-08-15_16-04-35.png](images/2018-08-15_16-04-35.png)](images/2018-08-15_16-04-35.png){: .glightbox }
+[![2018-08-15_16-04-35.png](images/2018-08-15_16-04-35.png)](images/2018-08-15_16-04-35.png)
 
 ## Driver installation
 
@@ -77,7 +77,7 @@ That's it! You're ready to rock 🎉
 !!! important "Attention"
     You'll either need to unplug and plug in your input devices or reboot the machine for the driver to work!
 
-[![2018-08-15_16-14-01.png](images/2018-08-15_16-14-01.png)](images/2018-08-15_16-14-01.png){: .glightbox }
+[![2018-08-15_16-14-01.png](images/2018-08-15_16-14-01.png)](images/2018-08-15_16-14-01.png)
 
 ## Driver removal
 

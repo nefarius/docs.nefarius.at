@@ -38,16 +38,16 @@ With these quick-switch capabilities we're now able to switch to and from WinUSB
 
 The primary view of the tool. Hosts the list of host controllers, hubs and connected devices. Upon device selection, the details panel gets populated and rewrite settings can be examined.
 
-![USB Devices](images/D7BPL8rMBq.png){: .glightbox } 
+![USB Devices](images/D7BPL8rMBq.png) 
 
 Each device may have additional status indicators next to their name:
 
 - An **orange cog**: rewrite settings exist for this device
 - A **red circled checkmark**: the device is currently rewritten
 
-![Details](images/Identinator_JgMXUWoUt2.png){: .glightbox } 
+![Details](images/Identinator_JgMXUWoUt2.png) 
 
-![Rewrite](images/Identinator_nM6aJIcshs.png){: .glightbox } 
+![Rewrite](images/Identinator_nM6aJIcshs.png) 
 
 !!! important "Rewriting for all devices gets disabled on each reboot"
     As a safety mechanism the global rewriting switch gets **turned off automatically on each reboot**. This is by design and ensures that the system is in its original state on a fresh boot, should something catastrophic happen while rewrite is active (loss of mouse and keyboard, BSOD due to incompatible driver etc.)!
@@ -56,7 +56,7 @@ Each device may have additional status indicators next to their name:
 
 Driver version and less important settings an be reviewed here. The filter driver can be (re-)installed or uninstalled from here.
 
-![Filter Driver](images/Identinator_MtyzaQBlpP.png){: .glightbox } 
+![Filter Driver](images/Identinator_MtyzaQBlpP.png) 
 
 ### "About" tab
 
@@ -66,23 +66,23 @@ This tab lists copyright and license information.
 
 Let's take the **Sony DualShock 4 Rev2** for example; by default it is represented by a composite device. This branches off into two child devices: the "USB Input Device" which represents the HID interface which in turn gets presented as "HID-compliant game controller" and a multimedia device (named "Wireless Controller") which in turn exposes a microphone and speaker device:
 
-![Before](images/mmc_ME74WR3tG2.png){: .glightbox } 
+![Before](images/mmc_ME74WR3tG2.png) 
 
 Examining the "USB Input Device" we can look at the default Hardware and Compatible IDs which get built by the Windows driver stack based on information extracted from the USB Device Descriptor:
 
-![Hardware IDs](images/mmc_hzP9mpgCmB.png){: .glightbox } 
+![Hardware IDs](images/mmc_hzP9mpgCmB.png) 
 
-![Compatible IDs](images/mmc_VaF4BO0OnD.png){: .glightbox } 
+![Compatible IDs](images/mmc_VaF4BO0OnD.png) 
 
 After applying rewrite settings, the changes can be observed:
 
-![Before](images/mmc_lb8TghMekj.png){: .glightbox } 
+![Before](images/mmc_lb8TghMekj.png) 
 
 !!! note "The second Wireless Controller shown..."
     ...is a Sony DualShock 4 **Rev1** that was also connected and rewritten, it is completely independent from the Rev2.
 
-![Hardware IDs](images/mmc_JIqFmaIMoB.png){: .glightbox } 
+![Hardware IDs](images/mmc_JIqFmaIMoB.png) 
 
-![Compatible IDs](images/mmc_9AOKamFJ91.png){: .glightbox } 
+![Compatible IDs](images/mmc_9AOKamFJ91.png) 
 
 Due to the compatible IDs the stock WinUSB drivers got loaded, so the device can be directly accessed with whatever software the tinkerer sees fit. If we'd used some well-known Vendor and Product IDs a potentially incompatible driver could load onto the device and react in unforeseen ways. Using WinUSB is generally "safe" as it's a generic USB driver that ships with the operating system.

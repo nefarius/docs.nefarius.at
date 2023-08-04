@@ -22,7 +22,7 @@ That is entirely up to you of course 🙂 Do you wish to stick with abandoned, o
 
 After DsHidMini is active and the controller connected, you just need to change to the mode best suited to your use case. Keep in mind that if you want to use your controller as a __XInput__ (Xbox 360) or __DualShock 4__ controller, [there are a few extra steps left to be followed](#how-do-i-use-my-controller-as-a-xbox-360-or-dualshock-4).
 
-![HIDDeviceModes](images/HIDDeviceModes.png){: .glightbox }  
+![HIDDeviceModes](images/HIDDeviceModes.png)  
 
 ## Does my fake PS3 controller work with DsHidMini?
 
@@ -42,7 +42,7 @@ Read the [_Features_ section](https://github.com/nefarius/DsHidMini#features) of
 
 Set the controller into `DS4Windows Mode` and use it with **Ryochan7's DS4Windows**. For more detailed instructions and other information, follow the [_DS4Windows Mode User Guide_](DS4-Mode-User-Guide.md) and you'll be good to go.
 
-![DS4ModeDS4W](images/DS4ModeDS4W.png){: .glightbox }  
+![DS4ModeDS4W](images/DS4ModeDS4W.png)  
 
 ### Alternative methods
 
@@ -72,7 +72,7 @@ You need to verify which `Input API` is supported in whatever you are using and 
 
 It's recommended that you use your DS3 controller in `SXS Mode` and then choose on RPCS3's controller settings the `DualShock 3` Handler. When doing so, RPCS3 should automatically pick and set your DS3, with full support to all its functions including LEDs, pressure buttons and motion.
 
-![SXSModeRPCS3](images/SXSModeRPCS3.png){: .glightbox }  
+![SXSModeRPCS3](images/SXSModeRPCS3.png)  
 
 ## How do I set the controller's pressure buttons in PCSX2?
 
@@ -91,7 +91,7 @@ The recommended method is the following:
   - Only `Constant Force` is required/supported, don't select any other effect, it will not work
 - Finish by clicking on `OK`
 
-![SDFModePCSX2](images/SDFModePCSX2.png){: .glightbox }  
+![SDFModePCSX2](images/SDFModePCSX2.png)  
 
 ## How do I use the motion sensors with emulators?
 
@@ -103,15 +103,15 @@ For now, **it's impossible to use the controller's motion with other emulators**
 
 **Tripplecheck** that you didn't attempt "conventional pairing" in the past, if you did so **the controller will never ever successfully connect**, no matter what you do. To check this, open the Bluetooth Settings page within Windows and check the list for entries similar to:
 
-![BluetoothDialog.png](images/BluetoothDialog.png){: .glightbox }  
+![BluetoothDialog.png](images/BluetoothDialog.png)  
 
-![explorer_7O9IulBc4C2.png](images/explorer_7O9IulBc4C2.png){: .glightbox }  
+![explorer_7O9IulBc4C2.png](images/explorer_7O9IulBc4C2.png)  
 
 Select it and click the "Remove device" button. Then properly pair it once by plugging it into USB, unplug and press the PS button. Should all work now!
 
 Another hint would be if you see an active connection in the notifications panel but the controller doesn't appear in DSHMC:
 
-![BluetoothConnected.png](images/BluetoothConnected.png){: .glightbox }  
+![BluetoothConnected.png](images/BluetoothConnected.png)  
 
 ## I'm having "X" problem when using DsHidMini, what should I do?
 

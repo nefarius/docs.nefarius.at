@@ -28,7 +28,7 @@ The usual way consists in using its built-in uninstaller:
 - Open Windows 10's `Apps and Features` by pressing ++win+x++ and selecting it from the menu
 - Use the search box _in the center_ to look for `Emulation` or `Nefarius`
 - Click on `Nefarius Nefarius Gamepad Emulation Bus Driver` and select `Uninstall`  
-  ![UninstallingViGEm](images/UninstallingViGEm.png){: .glightbox }  
+  ![UninstallingViGEm](images/UninstallingViGEm.png)  
 - Follow the uninstaller's instructions
 - Done. If you get prompted to reboot, do so and that's it!
 
@@ -37,7 +37,7 @@ The usual way consists in using its built-in uninstaller:
 This method is useful when the ViGEmBus entry doesn't appear in the Windows' Apps lists at `Apps and Features`:
 
 - Just follow the same steps of the [installation section](#installation), but choose the `remove` when it appears  
-![SetupRemoveVigem](images/SetupRemoveVigem.png){: .glightbox }  
+![SetupRemoveVigem](images/SetupRemoveVigem.png)  
 - Done. If you get prompted to reboot, do so and that's it!
 
 That should do the trick. If you want to be absolutely sure that there are no traces left of the ViGEmBus on your system, have a look at the [troubleshooting section](#troubleshooting)
@@ -52,7 +52,7 @@ That should do the trick. If you want to be absolutely sure that there are no tr
 The ViGEmBus has no user interface, but don't worry, it's easy to verify if everything is working as expected when you know where to look:
 
 - Open Device Manager by pressing ++win+x++ and selecting it from the menu:  
-![Device Manager](images/6dCenuSsFr.png){: .glightbox }  
+![Device Manager](images/6dCenuSsFr.png)  
 - Click on the `View` tab at the top and change the view type to `Devices by connection`
 - Look for entries named `Nefarius Virtual Gamepad Emulation Bus` *or* `Virtual Gamepad Emulation Bus`
 
@@ -63,7 +63,7 @@ If you have only one entry and it is the one starting with `Nefarius` then conti
 - Right click on the `Nefarius Virtual Gamepad Emulation Bus` then select `Properties`
 - At the `General` tab, its status should be `working properly`
 - At the `Driver` tab the `Driver Version` should match the latest version you downloaded and installed  
-![DeviceManagerViGEmBUS](images/DeviceManagerViGEmBUS.png){: .glightbox }  
+![DeviceManagerViGEmBUS](images/DeviceManagerViGEmBUS.png)  
 
 If everything matches the instructions, then things should work as expected. A special case is when the user has a laptop from the HP Omen Gaming line. If this is your case, have a look at the [*ViGEmBus issues in HP Omen laptops* section](#vigembus-issues-in-hp-omen-laptops).
 

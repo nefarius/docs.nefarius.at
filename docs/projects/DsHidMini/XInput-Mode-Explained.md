@@ -16,15 +16,15 @@ DsHidMini ships with "XInput Mode" by default, this article explains what that a
 
 This may seem obvious but is amongst the most common errors. In `DSHMC` triple-check **on wired and wireless** that you're actually in XInput Mode as seen below. If you recently changed it and it appears like nothing happened **unplug/disconnect and reconnect the controller** for the settings to become active!
 
-![DsHidMini Config](images/GUdcSj3o3M.png){: .glightbox }
+![DsHidMini Config](images/GUdcSj3o3M.png)
 
 ### Verify Mode in Device Manager
 
 Fire up Device Manager, change the `View` to `Devices by connection` to make discovery easier and drill down into the node `Nefarius HID Devices`. Here you need to find your controller(s) and an additional `XINPUT compatible HID device` like so:
 
-![Device Manager - Default view](images/q55cLJbaB4.png){: .glightbox }
+![Device Manager - Default view](images/q55cLJbaB4.png)
 
-![Device Manager - View by connections](images/CBfdxUmYSe.png){: .glightbox }
+![Device Manager - View by connections](images/CBfdxUmYSe.png)
 
 This is essential, if you don't see the highlighted device, the mode will not work. Check the installation guide again, you might have missed a step 👀
 
@@ -34,11 +34,11 @@ This is essential, if you don't see the highlighted device, the mode will not wo
 
 Press the key combination ++win+r++ and enter `joy.cpl` to bring up the integrated Joystick test and open your device (name might differ on your end, it doesn't matter):
 
-![joy.cpl](images/rundll32_xSUcO4ebpV.png){: .glightbox }
+![joy.cpl](images/rundll32_xSUcO4ebpV.png)
 
 Verify that the **layout** displayed here matches the one you see:
 
-![joy.cpl - Controller](images/rundll32_VsrsALUZe6.png){: .glightbox }
+![joy.cpl - Controller](images/rundll32_VsrsALUZe6.png)
 
 If it differs, you're in the wrong mode or something else is haunted 👻
 
@@ -46,49 +46,49 @@ If it differs, you're in the wrong mode or something else is haunted 👻
 
 You can download SCPUser [from here](https://github.com/nefarius/ScpToolkit/raw/master/SCPUser.exe). It's a very basic and simple XInput detection and test tool. Your controller(s) should show up like so:
 
-![SCPUser XInput Test Tool](images/SCPUser_K8QFXdrmxG.png){: .glightbox }
+![SCPUser XInput Test Tool](images/SCPUser_K8QFXdrmxG.png)
 
 #### Check controller in Web Browser
 
 You can also verify the controllers functionality via the [Gamepad Tester Website](https://gamepad-tester.com/). You may need to wiggle with the controls a bit before it shows up like so:
 
-![Gamepad Tester Website](images/msedge_gPmS1GWPZi.png){: .glightbox }
+![Gamepad Tester Website](images/msedge_gPmS1GWPZi.png)
 
 ## Setting up Steam
 
 This mode will work best with games launched through Steam after you configured controller support like outlined here. Open your Steam Settings:
 
-![Steam Menu](images/hWkon6jHKj.png){: .glightbox }
+![Steam Menu](images/hWkon6jHKj.png)
 
 Go to `Controller` / `GENERAL CONTROLLER SETTINGS`:
 
-![Steam Settings](images/M2TBRIqhL6.png){: .glightbox }
+![Steam Settings](images/M2TBRIqhL6.png)
 
 Enable *at least* Xbox Configuration Support **and** Generic Gamepad Configuration Support:
 
-![Steam Controller Settings](images/VoUdb3Xjqk.png){: .glightbox }
+![Steam Controller Settings](images/VoUdb3Xjqk.png)
 
 Now after you connected your controller, it should get detected by Steam as an Xbox One Controller like shown below:
 
-![Steam Controller detection popup](images/mpTzbVnP6k.png){: .glightbox }
+![Steam Controller detection popup](images/mpTzbVnP6k.png)
 
 ### Configure your Steam Games
 
 Now go into your games `Properties...`:
 
-![Road Redemption Example](images/NKd9rKdLq0.png){: .glightbox }
+![Road Redemption Example](images/NKd9rKdLq0.png)
 
 In the upcoming dialog go to `CONTROLLER` and set the override to `Enable Steam Input`:
 
-![Per-Game Controller Settings](images/7wCVPUB6dL.png){: .glightbox }
+![Per-Game Controller Settings](images/7wCVPUB6dL.png)
 
 Once the game is launched, you should see the gamepad being detected in the overlay:
 
-![In-Game Controller Popup](images/Hocb8Ctq2Z.png){: .glightbox }
+![In-Game Controller Popup](images/Hocb8Ctq2Z.png)
 
 Here's an example of the controller working like an Xbox Controller in a game with no native support for the DualShock 3 (Road Redemption):
 
-![Road Redemption Menu Demo](images/J1LeaKZos2.gif){: .glightbox }
+![Road Redemption Menu Demo](images/J1LeaKZos2.gif)
 
 !!! note "Don't expect Sony button overlays"
     This should be fairly self-explanatory but we repeat it here nonetheless: since the game "sees" only an Xbox One Controller (variant), it will show you the Xbox button layout when navigating, this is expected and can not be altered.
