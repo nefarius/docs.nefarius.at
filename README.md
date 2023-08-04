@@ -11,3 +11,4 @@ Sources of [docs.nefarius.at](https://docs.nefarius.at/).
 - [Python-Markdown](https://python-markdown.github.io/)
 - [GLightbox](https://github.com/biati-digital/glightbox)
 - [Emfed](https://github.com/sampsyo/emfed)
+- [mkdocs-glightbox](https://github.com/Blueswen/mkdocs-glightbox)
