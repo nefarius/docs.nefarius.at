@@ -46,11 +46,9 @@ extra:
       make our documentation better.
 extra_css:
   - stylesheets/extra.css
-#  - stylesheets/glightbox.css
   - stylesheets/toots.css
   - stylesheets/video.css
 extra_javascript:
-#  - javascripts/glightbox.js
   - javascripts/main.js  
 
 plugins:
