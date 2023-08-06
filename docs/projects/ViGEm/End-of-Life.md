@@ -2,9 +2,9 @@
 
 TBD
 
-## Adjust Automatic Updater COnfiguration
+## Adjust Automatic Updater Configuration
 
-### Configure ViGEm Bus Driver
+### Configure ViGEm Bus Driver Updater
 
 Navigate to the path `C:\Program Files\Nefarius Software Solutions\ViGEm Bus Driver` and edit the file `ViGEmBus_Updater.ini` with a text editor of your choice (you will need Administrator permissions to edit). Find the following line:
 
@@ -20,7 +20,7 @@ URL=https://aiu.api.nefarius.systems/api/github/ViGEm/ViGEmBus/updates
 
 Save it an you're done!
 
-### Configure HidHide
+### Configure HidHide Updater
 
 Navigate to the path `C:\Program Files\Nefarius Software Solutions\HidHide` and edit the file `HidHide_Updater.ini` with a text editor of your choice (you will need Administrator permissions to edit). Find the following line:
 
