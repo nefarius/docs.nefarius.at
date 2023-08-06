@@ -6,7 +6,7 @@ The `BthPS3 Driver Configuration Tool` is a small self-contained .NET applicatio
 
 These settings control the profile driver (the component which has the logic of detecting and connecting controllers in it) behavior. Depending on the companion solutions you have installed or want to install some of the following switches can or even need to be adjusted for the solution to work properly.
 
-![Profile Driver Settings](../../images/BthPS3CfgUI_heAsEzf3Rj.png){: .glightbox }
+![Profile Driver Settings](../../images/BthPS3CfgUI_heAsEzf3Rj.png)
 
 ### Enable SIXAXIS™️/DualShock™️ 3 Support
 
@@ -81,7 +81,7 @@ If the remote device identification mechanism fails (unrecognized remote name or
 
 The filter driver has one simple, powerful job: re-route HID-related traffic to the profile driver to investigate if a compatible PS3 peripherals is attempting to connect. This feature can be be altered on the fly with the settings outlined below.
 
-![Filter Driver Settings](../../images/BthPS3CfgUI_sOGOHOlymb.png){: .glightbox }
+![Filter Driver Settings](../../images/BthPS3CfgUI_sOGOHOlymb.png)
 
 ### Enable PSM patching
 
@@ -103,7 +103,7 @@ If you want to use e.g. a DS3, DS4 and Xbox One controller at the same time simp
 
 The Danger Zone hosts some of the more advanced settings of the solution. You're welcome to tinker with them as long as you can live with the consequences 😜 Some companion solutions (like Shibari or DsHidMini) even require a specific combination of settings as explained below.
 
-![Danger Zone](../../images/BthPS3CfgUI_xTFIBvuuAI.png){: .glightbox }
+![Danger Zone](../../images/BthPS3CfgUI_xTFIBvuuAI.png)
 
 ### Expose PDO as RAW device to user-land
 

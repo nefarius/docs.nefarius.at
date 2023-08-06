@@ -46,16 +46,25 @@ extra:
       make our documentation better.
 extra_css:
   - stylesheets/extra.css
-  - stylesheets/glightbox.css
   - stylesheets/toots.css
   - stylesheets/video.css
 extra_javascript:
-  - javascripts/glightbox.js
   - javascripts/main.js  
 
 plugins:
   - search:
       lang: en
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
+      auto_caption: false
+      caption_position: bottom
 
 markdown_extensions:
   - admonition:

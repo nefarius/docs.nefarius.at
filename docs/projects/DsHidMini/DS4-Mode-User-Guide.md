@@ -35,14 +35,14 @@ In `DS4Windows` HID Device Mode, the controller appears as a custom device that 
 
 After that, the controller should be properly recognized by DS4Windows. If it's not, verify again if it is in "[DS4Windows mode](HID-Device-Modes-Explained.md)".
 
-![DS4ModeDS4W](images/DS4ModeDS4W.png){: .glightbox }
+![DS4ModeDS4W](images/DS4ModeDS4W.png)
 
 ### Important remarks
 
 From here, DS4Windows can be used _mostly_ as usual. XInput and DS4 emulation, as well other functions, can then be set-up in the profiles settings according to the user needs. Besides that:
 
 - Keep in mind: `Select` and `Start` buttons are recognized as the `Share` and `Options` buttons in DS4Windows  
-![DS3toDS4ButtonLayout](images/DS3toDS4ButtonLayout.png){: .glightbox }
+![DS3toDS4ButtonLayout](images/DS3toDS4ButtonLayout.png)
 - In case you need, there are more detailed instructions on how to change to DS4 emulation in [the FAQ](#frequently-asked-questions)
 - If you want your controller's LEDs to represent the current battery level, check the **Simple Led Control -> Example 2** in the [Light Bar color to LEDs translation SECTION](#light-bar-color-to-leds-translation)
     - Read the full Light Bar translation section if you want to check all possible types of LED control that are possible via DS4Windows settings  
@@ -72,7 +72,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
         - Good to represent which profile is active (see example 1)
         - Necessary when making DS4Windows show the controller's battery level and for battery related `Special Actions` (see examples 2 and 3 respectively)
 
-        ![SimpleLEDControlSummary](images/SimpleLEDControlSummary.png){: .glightbox }
+        ![SimpleLEDControlSummary](images/SimpleLEDControlSummary.png)
 
         __FORMS OF ACTIVATION:__
 
@@ -93,15 +93,15 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
         ??? example "Example 1: Setting up a profile to be represented as LED 3 only (__single mode__)"
 
-            ![SimpleLedControl eg 1 - LED 3 on](images/SimpleLedControl_eg1_LED3on.png){: .glightbox }
+            ![SimpleLedControl eg 1 - LED 3 on](images/SimpleLedControl_eg1_LED3on.png)
 
         ??? example "Example 2: Setting up a profile to reflect the controller's battery level"
 
-            ![SimpleLedControl eg 2 - Battery charge indication](images/SimpleLedControl_eg2_Battery.png){: .glightbox }
+            ![SimpleLedControl eg 2 - Battery charge indication](images/SimpleLedControl_eg2_Battery.png)
 
         ??? example "Example 3: Setting up a _Special Action_ to make the LEDs reflect the controller's battery level"
 
-            ![SimpleLedControl eg 3 - Macro example](images/SimpleLedControl_eg3_Macro.png){: .glightbox }
+            ![SimpleLedControl eg 3 - Macro example](images/SimpleLedControl_eg3_Macro.png)
 
     === "Complete LED control"
 
@@ -134,7 +134,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
         __e.g.:__ Setting up a profile to be represented as LEDs 4 and 2.
 
-        ![TotalLedControl eg - LEDs 4 and 2](images/TotalLedControl_eg_LEDs_4_2.png){: .glightbox }
+        ![TotalLedControl eg - LEDs 4 and 2](images/TotalLedControl_eg_LEDs_4_2.png)
 
 ## Frequently Asked Questions
 
@@ -150,7 +150,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
     - Give a name to your profile (e.g.: DS3 to DS4)
     - Save the profile
     - Back in the _Controllers_ tab, click on the _Selected profile_ box and change from default to the profile you just created  
-    ![Ds4Profile](images/Ds4Profile.png){: .glightbox }
+    ![Ds4Profile](images/Ds4Profile.png)
 
     And done, now you can switch between XInput/DS4 emulation by changing between profiles.
 

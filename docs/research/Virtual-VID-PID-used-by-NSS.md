@@ -14,4 +14,4 @@ Custom `xinputhid.sys`-compatible XInput device mode of DsHidMini.
 
 ### PID `0x000A`
 
-Emulated vJoy-compatible Joystick in ViGEmBus 2.
+Emulated vJoy-compatible Joystick in VirtualPad.

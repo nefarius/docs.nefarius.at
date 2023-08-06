@@ -6,7 +6,7 @@
 
 HidHide is a filter driver than can "hide" Gamepads/joysticks devices, ensuring Windows and other applications stop detecting it as a game controller and allowing only chosen applications to see them. Specially useful when the user is remapping a real controller into an emulated one.
 
-![BeforeAfterHidHide](images/BeforeAfterHidHide.png){: .glightbox }
+![BeforeAfterHidHide](images/BeforeAfterHidHide.png)
 
 ## Why one might need it
 
@@ -36,7 +36,7 @@ HidGuardian's installer utility can check if it's installed and correctly uninst
 - Inside the extracted folder, run HidGuardianInstaller.exe
 - Check in the text log if HidGuardian is installed. If it is not, you can close the utility and move on to the next section
 
-![UninstallHG](images/uninstall_hidguardian.png){: .glightbox }
+![UninstallHG](images/uninstall_hidguardian.png)
 
 - If HidGuardian is installed, click on the "Uninstall" button
 - Wait until the utility finishes uninstalling HidGuardian, keep and eye on the text log to know what its status
@@ -61,7 +61,7 @@ DONE. Be happy. Still, be sure to give a read on the last sections of this artic
 ### Installing HidHide
 
 - Install [HidHide's prerequisites](https://support.microsoft.com/en-us/topic/the-latest-supported-visual-c-downloads-2647da03-1eea-4433-9aff-95f26a218cc0) according to your [Windows 10 version](../../research/How-to-check-architecture.md)
-![VisualCpp](images/HidHide_VisualCpp.png){: .glightbox }
+![VisualCpp](images/HidHide_VisualCpp.png)
 - Download the [Latest release of HidHide](https://github.com/nefarius/HidHide/releases) (it should be a file called `HidHideMSI.msi`)
 - Open the downloaded file and install HidHide as instructed at default settings (just click `Next` until it finishes installing)
 - After the installation, reboot your computer
@@ -69,7 +69,7 @@ DONE. Be happy. Still, be sure to give a read on the last sections of this artic
 ### Hiding the controller
 
 - Open the "HidHide Configuration Client" in the start menu
-![HidHideClient_StartMenu](images/HidHideClient_StartMenu.png){: .glightbox }
+![HidHideClient_StartMenu](images/HidHideClient_StartMenu.png)
 - On the Configuration Client, click on the `Devices` tab to show the list of connected controllers
 - Have the controllers you want to hide connected to your computer
 - On your controllers entries, mark the white box before their names. A red lock icon should appear
@@ -95,7 +95,7 @@ Now that it's confirmed your controllers are hidden, you need to select which ap
 - After that, fully close then reopen your application (in case it was running) for it to detect the hidden devices. Alternatively, just reconnect your controllers.
 
 From this point, the applications on the list should be able to detect the hidden devices. The image below is an example of the application "UCR" being able to see a hidden Controller and emulating a DualShock 4: 
-![HidHideExampleSetup](images/HidHideClient_ExampleSetup.png){: .glightbox }
+![HidHideExampleSetup](images/HidHideClient_ExampleSetup.png)
 
 !!! important "Users of DS4Windows: PAY ATTENTION!"
     If you are running DS4Windows under a custom `.exe` name (look at your DS4Windows' `Other` tab) then the custom named executable must also be added to the list

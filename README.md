@@ -4,10 +4,17 @@
 
 Sources of [docs.nefarius.at](https://docs.nefarius.at/).
 
+## Build local Docker/Podman instance
+
+```bash
+podman build -t mkdocs .
+podman run -it --rm -p "8000:8000" localhost/mkdocs:latest
+```
+
 ## 3rd party credits
 
 - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
 - [PyMdown Extensions](https://facelessuser.github.io/pymdown-extensions/extensions/arithmatex/)
 - [Python-Markdown](https://python-markdown.github.io/)
-- [GLightbox](https://github.com/biati-digital/glightbox)
 - [Emfed](https://github.com/sampsyo/emfed)
+- [mkdocs-glightbox](https://github.com/Blueswen/mkdocs-glightbox)
