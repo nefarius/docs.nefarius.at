@@ -11,6 +11,8 @@ podman build -t mkdocs .
 podman run -it --rm -p "8000:8000" localhost/mkdocs:latest
 ```
 
+The built site will be available at [localhost:8000](http://localhost:8000/).
+
 ## 3rd party credits
 
 - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
