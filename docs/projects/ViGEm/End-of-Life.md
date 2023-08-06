@@ -38,12 +38,16 @@ Save it an you're done!
 
 ## Uninstall Applications
 
-If you're not using any software relying on either ViGEmBus or HidHide you can simply uninstall them via `Apps & Features`.
+If you're not using any software relying on either ViGEmBus or HidHide you can simply uninstall them via "Apps & Features". Same can be achieved by the old "Programs and Features" section in the Control Panel.
 
 ### Uninstall ViGEm Bus Driver
 
-![Apps and Features - ViGEm Bus Driver](images/ApplicationFrameHost_WaHYm3RoSi.png){: .glightbox }  
+Search for `ViGEm` and uninstall:
+
+![Apps and Features - ViGEm Bus Driver](images/ApplicationFrameHost_WaHYm3RoSi.png)
 
 ### Uninstall HidHide
 
-![Apps and Features - HidHide](images/ApplicationFrameHost_7f83G2M1hS.png){: .glightbox }  
+Search for `HidHide` and uninstall:
+
+![Apps and Features - HidHide](images/ApplicationFrameHost_7f83G2M1hS.png)
