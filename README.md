@@ -4,6 +4,13 @@
 
 Sources of [docs.nefarius.at](https://docs.nefarius.at/).
 
+## Build local Docker/Podman instance
+
+```bash
+podman build -t mkdocs .
+podman run -it --rm -p "8000:8000" localhost/mkdocs:latest
+```
+
 ## 3rd party credits
 
 - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
