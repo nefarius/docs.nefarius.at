@@ -61,7 +61,9 @@ The log file should now exist under the C:\\-Drive:
 
 ## Great, I got it, what now
 
-So we've captured the `BthPS3.etl` file, but what now? Well, the easy way is to submit it to Nefarius for analysis 😁 Or, you can take a peek at its contents for yourself if you read on.
+So we've captured the `BthPS3.etl` file, but what now? Well, the easy way is to submit it to Nefarius for analysis 😁. Make sure to compact the file via WinRAR ou 7zip before sending it.
+
+Or, you can take a peek at its contents for yourself if you read on.
 
 ## Decipher the trace file content
 
