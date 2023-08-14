@@ -39,7 +39,12 @@ Should looks similar to this:
 
 ### Perform the action you want captured
 
-Now is the time to attempt pairing a controller or whatever logic you wish to test and get captured in the trace log file.
+Currently tracing is active and the events happening inside the driver will be registered in a log file, meaning now is the time to execute the actions that need to be investigated. Examples:
+
+- Controller is not connecting wirelessly? Try connecting it a few times
+    -  Make sure to turn on the controller as normal via the PS button and wait until the LEDs stop blinking before repeating
+- Controller is turning off randomly even if it's charged? Make sure to play with the controller until it disconnects on its own
+- Something (e.g.: LEDs, rumble, sticks) works as normal via USB but not via BT? make sure to repeat the same actions while via BT that work as normal via USB
 
 ### Stop trace session
 
@@ -56,7 +61,9 @@ The log file should now exist under the C:\\-Drive:
 
 ## Great, I got it, what now
 
-So we've captured the `BthPS3.etl` file, but what now? Well, the easy way is to submit it to Nefarius for analysis 😁 Or, you can take a peek at its contents for yourself if you read on.
+So we've captured the `BthPS3.etl` file, but what now? Well, the easy way is to submit it to Nefarius for analysis 😁. Make sure to compact the file via WinRAR or 7zip before sending it.
+
+Or, you can take a peek at its contents for yourself if you read on.
 
 ## Decipher the trace file content
 
