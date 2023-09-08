@@ -1,6 +1,8 @@
 # End of Life Statement
 
-TBD
+In May 2023 a conflict with a registered trademark by [ViGEM GmbH](https://vigem.de/) was discovered, leading to a mutual agreement between Nefarius Software Solutions e.U. and ViGEM GmbH to enter a transition phase starting July 2023 and ending approximately December 2023. As a result of the agreement, all usage of the phrase "ViGEm" (ViGemBus etc.) and the Domain `vigem.org` will be retired and archived permanently over the agreed upon time span.
+
+Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service which periodically establishes communication with a web service hosted under `updates.vigem.org`. **This service will be permanently retired after December 2023**, therefore it is highly recommended to follow the outlined procedures of this article to stop your installation making any further web requests to the to-be-decommissioned web service.
 
 ## Adjust Automatic Updater Configuration
 
