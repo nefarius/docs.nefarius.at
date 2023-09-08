@@ -4,6 +4,8 @@ In May 2023 a conflict with a registered trademark by [ViGEM GmbH](https://vigem
 
 Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service which periodically establishes communication with a web service hosted under `updates.vigem.org`. **This service will be permanently retired after December 2023**, therefore it is highly recommended to follow the outlined procedures of this article to stop your installation making any further web requests to the to-be-decommissioned web service.
 
+So long, everyone, it was fun while it lasted 😄
+
 ## Adjust Automatic Updater Configuration
 
 The software packages mentioned below ship with an automatic updater agent, a little program that runs once a day and contacts a web service configured in a shipped INI configuration file. The updater process is launched via scheduled tasks.
