@@ -4,7 +4,7 @@ In May 2023 a conflict with a registered trademark by ViGEM GmbH was discovered,
 
 As a direct result the ViGEmBus project will no longer receive any updates and has been archived/retired. This has no impact on existing installations except for the updater components.
 
-Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service which periodically establishes communication with a web service hosted under `updates.vigem.org`. **This service will be permanently retired after December 2023**, therefore it is highly recommended to follow the outlined procedures of this article to stop your installation making any further web requests to the to-be-decommissioned web service (since the domain will change ownership, this could lead to your IP address getting leaked to an unexpected company).
+Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service which periodically establishes communication with a web service hosted under `updates.vigem.org`. **This service will be permanently retired after December 2023**, therefore it is highly recommended to follow the outlined procedures of this article to stop your installation making any further web requests to the to-be-decommissioned web service (since the domain will change ownership, this could lead to your public IP address getting leaked to an unexpected company).
 
 So long, everyone, it was fun while it lasted 😄
 
