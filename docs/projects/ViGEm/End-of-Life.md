@@ -6,12 +6,12 @@ Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an
 
 So long, everyone, it was fun while it lasted 😄
 
+!!! attention "🚨 There's a tool available to automate these steps 🚨"
+    To quickly get the situation resolved you can use [the Legacinator](https://github.com/nefarius/Legacinator/releases) in addition to (or instead of) this guide!
+
 ## Adjust Automatic Updater Configuration
 
 The software packages mentioned below ship with an automatic updater agent, a little program that runs once a day and contacts a web service configured in a shipped INI configuration file. The updater process is launched via scheduled tasks.
-
-!!! attention "🚨 There's a tool available to automate these steps 🚨"
-    To quickly get the situation resolved you can use [the Legacinator](https://github.com/nefarius/Legacinator/releases) in addition to (or instead of) this guide!
 
 ### Configure ViGEm Bus Driver Updater
 
