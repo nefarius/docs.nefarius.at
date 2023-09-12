@@ -14,12 +14,12 @@ Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an
 
 **If the updaters are not adjusted, they will continue to contact the old domain, which could lead to your public IP address getting leaked to whoever has the ownership of the domain starting from 2024.**
 
-There are 2 ways of adjusting the updaters:
+There are two ways of adjusting the updaters:
 
 1. Using the Legacinator tool to automatically update them. Quick and easy!
 2. Manually adjusting the configuration file for each updater
 
-### Automatic method: Legacinator
+### Automatic method: using Legacinator
 
 1. Download and execute the latest version of the [Legacinator tool](https://github.com/nefarius/Legacinator/releases)
 2. Look for the "Outdated XXXXXXX Updater Configuration found" option
@@ -31,7 +31,7 @@ There are 2 ways of adjusting the updaters:
 
 ### Manual methods
 
-??? info "Adjusting the ViGEmBus updater (for win 10 and 11)"
+??? info "Adjusting the ViGEmBus updater (for Windows 10 and 11)"
 
     !!! warning "This is the recommended action if you're running Windows 10/11"
         If you're running ViGEm Bus Driver **v1.21.442 or older** the following section applies to you and is highly recommended to follow until software updates become available (if ever).
@@ -50,7 +50,7 @@ There are 2 ways of adjusting the updaters:
 
     Save it an you're done! From now on the updater agent will contact the new server to check for software updates.
 
-??? info "Adjusting the ViGEmBus updater (for win 7 and 8/8.1)"
+??? info "Adjusting the ViGEmBus updater (for Windows 7 and 8/8.1)"
 
     !!! warning "This is the recommended action if you're running Windows 7/8/8.1"
         If you're running ViGEm Bus Driver **v1.16.116 or older** the following section applies to you and is highly recommended to follow as there won't be any new updates made available.
