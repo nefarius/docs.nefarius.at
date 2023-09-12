@@ -7,7 +7,7 @@ Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an
 So long, everyone, it was fun while it lasted 😄
 
 !!! attention "🚨 There's a tool available to automate these steps 🚨"
-    To quickly get the situation resolved you can use [the Legacinator](https://github.com/nefarius/Legacinator/releases) in addition to (or instead of) this guide!
+    To quickly get the situation resolved you can use [the Legacinator](https://github.com/nefarius/Legacinator/releases) **in addition** to  this guide!
 
 ## Adjust Automatic Updater Configuration
 
