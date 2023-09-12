@@ -134,7 +134,7 @@ If you're not using any software relying on either ViGEmBus or HidHide you can s
 
 This site, the software, drivers and other products mentioned here and their updaters are all under the [Nefarius](https://euipo.europa.eu/eSearch/#details/trademarks/018878323) brand, from the developer named Benjamin Höglinger-Stelzer, A.K.A. Nefarius. You can check [his github profile link here](https://github.com/nefarius). The warning in the updaters are legit if they match what is being described in this page.
 
-### What will happen to the ViGEmBus and ViGEm related products?
+### What will happen to the ViGEmBus and related products?
 
 All archived/discontinued projects will remain available and the actively maintained ones will continue being supported, but now under the Nefarius brand name.
 
