@@ -25,7 +25,7 @@ There are two ways of adjusting the updaters:
 2. Look for the "Outdated XXXXXXX Updater Configuration found" option
     - There can be up to 3 of them: one for the ViGEmBus, another for HidHide and the last one for BthPS3
 3. Select the options regarding the outdated configuration
-4. Done!
+4. Done! Updaters configuration adjusted!
 
 ![legacinator-outdated-updater-config.png](images/legacinator-outdated-updater-config.png)
 
@@ -127,3 +127,17 @@ If you're not using any software relying on either ViGEmBus or HidHide you can s
     ![Programs and Features - BthPS3](images/AnyDesk_DWMHvlz30z.png)
 
     Right-click the entry and select `Uninstall`. Follow the steps and you're done.
+
+## Frequently Asked Questions
+
+### Can I trust this?
+
+This site, the software, drivers and other products mentioned here and their updaters are all under the Nefarius brand, from the developer named Benjamin Höglinger-Stelzer, A.K.A. Nefarius. You can check [his github profile link here](https://github.com/nefarius). The warning in the updaters are legit if they match what is being described in this page.
+
+### What will happen to the ViGEmBus and ViGEm related products?
+
+All archived/discontinued products will remain available and the currently maintained ones will continue being supported, but now under the Nefarius brand name.
+
+### Do I need to care about adjusting the updaters if I don't care about updates?
+
+It's highly recommended to do as in order to prevent the security risk described in the "Adjusting the Automatic Updater Configuration" section.
