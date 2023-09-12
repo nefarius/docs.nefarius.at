@@ -10,6 +10,9 @@ So long, everyone, it was fun while it lasted 😄
 
 The software packages mentioned below ship with an automatic updater agent, a little program that runs once a day and contacts a web service configured in a shipped INI configuration file. The updater process is launched via scheduled tasks.
 
+!!! attention "🚨 There's a tool available to automate these steps 🚨"
+    To quickly get the situation resolved you can use [the Legacinator](https://github.com/nefarius/Legacinator/releases) in addition to (or instead of) this guide!
+
 ### Configure ViGEm Bus Driver Updater
 
 !!! warning "This is the recommended action if you're running Windows 10/11"
