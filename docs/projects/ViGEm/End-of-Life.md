@@ -160,4 +160,4 @@ All archived/discontinued projects will remain available and the actively mainta
 
 ### This update is taking forever, the progress doesn't finish
 
-After you hit "Next", you need to close the pink Legacinator window when done with it, then the updater will run to completion.
+The update will finish once the Legacinator window is closed. Make sure to follow the steps, skipping step 1 if Legacinator is already open, in the [Semi-automatic method section (Legacinator)](#semi-automatic-method-legacinator)
