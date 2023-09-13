@@ -17,7 +17,7 @@ There are two ways of adjusting the updaters:
 1. Using the Legacinator tool to automatically update them. Quick and easy!
 2. Manually adjusting the configuration file for each updater
 
-### Automatic method: using Legacinator
+### Semi-automatic method (Legacinator)
 
 1. Download and execute the latest version of the [Legacinator tool](https://github.com/nefarius/Legacinator/releases)
 2. Look for the "Outdated XXXXXXX Updater Configuration found" option
