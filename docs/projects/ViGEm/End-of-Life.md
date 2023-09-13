@@ -154,10 +154,10 @@ It's highly recommended to do so in order to prevent the security risk described
 
 The updater agent is a 3rd party product, there were only very limited options available in attempting to turn it into an "important news delivery tool". The end result was as good as we could make it 😅
 
-### What will happen to the ViGEmBus and related products?
-
-All archived/discontinued projects will remain available and the actively maintained ones will continue being supported, but now under the Nefarius brand name.
-
 ### This update is taking forever, the progress doesn't finish
 
 The update will finish once the Legacinator window is closed. Make sure to follow the steps, skipping step 1 if Legacinator is already open, in the [Semi-automatic method section (Legacinator)](#semi-automatic-method-legacinator)
+
+### What will happen to the ViGEmBus and related products?
+
+All archived/discontinued projects will remain available and the actively maintained ones will continue being supported, but now under the Nefarius brand name.
