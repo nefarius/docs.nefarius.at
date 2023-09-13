@@ -144,7 +144,7 @@ All archived/discontinued projects will remain available and the actively mainta
 
 ### Do I need to care about adjusting the updaters if I don't care about updates?
 
-It's highly recommended to do so in order to prevent the security risk described in the "Adjusting the Automatic Updater Configuration" section.
+It's highly recommended to do so in order to prevent the security risk described in the ["Adjusting the Automatic Updater Configuration"](#adjusting-the-automatic-updater-configuration) section.
 
 ### This update is taking forever, the progress doesn't finish
 
