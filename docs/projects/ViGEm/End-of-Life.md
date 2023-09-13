@@ -130,7 +130,7 @@ If you're not using any software relying on either ViGEmBus or HidHide you can s
 
 ### What is any of this? Why are these warning appearing? Why were these things installed on my PC?
 
-At some point, you (or someone who uses your computer) directly installed one of the mentioned products, or maybe used _another_ software that automatically installed them for you.
+At some point, you (or someone who uses your computer) directly installed one of our products, or maybe used _another_ software that automatically installed them for you.
 
 These products are legit and harmless, used along gamepads/game controllers related apps. They are:
 
