@@ -130,6 +130,20 @@ If you're not using any software relying on either ViGEmBus or HidHide you can s
 
 ## Frequently Asked Questions
 
+### What is any of this? Why were these things installed on my PC and why the warnings?
+
+At some point, you (or someone who uses your computer) directly installed one of the mentioned products, or maybe used _another_ software that automatically installed them for you.
+
+These products are legit and harmless, used along gamepads/game controllers related apps. They are:
+
+- ViGEmBus: used for creating virtual gamepads
+- HidHide: used for hiding physical/real gamepads, usually to prevent them from conflicting with virtual gamepads
+- BthPS3: allows connecting PS3 controllers via Bluetooth to Windows
+
+If you really don't know what any of these are, or think that you or any apps in your PC don't make use of them, you can follow the instructions on the "Uninstall applications" section above to get rid of them.
+
+Regarding the warnings, as explained before, these products come with an automatic updater that tries to contact a server that won't belong to us anymore starting from 2024. Because this can be a security risk, we need you to follow the instructions in the ["Adjusting the Automatic Updater Configuration"](#adjusting-the-automatic-updater-configuration) section to prevent future issues.
+
 ### Can I trust this?
 
 This site, the software, drivers and other products mentioned here and their updaters are all under the [Nefarius](https://euipo.europa.eu/eSearch/#details/trademarks/018878323) brand, from the developer named Benjamin Höglinger-Stelzer, A.K.A. Nefarius. You can check [his github profile link here](https://github.com/nefarius). The warning in the updaters are legit if they match what is being described in this page.
