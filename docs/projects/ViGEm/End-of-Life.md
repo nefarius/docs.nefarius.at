@@ -148,6 +148,10 @@ Regarding the warnings, as explained before, these products come with an automat
 
 This site, the software, drivers and other products mentioned here and their updaters are all under the [Nefarius](https://euipo.europa.eu/eSearch/#details/trademarks/018878323) brand, from the developer named Benjamin Höglinger-Stelzer, A.K.A. Nefarius. You can check [his github profile link here](https://github.com/nefarius). The warning in the updaters are legit if they match what is being described in this page.
 
+### Do I need to care about adjusting the updaters if I don't care about updates?
+
+It's highly recommended to do so in order to prevent the security risk described in the ["Adjusting the Automatic Updater Configuration"](#adjusting-the-automatic-updater-configuration) section.
+
 ### Why does this update look and feel a bit sketchy?
 
 The updater agent is a 3rd party product, there were only very limited options available in attempting to turn it into an "important news delivery tool". The end result was as good as we could make it 😅
@@ -155,10 +159,6 @@ The updater agent is a 3rd party product, there were only very limited options a
 ### What will happen to the ViGEmBus and related products?
 
 All archived/discontinued projects will remain available and the actively maintained ones will continue being supported, but now under the Nefarius brand name.
-
-### Do I need to care about adjusting the updaters if I don't care about updates?
-
-It's highly recommended to do so in order to prevent the security risk described in the ["Adjusting the Automatic Updater Configuration"](#adjusting-the-automatic-updater-configuration) section.
 
 ### This update is taking forever, the progress doesn't finish
 
