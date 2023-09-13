@@ -132,7 +132,7 @@ If you're not using any software relying on either ViGEmBus or HidHide you can s
 
 At some point, you (or someone who uses your computer) directly installed one of our products, or maybe used _another_ software that automatically installed them for you.
 
-These products are legit and harmless, used along gamepads/game controllers related apps. They are:
+These products are legit and harmless, used along gamepads/game controllers related apps. The ones related to the warnings are:
 
 - ViGEmBus: used for creating virtual gamepads
 - HidHide: used for hiding physical/real gamepads, usually to prevent them from conflicting with virtual gamepads
