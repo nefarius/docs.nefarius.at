@@ -141,3 +141,7 @@ All archived/discontinued projects will remain available and the actively mainta
 ### Do I need to care about adjusting the updaters if I don't care about updates?
 
 It's highly recommended to do so in order to prevent the security risk described in the "Adjusting the Automatic Updater Configuration" section.
+
+### This update is taking forever, the progress doesn't finish
+
+After you hit "Next", you need to close the pink Legacinator window when done with it, then the updater will run to completion.
