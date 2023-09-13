@@ -10,7 +10,7 @@ So long, everyone, it was fun while it lasted 😄
 
 ## Adjusting the Automatic Updater Configuration
 
-Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service which periodically establishes communication with a web service hosted under `updates.vigem.org`. This service will be permanently retired after December 2023, therefore it is highly recommended to adjust their configuration so they contact the new update server from now on.
+Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service that currently communicates with a server domains that won't belong to us anymore after the end of 2023. Because of this, the configuration of the updaters need to be adjust so they contact our new server domain from now on.
 
 **If the updaters are not adjusted, they will continue to contact the old domain, which could lead to your public IP address getting leaked to whoever has the ownership of the domain starting from 2024.**
 
@@ -19,7 +19,7 @@ There are two ways of adjusting the updaters:
 1. Using the Legacinator tool to automatically update them. Quick and easy!
 2. Manually adjusting the configuration file for each updater
 
-### Automatic method: using Legacinator
+### Semi-automatic method (Legacinator)
 
 1. Download and execute the latest version of the [Legacinator tool](https://github.com/nefarius/Legacinator/releases)
 2. Look for the "Outdated XXXXXXX Updater Configuration found" option
@@ -130,22 +130,36 @@ If you're not using any software relying on either ViGEmBus or HidHide you can s
 
 ## Frequently Asked Questions
 
+### What is any of this? Why are these warning appearing? Why were these things installed on my PC?
+
+At some point, you (or someone who uses your computer) directly installed one of our products, or maybe used _another_ software that automatically installed them for you.
+
+These products are legit and harmless, used along gamepads/game controllers related apps. The ones related to the warnings are:
+
+- [ViGEmBus](https://github.com/nefarius/ViGEmBus) is used for creating virtual gamepads
+- [HidHide](https://github.com/nefarius/HidHide) is used for hiding physical/real gamepads, usually to prevent them from conflicting with virtual gamepads
+- [BthPS3](https://github.com/nefarius/BthPS3) allows connecting PlayStation™ 3 controllers via Bluetooth to Windows
+
+If you really don't know what any of these are, or think that you or any apps in your PC don't make use of them, you can follow the instructions on the ["Uninstall applications"](#uninstall-applications) section above to get rid of them.
+
+Regarding the warnings, as explained before, these products come with an automatic updater that tries to contact a server domain that won't belong to us anymore starting from 2024. Because this can be a security risk in the future, we need you to follow the instructions in the ["Adjusting the Automatic Updater Configuration"](#adjusting-the-automatic-updater-configuration) section to prevent issues and keep the updaters working.
+
 ### Can I trust this?
 
 This site, the software, drivers and other products mentioned here and their updaters are all under the [Nefarius](https://euipo.europa.eu/eSearch/#details/trademarks/018878323) brand, from the developer named Benjamin Höglinger-Stelzer, A.K.A. Nefarius. You can check [his github profile link here](https://github.com/nefarius). The warning in the updaters are legit if they match what is being described in this page.
-
-### Why does this update look and feel a bit sketchy?
-
-The updater agent is a 3rd party product, there were only very limited options available in attempting to turn it into an "important news delivery tool". The end result was as good as we could make it 😅
-
-### What will happen to the ViGEmBus and related products?
-
-All archived/discontinued projects will remain available and the actively maintained ones will continue being supported, but now under the Nefarius brand name.
 
 ### Do I need to care about adjusting the updaters if I don't care about updates?
 
 It's highly recommended to do so in order to prevent the security risk described in the ["Adjusting the Automatic Updater Configuration"](#adjusting-the-automatic-updater-configuration) section.
 
+### Why does this update look and feel a bit sketchy?
+
+The updater agent is a 3rd party product, there were only very limited options available in attempting to turn it into an "important news delivery tool". The end result was as good as we could make it 😅
+
 ### This update is taking forever, the progress doesn't finish
 
-After you hit "Next", you need to close the pink Legacinator window when done with it, then the updater will run to completion.
+The update will finish once the Legacinator window is closed. Make sure to follow the steps, skipping step 1 if Legacinator is already open, in the [Semi-automatic method section (Legacinator)](#semi-automatic-method-legacinator)
+
+### What will happen to the ViGEmBus and related products?
+
+All archived/discontinued projects will remain available and the actively maintained ones will continue being supported, but now under the Nefarius brand name.
