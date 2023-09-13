@@ -23,11 +23,11 @@ There are two ways of adjusting the updaters:
 
 1. Download and execute the latest version of the [Legacinator tool](https://github.com/nefarius/Legacinator/releases)
 2. Look for the "Outdated XXXXXXX Updater Configuration found" option
-    - There can be up to 3 of them: one for the ViGEmBus, another for HidHide and the last one for BthPS3
+    - There can be up to 3 of them: one for the ViGEmBus, another for HidHide and the last one for BthPS3  
+  ![legacinator-outdated-updater-config.png](images/legacinator-outdated-updater-config.png)
 3. Select the options regarding the outdated configuration
 4. Done! Updaters configuration adjusted!
-
-![legacinator-outdated-updater-config.png](images/legacinator-outdated-updater-config.png)
+5. Close the Legacinator window and the updater popup will close as well
 
 ### Manual methods
 
