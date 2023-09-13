@@ -10,9 +10,7 @@ So long, everyone, it was fun while it lasted 😄
 
 ## Adjusting the Automatic Updater Configuration
 
-Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service which periodically establishes communication with a web service hosted under `updates.vigem.org`. This service will be permanently retired after December 2023, therefore it is highly recommended to adjust their configuration so they contact the new update server from now on.
-
-**If the updaters are not adjusted, they will continue to contact the old domain, which could lead to your public IP address getting leaked to whoever has the ownership of the domain starting from 2024.**
+Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service that currently communicates with a server domains that won't belong to us anymore starting from 2024. Because this can be a security risk in the future, the configuration of the updaters need to be adjust so they contact our new server domain from now on.
 
 There are two ways of adjusting the updaters:
 
