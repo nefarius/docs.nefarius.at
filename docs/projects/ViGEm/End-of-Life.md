@@ -2,7 +2,7 @@
 
 In May 2023 a conflict with a registered trademark by ViGEM GmbH was discovered, leading to a mutual agreement between Nefarius Software Solutions e.U. and ViGEM GmbH to enter a transition phase starting July 2023 and ending approximately December 2023. As a result of the agreement, all usage of the phrase "ViGEm" (ViGEmBus etc.) and the Domain `vigem.org` will be retired and archived permanently over the agreed upon time span.
 
-As a direct result the ViGEmBus project will no longer receive any updates and has been archived/retired.
+As a direct result the ViGEmBus (and client libraries) project will no longer receive any updates and has been archived/retired.
 
 **This has no impact on existing installations except for the updater components: their auto-updaters need to be adjusted to prevent a potential security risk!** (More info on the next section)
 
