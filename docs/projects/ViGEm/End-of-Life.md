@@ -14,6 +14,7 @@ Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an
 
 **If the updaters are not adjusted, they will continue to contact the old domain, which could lead to your public IP address getting leaked to whoever has the ownership of the domain starting from 2024.**
 
+Once the updaters are adjusted the security issue will be prevented and the "critical" warnings will stop.
 
 ## Adjusting the Automatic Updater Configuration
 
