@@ -166,4 +166,4 @@ All archived/discontinued projects will remain available and the actively mainta
 
 ### Where can I find (even) more information about this?
 
-[Here you go](https://fosstodon.org/@Nefarius/111062792500817478).
+On my Mastodon, [here you go](https://fosstodon.org/@Nefarius/111062792500817478) 😀
