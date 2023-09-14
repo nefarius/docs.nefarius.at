@@ -134,7 +134,7 @@ If you're not using any software relying on either ViGEmBus or HidHide you can s
 
 ## Frequently Asked Questions
 
-### What is any of this? Why are these warning appearing? Why were these things installed on my PC?
+### What is any of this? Why were these things installed on my PC? Why are these warning appearing? How do I make them stop?
 
 At some point, you (or someone who uses your computer) directly installed one of our products, or maybe used _another_ software that automatically installed them for you.
 
