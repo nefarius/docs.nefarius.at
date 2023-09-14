@@ -8,11 +8,14 @@ As a direct result the ViGEmBus (and client libraries) project will no longer re
 
 So long, everyone, it was fun while it lasted 😄
 
-## Adjusting the Automatic Updater Configuration
+## About the "critical warnings"
 
 Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service that currently communicates with a server domains that won't belong to us anymore after the end of 2023. Because of this, the configuration of the updaters need to be adjust so they contact our new server domain from now on.
 
 **If the updaters are not adjusted, they will continue to contact the old domain, which could lead to your public IP address getting leaked to whoever has the ownership of the domain starting from 2024.**
+
+
+## Adjusting the Automatic Updater Configuration
 
 There are two ways of adjusting the updaters:
 
