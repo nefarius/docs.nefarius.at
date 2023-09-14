@@ -13,6 +13,11 @@ podman run -it --rm -v "${PWD}:/docs" -p "8000:8000" localhost/mkdocs:latest
 
 The built site will be available at [localhost:8000](http://localhost:8000/).
 
+## Branches
+
+- `master` changes will get built and pushed online ASAP
+- `devel` can be used to make changes without affecting the currently online version
+
 ## 3rd party credits
 
 - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
