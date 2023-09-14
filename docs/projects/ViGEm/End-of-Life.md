@@ -163,3 +163,7 @@ The update will finish once the Legacinator window is closed. Make sure to follo
 ### What will happen to the ViGEmBus and related products?
 
 All archived/discontinued projects will remain available and the actively maintained ones will continue being supported, but now under the Nefarius brand name.
+
+### Where can I find (even) more information about this?
+
+[Here you go](https://fosstodon.org/@Nefarius/111062792500817478).
