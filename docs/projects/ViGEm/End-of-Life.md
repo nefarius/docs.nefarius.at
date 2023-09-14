@@ -144,9 +144,9 @@ These products are legit and harmless, used along gamepads/game controllers rela
 - [HidHide](https://github.com/nefarius/HidHide) is used for hiding physical/real gamepads, usually to prevent them from conflicting with virtual gamepads
 - [BthPS3](https://github.com/nefarius/BthPS3) allows connecting PlayStation™ 3 controllers via Bluetooth to Windows
 
-If you really don't know what any of these are, or think that you or any apps in your PC don't make use of them, you can follow the instructions on the ["Uninstall applications"](#uninstall-applications) section above to get rid of them.
-
 If you make use of these products and need to keep them on the system, check the ["About the update warnings" section](#about-the-update-warnings) for more info on the current situation and what to do.
+
+If you really don't know what any of these are, or think that you or any apps in your PC don't make use of them, you can follow the instructions on the ["Uninstall applications"](#uninstall-applications) section above to get rid of them.
 
 ### Can I trust this?
 
