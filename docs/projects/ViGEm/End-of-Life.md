@@ -146,7 +146,7 @@ These products are legit and harmless, used along gamepads/game controllers rela
 
 If you really don't know what any of these are, or think that you or any apps in your PC don't make use of them, you can follow the instructions on the ["Uninstall applications"](#uninstall-applications) section above to get rid of them.
 
-Regarding the warnings, as explained before, these products come with an automatic updater that tries to contact a server domain that won't belong to us anymore starting from 2024. Because this can be a security risk in the future, we need you to follow the instructions in the ["Adjusting the Automatic Updater Configuration"](#adjusting-the-automatic-updater-configuration) section to prevent issues and keep the updaters working.
+If you make use of these products and need to keep them on the system, check the ["About the update warnings" section](#about-the-update-warnings) for more info on the current situation and what to do.
 
 ### Can I trust this?
 
