@@ -8,7 +8,7 @@ As a direct result the ViGEmBus (and client libraries) project will no longer re
 
 So long, everyone, it was fun while it lasted 😄
 
-## About the "critical warnings"
+## About the update warnings
 
 Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service that currently communicates with a server domains that won't belong to us anymore after the end of 2023. Because of this, the configuration of the updaters need to be adjust so they contact our new server domain from now on.
 
