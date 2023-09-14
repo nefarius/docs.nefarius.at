@@ -8,11 +8,15 @@ As a direct result the ViGEmBus (and client libraries) project will no longer re
 
 So long, everyone, it was fun while it lasted 😄
 
-## Adjusting the Automatic Updater Configuration
+## About the update warnings
 
 Software like ViGEmBus, HidHide and older versions of BthPS3 got shipped with an auto-updater service that currently communicates with a server domains that won't belong to us anymore after the end of 2023. Because of this, the configuration of the updaters need to be adjust so they contact our new server domain from now on.
 
 **If the updaters are not adjusted, they will continue to contact the old domain, which could lead to your public IP address getting leaked to whoever has the ownership of the domain starting from 2024.**
+
+Once the updaters are adjusted the security issue will be prevented and the "critical" warnings will stop.
+
+## Adjusting the Automatic Updater Configuration
 
 There are two ways of adjusting the updaters:
 
@@ -130,7 +134,7 @@ If you're not using any software relying on either ViGEmBus or HidHide you can s
 
 ## Frequently Asked Questions
 
-### What is any of this? Why are these warning appearing? Why were these things installed on my PC?
+### What is any of this? Why were these things installed on my PC? Why are these warning appearing? How do I make them stop?
 
 At some point, you (or someone who uses your computer) directly installed one of our products, or maybe used _another_ software that automatically installed them for you.
 
@@ -140,9 +144,9 @@ These products are legit and harmless, used along gamepads/game controllers rela
 - [HidHide](https://github.com/nefarius/HidHide) is used for hiding physical/real gamepads, usually to prevent them from conflicting with virtual gamepads
 - [BthPS3](https://github.com/nefarius/BthPS3) allows connecting PlayStation™ 3 controllers via Bluetooth to Windows
 
-If you really don't know what any of these are, or think that you or any apps in your PC don't make use of them, you can follow the instructions on the ["Uninstall applications"](#uninstall-applications) section above to get rid of them.
+If you make use of these products and want to keep them on the system, check the ["About the update warnings" section](#about-the-update-warnings) for more info on the current situation and what to do.
 
-Regarding the warnings, as explained before, these products come with an automatic updater that tries to contact a server domain that won't belong to us anymore starting from 2024. Because this can be a security risk in the future, we need you to follow the instructions in the ["Adjusting the Automatic Updater Configuration"](#adjusting-the-automatic-updater-configuration) section to prevent issues and keep the updaters working.
+If you really don't know what any of these are, or think that you or any apps in your PC don't make use of them, you can follow the instructions on the ["Uninstall applications"](#uninstall-applications) section above to get rid of them.
 
 ### Can I trust this?
 
