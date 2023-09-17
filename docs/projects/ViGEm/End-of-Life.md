@@ -30,6 +30,7 @@ There are two ways of adjusting the updaters:
     - There can be up to 3 of them: one for the ViGEmBus, another for HidHide and the last one for BthPS3  
   ![legacinator-outdated-updater-config.png](images/legacinator-outdated-updater-config.png)
 3. Select the options regarding the outdated configuration
+    - Newer versions of the tool will run this automatically so you don't need to do anything!
 4. Done! Updaters configuration adjusted!
 5. Close the Legacinator window and the updater popup will close as well
 
