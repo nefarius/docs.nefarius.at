@@ -172,3 +172,7 @@ All archived/discontinued projects will remain available and the actively mainta
 ### Where can I find (even) more information about this?
 
 On my Mastodon, [here you go](https://fosstodon.org/@Nefarius/111062792500817478) 😀
+
+### Why didn't you simply rebrand and keep it going? Why pull the plug?
+
+I simply don't have that kind of time, plus I've moved on working on other things. This deprecation incident alone took weeks to prepare and think through, I don't need any more of it 😉
