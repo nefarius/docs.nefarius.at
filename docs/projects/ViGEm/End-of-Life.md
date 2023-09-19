@@ -155,7 +155,7 @@ This site, the software, drivers and other products mentioned here and their upd
 
 ### Do I need to care about adjusting the updaters if I don't care about updates?
 
-It's highly recommended to do so in order to prevent the security risk described in the ["Adjusting the Automatic Updater Configuration"](#adjusting-the-automatic-updater-configuration) section.
+It's highly recommended to do so in order to prevent the security risk described in the ["About the update warnings" section](#about-the-update-warnings).
 
 ### Why does this update look and feel a bit sketchy?
 
