@@ -6,4 +6,4 @@ ScpToolkit (successor of ["XInput Wrapper for DS3 and Play.com USB Dual DS2 Cont
 
 SCP technically isn't a driver (although it shares many traits) but a huge C# program that closely mimicked what device drivers do.
 
-It was in development [from July 2015 to roughly June 2017](./History.md) and got finally archived two years later in favour of focussing on successor solutions.
+It was in development [from July 2015 to roughly June 2017](./History.md) and got finally archived two years later in favour of focussing on successor solutions. Its direct successors are [BthPS3](../BthPS3/index.md) and [DsHidMini](../DsHidMini/index.md).
