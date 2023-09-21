@@ -6,6 +6,6 @@ AirBender was a [user-mode driver](https://docs.microsoft.com/en-us/windows-hard
 
 The driver is a C-port of the C# implementation used in ScpToolkit and therefore "occupies" an entire Bluetooth dongle (radio) to function, making it impossible to use with conventional Bluetooth device (headphones, mice, ...) until uninstalled.
 
-It requires the .NET companion service [Shibari](https://github.com/ViGEm/Shibari) to detect connected controllers and have them translated into virtual Xbox 360 or DualShock 4 devices using the ViGEm Framework.
+It requires the .NET companion service [Shibari](https://github.com/ViGEm/Shibari) to detect connected controllers and have them translated into virtual Xbox 360 or DualShock 4 devices using the [ViGEm Framework](../ViGEm/index.md).
 
 It is not advised to use AirBender due to missing support and potentially remaining issues in design and code.
