@@ -38,7 +38,7 @@ HIDer is an open source application that allows you to manage HidGuardian in ord
 
 [![GitHub](https://img.shields.io/badge/GitHub-yellowgreen?logo=github)](https://github.com/JibbSmart/JoyShockMapper)
 
-The Sony PlayStation DualSense, DualShock 4, Nintendo Switch JoyCons (used in pairs), and Nintendo Switch Pro Controller have much in common. They have many of the features expected of modern game controllers. They also have an incredibly versatile and underutilised input that their biggest rival (Microsoft's Xbox One controller) doesn't have: a 3-axis gyroscope (from here on, “gyro”).
+The Sony PlayStation DualSense, DualShock 4, Nintendo Switch JoyCons (used in pairs), and Nintendo Switch Pro Controller have much in common. They have many of the features expected of modern game controllers. They also have an incredibly versatile and underutilized input that their biggest rival (Microsoft's Xbox One controller) doesn't have: a 3-axis gyroscope (from here on, “gyro”).
 
 My goal with JoyShockMapper is to enable you to play PC games with DS, DS4, JoyCons, and Pro Controllers even better than you can on their respective consoles -- and demonstrate that more games should use these features in these ways.
 

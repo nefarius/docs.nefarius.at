@@ -30,6 +30,7 @@ There are two ways of adjusting the updaters:
     - There can be up to 3 of them: one for the ViGEmBus, another for HidHide and the last one for BthPS3  
   ![legacinator-outdated-updater-config.png](images/legacinator-outdated-updater-config.png)
 3. Select the options regarding the outdated configuration
+    - Newer versions of the tool will run this automatically so you don't need to do anything!
 4. Done! Updaters configuration adjusted!
 5. Close the Legacinator window and the updater popup will close as well
 
@@ -154,7 +155,7 @@ This site, the software, drivers and other products mentioned here and their upd
 
 ### Do I need to care about adjusting the updaters if I don't care about updates?
 
-It's highly recommended to do so in order to prevent the security risk described in the ["Adjusting the Automatic Updater Configuration"](#adjusting-the-automatic-updater-configuration) section.
+It's highly recommended to do so in order to prevent the security risk described in the ["About the update warnings" section](#about-the-update-warnings).
 
 ### Why does this update look and feel a bit sketchy?
 
@@ -171,3 +172,7 @@ All archived/discontinued projects will remain available and the actively mainta
 ### Where can I find (even) more information about this?
 
 On my Mastodon, [here you go](https://fosstodon.org/@Nefarius/111062792500817478) 😀
+
+### Why didn't you simply rebrand and keep it going? Why pull the plug?
+
+I simply don't have that kind of time, plus I've moved on working on other things. This deprecation incident alone took weeks to prepare and think through, I don't need any more of it 😉
