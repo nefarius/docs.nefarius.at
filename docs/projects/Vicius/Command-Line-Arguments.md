@@ -12,6 +12,9 @@ Typically called with only once when the bundled product gets installed. Perform
 !!! warning "Prerequisite for self-updating feature"
     The install routine must be run at least **once** or the self-update feature will not be available.
 
+!!! warning "Beware of parent path changes"
+    If the updater executable is moved to a different location, this command needs to be issued again at least once.
+
 ### `--uninstall`
 
 Removes the autostart registration and deletes the scheduled task job.
