@@ -27,3 +27,15 @@ Tells the updater it's run by Task Scheduler. It will not display any UI except 
 Alters the default logging level (`info`) to the provided `<value>`.
 
 Possible values are: `trace`, `debug`, `info`, `warn`, `err`, `critical` or `off`.
+
+## `--skip-self-update`
+
+Skips the self-update procedure, even if a newer version is available.
+
+## `--silent`
+
+Suppresses any UI interaction, even when updates are found. Check the app exit code for status details.
+
+## `--ignore-busy-state`
+
+Ignores if the user session is busy and displays the main window if updates were found.
