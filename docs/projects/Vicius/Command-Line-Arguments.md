@@ -43,3 +43,19 @@ Performs tasks on user logon like checking self-integrity and searching for upda
 ### `--background`
 
 Tells the updater it's run by Task Scheduler. It will not display any UI except when an update has been found. Errors will be logged but the user will not be actively notified.
+
+## Self-Updater
+
+The following parameters are passed from the main updater process to the self-updater module.
+
+### `--pid`
+
+The Process ID of the parent updater process that invoked the self-update module.
+
+### `--url`
+
+The direct download URL of the latest updater executable.
+
+### `--path`
+
+The absolute path to the local updater executable.
