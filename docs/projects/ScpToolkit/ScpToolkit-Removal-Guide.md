@@ -125,7 +125,7 @@ In Driver Store Explorer, things will pop up slightly different, nevertheless se
 
 Then, in Device Manager go through the same "right-click, Uninstall" procedure:
 
-[![0_1547673657863_77217807-da5e-4010-a910-c64cf48059b2-image.png](../../assets/uploads/files/1547673656231-77217807-da5e-4010-a910-c64cf48059b2-image.png)]()
+![0_1547673657863_77217807-da5e-4010-a910-c64cf48059b2-image.png](../../assets/uploads/files/1547673656231-77217807-da5e-4010-a910-c64cf48059b2-image.png)
 
 Rinse and repeat until the devices won't show up under this node anymore.
 

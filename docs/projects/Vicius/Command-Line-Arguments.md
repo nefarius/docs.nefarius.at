@@ -36,6 +36,9 @@ Possible values are: `trace`, `debug`, `info`, `warn`, `err`, `critical` or `off
 
 ## Internal
 
+!!! warning "Beware of altering"
+    The following arguments are set or removed by other [common](#common) commands and should not be altered by the user.
+
 ### `--autostart`
 
 Performs tasks on user logon like checking self-integrity and searching for updates.
