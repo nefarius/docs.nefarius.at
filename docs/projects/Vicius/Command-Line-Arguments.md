@@ -34,7 +34,7 @@ Skips the self-update procedure, even if a newer version is available.
 
 ## `--silent`
 
-Suppresses any UI interaction, even when updates are found. Check the app exit code for status details.
+Suppresses any UI interaction, even when updates are found. Check the app [exit code](Exit-Codes.md) for status details.
 
 ## `--ignore-busy-state`
 
