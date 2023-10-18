@@ -49,7 +49,9 @@ Tells the updater it's run by Task Scheduler. It will not display any UI except 
 
 ## Self-Updater
 
-The following parameters are passed from the main updater process to the self-updater module. They can not be altered by the user.
+The following parameters are passed from the main updater process to the self-updater module.
+
+They can not be altered by the user.
 
 ### `--pid`
 
