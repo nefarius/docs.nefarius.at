@@ -24,6 +24,9 @@ Assuming your final updater executable name being `nefarius_HidHide_Updater.exe`
     }
     ```
 
+!!! warning "Protect the JSON file properly"
+    Make sure to deliver both the executable and the configuration file to a location on the target machine that is not writable to non-elevated users (e.g. some sub-directory of `Program Files` or similar).
+
 ### Edit the string table resource
 
 If you wish to both avoid compiling your own binary and shipping a configuration file, you can use [Resource Hacker](https://angusj.com/resourcehacker/) on the updater executable and edit the string table entry `105` as seen below:
