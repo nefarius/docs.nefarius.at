@@ -18,4 +18,4 @@ If you wish to both avoid compiling your own binary and shipping a configuration
 ![ResourceHacker_LYM3c3MEtm.png](images/ResourceHacker_LYM3c3MEtm.png)
 
 !!! warning "Doing so will break the executable signature"
-    If you use this method, beware that this will invalidate the signature of the executable. Consider re-signing the resulting binary, if possible or avoid this method.
+    If you use this method, beware that this will invalidate the signature of the executable. Consider re-signing the resulting binary, if possible or avoid this method altogether.
