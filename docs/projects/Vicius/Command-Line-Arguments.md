@@ -1,5 +1,7 @@
 # Command Line Arguments
 
+The default behaviour of the updater if invoked without any CLI arguments is to display the main window if updates are found or message dialogs in case of errors. The following CLI switches are supposed to be used for setting up the updater on the consumer system and customizing it further.
+
 ## Common
 
 ### `--install`
