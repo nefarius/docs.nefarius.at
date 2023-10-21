@@ -1,3 +1,3 @@
-# About Server Discovery
+# Server Discovery
 
 WIP
