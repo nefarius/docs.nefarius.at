@@ -46,7 +46,7 @@ Possible values are: `trace`, `debug`, `info`, `warn`, `err`, `critical` or `off
 Logs to the file specified in `<value>` in addition to the default debug sink.
 
 !!! warning "Ensure the target path is writable"
-    Bear in mind that the log file path needs to be writable for the user executing the updater. It will fail silently if it couldn't write to the specified file.
+    Bear in mind that the log file path needs to be writable for the user executing the updater. It will fail silently if it couldn't write to the specified file. See [Logging](Logging.md) article for more details.
 
 ## Internal
 
