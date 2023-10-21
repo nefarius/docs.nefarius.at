@@ -11,6 +11,19 @@ Check out the projects source code, edit the `NV_API_URL_TEMPLATE` value in `Cus
 !!! note "Consider signing your executable"
     Consider signing the resulting binary with your (company's) code signing certificate.
 
+### Provide and ship a configuration file
+
+Assuming your final updater executable name being `nefarius_HidHide_Updater.exe` you can create and package a JSON file called `nefarius_HidHide_Updater.json` to be delivered alongside your product setup. As long as the file contents are valid JSON and the name matches the updater executable, that's all you need to do!
+
+!!! example "Minimal nefarius_HidHide_Updater.json example"
+    ```json
+    {
+        "instance": {
+            "serverUrlTemplate": "https://vicius.api.nefarius.systems/api/example/updates.json"
+        }
+    }
+    ```
+
 ### Edit the string table resource
 
 If you wish to both avoid compiling your own binary and shipping a configuration file, you can use [Resource Hacker](https://angusj.com/resourcehacker/) on the updater executable and edit the string table entry `105` as seen below:
