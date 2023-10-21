@@ -9,7 +9,7 @@ WIP
 Check out the projects source code, edit the `NV_API_URL_TEMPLATE` value in `CustomizeMe.h` and build your very own copy of the updater. Done!
 
 !!! note "Consider signing your executable"
-    For integrity and authenticity reasons consider signing the resulting binary with your (company's) code signing certificate.
+    Consider signing the resulting binary with your (company's) code signing certificate.
 
 ### Edit the string table resource
 
