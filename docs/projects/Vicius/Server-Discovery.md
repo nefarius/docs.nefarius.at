@@ -1,6 +1,6 @@
 # Server Discovery
 
-WIP
+The single most important setting that *at least* needs to be customized is the URL to your web server which delivers the update configuration file. The following possibilities are offered to you to choose from.
 
 ## Configuration options
 
