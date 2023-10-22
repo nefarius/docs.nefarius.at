@@ -1,5 +1,11 @@
 # Logging
 
+Anything that can go wrong will at some point go wrong. When tha happens, the updater provides you with a ton of information vua [debug logging](https://learn.microsoft.com/en-us/windows/win32/api/debugapi/nf-debugapi-outputdebugstringa), which is always on by default.
+
+To observe the live logs I recommend using the tool [DebugView++](https://github.com/CobaltFusion/DebugViewPP) since it offers some nice filtering options and convenience features.
+
+Alternatively you can also enable [logging to file](Command-Line-Arguments.md#-log-to-file-value) or [raise the log level](Command-Line-Arguments.md#-log-level-value) to get even more details outputs.
+
 ## Examples
 
 ![DebugView++_1D66amoQZ9.png](images/DebugView++_1D66amoQZ9.png)
