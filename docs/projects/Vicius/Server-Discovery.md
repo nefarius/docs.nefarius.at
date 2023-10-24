@@ -29,6 +29,9 @@ Assuming your final updater executable name being `nefarius_HidHide_Updater.exe`
 
 ### Edit the string table resource
 
+!!! warning "Can be disabled during build"
+    This method will **not work** if the updater binary is built with `NV_FLAGS_NO_SERVER_URL_RESOURCE` set in `CustomizeMe.h`!
+
 If you wish to both avoid compiling your own binary and shipping a configuration file, you can use [Resource Hacker](https://angusj.com/resourcehacker/) on the updater executable and edit the string table entry `105` as seen below:
 
 ![ResourceHacker_LYM3c3MEtm.png](images/ResourceHacker_LYM3c3MEtm.png)
