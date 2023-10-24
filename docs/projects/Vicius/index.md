@@ -8,6 +8,8 @@ On this site you can find the extended documentation teaching you how to get it 
 
 ## Architecture
 
-The only requirement you need to *at least* fulfil is to provide a web server providing the remote update configuration file.
+The only requirement you need to *at least* fulfil is to provide a web server providing the [remote update configuration file](Remote-Configuration.md). The [Server Discovery](Server-Discovery.md) describes in detail how this is achieved.
+
+The updater is meant to be distributed alongside the product it will watch over, e.g. via a setup package created with [WiX](https://wixtoolset.org/), [Inno Setup](https://jrsoftware.org/isinfo.php), [Advanced Installer](https://www.advancedinstaller.com/) and alike. Once placed on the client machine, it requires [very little effort to be ready to run](Command-Line-Arguments.md#-install). It will be run periodically by Task Scheduler and contact the pre-configured server for the latest [remote update configuration file](Remote-Configuration.md) and makes decisions based on its content.
 
 To be continued...
