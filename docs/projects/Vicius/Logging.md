@@ -13,3 +13,5 @@ Alternatively you can also enable [logging to file](Command-Line-Arguments.md#-l
 ![DebugView++_5rCQ3ElOwB.png](images/DebugView++_5rCQ3ElOwB.png)
 
 ![DebugView++_oFMp3IErpb.png](images/DebugView++_oFMp3IErpb.png)
+
+![DebugView++_WaL0G58dvr.png](images/DebugView++_WaL0G58dvr.png)
