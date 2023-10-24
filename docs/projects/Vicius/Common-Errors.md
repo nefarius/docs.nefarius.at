@@ -17,3 +17,9 @@ If the connection is blocked, an error message similar to...
 ![nefarius_HidHide_Updater_5r14wNiMDp.png](images/nefarius_HidHide_Updater_5r14wNiMDp.png)
 
 ...might appear and needs to be rectified by the user (or the setup package the updater is bundled with).
+
+## Invalid detection method
+
+![Updater_O32X4ghzfb.png](images/Updater_O32X4ghzfb.png)
+
+This error can pop up when the updater is run without any silent switches and neither the server nor the local configuration file provided any details on how to detect the version of the product it watches over.
