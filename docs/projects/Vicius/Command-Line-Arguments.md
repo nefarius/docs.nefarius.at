@@ -48,6 +48,13 @@ Logs to the file specified in `<value>` in addition to the default debug sink.
 !!! warning "Ensure the target path is writable"
     Bear in mind that the log file path needs to be writable for the user executing the updater. It will fail silently if it couldn't write to the specified file. See [Logging](Logging.md) article for more details.
 
+### `--server-url`
+
+!!! warning "Only available in DEBUG builds"
+    This switch is intended to only work with DEBUG builds as it opens up a huge security problem when distributed to production systems.
+
+Overrides all other [Server Discovery](Server-Discovery.md) methods.
+
 ## Internal
 
 !!! warning "Beware of altering"
