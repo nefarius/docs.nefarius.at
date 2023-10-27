@@ -1,6 +1,6 @@
 # Remote Configuration
 
-The updater expects a JSON response from the update server; you can find various implementation details and examples here.
+The updater expects a JSON response from the update server; you can find various implementation details and examples here. The updater as a client is quite resilient; every property/field marked as optional/nullable can be omitted entirely in the response. In theory you don't even need to provide any releases in the response, just make it an empty array and you're good to go.
 
 ## JSON Schema
 
