@@ -22,4 +22,4 @@ At this point we only provide a setup for **Intel/AMD 64-Bit** installations. Fo
 
 ![AnyDesk_STmajKjQwQ.png](images/AnyDesk_STmajKjQwQ.png)
 
-Simply download and run the latest setup and it will work.
+Simply download and run the latest setup, go through the installation again and you're done.
