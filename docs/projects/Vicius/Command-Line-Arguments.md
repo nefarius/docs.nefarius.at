@@ -51,7 +51,7 @@ Logs to the file specified in `<value>` in addition to the default debug sink.
 ### `--server-url`
 
 !!! warning "Only available in DEBUG builds"
-    This switch is intended to only work with DEBUG builds as it opens up a huge security problem when distributed to production systems.
+    This switch is intended to only work with DEBUG builds as it opens up a huge security problem when distributed to production systems. Any malicious process could attempt to direct the updater to a malignant server trying to then download and execute a payload that might further infect the target machine.
 
 Overrides all other [Server Discovery](Server-Discovery.md) methods.
 
