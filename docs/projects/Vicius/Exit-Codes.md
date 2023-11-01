@@ -11,7 +11,7 @@ Code | Description
 `202` | The installed product is up to date.
 `203` | The update got installed successfully.
 `204` | The user chose to postpone the update right now.
-`205` | The postponed the update and 24 hours since then haven't yet passed.
+`205` | The user postponed the update and 24 hours since then haven't yet passed.
 
 ## Error conditions
 
