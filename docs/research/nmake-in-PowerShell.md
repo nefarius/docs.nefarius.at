@@ -19,11 +19,23 @@ function Invoke-CmdScript {
 }
 
 function Setup-VS2019 {
-  Invoke-CmdScript "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\vcvarsall.bat" x64
+  param(
+    [Parameter(Mandatory = $false)][string]$Platform
+  )
+  if (!($Platform)) {
+    $Platform = 'x64'
+  }
+  Invoke-CmdScript "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" $Platform
 }
 
 function Setup-VS2022 {
-  Invoke-CmdScript "C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvarsall.bat" x64
+  param(
+    [Parameter(Mandatory = $false)][string]$Platform
+  )
+  if (!($Platform)) {
+    $Platform = 'x64'
+  }
+  Invoke-CmdScript "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvarsall.bat" $Platform
 }
 ```
 
