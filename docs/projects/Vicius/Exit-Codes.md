@@ -24,3 +24,6 @@ Code | Description
 `104` | Failed to request or process update server response.
 `105` | Failed to detect installed product version.
 `106` | The user is currently running a game or other full-screen applications.
+`107` | The release download failed and the user aborted the update.
+`108` | The setup launch failed and the user aborted the update.
+`109` | The setup execution finished with a non-success exit code and the user aborted the update.
