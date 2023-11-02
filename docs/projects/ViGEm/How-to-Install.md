@@ -27,7 +27,7 @@ The usual way consists in using its built-in uninstaller:
 
 - Open Windows 10's `Apps and Features` by pressing ++win+x++ and selecting it from the menu
 - Use the search box _in the center_ to look for `Emulation` or `Nefarius`
-- Click on `Nefarius Nefarius Gamepad Emulation Bus Driver` and select `Uninstall`  
+- Click on `Nefarius Virtual Gamepad Emulation Bus Driver` and select `Uninstall`  
   ![UninstallingViGEm](images/UninstallingViGEm.png)  
 - Follow the uninstaller's instructions
 - Done. If you get prompted to reboot, do so and that's it!
