@@ -54,6 +54,7 @@ extra_javascript:
 plugins:
   - search:
       lang: en
+  - awesome-pages:
   - glightbox:
       touchNavigation: true
       loop: false
