@@ -6,4 +6,4 @@ The [configuration fetched by it](Remote-Configuration.md) is [instructed to](Em
 
 If you have no idea what any of this means; just delete the executable you just ran and close the browser window 👋
 
-If you're a developer being curious about the Vīcĭus Updater Project; you came to the right place, keep on reading this documentation! Cya around 🏃‍♀️
+If you're a developer being curious about the Vīcĭus Updater Project; you came to the right place, [keep on reading this documentation](index.md)! Cya around 🏃‍♀️
