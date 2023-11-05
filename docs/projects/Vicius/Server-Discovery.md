@@ -26,7 +26,7 @@ Assuming your final updater executable name being `nefarius_HidHide_Updater.exe`
 
 !!! warning "Protect the JSON file properly"
     Make sure to deliver both the executable and the configuration file to a location on the target machine that is not writable to non-elevated users (e.g. some sub-directory of `Program Files` or similar).  
-    Bear in mind that any other (malicious) process running in the user context can edit the configuration file if you place the updater in e.g. `%LOCALAPPDATA%` folder.
+    Bear in mind that any other (malicious) process running in the user context can edit the configuration file if you place the updater in e.g. the `%LOCALAPPDATA%` folder.
 
 ### Edit the string table resource
 
