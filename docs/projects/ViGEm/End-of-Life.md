@@ -175,7 +175,7 @@ On my Mastodon, [here you go](https://fosstodon.org/@Nefarius/111062792500817478
 
 ### Why didn't you simply rebrand and keep it going? Why pull the plug?
 
-I simply don't have that kind of time, plus I've moved on working on other things. This deprecation incident alone took weeks to prepare and think through, I don't need any more of it 😉
+I simply don't have that kind of time, plus I've moved on working on other things. This deprecation incident alone took weeks to prepare and think through, I don't need any more of it 😉 Also I've been soloing the project for roughly 7 years, people had enough time to chime in and participate. They didn't, so this is the only logical outcome 🖖
 
 ### How to fix 'Error: The filename, directory name, or volume label syntax is incorrect' update error?
 
