@@ -176,3 +176,12 @@ On my Mastodon, [here you go](https://fosstodon.org/@Nefarius/111062792500817478
 ### Why didn't you simply rebrand and keep it going? Why pull the plug?
 
 I simply don't have that kind of time, plus I've moved on working on other things. This deprecation incident alone took weeks to prepare and think through, I don't need any more of it 😉
+
+### How to fix 'Error: The filename, directory name, or volume label syntax is incorrect' update error?
+
+![ViGEmBus_Updater_2023-11-04_22-56-09.png](images/ViGEmBus_Updater_2023-11-04_22-56-09.png)
+
+If you receive this error and it doesn't go away either...
+
+- ...install the [latest setup provided on GitHub](https://github.com/nefarius/ViGEmBus/releases/latest) manually (which rips out the updater) or...
+- ...use the manual steps outlined above to manually delete the updater job from Task Scheduler.
