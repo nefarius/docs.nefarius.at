@@ -2,7 +2,9 @@
 
 Besides the [Server Discovery](Server-Discovery.md) then 2nd most important mandatory configuration block is how the updater can detect the local product it governs and how to determine it is outdated or not. These settings can be provided either by the [local](Local-Configuration.md) or [remote](Remote-Configuration.md) configuration. The following detection mechanisms are currently implemented.
 
-## `RegistryValue`
+## Detection methods
+
+### `RegistryValue`
 
 Field | Description | Mandatory
 ---|---|---
@@ -11,8 +13,14 @@ Field | Description | Mandatory
 `key` | The sub-key path under the specified hive. For example `SOFTWARE\Nefarius Software Solutions e.U.\HidHide`. | Yes
 `value` | The `REG_SZ` (string) value to read. For example `Version`. | Yes
 
-## `FileVersion`
+### `FileVersion`
 
-## `FileSize`
+To be continued...
 
-## `FileChecksum`
+### `FileSize`
+
+To be continued...
+
+### `FileChecksum`
+
+To be continued...
