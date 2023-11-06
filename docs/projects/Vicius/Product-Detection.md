@@ -1,6 +1,6 @@
 # Product Detection
 
-Besides the [Server Discovery](Server-Discovery.md) then 2nd most important mandatory configuration block is how the updater can detect the local product it governs and how to determine it is outdated or not. These settings can be provided either by the [local](Local-Configuration.md) or [remote](Remote-Configuration.md) configuration. The following detection mechanisms are currently implemented.
+Besides the [Server Discovery](Server-Discovery.md) the 2nd most important mandatory configuration block is how the updater can detect the local product it governs and how to determine it is outdated or not. These settings can be provided either by the [local](Local-Configuration.md) or [remote](Remote-Configuration.md) configuration. The following detection mechanisms are currently implemented.
 
 ## Detection methods
 
