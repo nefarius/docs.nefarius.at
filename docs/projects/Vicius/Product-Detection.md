@@ -17,7 +17,7 @@ Field | Description | Mandatory
 
 Field | Description | Mandatory
 ---|---|---
-`path` | The absolute path to a local file with a [VERSIONINFO resource](https://learn.microsoft.com/en-us/windows/win32/menurc/versioninfo-resource) where the `ProductVersion` will get compared to the release versions provided by the server.
+`path` | The absolute path to a local file with a [VERSIONINFO resource](https://learn.microsoft.com/en-us/windows/win32/menurc/versioninfo-resource) where the `ProductVersion` will get compared to the release versions provided by the server. | Yes
 
 ### `FileSize`
 
