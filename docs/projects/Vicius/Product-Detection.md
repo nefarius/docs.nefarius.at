@@ -6,7 +6,9 @@ Besides the [Server Discovery](Server-Discovery.md) the 2nd most important manda
 
 ### `RegistryValue`
 
-The product version is queried from a Registry location. The value to query must be of type [`REG_SZ`](https://learn.microsoft.com/en-us/windows/win32/sysinfo/registry-value-types).
+The product version is queried from a Registry location.
+
+The value to query must be a string of of type [`REG_SZ`](https://learn.microsoft.com/en-us/windows/win32/sysinfo/registry-value-types).
 
 Field | Description | Mandatory
 ---|---|---
