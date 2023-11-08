@@ -6,6 +6,8 @@ Besides the [Server Discovery](Server-Discovery.md) the 2nd most important manda
 
 ### `RegistryValue`
 
+The product version is queried from a Registry location. The value to query must be of type [`REG_SZ`](https://learn.microsoft.com/en-us/windows/win32/sysinfo/registry-value-types).
+
 Field | Description | Mandatory
 ---|---|---
 `view` | The [Alternate Registry View](https://learn.microsoft.com/en-us/windows/win32/winprog64/accessing-an-alternate-registry-view) to use if a 32-Bit updater process needs to read a 64-Bit key and vice versa. Only useful if the updater architecture differs from the installed product architecture (e.g. the product is a 32-Bit installation and the updater is a 64-Bit build). In most cases it should be avoided to mix architectures and simply use the value `Default`. Possible values are <ul><li>`Default` - Doesn't alter default behaviour.</li><li>`WOW64_64KEY` - Access a 64-bit key from either a 32-bit or 64-bit application.</li><li>`WOW64_32KEY` - Access a 32-bit key from either a 32-bit or 64-bit application.</li></ul> | Yes
