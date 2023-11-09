@@ -24,7 +24,7 @@ Reads the [VERSIONINFO resource](https://learn.microsoft.com/en-us/windows/win32
 Field | Description | Mandatory
 ---|---|---
 `input` | The absolute path **or** the inja template resolve the path to the client file to read. | Yes
-`statement` | The version resource statement to read. Possible values are <ul><li>`FILEVERSION` - The binary version number for the file.</li><li>`PRODUCTVERSION` - The binary version number for the product with which the file is distributed.</li></ul> | Yes
+`statement` | The version resource statement to read. Possible values are <ul><li>`FILEVERSION` - The binary version number for the file.</li><li>`PRODUCTVERSION` - The binary version number for the product with which the file is distributed.</li></ul> This is the default, if omitted. | No
 `data` | A dictionary/map of the data used in the template. | No
 
 ### `FileSize`
