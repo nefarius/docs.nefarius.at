@@ -29,7 +29,7 @@ Field | Description | Mandatory
 
 ### `FileSize`
 
-Reads a file's size (in bytes) and compares it to the release's `detectionSize` field provided by the server. If the local size doesn't match the release size, the product is flagged as outdated.
+Reads a file's size (in bytes) and compares it to the release's `detectionSize` field provided by the server. If the local size doesn't match the release size the product is flagged as outdated.
 
 Field | Description | Mandatory
 ---|---|---
@@ -38,4 +38,9 @@ Field | Description | Mandatory
 
 ### `FileChecksum`
 
-To be continued...
+Computes a file's hash/checksum via the algorithm specified in the release and compares it to the `detectionChecksum.checksum` field. If the locally computed hash doesn't match the release hash (case-insensitive) the product is flagged as outdated.
+
+Field | Description | Mandatory
+---|---|---
+`input` | The absolute path **or** the inja template resolve the path to the client file to read. | Yes
+`data` | A dictionary/map of the data used in the template. | No
