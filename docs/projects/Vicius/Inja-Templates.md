@@ -4,7 +4,11 @@ To be continued...
 
 ## Extension functions
 
+In addition to the [built-in functions](https://github.com/pantor/inja#functions), the following custom extensions are provided.
+
 ### `envar`
+
+Expands/resolves an environment variable by name.
 
 Parameter Pos. | Description | Mandatory
 ---|---|---
@@ -12,6 +16,8 @@ Parameter Pos. | Description | Mandatory
 2 | The optional fallback value to use if the variable couldn't be read or doesn't exist. | No
 
 ### `regval`
+
+Queries a registry value.
 
 Parameter Pos. | Description | Mandatory
 ---|---|---
