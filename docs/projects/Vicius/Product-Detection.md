@@ -23,7 +23,7 @@ Reads the [VERSIONINFO resource](https://learn.microsoft.com/en-us/windows/win32
 
 Field | Description | Mandatory
 ---|---|---
-`input` | The absolute path **or** the inja template resolve the path to the client file to read. | Yes
+`input` | The absolute path **or** the [inja template](Inja-Templates.md) resolve the path to the client file to read. | Yes
 `statement` | The version resource statement to read. Possible values are <ul><li>`FILEVERSION` - The binary version number for the file.</li><li>`PRODUCTVERSION` - The binary version number for the product with which the file is distributed. This is the default, if omitted.</li></ul> | No
 `data` | A dictionary/map of the data used in the template. | No
 
@@ -33,7 +33,7 @@ Reads a file's size (in bytes) and compares it to the release's `detectionSize` 
 
 Field | Description | Mandatory
 ---|---|---
-`input` | The absolute path **or** the inja template resolve the path to the client file to read. | Yes
+`input` | The absolute path **or** the [inja template](Inja-Templates.md) resolve the path to the client file to read. | Yes
 `data` | A dictionary/map of the data used in the template. | No
 
 ### `FileChecksum`
@@ -42,5 +42,5 @@ Computes a file's hash/checksum via the algorithm specified in the release and c
 
 Field | Description | Mandatory
 ---|---|---
-`input` | The absolute path **or** the inja template resolve the path to the client file to read. | Yes
+`input` | The absolute path **or** the [inja template](Inja-Templates.md) resolve the path to the client file to read. | Yes
 `data` | A dictionary/map of the data used in the template. | No
