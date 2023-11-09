@@ -26,3 +26,14 @@ Parameter Pos. | Description | Mandatory
 3 | The sub-key path under the specified hive. For example `SOFTWARE\Nefarius Software Solutions e.U.\HidHide`. | Yes
 4 | The value name to query. Type gets auto-detected. Supported value types are <ul><li>`REG_BINARY` - Read as a byte array. Gets returned as a JSON array string.</li><li>`REG_DWORD` - A 32-bit number. Gets returned as a string.</li><li>`REG_EXPAND_SZ` - A null-terminated string that contains references to environment variables, for example, %PATH%. Gets returned with its environment variables expanded.</li><li>`REG_MULTI_SZ` - A sequence of null-terminated strings, terminated by an empty string (\0). Gets returned as a JSON array string.</li><li>`REG_QWORD` - A 64-bit number. Gets returned as a string.</li><li>`REG_SZ` - A null-terminated string.</li></ul> | Yes
 5 | The fallback value to return on error, if provided. An empty string by default. | No
+
+### `inival`
+
+Reads a value from a section of an INI file.
+
+Parameter Pos. | Description | Mandatory
+---|---|---
+1 | The path to the INI file to read. | Yes
+2 | The section to search the key in. | Yes
+3 | The key name to read. | Yes
+4 | The fallback value to return on error, if provided. An empty string by default. | No
