@@ -19,6 +19,8 @@ Field | Description | Mandatory
 
 ### `FileVersion`
 
+Reads the [VERSIONINFO resource](https://learn.microsoft.com/en-us/windows/win32/menurc/versioninfo-resource) of a given file where the `FileVersion` (or `ProductVersion`) will get compared to the release's `detectionVersion` field provided by the server.
+
 Field | Description | Mandatory
 ---|---|---
 `input` | The absolute path **or** the inja template resolve the path to the client file to read. | Yes
