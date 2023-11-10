@@ -44,3 +44,17 @@ Field | Description | Mandatory
 ---|---|---
 `input` | The absolute path **or** the [inja template](Inja-Templates.md) resolve the path to the client file to read. | Yes
 `data` | A dictionary/map of the data used in the template. | No
+
+### `CustomExpression`
+
+Evaluates a custom [inja expression](Inja-Templates.md) to determine the state.
+
+Returning `true` when the product is considered outdated, return `false` otherwise.
+
+Field | Description | Mandatory
+---|---|---
+`input` | The [inja template](Inja-Templates.md) to evaluate on the client. | Yes
+`data` | A dictionary/map of the data used in the template. | No
+
+!!! important "Access to data in your expression"
+    You can use two pre-defined variables in your template/expression: `instance` which holds the entire configuration state of the client and `parameters` which holds what the server provided in the `data` field.
