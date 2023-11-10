@@ -49,7 +49,7 @@ Field | Description | Mandatory
 
 Evaluates a custom [inja expression](Inja-Templates.md) to determine the state.
 
-Returning `true` when the product is considered outdated, return `false` otherwise.
+Returning `true` indicates the product is considered outdated, return `false` otherwise.
 
 Field | Description | Mandatory
 ---|---|---
