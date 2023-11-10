@@ -4,7 +4,7 @@ Anything that can go wrong will at some point go wrong. When that happens, the u
 
 To observe the live logs I recommend using the tool [DebugView++](https://github.com/CobaltFusion/DebugViewPP) since it offers some nice filtering options and other convenience features.
 
-Alternatively you can also enable [logging to file](Command-Line-Arguments.md#-log-to-file-value) or [raise the log level](Command-Line-Arguments.md#-log-level-value) to get even more details.
+Alternatively, you can also enable [logging to file](Command-Line-Arguments.md#-log-to-file-value) or [raise the log level](Command-Line-Arguments.md#-log-level-value) to get even more details.
 
 ## Examples
 
