@@ -1,6 +1,17 @@
 # Inja Templates
 
-To be continued...
+The [Inja template engine](https://github.com/pantor/inja) is used for every field which involved specifying or resolving a file path on the local machine. This allows the user to specify any number of more or less complex lookups in dynamically building paths that might differ on each system.
+
+For example hard-coding the absolute path `C:\Windows\System32\drivers\HidHide.sys` comes with some more or less obvious downsides; the users' Windows installation might not be located under the iconic `C:\` drive and the lookup would fail. Instead we can query for the system directory dynamically with a template like `{{ envar(windir) }}\System32\drivers\{{ product }}.sys` with the following data:
+
+```json
+"data": {
+    "windir": "WINDIR",
+    "product": "HidHide"
+}
+```
+
+To fully understand the syntax and usage please [get familiar with the official tutorial first](https://github.com/pantor/inja#tutorial), then continue this article to learn the product-specific extensions.
 
 ## Extension functions
 
