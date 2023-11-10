@@ -57,4 +57,7 @@ Field | Description | Mandatory
 `data` | A dictionary/map of the data used in the template. | No
 
 !!! important "Access to data in your expression"
-    You can use two pre-defined variables in your template/expression: `merged` which holds the shared configuration state of the client, `remote` which holds the server response and `parameters` which holds what the server provided in the `data` field.
+    You can use three pre-defined variables in your template/expression:  
+    `merged` holds the shared configuration state of the client  
+    `remote` holds the server response and  
+    `parameters` holds what the server provided in the `data` field.
