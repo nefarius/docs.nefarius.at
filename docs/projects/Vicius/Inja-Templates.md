@@ -58,7 +58,7 @@ Parameter Pos. | Description | Mandatory
 1 | The Uninstall Registry value name (e.g. `DisplayName`) to query. | Yes
 2 | The regular expression to apply to the queried value. | Yes
 
-!!! example ""
+!!! example "Query and response example"
     The example query `{% set query=productBy(parameters.value, parameters.product) %}` with data  
     ```json
         "data": {
