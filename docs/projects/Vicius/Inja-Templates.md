@@ -61,7 +61,7 @@ Parameter Pos. | Description | Mandatory
 !!! example "Query and response example"
     The example query `{% set query=productBy(parameters.value, parameters.product) %}` with data  
     ```json
-        "data": {
+    "data": {
         "value": "Publisher",
         "product": "Blackmagic"
     }
