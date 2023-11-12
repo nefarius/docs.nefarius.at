@@ -6,6 +6,8 @@ Besides the [Server Discovery](Server-Discovery.md) the 2nd most important manda
 
 ### `RegistryValue`
 
+[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/swagger/index.html#/Examples/NefariusViciusExampleServerEndpointsDetectionRegistryValueEndpoint)
+
 The product version is queried from a Registry location.
 
 The value to query must be a string of of type [`REG_SZ`](https://learn.microsoft.com/en-us/windows/win32/sysinfo/registry-value-types).
@@ -19,6 +21,8 @@ Field | Description | Mandatory
 
 ### `FileVersion`
 
+[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/swagger/index.html#/Examples/NefariusViciusExampleServerEndpointsDetectionFileVersionEndpoint)
+
 Reads the [VERSIONINFO resource](https://learn.microsoft.com/en-us/windows/win32/menurc/versioninfo-resource) of a given file where the `FileVersion` (or `ProductVersion`) will get compared to the release's `detectionVersion` field provided by the server.
 
 Field | Description | Mandatory
@@ -29,6 +33,8 @@ Field | Description | Mandatory
 
 ### `FileSize`
 
+[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/swagger/index.html#/Examples/NefariusViciusExampleServerEndpointsDetectionFileSizeEndpoint)
+
 Reads a file's size (in bytes) and compares it to the release's `detectionSize` field provided by the server. If the local size doesn't match the release size the product is flagged as outdated.
 
 Field | Description | Mandatory
@@ -38,6 +44,8 @@ Field | Description | Mandatory
 
 ### `FileChecksum`
 
+[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/swagger/index.html#/Examples/NefariusViciusExampleServerEndpointsDetectionFileChecksumEndpoint)
+
 Computes a file's hash/checksum via the algorithm specified in the release and compares it to the `detectionChecksum.checksum` field. If the locally computed hash doesn't match the release hash (case-insensitive) the product is flagged as outdated.
 
 Field | Description | Mandatory
@@ -46,6 +54,8 @@ Field | Description | Mandatory
 `data` | A dictionary/map of the data used in the template. | No
 
 ### `CustomExpression`
+
+[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/swagger/index.html#/Examples/NefariusViciusExampleServerEndpointsDetectionCustomExpressionEndpoint)
 
 Evaluates a custom [inja expression](Inja-Templates.md) to determine the state.
 
