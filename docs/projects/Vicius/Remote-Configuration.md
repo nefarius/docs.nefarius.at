@@ -17,3 +17,7 @@ You can find the C++ types used [here](https://github.com/nefarius/vicius/tree/m
 ## Swagger API documentation
 
 Check out the [Swagger documentation](https://vicius.api.nefarius.systems/swagger/index.html) for the example implementations.
+
+## Hosted examples
+
+An ever growing collection of example configurations [is hosted here](https://vicius.api.nefarius.systems/swagger/index.html#/Examples).
