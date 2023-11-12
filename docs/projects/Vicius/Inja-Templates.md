@@ -72,6 +72,7 @@ Parameter Pos. | Description | Mandatory
         "count": "5",
         "results": [
             {
+                "DisplayName": "Fairlight Audio Accelerator Utility",
                 "Publisher": "Blackmagic Design",
                 "displayVersion": "1.0.13",
                 "installDate": "20211215",
@@ -80,6 +81,7 @@ Parameter Pos. | Description | Mandatory
                 "uninstallString": "\"C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\audio\\Fairlight Audio Accelerator\\unins000.exe\""
             },
             {
+                "DisplayName": "DaVinci Resolve Keyboards",
                 "Publisher": "Blackmagic Design",
                 "displayVersion": "1.0.0.0",
                 "installDate": "20191118",
@@ -90,6 +92,7 @@ Parameter Pos. | Description | Mandatory
                 "uninstallString": "MsiExec.exe /X{04F776FB-37A2-4116-84F2-6CF3D731999D}"
             },
             {
+                "DisplayName": "DaVinci Resolve Control Panels",
                 "Publisher": "Blackmagic Design",
                 "displayVersion": "2.0.1.0",
                 "installDate": "20211210",
@@ -100,6 +103,7 @@ Parameter Pos. | Description | Mandatory
                 "uninstallString": "MsiExec.exe /X{7667C543-084F-47F7-BC60-175FC25E9D6F}"
             },
             {
+                "DisplayName": "DaVinci Resolve",
                 "Publisher": "Blackmagic Design",
                 "displayVersion": "17.4.20009",
                 "installDate": "20211215",
@@ -110,6 +114,7 @@ Parameter Pos. | Description | Mandatory
                 "uninstallString": "MsiExec.exe /X{D407791D-9F95-4731-89BB-1BE70CB8A25F}"
             },
             {
+                "DisplayName": "Blackmagic RAW Common Components",
                 "Publisher": "Blackmagic Design",
                 "displayVersion": "2.1",
                 "installDate": "20210321",
