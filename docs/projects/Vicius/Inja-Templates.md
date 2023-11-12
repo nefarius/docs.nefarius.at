@@ -48,3 +48,77 @@ Parameter Pos. | Description | Mandatory
 2 | The section to search the key in. | Yes
 3 | The key name to read. | Yes
 4 | The fallback value to return on error, if provided. An empty string by default. | No
+
+### `productBy`
+
+Searches for an installed products' details based on provided regular expression.
+
+Parameter Pos. | Description | Mandatory
+---|---|---
+1 | The Uninstall Registry value name (e.g. `DisplayName`) to query. | Yes
+2 | The regular expression to apply to the queried value. | Yes
+
+!!! example ""
+    The example query `{% set query=productBy(parameters.value, parameters.product) %}` with data  
+    ```json
+        "data": {
+        "value": "Publisher",
+        "product": "Blackmagic"
+    }
+    ```  
+    will result in the following content of the `query` variable:
+    ```json
+    {
+        "count": "5",
+        "results": [
+            {
+                "Publisher": "Blackmagic Design",
+                "displayVersion": "1.0.13",
+                "installDate": "20211215",
+                "installLocation": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\audio\\Fairlight Audio Accelerator\\",
+                "publisher": "Blackmagic Design",
+                "uninstallString": "\"C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\audio\\Fairlight Audio Accelerator\\unins000.exe\""
+            },
+            {
+                "Publisher": "Blackmagic Design",
+                "displayVersion": "1.0.0.0",
+                "installDate": "20191118",
+                "installLocation": "",
+                "installSource": "C:\\Users\\nefar\\AppData\\Local\\Temp\\{0F99ED6C-B74F-4761-B400-1E60209F202C}\\",
+                "language": "1033",
+                "publisher": "Blackmagic Design",
+                "uninstallString": "MsiExec.exe /X{04F776FB-37A2-4116-84F2-6CF3D731999D}"
+            },
+            {
+                "Publisher": "Blackmagic Design",
+                "displayVersion": "2.0.1.0",
+                "installDate": "20211210",
+                "installLocation": "",
+                "installSource": "C:\\Users\\nefar\\AppData\\Local\\Temp\\{6B2CFC86-11E0-48D2-966E-54D9E47D1BBB}\\",
+                "language": "1033",
+                "publisher": "Blackmagic Design",
+                "uninstallString": "MsiExec.exe /X{7667C543-084F-47F7-BC60-175FC25E9D6F}"
+            },
+            {
+                "Publisher": "Blackmagic Design",
+                "displayVersion": "17.4.20009",
+                "installDate": "20211215",
+                "installLocation": "",
+                "installSource": "C:\\Users\\nefar\\AppData\\Local\\Temp\\7zS41876E80\\",
+                "language": "1033",
+                "publisher": "Blackmagic Design",
+                "uninstallString": "MsiExec.exe /X{D407791D-9F95-4731-89BB-1BE70CB8A25F}"
+            },
+            {
+                "Publisher": "Blackmagic Design",
+                "displayVersion": "2.1",
+                "installDate": "20210321",
+                "installLocation": "",
+                "installSource": "C:\\Users\\nefar\\AppData\\Local\\Temp\\{66175DB2-488F-4AEA-B383-442619210E33}\\",
+                "language": "1033",
+                "publisher": "Blackmagic Design",
+                "uninstallString": "MsiExec.exe /I{FC105F36-D90B-4135-B954-F50CDCFACA3D}"
+            }
+        ]
+    }
+    ```
