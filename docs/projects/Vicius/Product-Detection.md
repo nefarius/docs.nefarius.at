@@ -6,7 +6,7 @@ Besides the [Server Discovery](Server-Discovery.md) the 2nd most important manda
 
 ### `RegistryValue`
 
-[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/swagger/index.html#/Examples/NefariusViciusExampleServerEndpointsDetectionRegistryValueEndpoint)
+[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/api/contoso/RegistryValue/updates.json)
 
 The product version is queried from a Registry location.
 
@@ -21,7 +21,7 @@ Field | Description | Mandatory
 
 ### `FileVersion`
 
-[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/swagger/index.html#/Examples/NefariusViciusExampleServerEndpointsDetectionFileVersionEndpoint)
+[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/api/contoso/FileVersion/updates.json)
 
 Reads the [VERSIONINFO resource](https://learn.microsoft.com/en-us/windows/win32/menurc/versioninfo-resource) of a given file where the `FileVersion` (or `ProductVersion`) will get compared to the release's `detectionVersion` field provided by the server.
 
@@ -33,7 +33,7 @@ Field | Description | Mandatory
 
 ### `FileSize`
 
-[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/swagger/index.html#/Examples/NefariusViciusExampleServerEndpointsDetectionFileSizeEndpoint)
+[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/api/contoso/FileSize/updates.json)
 
 Reads a file's size (in bytes) and compares it to the release's `detectionSize` field provided by the server. If the local size doesn't match the release size the product is flagged as outdated.
 
@@ -44,7 +44,7 @@ Field | Description | Mandatory
 
 ### `FileChecksum`
 
-[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/swagger/index.html#/Examples/NefariusViciusExampleServerEndpointsDetectionFileChecksumEndpoint)
+[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/api/contoso/FileChecksum/updates.json)
 
 Computes a file's hash/checksum via the algorithm specified in the release and compares it to the `detectionChecksum.checksum` field. If the locally computed hash doesn't match the release hash (case-insensitive) the product is flagged as outdated.
 
@@ -55,7 +55,7 @@ Field | Description | Mandatory
 
 ### `CustomExpression`
 
-[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/swagger/index.html#/Examples/NefariusViciusExampleServerEndpointsDetectionCustomExpressionEndpoint)
+[![Badge](https://img.shields.io/badge/Show%20example-yellow)](https://vicius.api.nefarius.systems/api/contoso/CustomExpression/updates.json)
 
 Evaluates a custom [inja expression](Inja-Templates.md) to determine the state.
 
