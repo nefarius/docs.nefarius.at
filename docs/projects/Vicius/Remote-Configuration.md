@@ -8,7 +8,7 @@ The current [master branch update response schema](https://github.com/nefarius/v
 
 ## C# POCO
 
-The response types (classes, enums) are available via the [example server implementation](https://github.com/nefarius/vicius/blob/master/examples/server/Models/UpdateResponse.cs).
+The response types (classes, enums) are available via the [example server implementation](https://github.com/nefarius/vicius/blob/master/examples/server/Models).
 
 ## C++ models
 
