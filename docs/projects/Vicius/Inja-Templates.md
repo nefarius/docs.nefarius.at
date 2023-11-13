@@ -55,7 +55,7 @@ Searches for an installed products' details based on provided regular expression
 
 Parameter Pos. | Description | Mandatory
 ---|---|---
-1 | The Uninstall Registry value name (e.g. `DisplayName`) to query. | Yes
+1 | The Uninstall Registry value name (e.g. `DisplayName`, `Publisher`, ...) to query. | Yes
 2 | The regular expression to apply to the queried value. | Yes
 
 !!! example "Query and response example"
@@ -72,8 +72,8 @@ Parameter Pos. | Description | Mandatory
         "count": "5",
         "results": [
             {
-                "DisplayName": "Fairlight Audio Accelerator Utility",
-                "Publisher": "Blackmagic Design",
+                "displayName": "Fairlight Audio Accelerator Utility",
+                "publisher": "Blackmagic Design",
                 "displayVersion": "1.0.13",
                 "installDate": "20211215",
                 "installLocation": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\audio\\Fairlight Audio Accelerator\\",
@@ -81,8 +81,8 @@ Parameter Pos. | Description | Mandatory
                 "uninstallString": "\"C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\audio\\Fairlight Audio Accelerator\\unins000.exe\""
             },
             {
-                "DisplayName": "DaVinci Resolve Keyboards",
-                "Publisher": "Blackmagic Design",
+                "displayName": "DaVinci Resolve Keyboards",
+                "publisher": "Blackmagic Design",
                 "displayVersion": "1.0.0.0",
                 "installDate": "20191118",
                 "installLocation": "",
@@ -92,8 +92,8 @@ Parameter Pos. | Description | Mandatory
                 "uninstallString": "MsiExec.exe /X{04F776FB-37A2-4116-84F2-6CF3D731999D}"
             },
             {
-                "DisplayName": "DaVinci Resolve Control Panels",
-                "Publisher": "Blackmagic Design",
+                "displayName": "DaVinci Resolve Control Panels",
+                "publisher": "Blackmagic Design",
                 "displayVersion": "2.0.1.0",
                 "installDate": "20211210",
                 "installLocation": "",
@@ -103,8 +103,8 @@ Parameter Pos. | Description | Mandatory
                 "uninstallString": "MsiExec.exe /X{7667C543-084F-47F7-BC60-175FC25E9D6F}"
             },
             {
-                "DisplayName": "DaVinci Resolve",
-                "Publisher": "Blackmagic Design",
+                "displayName": "DaVinci Resolve",
+                "publisher": "Blackmagic Design",
                 "displayVersion": "17.4.20009",
                 "installDate": "20211215",
                 "installLocation": "",
@@ -114,8 +114,8 @@ Parameter Pos. | Description | Mandatory
                 "uninstallString": "MsiExec.exe /X{D407791D-9F95-4731-89BB-1BE70CB8A25F}"
             },
             {
-                "DisplayName": "Blackmagic RAW Common Components",
-                "Publisher": "Blackmagic Design",
+                "displayName": "Blackmagic RAW Common Components",
+                "publisher": "Blackmagic Design",
                 "displayVersion": "2.1",
                 "installDate": "20210321",
                 "installLocation": "",
