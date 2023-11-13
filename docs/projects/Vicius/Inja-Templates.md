@@ -73,7 +73,6 @@ Parameter Pos. | Description | Mandatory
         "results": [
             {
                 "displayName": "Fairlight Audio Accelerator Utility",
-                "publisher": "Blackmagic Design",
                 "displayVersion": "1.0.13",
                 "installDate": "20211215",
                 "installLocation": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\audio\\Fairlight Audio Accelerator\\",
@@ -82,7 +81,6 @@ Parameter Pos. | Description | Mandatory
             },
             {
                 "displayName": "DaVinci Resolve Keyboards",
-                "publisher": "Blackmagic Design",
                 "displayVersion": "1.0.0.0",
                 "installDate": "20191118",
                 "installLocation": "",
@@ -93,7 +91,6 @@ Parameter Pos. | Description | Mandatory
             },
             {
                 "displayName": "DaVinci Resolve Control Panels",
-                "publisher": "Blackmagic Design",
                 "displayVersion": "2.0.1.0",
                 "installDate": "20211210",
                 "installLocation": "",
@@ -104,7 +101,6 @@ Parameter Pos. | Description | Mandatory
             },
             {
                 "displayName": "DaVinci Resolve",
-                "publisher": "Blackmagic Design",
                 "displayVersion": "17.4.20009",
                 "installDate": "20211215",
                 "installLocation": "",
@@ -115,7 +111,6 @@ Parameter Pos. | Description | Mandatory
             },
             {
                 "displayName": "Blackmagic RAW Common Components",
-                "publisher": "Blackmagic Design",
                 "displayVersion": "2.1",
                 "installDate": "20210321",
                 "installLocation": "",
