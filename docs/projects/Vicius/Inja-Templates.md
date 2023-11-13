@@ -55,7 +55,7 @@ Searches for an installed products' details based on provided regular expression
 
 Parameter Pos. | Description | Mandatory
 ---|---|---
-1 | The Uninstall Registry value name (e.g. `DisplayName`, `Publisher`, ...) to query. | Yes
+1 | The Uninstall Registry value name (e.g. `DisplayName`) to query. | Yes
 2 | The regular expression to apply to the queried value. | Yes
 
 !!! example "Query and response example"
