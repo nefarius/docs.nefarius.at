@@ -80,7 +80,7 @@ The Process ID of the parent updater process that invoked the self-update module
 
 ### `--url`
 
-The direct download URL of the latest updater executable.
+The download URL of the latest updater executable. Redirects are supported.
 
 ### `--path`
 
