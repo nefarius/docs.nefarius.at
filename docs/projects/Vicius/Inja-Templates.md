@@ -122,3 +122,36 @@ Parameter Pos. | Description | Mandatory
         ]
     }
     ```
+
+### `versionEq`
+
+Compares two version values (`X.X.X` semantic version and `X.X.X.X` Windows formats supported).
+
+Returns true if both version match.
+
+Parameter Pos. | Description | Mandatory
+---|---|---
+1 | The left-hand-side version value to compare. | Yes
+2 | The right-hand-side version value to compare. | Yes
+
+### `versionGt`
+
+Compares two version values (`X.X.X` semantic version and `X.X.X.X` Windows formats supported).
+
+Returns true if the left-hand-side version is greater than the right-hand-side version.
+
+Parameter Pos. | Description | Mandatory
+---|---|---
+1 | The left-hand-side version value to compare. | Yes
+2 | The right-hand-side version value to compare. | Yes
+
+### `versionLt`
+
+Compares two version values (`X.X.X` semantic version and `X.X.X.X` Windows formats supported).
+
+Returns true if the left-hand-side version is lower than the right-hand-side version.
+
+Parameter Pos. | Description | Mandatory
+---|---|---
+1 | The left-hand-side version value to compare. | Yes
+2 | The right-hand-side version value to compare. | Yes
