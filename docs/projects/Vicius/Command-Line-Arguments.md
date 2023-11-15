@@ -33,7 +33,7 @@ Check the app [exit code](Exit-Codes.md) for status details.
 
 ### `--silent-update`
 
-Suppresses any UI interaction, downloads and invokes the latest release found and exits afterwards.
+Suppresses any UI, downloads and invokes the latest release found and exits afterwards.
 
 Does nothing if the product is already up to date.
 
