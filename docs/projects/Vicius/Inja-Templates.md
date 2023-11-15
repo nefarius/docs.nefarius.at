@@ -155,3 +155,13 @@ Parameter Pos. | Description | Mandatory
 ---|---|---
 1 | The left-hand-side version value to compare. | Yes
 2 | The right-hand-side version value to compare. | Yes
+
+### `exists`
+
+Checks if a give file (path) exists.
+
+Returns true if it exists, false otherwise.
+
+Parameter Pos. | Description | Mandatory
+---|---|---
+1 | The file path to check. | Yes
