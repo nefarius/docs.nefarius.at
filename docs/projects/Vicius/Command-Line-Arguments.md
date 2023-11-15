@@ -38,7 +38,8 @@ Suppresses any UI, downloads and invokes the latest release found and exits afte
 Does nothing if the product is already up to date.
 
 !!! important "Check exit codes for success or errors"
-    This flag is most useful if you decide to trigger updates directly from your own application. Make sure to check the [exit code](Exit-Codes.md) to react to possible errors during the update procedure.
+    This flag is most useful if you decide to trigger updates directly from your own application.  
+    Make sure to check the [exit code](Exit-Codes.md) to react to possible errors during the update procedure.
 
 ### `--ignore-busy-state`
 
