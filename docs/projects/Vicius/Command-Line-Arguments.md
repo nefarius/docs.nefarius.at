@@ -31,6 +31,15 @@ Suppresses any UI interaction, even when updates are found.
 
 Check the app [exit code](Exit-Codes.md) for status details.
 
+### `--silent-update`
+
+Suppresses any UI interaction, downloads and invokes the latest update setup found and exits afterwards.
+
+Does nothing if the product is already up to date.
+
+!!! important "Check exit codes for success or errors"
+    This flag is most useful if you decide to trigger updates directly from your own application. Make sure to check the [exit code](Exit-Codes.md) to react to possible errors during the update procedure.
+
 ### `--ignore-busy-state`
 
 Ignores if the user session is busy and displays the main window if updates were found.
