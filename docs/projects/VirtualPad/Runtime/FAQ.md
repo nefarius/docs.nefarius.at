@@ -4,10 +4,12 @@ TBD
 
 ## Where to find error details if the installation failed?
 
-![gVxmsOd44y.png](images/gVxmsOd44y.png)
+![AnyDesk_3R6KNfaIMx.png](../images/AnyDesk_3R6KNfaIMx.png)
 
-![mmc_Tz8BRNWnCV.png](images/mmc_Tz8BRNWnCV.png)
+![gVxmsOd44y.png](../images/gVxmsOd44y.png)
 
-![hdMNaO215y.png](images/hdMNaO215y.png)
+![mmc_Tz8BRNWnCV.png](../images/mmc_Tz8BRNWnCV.png)
 
-![IdA7f9gz1p.png](images/IdA7f9gz1p.png)
+![hdMNaO215y.png](../images/hdMNaO215y.png)
+
+![IdA7f9gz1p.png](../images/IdA7f9gz1p.png)
