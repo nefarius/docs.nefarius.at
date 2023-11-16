@@ -1,6 +1,6 @@
 # Frequently Asked Questions
 
-TBD
+An ever growing collection of frequently asked questions and their respective answers 🙃
 
 ## Where to find error details if the installation failed?
 
