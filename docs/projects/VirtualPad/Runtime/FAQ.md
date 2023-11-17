@@ -30,6 +30,6 @@ Select a location where to store the export file to and when asked about the Dis
 
 ![gYnGavzf90.png](../images/gYnGavzf90.png)
 
-You can now share the generated `.evtx` file with support personnel. If the file is too big to share, compress it first using e.g. 7zip or WinRAR or similar.
+You can now share the generated `.evtx` file and `LocaleMetaData` directory with support personnel. It's best to compress them using e.g. 7zip or WinRAR or similar to have one single file to share.
 
 Good luck!
