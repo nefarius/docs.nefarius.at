@@ -4,7 +4,7 @@
 
 ![HIN2XXC51N.png](images/HIN2XXC51N.png)
 
-![zLPjj9mp7X.png](imkages/zLPjj9mp7X.png)
+![zLPjj9mp7X.png](images/zLPjj9mp7X.png)
 
 ![vJDIIE5kPK.png](images/vJDIIE5kPK.png)
 
