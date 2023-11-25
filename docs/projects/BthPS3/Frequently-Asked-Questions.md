@@ -63,6 +63,8 @@ This removes the requirement to load the filter driver, which might be missing, 
 
 > This device can not start. (Code 10)
 
+![Code_10](images/code_10.png)  
+
 Your Bluetooth host dongle/card is too old 🙂 Time to upgrade or switch to something slightly more expensive and sturdy 🤞
 
 ## What Bluetooth hosts are supported?
