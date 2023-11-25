@@ -36,6 +36,17 @@ Go back to the [_How do I use it?_](#how-do-i-use-it) question.
 
 Read the [_Features_ section](https://github.com/nefarius/DsHidMini#features) of the main GitHub page of DsHidMini.
 
+## How to fix `Device Timeout`?
+
+> This device cannot start. (Code 10)  
+>
+> {Device Tune-ot-I}
+> The specified I/O operation on %hs was completed before the time-out period expired.
+
+![timeout](images/timeout.png)
+
+You can't, that's a hardware issue. Your controller didn't respond to a mandatory command in time, there's nothing the software can da about that.
+
 ## How do I use my controller as a Xbox 360 or DualShock 4?
 
 ### Recommended method
