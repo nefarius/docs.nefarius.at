@@ -4,6 +4,8 @@ Got questions? Who can blame you 😅 we can provide some answers, though! Read 
 
 ## How to fix this setup message?
 
+> Bluetooth Host Radio not found. A working Bluetooth stack is required for driver installation or removal.
+
 ![Error message](images/glvDeYjpQi.png)
 
 Your Bluetooth isn't working 🙂 If you're on a Laptop, make sure you haven't disabled wireless either via a physical switch or a key combination (depends on the device model). On Desktop, make sure you actually have a Bluetooth dongle plugged in 😉 If you had other solutions like ScpToolkit or AirBender installed, make sure they have been removed completely and you run stock drivers. If you don't see the little Bluetooth tray icon in your taskbar, chances are your Bluetooth isn't working or turned on. Fix it and setup will be happy 😘
@@ -56,6 +58,12 @@ Fire up PowerShell as Administrator and execute:
     ```
 
 This removes the requirement to load the filter driver, which might be missing, and therefore prohibiting your radio to boot properly. After this line got executed, either power-cycle your radio or simply reboot and see if that issue got fixed ❤️ You may also need to uninstall and install BthPS3 again to completely fix the issue.
+
+## What do do about error Code 10 `STATUS_DEVICE_POWER_FAILURE`?
+
+> This device can not start. (Code 10)
+
+Your Bluetooth host dongle/card is too old 🙂 Time to upgrade or switch to something slightly more expensive and sturdy 🤞
 
 ## What Bluetooth hosts are supported?
 
