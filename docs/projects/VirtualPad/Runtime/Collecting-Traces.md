@@ -24,6 +24,9 @@ Now **compress** (7zip, WinRAR, ...) the generated file `C:\VPadRuntime.etl` and
 
 ## Live View, Runtime only
 
+!!! warning "This topic is for developers"
+    If you've been sent this link, chances are that you do **not** need to follow this next session!
+
 Download and install [TraceView Plus](https://www.mgtek.com/traceview) and launch it as Administrator.
 
 Open the `Session` menu and select `Trace Provider...`:
