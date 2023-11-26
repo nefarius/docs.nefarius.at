@@ -1,5 +1,9 @@
 # Collecting Runtime Trace Logs
 
+## Preparations
+
+Download the file [`nssvpd_debugging.reg`](nssvpd_debugging.reg) to some arbitrary location on your PC and execute it. Confirm the upcoming dialogs and reboot once.
+
 ## Remote Collection, Driver and Runtime
 
 Open a PowerShell/Windows Terminal **as Administrator**. If unsure how to do: consult a search engine of your choice 😉
