@@ -2,7 +2,7 @@
 
 ## Remote Collection, Driver and Runtime
 
-Open a PowerShell/Windows Terminal **as Administrator*. If unsure how to do: consult a search engine of your choice 😉
+Open a PowerShell/Windows Terminal **as Administrator**. If unsure how to do: consult a search engine of your choice 😉
 
 Now copy and paste the following lines verbatim into the shell and press Enter:
 
