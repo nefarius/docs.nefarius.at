@@ -2,7 +2,7 @@
 
 ## Preparations
 
-Download the file [`nssvpd_debugging.reg`](nssvpd_debugging.reg) to some arbitrary location on your PC and execute it. Confirm the upcoming dialogs and reboot once.
+Download the file [`nssvpd_debugging.reg`](nssvpd_debugging.reg) to some arbitrary location on your PC and execute it. Confirm the upcoming dialogs and **reboot once** (important)!
 
 ## Remote Collection, Driver and Runtime
 
