@@ -45,7 +45,7 @@ Read the [_Features_ section](https://github.com/nefarius/DsHidMini#features) of
 
 ![timeout](images/timeout.png)
 
-You can't, that's a hardware issue. Your controller didn't respond to a mandatory command in time, there's nothing the software can da about that.
+You can't, that's a hardware issue. Your controller didn't respond to a mandatory command in time, there's nothing the software can do about that.
 
 ## How do I use my controller as a Xbox 360 or DualShock 4?
 
