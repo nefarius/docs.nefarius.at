@@ -14,7 +14,7 @@ By default, there is way too much information displayed we do not need, so selec
 
 ![gVxmsOd44y.png](../images/gVxmsOd44y.png)
 
-On the upcoming dialog, expand the `Event sources` box and check every element prefixed with `Nefarius`:
+On the upcoming dialog, expand the `Event sources` box and check every element prefixed with `Nefarius Virtual...`:
 
 ![mmc_Tz8BRNWnCV.png](../images/mmc_Tz8BRNWnCV.png)
 
