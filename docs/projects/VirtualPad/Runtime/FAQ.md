@@ -32,4 +32,6 @@ Select a location where to store the export file to and when asked about the Dis
 
 You can now share the generated `.evtx` file and `LocaleMetaData` directory with support personnel. It's best to compress them using e.g. 7zip or WinRAR or similar to have one single file to share.
 
+If the resulting file is too big to be shared on Discord, upload it [here](https://files.nefarius.at/) and share the link instead.
+
 Good luck!
