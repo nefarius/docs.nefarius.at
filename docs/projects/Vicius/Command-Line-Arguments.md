@@ -79,10 +79,10 @@ Specifies an alternate update channel to use. This value will be inserted into t
 
 The value can be any alphanumeric string **excluding** the following characters:
 
-- `..` (two consecutive dots)
-- `/` (forward slash)
-- `\` (backslash)
-- ` `&nbsp;(space)
+- `'..'` (two consecutive dots)
+- `'/'` (forward slash)
+- `'\'` (backslash)
+- `' '`&nbsp;(space)
 
 ### `--add-header <name=value>`
 
