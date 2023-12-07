@@ -73,6 +73,17 @@ Logs to the file specified in `<value>` in addition to the default debug sink.
 
 Overrides all other [Server Discovery](Server-Discovery.md) methods. Useful to quickly switch to different update configurations while testing the local debug build. The value is ignored in RELEASE builds, if set.
 
+### `--channel`
+
+Specifies an alternate update channel to use. This value will be inserted into the server URL template e.g. `manufacturer/product/channel` which allows the caller to switch between [remote updater configurations](Remote-Configuration.md) when invoking the updater manually. This can be used to deliver different update mechanisms for Beta or VIP users etc.
+
+The value can be any alphanumeric string **excluding** the following characters:
+
+- `..` (two consecutive dots)
+- `/` (forward slash)
+- `\` (backslash)
+- ` ` (space)
+
 ## Internal
 
 !!! warning "Beware of altering"
