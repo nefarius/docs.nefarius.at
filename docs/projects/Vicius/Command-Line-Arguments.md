@@ -84,6 +84,16 @@ The value can be any alphanumeric string **excluding** the following characters:
 - `\` (backslash)
 - ` ` (space)
 
+### `--add-header <name=value>`
+
+Allows for adding one or more additional HTTP headers to be added to the update server request. This can be used in conjunction with a backend application server to influence delivery of the [remote configuration](Remote-Configuration.md) based on certain custom client parameters.
+
+This parameter can be specified multiple times with different name-value-pairs. For example:
+
+```bash
+--add-header CustomerId=rZnZzZu9wH --add-header ProcessorVendor=AMD --add-header IsVIP=true
+```
+
 ## Internal
 
 !!! warning "Beware of altering"
