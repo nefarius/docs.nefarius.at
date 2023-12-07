@@ -82,7 +82,7 @@ The value can be any alphanumeric string **excluding** the following characters:
 - `..` (two consecutive dots)
 - `/` (forward slash)
 - `\` (backslash)
-- ` ` (space)
+- ` `&nbsp;(space)
 
 ### `--add-header <name=value>`
 
