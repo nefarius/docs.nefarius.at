@@ -17,6 +17,14 @@ Typically called with only once when the bundled product gets installed. Perform
 !!! warning "Beware of parent path changes"
     If the updater executable is moved to a different location, this command needs to be issued again at least once.
 
+### `--no-scheduled-task`
+
+Can be used in conjunction with the [`--install`](#-install) switch to skip the creation of the Scheduled Task. Useful if you rather wish to invoke the updater via your own mechanism, like a button in your product or whatever event works best for you.
+
+### `--no-autostart`
+
+Can be used in conjunction with the [`--install`](#-install) switch to skip registering in the current users autostart. Useful if you rather wish to invoke the updater via your own mechanism, like a button in your product or whatever event works best for you.
+
 ### `--uninstall`
 
 Removes the autostart registration and deletes the scheduled task job.
@@ -64,14 +72,6 @@ Logs to the file specified in `<value>` in addition to the default debug sink.
     This switch is intended to only work with DEBUG builds as it opens up a huge security problem if distributed to production systems. Any malicious process could attempt to direct the updater to a malignant server trying to then download and execute a payload that might further infect the target machine.
 
 Overrides all other [Server Discovery](Server-Discovery.md) methods. Useful to quickly switch to different update configurations while testing the local debug build. The value is ignored in RELEASE builds, if set.
-
-### `--no-scheduled-task`
-
-Can be used in conjunction with the [`--install`](#-install) switch to skip the creation of the Scheduled Task. Useful if you rather wish to invoke the updater via your own mechanism, like a button in your product or whatever event works best for you.
-
-### `--no-autostart`
-
-Can be used in conjunction with the [`--install`](#-install) switch to skip registering in the current users autostart. Useful if you rather wish to invoke the updater via your own mechanism, like a button in your product or whatever event works best for you.
 
 ## Internal
 
