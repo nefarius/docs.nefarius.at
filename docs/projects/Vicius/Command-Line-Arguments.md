@@ -69,6 +69,10 @@ Overrides all other [Server Discovery](Server-Discovery.md) methods. Useful to q
 
 Can be used in conjunction with the [`--install`](#-install) switch to skip the creation of the Scheduled Task. Useful if you rather wish to invoke the updater via your own mechanism, like a button in your product or whatever event works best for you.
 
+### `--no-autostart`
+
+Can be used in conjunction with the [`--install`](#-install) switch to skip registering in the current users autostart. Useful if you rather wish to invoke the updater via your own mechanism, like a button in your product or whatever event works best for you.
+
 ## Internal
 
 !!! warning "Beware of altering"
