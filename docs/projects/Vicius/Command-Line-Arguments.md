@@ -65,6 +65,10 @@ Logs to the file specified in `<value>` in addition to the default debug sink.
 
 Overrides all other [Server Discovery](Server-Discovery.md) methods. Useful to quickly switch to different update configurations while testing the local debug build. The value is ignored in RELEASE builds, if set.
 
+### `--no-scheduled-task`
+
+Can be used in conjunction with the [`--install`](#-install) switch to skip the creation of the Scheduled Task. Useful if you rather wish to invoke the updater via your own mechanism, like a button in your product or whatever event works best for you.
+
 ## Internal
 
 !!! warning "Beware of altering"
