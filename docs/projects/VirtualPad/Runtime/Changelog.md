@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - State-machine for keeping track of virtual devices got rewritten and streamlined for simpler debugging and better stability.
+- Introduced usage of non-executable non-pagable kernel memory on supported systems.
 
 ### Fixed
 
