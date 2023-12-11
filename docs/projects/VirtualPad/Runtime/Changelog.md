@@ -23,3 +23,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - A bug that could lead to a system crash (BSOD) when switching between emulated devices due to improper reference counting.
 - A bug that could lead to a system crash (BSOD) when Driver Verifier with Handle Tracking was enabled on the affected machine.
+- A bug that could lead to a system crash (BSOD) when formatting a string that was missing enough space for the NULL terminator.
