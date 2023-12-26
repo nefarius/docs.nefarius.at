@@ -1,5 +1,8 @@
 # Frequently Asked Questions
 
+!!! important "There is another FAQ for wireless"
+    If you're facing wireless connection issues [check out the BthPS3 FAQ](../BthPS3/Frequently-Asked-Questions.md) as well!
+
 ## XInput? DS3? DS4? What are you talking about?
 
 !!! note "Know the terms"

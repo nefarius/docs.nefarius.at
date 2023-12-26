@@ -65,7 +65,7 @@ This removes the requirement to load the filter driver, which might be missing, 
 
 ![Code_10](images/code_10.png)  
 
-Your Bluetooth host dongle/card is too old 🙂 Time to upgrade or switch to something slightly more expensive and sturdy 🤞
+Your Bluetooth host dongle/card is too old or incompatible 🙂 Time to upgrade or switch to something slightly more expensive and sturdy 🤞 There is no software-fix possible for this error.
 
 ## What Bluetooth hosts are supported?
 
