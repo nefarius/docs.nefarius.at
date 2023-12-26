@@ -131,5 +131,4 @@ Another hint would be if you see an active connection in the notifications panel
 
 - **Trouble when installing DsHidMini or connecting your controllers to the computer:** check the [_How to Install Troubleshooting_ section](How-to-Install.md#troubleshooting)
 - **Controller works normally most of the time but have random button presses or buttons fail to register:** most likely a hardware fault, not related to DsHidMini
-
-If you have a different situation than the ones above, feel free to [reach us through the proper means](../../Community-Support.md).
+- Give up and move on 😦 Life's not always fair.
