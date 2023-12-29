@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.109.0 - 2023-12-30
+
+### Changed
+
+- Updated all dependencies to their respective latest version.
+- Introduced a fallback HTTP client to use if the resilience logic failed for some reason.
+
+### Fixed
+
+- A bug that could halt the setup if a pre-existing service binary was somehow corrupted.
+- A bug that could halt the setup if loading the EULA text failed.
+
 ## 2.103.0 - 2023-12-11
 
 ### Added
