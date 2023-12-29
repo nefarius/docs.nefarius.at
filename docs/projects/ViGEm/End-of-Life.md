@@ -187,3 +187,7 @@ If you receive this error and it doesn't go away either...
 - ...use the manual steps outlined above to manually delete the updater job from Task Scheduler.
 
 The source of the error is unknown and can not be rectified as it is part of a 3rd party product.
+
+### When will the domain `vigem.org` be handed over?
+
+The domain transfer has been initiated on the 21st of December 2023 and finished on the 26th of December 2023. This effectively means that from this date onwards Nefarius Software Solutions e.U. no longer has any influence in the content served by the domain.
