@@ -8,7 +8,7 @@ Here you'll find quick-links to binaries for popular projects 👇
 
 | Product |  |  |
 |---|---|---|
-| ViGEm Bus Driver Setup | [![Download](https://img.shields.io/badge/Download-brightgreen)](https://github.com/ViGEm/ViGEmBus/releases) | ![GitHub All Releases](https://img.shields.io/github/downloads/ViGEm/ViGEmBus/total) |
+| Virtual Gamepad Emulation Bus Driver Setup | [![Download](https://img.shields.io/badge/Download-brightgreen)](https://github.com/nefarius/ViGEmBus/releases) | ![GitHub All Releases](https://img.shields.io/github/downloads/nefarius/ViGEmBus/total) |
 | BthPS3 Bluetooth Drivers Setup | [![Download](https://img.shields.io/badge/Download-brightgreen)](https://github.com/nefarius/BthPS3/releases) | ![GitHub All Releases](https://img.shields.io/github/downloads/ViGEm/BthPS3/total) |
 | DsHidMini Driver | [![Download](https://img.shields.io/badge/Download-brightgreen)](https://github.com/nefarius/DsHidMini/releases) | ![GitHub All Releases](https://img.shields.io/github/downloads/ViGEm/DsHidMini/total) |
 | HidHide Setup | [![Download](https://img.shields.io/badge/Download-brightgreen)](https://github.com/nefarius/HidHide/releases) | ![GitHub All Releases](https://img.shields.io/github/downloads/ViGEm/HidHide/total) |
