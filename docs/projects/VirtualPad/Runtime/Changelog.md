@@ -13,13 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Installer: Updated all dependencies to their respective latest version.
-- Installer: Introduced a fallback HTTP client to use if the resilience logic failed for some reason.
+- Updated all installer dependencies to their respective latest version.
+- Introduced a fallback HTTP client to use in the installer if the resilience logic failed for some reason.
 
 ### Fixed
 
-- Installer: A bug that could halt the setup if a pre-existing service binary was somehow corrupted.
-- Installer: A bug that could halt the setup if loading the EULA text failed.
+- A bug that could halt the setup if a pre-existing service binary was somehow corrupted.
+- A bug that could halt the setup if loading the EULA text failed.
 
 ## 2.103.0 - 2023-12-11
 
