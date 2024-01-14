@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
--None-
+### Changed
+
+- Switched server services to be provided from single VPS over to Kubernetes Cluster.
 
 ## 2.109.0 - 2023-12-30
 
