@@ -40,7 +40,7 @@ Because most users don't have PS/2 devices anymore the **guide here will be focu
 
 Since the user has no KB+M, they can't use Windows' option to reboot directly into recovery, so we'll need to force it to appear by making Windows fail to start 3 times.
 
-1. Reboot your system and every time it reachs the black loading screen (with the blue Windows logo) force-restart or shutdown your computer 3 times
+1. Reboot your system and every time it reaches the black loading screen (with the blue Windows logo) force-restart or shutdown your computer 3 times
     - If possible, wait for the white dots to start spinning before force-restarting
 1. When the message "Preparing Automatic Repair" appears then that means Windows will enter recovery mode
 
@@ -126,7 +126,7 @@ In this step we'll search for and delete ONLY the HidHide entries related to the
         - the `UpperFilter / HidHide` entry in the same list as the `Class /XnaComposite` entry
     - Remember that:
         - You can always re-open the search box by pressing `Ctrl + F`
-        - If you accidentaly miss one of them, just keep hitting the [Find Next] button in the search box and it will keep cycling over the registry
+        - If you accidentally miss one of them, just keep hitting the [Find Next] button in the search box and it will keep cycling over the registry
 
 
 === "Step 1 and 2"
