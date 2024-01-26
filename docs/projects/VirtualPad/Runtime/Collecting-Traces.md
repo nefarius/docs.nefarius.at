@@ -9,7 +9,7 @@ Download the file [`nssvpd_debugging.reg`](nssvpd_debugging.reg) to some arbitra
 
 ## Remote Collection, Driver and Runtime
 
-Open a PowerShell/Windows Terminal **as Administrator**. If unsure how to do: consult a search engine of your choice 😉
+Open a PowerShell/Windows Terminal **as Administrator**. If unsure how to do: [consult a search engine of your choice](https://googlethatforyou.com?q=how%20to%20open%20powershell%20as%20administrator) 😉
 
 Now copy and paste the following lines verbatim into the shell and press Enter:
 
@@ -30,4 +30,4 @@ When done, in the same shell window, copy and paste the following with an additi
 Remove-EtwTraceSession -Name VPadRuntime 2>&1 | Out-Null
 ```
 
-Now **compress** (7zip, WinRAR, ...) the generated file `C:\VPadRuntime.etl` and send it to support personnel!
+Now [**compress**](https://googlethatforyou.com?q=how%20to%20compress%20files%20on%20Windows) (7zip, WinRAR, ...) the generated file `C:\VPadRuntime.etl` and send it to support personnel!
