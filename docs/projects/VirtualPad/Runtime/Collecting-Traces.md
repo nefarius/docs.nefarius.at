@@ -3,7 +3,7 @@
 ## Preparations
 
 !!! important "Only necessary once"
-    If you've performed this step once before, you can skip it!
+    If you've performed this step once before on this PC, you can skip it!
 
 Download the file [`nssvpd_debugging.reg`](nssvpd_debugging.reg) to some arbitrary location on your PC and execute it. Confirm the upcoming dialogs and **reboot once** (important)!
 
