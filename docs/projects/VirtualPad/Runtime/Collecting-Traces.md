@@ -16,7 +16,7 @@ Now copy and paste the following lines verbatim into the shell and press Enter:
 ```PowerShell
 New-EtwTraceSession -Name VPadRuntime -LogFileMode 0x8100 -FlushTimer 1 -LocalFilePath "C:\VPadRuntime.etl" 2>&1 | Out-Null
 Add-EtwTraceProvider -SessionName VPadRuntime -Guid '{021B2C3C-9DD6-4C0A-A53A-6183F1BE11A0}' -MatchAnyKeyword 0x0FFFFFFFFFFFFFFF -Level 0xFF -Property 0x40 2>&1 | Out-Null
-Add-EtwTraceProvider -SessionName VPadRuntime -Guid '{afebad70-d5db-4a74-bda2-764d2a875aaf}' -MatchAnyKeyword 0x0FFFFFFFFFFFFFFF -Level 0xFF -Property 0x40 2>&1 | Out-Null
+Add-EtwTraceProvider -SessionName VPadRuntime -Guid '{AFEBAD70-D5DB-4A74-BDA2-764D2A875AAF}' -MatchAnyKeyword 0x0FFFFFFFFFFFFFFF -Level 0xFF -Property 0x40 2>&1 | Out-Null
 ```
 
 !!! attention "These commands don't return anything!"
