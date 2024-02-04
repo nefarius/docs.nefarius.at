@@ -25,6 +25,10 @@ Can be used in conjunction with the [`--install`](#-install) switch to skip the 
 
 Can be used in conjunction with the [`--install`](#-install) switch to skip registering in the current users autostart. Useful if you rather wish to invoke the updater via your own mechanism, like a button in your product or whatever event works best for you.
 
+### `--override-success-code <code>`
+
+Can be used in conjunction with the [`--install`](#-install) and [`--uninstall`](#-uninstall) switch to override the default success exit code with the user-specified value. Useful if the calling process can not be configured to treat any other value than e.g. 0 as a success.
+
 ### `--uninstall`
 
 Removes the autostart registration and deletes the scheduled task job.
