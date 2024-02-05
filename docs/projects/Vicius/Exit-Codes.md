@@ -6,7 +6,7 @@ Various success or error states can be inferred from the process exit code.
 
 Code | Description
 ---|---
-`200` | The [`--install`](Command-Line-Arguments.md#-install) command finished successfully.
+`200` | The [`--install`](Command-Line-Arguments.md#-install)/[`--uninstall`](Command-Line-Arguments.md#-uninstall) command finished successfully.
 `201` | The self-updater process started successfully.
 `202` | The installed product is up to date.
 `203` | The update got installed successfully.
