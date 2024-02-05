@@ -4,6 +4,9 @@ Various success or error states can be inferred from the process exit code.
 
 ## Success states
 
+!!! note
+   Some of those can be overridden with [`--override-success-code-code` switch](Command-Line-Arguments.md#-override-success-code-code).
+
 Code | Description
 ---|---
 `200` | The [`--install`](Command-Line-Arguments.md#-install)/[`--uninstall`](Command-Line-Arguments.md#-uninstall) command finished successfully.
