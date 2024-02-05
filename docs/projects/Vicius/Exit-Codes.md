@@ -4,7 +4,7 @@ Various success or error states can be inferred from the process exit code.
 
 ## Success states
 
-!!! note
+!!! note "Can be overridden"
    Some of those can be overridden with [`--override-success-code-code` switch](Command-Line-Arguments.md#-override-success-code-code).
 
 Code | Description
