@@ -31,7 +31,7 @@ Can be used in conjunction with the [`--install`](#-install) and [`--uninstall`]
 
 ### `--uninstall`
 
-Removes the autostart registration and deletes the scheduled task job.
+Removes the autostart registration and deletes the scheduled task job. The process will exit after these tasks finished successfully or on error.
 
 ### `--skip-self-update`
 
