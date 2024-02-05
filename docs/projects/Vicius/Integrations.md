@@ -13,3 +13,5 @@ Add a `Launch installed file` Custom Action to the installation pipeline, provid
 Add a `Launch installed file` Custom Action to the removal pipeline, provide the command line `--uninstall --override-success-code 0` and deselect `Install` and `Maintenance` conditions:
 
 ![zzJBqQFsrK.png](images/zzJBqQFsrK.png)
+
+Now the updater will be part of the delivered product and get (de-)registered properly during the setup stage.
