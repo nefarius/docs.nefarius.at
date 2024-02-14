@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 None.
 
+## 2.112.0 - 2024-02-14
+
+### Changed
+
+- Updated all dependencies in setup, driver, runtime, service and notification components to their respective latest versions.
+- Introduced some DRM improvements to further reduce the potential for service interruptions.
+
 ## 2.110.0 - 2024-01-14
 
 ### Changed
