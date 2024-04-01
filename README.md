@@ -4,11 +4,11 @@
 
 Sources of [docs.nefarius.at](https://docs.nefarius.at/).
 
-## Build local Docker/Podman instance
+## Build local Docker instance
 
 ```bash
-podman build -t mkdocs .
-podman run -it --rm -v "${PWD}:/docs" -p "8000:8000" localhost/mkdocs:latest
+docker build -t mkdocs .
+docker run -it --rm -v "${PWD}:/docs" -p "8000:8000" mkdocs:latest
 ```
 
 The built site will be available at [localhost:8000](http://localhost:8000/).
