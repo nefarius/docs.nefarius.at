@@ -1,9 +1,11 @@
 {
     "cSpell.words": [
+        "ASUS",
         "bootstrapper",
         "BSOD",
         "Buildbot",
         "devel",
+        "EDID",
         "Emfed",
         "envar",
         "evtx",
@@ -32,6 +34,8 @@
         "pagable",
         "PCSX",
         "pymdownx",
+        "Quadro",
+        "Radeon",
         "redistributable",
         "regedit",
         "regval",
@@ -51,6 +55,7 @@
         "vigem",
         "Virtua",
         "Whitelister",
+        "xrandr",
         "Xugng",
         "Yuzu",
         "zoomable"
