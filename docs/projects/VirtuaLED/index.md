@@ -1,5 +1,8 @@
 # About VirtuaLED
 
+!!! attention "April Fools' Joke"
+    This article was published as an April Fools' Joke of 2024, it does not cover a real product.
+
 Windows device driver and control software for virtual RGB LEDs.
 
 ## Problem
