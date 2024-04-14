@@ -43,7 +43,7 @@ Read the [_Features_ section](https://github.com/nefarius/DsHidMini#features) of
 
 > This device cannot start. (Code 10)  
 >
-> {Device Timeout}
+> {Device Timeout}  
 > The specified I/O operation on %hs was completed before the time-out period expired.
 
 ![timeout](images/timeout.png)
