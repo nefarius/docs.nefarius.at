@@ -9,7 +9,7 @@ Windows device driver and control software for virtual RGB LEDs.
 
 It is a well known fact that gamers like customizable RGB lights since they have been scientifically proven to boost FPS by up to 15 frames and help with your shooter aim skills by 4 to 12 percent. Your gaming buddies might even label you gloomy or narrow-minded if you aren't part of the shiny rainbow desktop gang so it boosts social standing as well.
 
-But what to do if there's no rainbow-capable hardware in your budget or you simply do not want to replace perfectly good, yet dated and non-RGB gaming hardware? Accept the shaming of society? Simply lie to your friends and hope they will never leave their basement and visit in person? Maybe the next pandemic is around the corner and you can use it as an excuse to hide your gaming rig from your buddies to avoid heckling? Stand your grounds and claim RGB is "gay" as an excuse for your dark PC interior? We both know you couldn't handle the backlash and social pressure coming from it, you'd rather preferK a technical solution.
+But what to do if there's no rainbow-capable hardware in your budget or you simply do not want to replace perfectly good, yet dated and non-RGB gaming hardware? Accept the shaming of society? Simply lie to your friends and hope they will never leave their basement and visit in person? Maybe the next pandemic is around the corner and you can use it as an excuse to hide your gaming rig from your buddies to avoid heckling? Stand your grounds and claim RGB is "gay" as an excuse for your dark PC interior? We both know you couldn't handle the backlash and social pressure coming from it, you'd rather prefer a technical solution.
 
 ## Solution
 
