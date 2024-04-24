@@ -6,9 +6,12 @@ WIP
 
 ### Used Hardware
 
-Part | Description
----|---
-Mainboard | ASUS ROG Crosshair VIII Hero
+Part | Usage | Description
+---|---|---
+Mainboard | Host | ASUS ROG Crosshair VIII Hero
+CPU | Host, VM | AMD Ryzen 7 3700X 8-Core Processor
+GPU #1 | VM | AMD Radeon RX 6900 XT
+GPU #2 | Host | AMD Radeon RX480
 
 ## Resources
 
