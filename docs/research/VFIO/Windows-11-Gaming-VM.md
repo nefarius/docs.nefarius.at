@@ -2,7 +2,13 @@
 
 WIP
 
-Mainboard: ASUS ROG Crosshair VIII Hero
+## Prerequisites
+
+### Used Hardware
+
+Part | Description
+---|---
+Mainboard | ASUS ROG Crosshair VIII Hero
 
 ## Resources
 
@@ -194,7 +200,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 
 Set fixed amount of cores, topology and pin cores to best die layout; for `AMD Ryzen 7 3700X 8-Core Processor` it is
 
-``` xml
+```xml
   <vcpu placement="static">8</vcpu>
   <iothreads>2</iothreads>
   <cputune>
