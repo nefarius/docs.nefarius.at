@@ -219,7 +219,7 @@ Set fixed amount of cores, topology and pin cores to best die layout; for `AMD R
     <iothreadpin iothread="1" cpuset="0-1"/>
     <iothreadpin iothread="2" cpuset="2-3"/>
   </cputune>
-``` 
+```
 
 and
 
