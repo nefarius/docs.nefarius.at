@@ -8,10 +8,10 @@ WIP
 
 Part | Usage | Description
 ---|---|---
-Mainboard | Host | ASUS ROG Crosshair VIII Hero
+Mainboard | Host | [ASUS ROG Crosshair VIII Hero](https://rog.asus.com/us/motherboards/rog-crosshair/rog-crosshair-viii-hero-model/)
 CPU | Host, VM | AMD Ryzen 7 3700X 8-Core Processor
-GPU #1 | VM | AMD Radeon RX 6900 XT
-GPU #2 | Host | AMD Radeon RX480
+GPU #1 | VM | [AMD Radeon RX 6900 XT (16 GB)](https://www.techpowerup.com/gpu-specs/amd-radeon-rx-6900-xt.b10943)
+GPU #2 | Host | [AMD Radeon RX 480 (8 GB)](https://www.techpowerup.com/gpu-specs/radeon-rx-480.c2848)
 
 ## Resources
 
@@ -21,7 +21,7 @@ GPU #2 | Host | AMD Radeon RX480
 
 Script: <https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada>
 
-```
+```text
 Group 0:	[1022:1482]     00:01.0  Host bridge                              Starship/Matisse PCIe Dummy Host Bridge
 Group 1:	[1022:1483] [R] 00:01.1  PCI bridge                               Starship/Matisse GPP Bridge
 Group 2:	[1022:1483] [R] 00:01.2  PCI bridge                               Starship/Matisse GPP Bridge
@@ -102,7 +102,7 @@ Group 35:	[1022:1487]     0e:00.4  Audio device                             Star
 
 ### VGA PCI IOMMU
 
-```
+```text
 /sys/kernel/iommu_groups/26/devices/0000:0b:00.0
 /sys/kernel/iommu_groups/27/devices/0000:0b:00.1
 /sys/kernel/iommu_groups/28/devices/0000:0b:00.2
@@ -111,7 +111,7 @@ Group 35:	[1022:1487]     0e:00.4  Audio device                             Star
 0b:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 21 HDMI Audio [Radeon RX 6800/6800 XT / 6900 XT] [1002:ab28]
 0b:00.2 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD/ATI] Device [1002:73a6]
 0b:00.3 Serial bus controller [0c80]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 21 USB [1002:73a4]
-``` 
+```
 
 ```bash
 GRUB_CMDLINE_LINUX_DEFAULT="... vfio_pci.ids=1002:73bf,1002:ab28,1002:73a6,1002:73a4 kvm.ignore_msrs=1"
@@ -121,7 +121,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="... vfio_pci.ids=1002:73bf,1002:ab28,1002:73a6,1002:
 
 #### Front USB
 
-```
+```text
 [1022:149c] [R] 06:00.3  USB controller                           Matisse USB 3.0 Host Controller
 USB:		[046a:0001]		 Bus 003 Device 003                       Cherry GmbH Keyboard 
 USB:		[046d:c33f]		 Bus 003 Device 009                       Logitech, Inc. G815 Mechanical Keyboard 
@@ -137,7 +137,7 @@ USB:		[1d6b:0003]		 Bus 004 Device 001                       Linux Foundation 3.
 
 ### Before
 
-```
+```text
 Bus 008 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
 Bus 007 Device 004: ID 0a12:0001 Cambridge Silicon Radio, Ltd Bluetooth Dongle (HCI mode)
 Bus 007 Device 003: ID 05e3:0608 Genesys Logic, Inc. Hub
@@ -167,7 +167,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 
 ### After
 
-```
+```text
 Bus 009 Device 004: ID 0a12:0001 Cambridge Silicon Radio, Ltd Bluetooth Dongle (HCI mode)
 Bus 009 Device 003: ID 05e3:0608 Genesys Logic, Inc. Hub
 Bus 009 Device 002: ID 046d:082d Logitech, Inc. HD Pro Webcam C920
