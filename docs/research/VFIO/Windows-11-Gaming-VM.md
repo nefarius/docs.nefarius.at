@@ -12,6 +12,7 @@ Mainboard | Host | [ASUS ROG Crosshair VIII Hero](https://rog.asus.com/us/mother
 CPU | Host, VM | AMD Ryzen 7 3700X 8-Core Processor
 GPU #1 | VM | [AMD Radeon RX 6900 XT (16 GB)](https://www.techpowerup.com/gpu-specs/amd-radeon-rx-6900-xt.b10943)
 GPU #2 | Host | [AMD Radeon RX 480 (8 GB)](https://www.techpowerup.com/gpu-specs/radeon-rx-480.c2848)
+PCIe USB Card | VM | VIA VL805/VL806/VL80x Super Speed USB 3.0 Host Controller
 
 ## Resources
 
