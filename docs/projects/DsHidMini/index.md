@@ -19,7 +19,7 @@ Join the cool-kids-gang and simply [follow the installation instructions](How-to
 A brief summary of the recent development activity.
 
 ![Repository activity](https://ghstats.api.nefarius.systems/widgets/github/nefarius/DsHidMini/changes/latest#only-light)
-![Repository activity](https://ghstats.api.nefarius.systems/widgets/github/nefarius/DsHidMini/changes/latest?foregroundColour=%23C4D1DE#only-dark)
+![Repository activity](https://ghstats.api.nefarius.systems/widgets/github/nefarius/DsHidMini/changes/latest?foregroundColour=%23b5b3b0#only-dark)
 
 ## Demo-Videos
 
