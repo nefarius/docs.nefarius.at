@@ -127,8 +127,22 @@ Another hint would be if you see an active connection in the notifications panel
 
 ![BluetoothConnected.png](images/BluetoothConnected.png)  
 
+## I installed everything but the controller doesn't appear in Device Manager, Devices and Printers or th control app!
+
+You do not have a SIXAXIS/DualShock 3 device then. To verify, plug in your device via USB, get the tool [DevManView from NirSoft](https://www.nirsoft.net/utils/device_manager_view.html) and search for `USB\VID_054C&PID_0268` like so:
+
+![g2JC4BVcck.png](images/g2JC4BVcck.png)
+
+If you can not find at least one match **you do not have a DS3 and DsHidMini will not work**. End of story. No, support can not help you with that. Accept it.
+
+Likewise these are not DS3s either:
+
+![Twin](images/Twin.png)
+
+![9639db8312af037a08b5e5b5384969d6.png](images/9639db8312af037a08b5e5b5384969d6.png)
+
 ## I'm having "X" problem when using DsHidMini, what should I do?
 
 - **Trouble when installing DsHidMini or connecting your controllers to the computer:** check the [_How to Install Troubleshooting_ section](How-to-Install.md#troubleshooting)
 - **Controller works normally most of the time but have random button presses or buttons fail to register:** most likely a hardware fault, not related to DsHidMini
-- Give up and move on 😦 Life's not always fair.
+- Figure it out yourself 👍 There isn't always someone available in life to hold your hand 💪
