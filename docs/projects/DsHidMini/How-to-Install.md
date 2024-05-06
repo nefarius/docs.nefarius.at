@@ -11,6 +11,11 @@ DsHidMini can only work its magic if it's the dominant driver for your controlle
 
 ## Installation
 
+!!! danger highlight "STOP trying to use DsHidMini with random controllers"
+    Only and **only** this controller (Sony DualShock 3) is supported:  
+    ![ds3](images/dualshock-3-resized.png)  
+    Do NOT contact support for any other device, **it will not work**, no matter how many times you ask!
+
 No matter what software you may have preinstalled, this step is always the same 😀
 
 ### Version 2.x.x
