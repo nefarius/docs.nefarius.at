@@ -135,7 +135,11 @@ You do not have a SIXAXIS/DualShock 3 device then. To verify, plug in your devic
 
 If you can not find at least one match **you do not have a DS3 and DsHidMini will not work**. End of story. No, support can not help you with that. Accept it.
 
-Likewise these are not DS3s either:
+This is a DS3:
+
+![ds3](images/dualshock-3-resized.png)
+
+These are *not*:
 
 ![Twin](images/Twin.png)
 
