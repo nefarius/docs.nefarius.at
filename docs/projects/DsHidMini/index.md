@@ -14,6 +14,16 @@ DsHidMini is a universal driver for the dated yet beloved DualShock 3 Controller
 
 Join the cool-kids-gang and simply [follow the installation instructions](How-to-Install.md)!
 
+## Development activity
+
+A brief summary of the recent development activity.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://ghstats.api.nefarius.systems/widgets/github/nefarius/DsHidMini/changes/latest?foregroundColour=%23C4D1DE">
+  <source media="(prefers-color-scheme: light)" srcset="https://ghstats.api.nefarius.systems/widgets/github/nefarius/DsHidMini/changes/latest">
+  <img alt="Repository activity" src="https://ghstats.api.nefarius.systems/widgets/github/nefarius/DsHidMini/changes/latest">
+</picture>
+
 ## Demo-Videos
 
 A few videos about various topics and progress reports over the development cycle of the project can be found below. Since videos can't be updated, **always assume the written documentation is more up to date** and favour that over the videos! You have been warned ❤️
