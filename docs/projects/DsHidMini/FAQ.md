@@ -141,6 +141,8 @@ Likewise these are not DS3s either:
 
 ![9639db8312af037a08b5e5b5384969d6.png](images/9639db8312af037a08b5e5b5384969d6.png)
 
+Neither are the DualSHock **4** nor the DualSense. I am baffled that this is apparently *really hard* to understand 🤦‍♂️
+
 ## I'm having "X" problem when using DsHidMini, what should I do?
 
 - **Trouble when installing DsHidMini or connecting your controllers to the computer:** check the [_How to Install Troubleshooting_ section](How-to-Install.md#troubleshooting)
