@@ -10,6 +10,8 @@ The dev team is small, like, *really* small, so we have no time for any BS. If y
 
 TBD
 
+- Before asking questions about what new features are available or which bugs were fixed [**check both the open and closed issues and PRs on GitHub**](https://github.com/nefarius/DsHidMini/milestone/7) first! We know reading is annoying but so is repeating answering the same questions over and over again to us.
+
 ## Important facts
 
 - The mandatory redirect to this page will **NOT** be removed until a stable public release becomes available.
