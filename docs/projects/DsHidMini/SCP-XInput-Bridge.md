@@ -2,6 +2,16 @@
 
 DsHidMini ships with a custom `XInput1_3.dll` you can drop in the game directory and use together with **SXS** mode to fake an Xbox 360-compatible pad for that particular game. Some games/mods/emulators even support the pressure sensitivity extension (like [GInput by Silent](https://cookieplmonster.github.io/mods/gta-sa/) and [PCSX2 Qt Edition](https://pcsx2.net/downloads/)). See the video tutorials below.
 
+## Latest downloads
+
+The DLLs included in the GitHub releases can be outdated, the latest builds from Continuous Integration (build server) can be downloaded here.
+
+The DLL architecture has to match your game/emulator or it will result in errors.
+
+- [x64 (64-Bit Intel/AMD)](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/x64/XInput1_3.dll) (most used)
+- [x86 (32-Bit Intel/AMD)](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/x86/XInput1_3.dll)
+- [ARM64 (64-Bit ARM)](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/arm64/XInput1_3.dll)
+
 ## Usage in games
 
 User feedback is required to expand this article 🙃 If you know of any tools or games we could link or explain here, contact us on Discord or open a GitHub issue!
