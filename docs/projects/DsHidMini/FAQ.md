@@ -149,7 +149,7 @@ Neither are the DualShock **4** nor the DualSense. I am baffled that this is app
 
 ## How can I check if my DualShock 3 is genuine?
 
-Short answer: you probably can't. Long answer: [read this](https://github.com/nefarius/DsHidMini/issues/3).
+Short answer: you probably can't. Long answer: [read this](https://github.com/nefarius/DsHidMini/discussions/166).
 
 ## I'm having "X" problem when using DsHidMini, what should I do?
 
