@@ -23,7 +23,7 @@ That is entirely up to you of course 🙂 Do you wish to stick with abandoned, o
 - Follow the [_How to Install_ guide](How-to-Install.md)
 - Learn the  about different [DsHidMini HID Device Modes](HID-Device-Modes-Explained.md) your controller can be, the characteristics each mode and how to change between them
 
-After DsHidMini is active and the controller connected, you just need to change to the mode best suited to your use case. Keep in mind that if you want to use your controller as a __XInput__ (Xbox 360) or __DualShock 4__ controller, [there are a few extra steps left to be followed](#how-do-i-use-my-controller-as-a-xbox-360-or-dualshock-4).
+After DsHidMini is active and the controller connected, you just need to change to the mode best suited to your use case. Keep in mind that if you want to use your controller as a **XInput** (Xbox 360) or **DualShock 4** controller, [there are a few extra steps left to be followed](#how-do-i-use-my-controller-as-a-xbox-360-or-dualshock-4).
 
 ![HIDDeviceModes](images/HIDDeviceModes.png)  
 
@@ -62,13 +62,13 @@ Set the controller into `DS4Windows Mode` and use it with **Ryochan7's DS4Window
 
 If, for whatever reason, you don't want to use DS4Windows and prefer to choose your own remapping tool, then you have the following options:
 
-- __Using the Controller in `SXS Mode` + Steam:__ Steam will detect the controller as an official PlayStation 3 controller as long as `PlayStation configuration support` is enabled. XInput and DS4 emulation are then done automatically according to what Steam thinks the game supports.
+- **Using the Controller in `SXS Mode` + Steam:** Steam will detect the controller as an official PlayStation 3 controller as long as `PlayStation configuration support` is enabled. XInput and DS4 emulation are then done automatically according to what Steam thinks the game supports.
 
-- __Using the controller in `SDF or GPJ Mode` + another remapping software:__ in `SDF/GPJ Mode` the controller is presented as a generic gamepad which can then be used with remapping tools like x360ce, UCR etc.
+- **Using the controller in `SDF or GPJ Mode` + another remapping software:** in `SDF/GPJ Mode` the controller is presented as a generic gamepad which can then be used with remapping tools like x360ce, UCR etc.
 
 ## What is the best way to use my controller in games/emulators?
 
-The answer is: ___it depends___.
+The answer is: _**it depends**_.
 
 You need to verify which `Input API` is supported in whatever you are using and if you want to use DS3 specific functions, like pressure buttons or motion controls. The following table should help you:
 
@@ -96,9 +96,9 @@ The recommended method is the following:
 
 - Set the controller into `SDF Mode`
 - Go to PCSX2 input settings
-- Make sure `DirectInput` is activated at the `Game Devices APIs` options (__DO NOT CHECK__ the `DualShock 3 native mode` box)
+- Make sure `DirectInput` is activated at the `Game Devices APIs` options (**DO NOT CHECK** the `DualShock 3 native mode` box)
 - Open the DsHidMini Control Client and check the `Mute digital pressure buttons` checkbox
-- Back to PCSX2 input settings, on the `Pad X` tab, __configure everything EXCEPT__ __L3__ / __R3__ / __Start__ / __Select__ / __Analog__ / __Mouse__
+- Back to PCSX2 input settings, on the `Pad X` tab, **configure everything EXCEPT** **L3** / **R3** / **Start** / **Select** / **Analog** / **Mouse**
 - Go into the DsHidMini Control Client and uncheck the `Mute digital pressure buttons`
 - Finish setting the L3 / R3 / Start / Select buttons. The `Analog` and `Mouse` buttons are not necessary
 - At the `Add Force Feedback Effect` select your DS3 controller
@@ -145,7 +145,7 @@ These are *not*:
 
 ![9639db8312af037a08b5e5b5384969d6.png](images/9639db8312af037a08b5e5b5384969d6.png)
 
-Neither are the DualShock **4** nor the DualSense. I am baffled that this is apparently *really hard* to understand 🤦‍♂️
+Neither are the DualShock **4** nor the DualSense. I am baffled that this is apparently _really hard_ to understand 🤦‍♂️
 
 ## How can I check if my DualShock 3 is genuine?
 
