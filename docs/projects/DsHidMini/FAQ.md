@@ -147,6 +147,10 @@ These are *not*:
 
 Neither are the DualShock **4** nor the DualSense. I am baffled that this is apparently *really hard* to understand 🤦‍♂️
 
+## How can I check if my DualShock 3 is genuine?
+
+Short answer: you probably can't. Long answer: [read this](https://github.com/nefarius/DsHidMini/issues/3).
+
 ## I'm having "X" problem when using DsHidMini, what should I do?
 
 - **Trouble when installing DsHidMini or connecting your controllers to the computer:** check the [_How to Install Troubleshooting_ section](How-to-Install.md#troubleshooting)
