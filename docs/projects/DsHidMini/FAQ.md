@@ -147,6 +147,19 @@ These are *not*:
 
 Neither are the DualShock **4** nor the DualSense. I am baffled that this is apparently _really hard_ to understand 🤦‍♂️
 
+### I checked the hardware ID, it matches but it still does not work!
+
+In very rare cases Windows might have installed the driver but is not loading it onto the controller device. You can force Windows to do that:
+
+- Find the `USB Input Device` node with the mentioned hardware IDs in Device Manager
+- Open Properties, on the `Driver` tab, hit `Update Driver`
+- Follow this sequence of choices in the upcoming wizard:  
+  ![VX1vPFkVrF.png](images/VX1vPFkVrF.png)  
+  ![mrbW7B8iP3.png](images/mrbW7B8iP3.png)  
+  ![qBdGaBvlKw.png](images/qBdGaBvlKw.png)  
+  ![mmc_4SVgm1kB04.png](images/mmc_4SVgm1kB04.png)
+- After that DsHidMini has been loaded successfully! Repeat on subsequent controllers if necessary.
+
 ## How can I check if my DualShock 3 is genuine?
 
 Short answer: you probably can't. Long answer: [read this](https://github.com/nefarius/DsHidMini/discussions/166).
