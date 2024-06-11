@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 None.
 
+## 2.114.0 - 2024-04-17
+
+### Changed
+
+- Updated all dependencies in setup, service and notification components to their respective latest versions.
+
 ## 2.112.0 - 2024-02-14
 
 ### Changed
