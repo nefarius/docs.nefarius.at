@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 None.
 
+## 2.116.0 - 2024-06-17
+
+### Changed
+
+- Removed some helper executables from the installer that got false-flagged by some anti-virus ~~garbage~~ solutions for some users.
+  - [VirusTotal report](https://www.virustotal.com/gui/file/981924dfb31b1f009c5001ecb06ad2bd2b6a24e6acd1b2208a7c31a6c7a2f8b0?nocache=1) (it's clean, IDK what it hallucinates about 🙄)
+
 ## 2.114.0 - 2024-04-17
 
 ### Changed
