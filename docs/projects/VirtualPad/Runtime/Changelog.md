@@ -14,7 +14,7 @@ None.
 ### Changed
 
 - Removed some helper executables from the installer that got false-flagged by some anti-virus ~~garbage~~ solutions for some users.
-  - [VirusTotal report](https://www.virustotal.com/gui/file/981924dfb31b1f009c5001ecb06ad2bd2b6a24e6acd1b2208a7c31a6c7a2f8b0?nocache=1) (it's clean, IDK what it hallucinates about 🙄)
+    - [VirusTotal report](https://www.virustotal.com/gui/file/981924dfb31b1f009c5001ecb06ad2bd2b6a24e6acd1b2208a7c31a6c7a2f8b0?nocache=1) (it's clean, IDK what it hallucinates about 🙄)
 
 ## 2.114.0 - 2024-04-17
 
