@@ -83,6 +83,7 @@ Hardware ID | Name | Status | Remarks
 `USB\VID_413C&PID_8197` | Dell Wireless 380 Bluetooth 4.0 Module (Broadcom BCM20702A0) | ❔ | 
 `USB\VID_8086&PID_0189` | Intel Centrino Advanced-N 6230 Bluetooth adapter | ❔ | 
 `USB\VID_8087&PID_07DA` | Intel Centrino Wireless Bluetooth 4.0 + High Speed Adapter | ❔ | 
+`USB\VID_8087&PID_0AAA` | - | ✔️ | 
 
 ## Unknown Devices
 
