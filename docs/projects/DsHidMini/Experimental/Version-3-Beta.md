@@ -23,3 +23,14 @@ The dev team is small, like, *really* small, so we have no time for any BS. If y
     - The documentation of all JSON directives is **not yet done**.
 
 You can follow development progress and chats about the solution on our Discord. I leave finding it as an exercise to the user 😉
+
+## Highlights
+
+The following features are considered done and have been tested to the best of the abilities to a two-head development team 😉
+
+- Native **Xbox One Controller emulation**
+    - Test as many modern games in this mode as you like, feedback welcome!
+- Full Windows 11 compatibility
+- ARM64 builds of the driver
+    - Currently **untested**, feedback welcome!
+- To be filled...
