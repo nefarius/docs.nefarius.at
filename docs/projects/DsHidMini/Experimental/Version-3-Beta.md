@@ -21,3 +21,5 @@ The dev team is small, like, *really* small, so we have no time for any BS. If y
 - The driver configuration is now loaded from a **JSON file** named [`DsHidMini.json`](https://github.com/nefarius/DsHidMini/blob/nefarius/feature/setup/sys/DsHidMini.json) which has to be put in `C:\ProgramData\DsHidMini` to get picked up.
     - The GUI tool to edit the configuration **is not yet done**, you are welcome to experiment with settings on your own though, study the [example `DsHidMini.json` file](https://github.com/nefarius/DsHidMini/blob/nefarius/feature/setup/sys/DsHidMini.json) and tinker with it. The provided options may change as the beta driver still evolves.
     - The documentation of all JSON directives is **not yet done**.
+
+You can follow development progress and chats about the solution on our Discord. I leave finding it as an exercise to the user 😉
