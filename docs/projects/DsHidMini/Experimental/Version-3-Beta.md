@@ -29,7 +29,7 @@ You can follow development progress and chats about the solution on our Discord.
 The following features are considered done and have been tested to the best of the abilities to a two-head development team 😉
 
 - Native **Xbox One Controller emulation**
-    - Test as many modern games in this mode as you like, feedback welcome!
+    - Test as many modern games in this mode as you like, [feedback welcome](https://github.com/nefarius/DsHidMini/discussions/114)!
 - Full Windows 11 compatibility
 - ARM64 builds of the driver
     - Currently **untested**, feedback welcome!
