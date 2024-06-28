@@ -1,5 +1,3 @@
 # About Nefarius VirtualPad Framework
 
-Nefarius VirtualPad is the direct successor to the `[REDACTED]Bus` project.
-
-To be continued...
+Nefarius VirtualPad is a commercial framework for gaming peripherals emulation available to business partners of Nefarius Software Solutions e.U.
