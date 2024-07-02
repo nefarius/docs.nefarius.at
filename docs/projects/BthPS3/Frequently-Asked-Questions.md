@@ -67,6 +67,12 @@ This removes the requirement to load the filter driver, which might be missing, 
 
 Your Bluetooth host dongle/card is too old or incompatible 🙂 Time to upgrade or switch to something slightly more expensive and sturdy 🤞 There is no software-fix possible for this error.
 
+### What about Code 10 `The specified request is not a valid operation for the target device.`?
+
+![Code_10](images/kppi8Fg8Qx.png)
+
+Your Bluetooth host dongle/card is incompatible 🙂 Time to switch to something slightly more expensive and sturdy 🤞 There is no software-fix possible for this error.
+
 ## What Bluetooth hosts are supported?
 
 In short: all of them manufactured within the last decade and running proper stock drivers (means no ScpServer/ScpToolkit, no AirBender, stock as the manufacturer intended). [For details see this article](Compatible-Bluetooth-Devices.md).
