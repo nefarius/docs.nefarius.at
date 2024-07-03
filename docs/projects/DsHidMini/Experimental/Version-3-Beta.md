@@ -9,7 +9,7 @@ Please read this article thoroughly before continuing to use the software or ask
 The dev team is small, like, *really* small, so we have no time for any BS. If you want to help us find and fix bugs, some rules are inevitable or the ride won't be any fun.
 
 - Participating in a Beta implies you are somewhat comfortable with advanced Windows/PC usage and able to solve problems on your own. **Do not use the Beta releases if you just want to get gaming ASAP, use the stable version 2 releases instead!**
-- Before asking questions about what new features are available or which bugs were fixed [**check both the open and closed issues and PRs on GitHub**](https://github.com/nefarius/DsHidMini/milestone/7?closed=1) first! We know reading is annoying but so is repeating answering the same questions over and over again to us.
+- Before asking questions about what new features are available or which bugs were fixed **check both the [open](https://github.com/nefarius/DsHidMini/milestone/7) and [closed](https://github.com/nefarius/DsHidMini/milestone/7?closed=1) issues and PRs on GitHub** first! We know reading is annoying but so is repeating answering the same questions over and over again to us.
 
 ## Important facts
 
