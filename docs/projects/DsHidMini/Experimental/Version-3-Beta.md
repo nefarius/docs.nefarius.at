@@ -34,3 +34,11 @@ The following features are considered done and have been tested to the best of t
 - ARM64 builds of the driver
     - Currently **untested**, feedback welcome!
 - To be filled...
+
+## Removal
+
+All Beta v3 components can be removed in one go by just uninstalling `Nefarius DsHidMini Driver` in Apps & features:
+
+![ApplicationFrameHost_nFtPcyobyf.png](images/ApplicationFrameHost_nFtPcyobyf.png)
+
+Afterwards you can switch back to v2 via the existing [installation article](../How-to-Install.md).
