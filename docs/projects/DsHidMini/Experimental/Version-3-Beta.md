@@ -18,8 +18,8 @@ The dev team is small, like, *really* small, so we have no time for any BS. If y
 - Version 3 uses a completely different configuration system so the old `DSHMC.exe` **can not be used with version 3**.
 - The `igfilter` version `v1.1.0.0` copy shipped with DsHidMini version 2 **does not work with version 3** and needs to be updated to *at least* `v1.1.1.0` or newer.
     - The setup you ran takes care of removing all outdated components and installing upgraded variants.
-- The driver configuration is now loaded from a **JSON file** named [`DsHidMini.json`](https://github.com/nefarius/DsHidMini/blob/nefarius/feature/setup/sys/DsHidMini.json) which has to be put in `C:\ProgramData\DsHidMini` to get picked up.
-    - The GUI tool to edit the configuration **is not yet done**, you are welcome to experiment with settings on your own though, study the [example `DsHidMini.json` file](https://github.com/nefarius/DsHidMini/blob/nefarius/feature/setup/sys/DsHidMini.json) and tinker with it. The provided options may change as the beta driver still evolves.
+- The driver configuration is now loaded from a **JSON file** named [`DsHidMini.json`](https://github.com/nefarius/DsHidMini/blob/master/sys/DsHidMini.json) which has to be put in `C:\ProgramData\DsHidMini` to get picked up.
+    - The GUI tool to edit the configuration **is not yet done**, you are welcome to experiment with settings on your own though, study the [example `DsHidMini.json` file](https://github.com/nefarius/DsHidMini/blob/master/sys/DsHidMini.json) and tinker with it. The provided options may change as the beta driver still evolves.
     - The documentation of all JSON directives is **not yet done**.
 
 👉 You can follow development progress and chats about the solution on our Discord. I leave finding it as an exercise to the user 😉
