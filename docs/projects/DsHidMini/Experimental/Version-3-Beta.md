@@ -20,8 +20,8 @@ The dev team is small, like, *really* small, so we have no time for any BS. If y
 - The `igfilter` version `v1.1.0.0` copy shipped with DsHidMini version 2 **does not work with version 3** and needs to be updated to *at least* `v1.1.1.0` or newer.
     - The setup you ran takes care of removing all outdated components and installing upgraded variants.
 - The driver configuration is now loaded from a **JSON file** named [`DsHidMini.json`](https://github.com/nefarius/DsHidMini/blob/master/sys/DsHidMini.json) which has to be put in `C:\ProgramData\DsHidMini` to get picked up.
-    - The GUI tool to edit the configuration **is not yet done**, you are welcome to experiment with settings on your own though, study the [example `DsHidMini.json` file](https://github.com/nefarius/DsHidMini/blob/master/sys/DsHidMini.json) and tinker with it. The provided options may change as the beta driver still evolves.
-    - The documentation of all JSON directives is **not yet done**.
+    - The [GUI tool to edit the configuration](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) **is still being worked on**, alternatively you are welcome to experiment with settings on your own though, study the [example `DsHidMini.json` file](https://github.com/nefarius/DsHidMini/blob/master/sys/DsHidMini.json) and tinker with it. The provided options may change as the beta driver still evolves.
+    - The documentation of all JSON directives is **not yet done**. Read the source code to get insights on all the available options.
 
 👉 You can follow development progress and chats about the solution on our Discord. I leave finding it as an exercise to the user 😉
 
@@ -33,7 +33,8 @@ The following features are considered done and have been tested to the best of t
     - Test as many modern games in this mode as you like, [feedback welcome](https://github.com/nefarius/DsHidMini/discussions/114)!
 - Full Windows 11 compatibility
 - ARM64 builds of the driver
-    - Currently **untested**, feedback welcome!
+    - ~~Currently **untested**, feedback welcome!~~
+    - Appears to work fine on Apple Silicon using Windows 11 on Parallels
 - To be filled...
 
 ## Removal
