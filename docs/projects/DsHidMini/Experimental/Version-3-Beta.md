@@ -16,6 +16,7 @@ The dev team is small, like, *really* small, so we have no time for any BS. If y
 - The mandatory redirect to this page will **NOT** be removed until a stable public release becomes available.
 - The documentation on this site is **still written for version 2** and some sections might no longer apply to version 3.
 - Version 3 uses a completely different configuration system so the old `DSHMC.exe` **can not be used with version 3**.
+    - You can download the latest build of the new control app [from here](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe), requires [.NET Desktop Runtime 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 - The `igfilter` version `v1.1.0.0` copy shipped with DsHidMini version 2 **does not work with version 3** and needs to be updated to *at least* `v1.1.1.0` or newer.
     - The setup you ran takes care of removing all outdated components and installing upgraded variants.
 - The driver configuration is now loaded from a **JSON file** named [`DsHidMini.json`](https://github.com/nefarius/DsHidMini/blob/master/sys/DsHidMini.json) which has to be put in `C:\ProgramData\DsHidMini` to get picked up.
