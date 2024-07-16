@@ -35,6 +35,7 @@ The following features are considered done and have been tested to the best of t
 - Native **Xbox One Controller emulation**
     - Test as many modern games in this mode as you like, [feedback welcome](https://github.com/nefarius/DsHidMini/discussions/114)!
 - Full Windows 11 compatibility
+    - From now on the driver will be signed by Microsoft
 - ARM64 builds of the driver
     - ~~Currently **untested**, feedback welcome!~~
     - Appears to work fine on Apple Silicon using Windows 11 on Parallels
