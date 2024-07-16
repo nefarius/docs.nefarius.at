@@ -22,6 +22,9 @@ The dev team is small, like, *really* small, so we have no time for any BS. If y
 - The driver configuration is now loaded from a **JSON file** named [`DsHidMini.json`](https://github.com/nefarius/DsHidMini/blob/master/sys/DsHidMini.json) which has to be put in `C:\ProgramData\DsHidMini` to get picked up.
     - The [GUI tool to edit the configuration](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) **is still being worked on**, alternatively you are welcome to experiment with settings on your own though, study the [example `DsHidMini.json` file](https://github.com/nefarius/DsHidMini/blob/master/sys/DsHidMini.json) and tinker with it. The provided options may change as the beta driver still evolves.
     - The documentation of all JSON directives is **not yet done**. Read the source code to get insights on all the available options.
+- **Manually check for updates regularly** while the auto-update infrastructure is still being built:
+    - Check for new [pre-releases](https://github.com/nefarius/DsHidMini/releases) of the driver setup.
+    - Check for new builds of [the control app](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/).
 
 👉 You can follow development progress and chats about the solution on our Discord. I leave finding it as an exercise to the user 😉
 
