@@ -98,6 +98,10 @@ This parameter can be specified multiple times with different name-value-pairs. 
 --add-header CustomerId=rZnZzZu9wH --add-header ProcessorVendor=AMD --add-header IsVIP=true
 ```
 
+### `--ignore-postpone`
+
+Ignores the check if we are in an active postpone period, if specified. Does nothing if there is no active postpone period.
+
 ## Internal
 
 !!! warning "Beware of altering"
