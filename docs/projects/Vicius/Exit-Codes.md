@@ -15,6 +15,7 @@ Code | Description
 `203` | The update got installed successfully.
 `204` | The user chose to postpone the update right now.
 `205` | The user postponed the update and 24 hours since then haven't yet passed.
+`206` | The [`--purge-postpone`](Command-Line-Arguments.md#-purge-postpone) command finished successfully.
 
 ## Error conditions
 
@@ -30,3 +31,4 @@ Code | Description
 `107` | The release download failed and the user aborted the update.
 `108` | The setup launch failed and the user aborted the update.
 `109` | The setup execution finished with a non-success exit code and the user aborted the update.
+`110` | The [`--purge-postpone`](Command-Line-Arguments.md#-purge-postpone) command didn't succeed. There might be no active postpone period.

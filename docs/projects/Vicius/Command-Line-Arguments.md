@@ -102,6 +102,10 @@ This parameter can be specified multiple times with different name-value-pairs. 
 
 Ignores the check if we are in an active postpone period, if specified. Does nothing if there is no active postpone period.
 
+### `--purge-postpone`
+
+Deletes the registry-backed postpone data, if present.
+
 ## Internal
 
 !!! warning "Beware of altering"
