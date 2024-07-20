@@ -47,4 +47,4 @@ All Beta v3 components can be removed in one go by just uninstalling `Nefarius D
 
 ![ApplicationFrameHost_nFtPcyobyf.png](images/ApplicationFrameHost_nFtPcyobyf.png)
 
-Afterwards you can switch back to v2 via the existing [installation article](../How-to-Install.md).
+Afterwards you can switch back to v2 via the existing [installation article](../v2/How-to-Install.md).

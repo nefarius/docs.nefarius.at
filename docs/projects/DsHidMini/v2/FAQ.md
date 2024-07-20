@@ -12,7 +12,7 @@
 
 ## What is DsHidMini?
 
-Check out the repository [README](https://github.com/nefarius/DsHidMini/blob/master/README.md) and the [main project page](index.md).
+Check out the repository [README](https://github.com/nefarius/DsHidMini/blob/master/README.md) and the [main project page](../index.md).
 
 ## I am already using ScpToolKit / MotionInJoy / Shibari / Whatever, should I move to DsHidMini?
 

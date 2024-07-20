@@ -113,7 +113,7 @@ We need to first determine if any other conflicting device driver is present on 
 
 #### ScpToolkit
 
-If you had ScpToolkit installed, you need to purge every remains from your machine. [Follow this comprehensive removal guide](../../../ScpToolkit/ScpToolkit-Removal-Guide.md).
+If you had ScpToolkit installed, you need to purge every remains from your machine. [Follow this comprehensive removal guide](../../ScpToolkit/ScpToolkit-Removal-Guide.md).
 
 #### Official Sony driver
 

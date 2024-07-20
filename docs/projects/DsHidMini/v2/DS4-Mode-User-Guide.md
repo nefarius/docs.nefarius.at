@@ -194,7 +194,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
     - First, double check if the game actually supports DS4 controllers _and_ has native PS icons when played with a DualShock 4. There is no direct way to check this besides just testing, Googling around and looking at forums
     - If the game does not support DualShock 4/PS icons then that's in no way related to us and we can't do anything about it
     - If you are 100% sure the game supports PS button icons/DualShock 4, then it may be detecting that DS4Windows is running and then ignoring DS4 controllers (super rare case, only 1 game is known to do it). Check the [topic above](#i-cant-control-steams-big-picture-when-using-a-emulated-ds4-steam-doesnt-detect-my-controller-when-its-emulated-as-a-ds4-only-when-emulated-as-a-xbox-360) on how to solve this
-    - If the game still doesn't recognize the emulated DualShock 4 then we have no idea what's going on and you are welcome on [reaching us through the proper means](../../Community-Support.md)
+    - If the game still doesn't recognize the emulated DualShock 4 then we have no idea what's going on and you are welcome on [reaching us through the proper means](../../../Community-Support.md)
 
 ??? question "_How do I do 'X' thing on DS4Windows?_"
 
