@@ -25,3 +25,4 @@ The built site will be available at [localhost:8000](http://localhost:8000/).
 - [Python-Markdown](https://python-markdown.github.io/)
 - [Emfed](https://github.com/sampsyo/emfed)
 - [mkdocs-glightbox](https://github.com/Blueswen/mkdocs-glightbox)
+- [mkdocs-redirects](https://github.com/mkdocs/mkdocs-redirects)
