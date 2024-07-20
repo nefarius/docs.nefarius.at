@@ -67,8 +67,8 @@ plugins:
       auto_caption: false
       caption_position: bottom
   - redirects:
-    redirect_maps:
-      'projects/DsHidMini/How-to-Install.md': 'projects/DsHidMini/v2/How-to-Install.md'
+      redirect_maps:
+        'projects/DsHidMini/How-to-Install.md': 'projects/DsHidMini/v2/How-to-Install.md'
 
 markdown_extensions:
   - admonition:
