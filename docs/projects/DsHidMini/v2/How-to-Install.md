@@ -4,7 +4,7 @@ DsHidMini can only work its magic if it's the dominant driver for your controlle
 
 !!! danger highlight "Do NOT attempt manual PAIRING with the Windows built-in methods!"
     Do *not* attempt to pair a PS3 Controller on Windows via the built-in device discovery dialog, like:
-    ![Pairing Dialog](images/pairing-fail.png)  
+    ![Pairing Dialog](../images/pairing-fail.png)  
     This will **not work** and can cause Bluetooth connection to fail completely, **so do not this!**  
     
     Check the [F.A.Q.](FAQ.md#i-did-everything-right-and-it-just-wont-connect-via-bluetooth) for fixing if you did so!
@@ -13,7 +13,7 @@ DsHidMini can only work its magic if it's the dominant driver for your controlle
 
 !!! danger highlight "STOP trying to use DsHidMini with random controllers"
     Only and **only** this controller (Sony DualShock 3 a.k.a. PS3 Gamepad) is supported:  
-    ![ds3](images/dualshock-3-resized.png)  
+    ![ds3](../images/dualshock-3-resized.png)  
     Do NOT contact support for any other device, **it will not work**, no matter how many times you ask!
 
 No matter what software you may have preinstalled, this step is always the same 😀
@@ -31,13 +31,13 @@ This is the current latest stable major version.
     - On x64 navigate to `x64\dshidmini`
     - On x86 navigate to `x86\dshidmini`
 - Right-click on `dshidmini.inf` and select Install  
-    ![Np5YTiEyBv.png](images/Np5YTiEyBv.png)
+    ![Np5YTiEyBv.png](../images/Np5YTiEyBv.png)
     - If you've never installed great software before 😉 this might show up (hit Install):  
-    ![DRYeurZsPs.png](images/DRYeurZsPs.png)
+    ![DRYeurZsPs.png](../images/DRYeurZsPs.png)
     - Should only take a moment until success dialog (may *not* appear on Windows 11, just continue)  
-    ![InfDefaultInstall_La1TsZO9P0.png](images/InfDefaultInstall_La1TsZO9P0.png)
+    ![InfDefaultInstall_La1TsZO9P0.png](../images/InfDefaultInstall_La1TsZO9P0.png)
 - Right-click on `igfilter.inf` and select Install (**do not miss this step**)  
-    ![oAjtjJRW9B.png](images/oAjtjJRW9B.png)
+    ![oAjtjJRW9B.png](../images/oAjtjJRW9B.png)
 - Now **connect your controller via USB**
     - 🐵 This will automatically pair it to your Windows Bluetooth host *if* you have working Bluetooth at the time of plugging it in 🐵
 - With your controller connected by USB, open the DsHidMini Control Utility (the `DSHMC.exe` file that comes along the driver archive) to see if the controller gets detected
@@ -59,11 +59,11 @@ By now if you plug in your controller (or reboot the machine) chances are high t
         - On x64 navigate to `x64\dshidmini`
         - On x86 navigate to `x86\dshidmini`
     - Right-click on `dshidmini.inf` and select Install
-        ![hIh7PcxkC9.png](images/hIh7PcxkC9.png)
+        ![hIh7PcxkC9.png](../images/hIh7PcxkC9.png)
         - If you've never installed great software before 😉 this might show up (hit Install):  
-        ![DRYeurZsPs.png](images/DRYeurZsPs.png)
+        ![DRYeurZsPs.png](../images/DRYeurZsPs.png)
         - Should only take a moment until success dialog
-        ![InfDefaultInstall_La1TsZO9P0.png](images/InfDefaultInstall_La1TsZO9P0.png)
+        ![InfDefaultInstall_La1TsZO9P0.png](../images/InfDefaultInstall_La1TsZO9P0.png)
     - Now **connect your controller via USB**
         - This will automatically pair it to your Windows Bluetooth host *if* you have working Bluetooth at the time of plugging it in
     - With your controller connected by USB, open the DsHidMini Control Utility (the `DSHMC.exe` file that comes along the driver archive) to see if the controller     gets detected
@@ -81,14 +81,14 @@ If you want to update, simply [follow all the same steps of the installation](#i
 If you want to remove DsHidMini from your computer you first need to delete it from Windows Driver Store:
 
 - Use [Driver Store Explorer](https://github.com/lostindark/DriverStoreExplorer/releases) to remove the `dshidmini.inf` driver:  
-![RemoveDsHidMini_DriverStore.png](images/RemoveDsHidMini_DriverStore.png)  
+![RemoveDsHidMini_DriverStore.png](../images/RemoveDsHidMini_DriverStore.png)  
 The driver will still be loaded for controllers that were using it, so be sure to uninstall them from Device Manager  
 - Plug in your controllers
 - Open Device Manager by pressing ++win+x++ and select it from the menu:  
-![Device Manager](images/6dCenuSsFr.png)  
+![Device Manager](../images/6dCenuSsFr.png)  
 - Expand `Nefarius HID Devices`
 - For each device under `Nefarius HID Devices`, right click it and select `Uninstall Device`, then select `Uninstall` on the appearing confirmation window  
-![Uninstall Driver](images/RemoveDsHidMini_UninsDevices.png)  
+![Uninstall Driver](../images/RemoveDsHidMini_UninsDevices.png)  
 
 After that, DsHidMini should be fully gone from your computer 😥
 
@@ -101,7 +101,7 @@ The driver can't do anything if it is not being used, so to check this:
 - Connect your controller **by USB** cable
 - Open Device Manager by pressing ++win+x++ and select it from the menu
 - Search for and expand the category `Nefarius HID Devices`, your controller should appear there. Double click on it to check the driver status:  
-![DsHidMini_DeviceManager](images/DsHidMini_Correctly_Loaded.png)
+![DsHidMini_DeviceManager](../images/DsHidMini_Correctly_Loaded.png)
 
 If the device appears there but the driver status indicates some error (e.g. `This device cannot start (Error Code 10)`) try pressing the `Reset` button on the back of your controller and then reconnecting it. Rebooting your computer is also worth a shot.
 
@@ -130,11 +130,11 @@ Let's go step-by-step with this:
 - Open Device Manager by pressing ++win+x++ and select it from the menu
 - [Check if your Bluetooth Link Manager spec is supported](https://github.com/nefarius/BthPS3#supported-bluetooth-host-devices)
 - Check if BthPS3 is correctly installed, its status and if its version is `v1.3.108` or higher:
-![BthPS3](images/BthPS3_DeviceManager.png)
+![BthPS3](../images/BthPS3_DeviceManager.png)
 - Connect your controller by USB
 - Open the DsHidMini Control Utility (`DSHMC.exe` file that comes along the driver archive)
 - Check if your device is correctly paired to the current Bluetooth host address. If it's not, try reconnecting your controller by USB sometimes until the pairing completes successfully
-![DSHMC_PairingCheck](images/DSHMC_PairingCheck.png)
+![DSHMC_PairingCheck](../images/DSHMC_PairingCheck.png)
 - If the "pairing" check is _Ok_ like in the picture above but the device is still not connecting by Bluetooth, **try resetting your controller by pressing the `reset` button on its back**, connecting by USB again to have it re-paired to the current Bluetooth address then trying connecting wireless again. Remember to always confirm in the DsHidMini Control UI Tool if the pairing was successful before trying to connect wireless
 
 If after all those tries the device still fails to connect, then ***maybe***:
