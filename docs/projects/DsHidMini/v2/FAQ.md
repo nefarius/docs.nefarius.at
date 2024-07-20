@@ -1,7 +1,7 @@
 # Frequently Asked Questions
 
 !!! danger highlight "There is another FAQ for wireless"
-    If you're facing wireless connection issues [check out the BthPS3 FAQ](../BthPS3/Frequently-Asked-Questions.md) as well!
+    If you're facing wireless connection issues [check out the BthPS3 FAQ](../../BthPS3/Frequently-Asked-Questions.md) as well!
 
 ## XInput? DS3? DS4? What are you talking about?
 
@@ -29,7 +29,7 @@ After DsHidMini is active and the controller connected, you just need to change 
 
 ## Does my fake PS3 controller work with DsHidMini?
 
-Short answer: it depends. Long answer: [it depends](../BthPS3/About-Controller-Compatibility.md) 🙂 This is community software with no ties to any hardware manufacturer, all we can provide is knowledge based on research and reverse engineering.
+Short answer: it depends. Long answer: [it depends](../../BthPS3/About-Controller-Compatibility.md) 🙂 This is community software with no ties to any hardware manufacturer, all we can provide is knowledge based on research and reverse engineering.
 
 ## What are the HID Device Modes? Which one should I use?
 
