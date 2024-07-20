@@ -113,7 +113,7 @@ We need to first determine if any other conflicting device driver is present on 
 
 #### ScpToolkit
 
-If you had ScpToolkit installed, you need to purge every remains from your machine. [Follow this comprehensive removal guide](../../ScpToolkit/ScpToolkit-Removal-Guide.md).
+If you had ScpToolkit installed, you need to purge every remains from your machine. [Follow this comprehensive removal guide](../../../ScpToolkit/ScpToolkit-Removal-Guide.md).
 
 #### Official Sony driver
 
@@ -121,7 +121,7 @@ If you have/had PS Now installed, chances are high you have the official Sony `s
 
 #### FireShock
 
-If you've used [Shibari](https://github.com/nefarius/Shibari) before you probably have FireShock installed. [Follow this procedure to remove it](../FireShock/Removal-Guide.md).
+If you've used [Shibari](https://github.com/nefarius/Shibari) before you probably have FireShock installed. [Follow this procedure to remove it](../../FireShock/Removal-Guide.md).
 
 ### Controller does not connect by Bluetooth
 
