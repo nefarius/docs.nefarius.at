@@ -69,6 +69,13 @@ plugins:
   - redirects:
       redirect_maps:
         'projects/DsHidMini/How-to-Install.md': 'projects/DsHidMini/v2/How-to-Install.md'
+        'projects/DsHidMini/HID-Device-Modes-Explained.md': 'projects/DsHidMini/v2/HID-Device-Modes-Explained.md'
+        'projects/DsHidMini/DS4-Mode-User-Guide.md': 'projects/DsHidMini/v2/DS4-Mode-User-Guide.md'
+        'projects/DsHidMini/FAQ.md': 'projects/DsHidMini/v2/FAQ.md'
+        'projects/DsHidMini/Output-Rate-Control-Explained.md': 'projects/DsHidMini/v2/Output-Rate-Control-Explained.md'
+        'projects/DsHidMini/SCP-XInput-Bridge.md': 'projects/DsHidMini/v2/SCP-XInput-Bridge.md'
+        'projects/DsHidMini/SIXAXIS.SYS-to-DsHidMini-Guide.md': 'projects/DsHidMini/v2/SIXAXIS.SYS-to-DsHidMini-Guide.md'
+        'projects/DsHidMini/XInput-Mode-Explained.md': 'projects/DsHidMini/v2/XInput-Mode-Explained.md'
 
 markdown_extensions:
   - admonition:
