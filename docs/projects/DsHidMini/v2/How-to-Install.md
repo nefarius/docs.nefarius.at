@@ -27,7 +27,7 @@ This is the current latest stable major version.
 - [Grab the release from GitHub](https://github.com/nefarius/DsHidMini/releases/latest)
 - Download the attached `dshidmini_vX.X.X.X.zip` archive to an arbitrary location on your machine
 - Extract the archive (doesn't matter where to, e.g. your Downloads folder)
-- [Make sure you know your architecture](../../research/How-to-check-architecture.md)
+- [Make sure you know your architecture](../../../research/How-to-check-architecture.md)
     - On x64 navigate to `x64\dshidmini`
     - On x86 navigate to `x86\dshidmini`
 - Right-click on `dshidmini.inf` and select Install  
@@ -55,7 +55,7 @@ By now if you plug in your controller (or reboot the machine) chances are high t
     - [Grab the release from GitHub](https://github.com/nefarius/DsHidMini/releases/tag/v1.4.222.0)
     - Download the attached `dshidmini_vX.X.X.X.zip` archive to an arbitrary location on your machine
     - Extract the archive (doesn't matter where to, e.g. your Downloads folder)
-    - [Make sure you know your architecture](../../research/How-to-check-architecture.md)
+    - [Make sure you know your architecture](../../../research/How-to-check-architecture.md)
         - On x64 navigate to `x64\dshidmini`
         - On x86 navigate to `x86\dshidmini`
     - Right-click on `dshidmini.inf` and select Install
