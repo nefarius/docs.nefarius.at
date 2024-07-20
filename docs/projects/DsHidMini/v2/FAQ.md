@@ -9,6 +9,7 @@
     - The controller shipped with the Sony PlayStation 3 👉 DualShock 3 (**DS3**)
     - The controller shipped with the Sony PlayStation 4 👉 DualShock 4 (**DS4**)
     - **Xbox 360** controller 👉 **XInput** (compatible) controller/device
+    - **Xbox One** controller 👉 **XInput** (compatible) controller/device
 
 ## What is DsHidMini?
 
