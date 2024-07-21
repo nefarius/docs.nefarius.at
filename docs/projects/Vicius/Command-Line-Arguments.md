@@ -119,6 +119,10 @@ Performs tasks on user logon like checking self-integrity and searching for upda
 
 Tells the updater it's run by Task Scheduler. It will not display any UI except when an update has been found. Errors will be logged but the user will not be actively notified.
 
+### `--temporary`
+
+Tells the updater it's run as a temporary child process to avoid blocking an in-progress setup procedure by locking the origin file.
+
 ## Self-Updater
 
 The following parameters are passed from the main updater process to the self-updater module.
