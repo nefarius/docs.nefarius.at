@@ -26,6 +26,6 @@ This error can pop up when the updater is run without any silent switches and ne
 
 ## Updater process module hash mismatch
 
-![contoso_EmergencyUrl_Updater_jjTFk6wMcG.png](images/contoso_EmergencyUrl_Updater_jjTFk6wMcG.png)
+![contoso_EmergencyUrl_Updater_4i9Krd4eBy.png](images/contoso_EmergencyUrl_Updater_4i9Krd4eBy.png)
 
 This error indicates that the updater was called with the [`--temporary`](Command-Line-Arguments.md#-temporary) flag outside of supported operation. I told you to not fiddle with it and that's what you get for being nosey 😆
