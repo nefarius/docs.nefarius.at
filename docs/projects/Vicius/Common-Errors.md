@@ -18,6 +18,10 @@ If the connection is blocked, an error message similar to...
 
 ...might appear and needs to be rectified by the user (or the setup package the updater is bundled with).
 
+If the source of the update setup file is blocked, you will end up with a view similar to this after the retries and timeouts have been exhausted:
+
+![VICA31C.tmp_0IJy67UPiQ.png](images/VICA31C.tmp_0IJy67UPiQ.png)
+
 ## Invalid detection method
 
 ![Updater_O32X4ghzfb.png](images/Updater_O32X4ghzfb.png)
