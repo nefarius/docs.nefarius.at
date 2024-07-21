@@ -121,7 +121,7 @@ Tells the updater it's run by Task Scheduler. It will not display any UI except 
 
 ### `--temporary`
 
-Tells the updater it's run as a temporary child process to avoid blocking an in-progress setup procedure by locking the origin file. If this flag is present, certain commands (like `--install`) are ignored. It is not recommended to be specified by the user.
+Tells the updater it's run as a temporary child process to avoid blocking an in-progress setup procedure by locking the origin file. If this flag is present, certain commands (like `--install`) are ignored.
 
 ## Self-Updater
 
