@@ -4,7 +4,7 @@ The updater expects a JSON response from the update server; you can find various
 
 ## JSON Schema
 
-The current [master branch update response schema](https://github.com/nefarius/vicius/tree/master/examples/server/Models) is provided [here](https://vicius.api.nefarius.systems/api/vicius/master/schema.json).
+The current [master branch update response schema](https://github.com/nefarius/Nefarius.Vicius.Abstractions) is provided [here](https://vicius.api.nefarius.systems/api/vicius/master/schema.json).
 
 ## C# POCO
 
