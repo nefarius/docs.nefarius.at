@@ -1,5 +1,8 @@
 # Compatible Bluetooth Devices
 
+!!! important "This list needs your help"
+    This list is compiled from community efforts, if you have a device not listed here **help by adding it!**
+
 Non-exhaustive list of Bluetooth host devices known to work with the drivers and supported controller devices. Meaning of Status column:
 
 - ✔️ = tested and confirmed working
