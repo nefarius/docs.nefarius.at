@@ -205,7 +205,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 Set fixed amount of cores, topology and pin cores to best die layout; for `AMD Ryzen 7 3700X 8-Core Processor` it is
 
 ```xml
-  <vcpu placement="static">8</vcpu>
+  <vcpu placement="static" cpuset="8-15">8</vcpu>
   <iothreads>2</iothreads>
   <cputune>
     <vcpupin vcpu="0" cpuset="8"/>
@@ -241,6 +241,20 @@ echo 'KERNEL=="cpu8|cpu9|cpu10|cpu11|cpu12|cpu13|cpu14|cpu15", SUBSYSTEM=="cpu",
 # reboot, then confirm changes with
 cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ```
+
+```bash
+sudo vim /etc/default/grub
+```
+
+```bash
+GRUB_CMDLINE_LINUX_DEFAULT="... isolcpus=8-15"
+```
+
+```bash
+sudo update-grub
+```
+
+Reboot to activate.
 
 ## Resources
 
