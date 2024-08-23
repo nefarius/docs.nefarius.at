@@ -241,3 +241,9 @@ echo 'KERNEL=="cpu8|cpu9|cpu10|cpu11|cpu12|cpu13|cpu14|cpu15", SUBSYSTEM=="cpu",
 # reboot, then confirm changes with
 cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ```
+
+## Resources
+
+- [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
+- [How to install virtiofs drivers on Windows](https://virtio-fs.gitlab.io/howto-windows.html)
+- [WinFsp](https://winfsp.dev/rel/)
