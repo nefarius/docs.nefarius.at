@@ -260,6 +260,15 @@ So a value of `8192` pages at a page size of 2MB equals **16GB of RAM reserved**
 GRUB_CMDLINE_LINUX_DEFAULT="... hugepages=8192"
 ```
 
+`/etc/sysctl.conf`
+
+```ini
+kernel.shmmax = 17179869184
+vm.nr_hugepages = 8192
+vm.min_free_kbytes = 112640
+vm.hugetlb_shm_group = 1000
+```
+
 #### CPU Governor on performance mode
 
 ```bash
