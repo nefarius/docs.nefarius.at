@@ -237,13 +237,12 @@ This config maps the last 8 cores to the Windows guest.
 For hugepages support add or adjust:
 
 ```xml
-<memoryBacking>
-  <!-- might already contain these nodes depending on other features
-  <source type='memfd'/>
-  <access mode='shared'/>
-  -->
-  <hugepages/>
-</memoryBacking>
+  <memoryBacking>
+    <hugepages>
+      <page size="2048" unit="KiB"/>
+    </hugepages>
+    <access mode="shared"/>
+  </memoryBacking>
 ```
 
 ### Host configuration
