@@ -234,6 +234,18 @@ and
 
 This config maps the last 8 cores to the Windows guest.
 
+For hugepages support add or adjust:
+
+```xml
+<memoryBacking>
+  <!-- might already contain these nodes depending on other features
+  <source type='memfd'/>
+  <access mode='shared'/>
+  -->
+  <hugepages/>
+</memoryBacking>
+```
+
 ### Host configuration
 
 #### Hugepages
@@ -258,6 +270,8 @@ cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ```
 
 #### Isolate CPU cores from scheduler
+
+> Do more testing if this is beneficial or worse for both host and VM performance
 
 ```bash
 sudo vim /etc/default/grub
