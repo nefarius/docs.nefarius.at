@@ -236,11 +236,28 @@ This config maps the last 8 cores to the Windows guest.
 
 ### Host configuration
 
+#### Hugepages
+
+```bash
+grep Hugepagesize /proc/meminfo
+Hugepagesize:       2048 kB
+```
+
+So a value of `8192` pages at a page size of 2MB equals **16GB of RAM reserved** for hugepages.
+
+```ini
+GRUB_CMDLINE_LINUX_DEFAULT="... hugepages=8192"
+```
+
+#### CPU Governor on performance mode
+
 ```bash
 echo 'KERNEL=="cpu8|cpu9|cpu10|cpu11|cpu12|cpu13|cpu14|cpu15", SUBSYSTEM=="cpu", ACTION=="add", ATTR{cpufreq/scaling_governor}="performance"' | sudo tee /etc/udev/rules.d/90-scaling-governor-performance.rules
 # reboot, then confirm changes with
 cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ```
+
+#### Isolate CPU cores from scheduler
 
 ```bash
 sudo vim /etc/default/grub
@@ -255,6 +272,18 @@ sudo update-grub
 ```
 
 Reboot to activate.
+
+#### IRQL re-balance
+
+`/etc/default/irqbalance`
+
+```ini
+IRQBALANCE_BANNED_CPULIST=8-15
+``` 
+
+```bash
+sudo systemctl restart irqbalance
+```
 
 ## Resources
 
