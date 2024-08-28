@@ -1,8 +1,9 @@
 # Process Termination on Update
 
-If the user chooses to install an update, the updater will terminate the specified process if `--terminate-process-before-update <handle>` is passed on the command line; this is intended for when the updater is launched by the product that is being updated.
+If the user chooses to install an update, the updater will terminate the specified process if [`--terminate-process-before-update <handle>`](Command-Line-Arguments.md#-terminate-process-before-update-handle) is passed on the command line; this is intended for when the updater is launched by the product that is being updated.
 
 This handle:
+
 - **MUST** be a Win32 `HANDLE`
 - **MUST** have `PROCESS_TERMINATE | PROCESS_QUERY_LIMITED_INFORMATION` permissions
 - **MUST** be inheritable, and owned by the updaters' parent process
