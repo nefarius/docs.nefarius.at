@@ -205,7 +205,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 Set fixed amount of cores, topology and pin cores to best die layout; for `AMD Ryzen 7 3700X 8-Core Processor` it is
 
 ```xml
-  <vcpu placement="static">8</vcpu>
+  <vcpu placement="static" cpuset="8-15">8</vcpu>
   <iothreads>2</iothreads>
   <cputune>
     <vcpupin vcpu="0" cpuset="8"/>
@@ -234,10 +234,81 @@ and
 
 This config maps the last 8 cores to the Windows guest.
 
+For hugepages support add or adjust:
+
+```xml
+  <memoryBacking>
+    <hugepages>
+      <page size="2048" unit="KiB"/>
+    </hugepages>
+    <access mode="shared"/>
+  </memoryBacking>
+```
+
 ### Host configuration
+
+#### Hugepages
+
+```bash
+grep Hugepagesize /proc/meminfo
+Hugepagesize:       2048 kB
+```
+
+So a value of `8192` pages at a page size of 2MB equals **16GB of RAM reserved** for hugepages.
+
+```ini
+GRUB_CMDLINE_LINUX_DEFAULT="... hugepages=8192"
+```
+
+`/etc/sysctl.conf`
+
+```ini
+kernel.shmmax = 17179869184
+vm.nr_hugepages = 8192
+vm.min_free_kbytes = 112640
+vm.hugetlb_shm_group = 1000
+```
+
+#### CPU Governor on performance mode
 
 ```bash
 echo 'KERNEL=="cpu8|cpu9|cpu10|cpu11|cpu12|cpu13|cpu14|cpu15", SUBSYSTEM=="cpu", ACTION=="add", ATTR{cpufreq/scaling_governor}="performance"' | sudo tee /etc/udev/rules.d/90-scaling-governor-performance.rules
 # reboot, then confirm changes with
 cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ```
+
+#### Isolate CPU cores from scheduler
+
+> Do more testing if this is beneficial or worse for both host and VM performance
+
+```bash
+sudo vim /etc/default/grub
+```
+
+```bash
+GRUB_CMDLINE_LINUX_DEFAULT="... isolcpus=8-15"
+```
+
+```bash
+sudo update-grub
+```
+
+Reboot to activate.
+
+#### IRQL re-balance
+
+`/etc/default/irqbalance`
+
+```ini
+IRQBALANCE_BANNED_CPULIST=8-15
+``` 
+
+```bash
+sudo systemctl restart irqbalance
+```
+
+## Resources
+
+- [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
+- [How to install virtiofs drivers on Windows](https://virtio-fs.gitlab.io/howto-windows.html)
+- [WinFsp](https://winfsp.dev/rel/)
