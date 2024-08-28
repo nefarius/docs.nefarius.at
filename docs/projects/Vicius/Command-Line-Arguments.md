@@ -106,6 +106,10 @@ Ignores the check if we are in an active postpone period, if specified. Does not
 
 Deletes the registry-backed postpone data, if present.
 
+### `--terminate-process-before-update <handle>`
+
+An optional [handle](https://learn.microsoft.com/en-us/windows/win32/sysinfo/about-handles-and-objects) to a process object to terminate before the update starts. See [this article](Terminate-Process-before-Update.md) for details.
+
 ## Internal
 
 !!! warning "Beware of altering"
