@@ -18,6 +18,8 @@ See [Customizing Behavior](#customizing-behavior) for how to change to change th
 
 ## Warnings
 
+If you launch the updater from your executable, you will probably want to use the `--terminate-process-before-update` option.
+
 If you include the updater in your zip, you will need to handle updating the updater; there are two ways to do this:
 
 - **Recommended**: set the `runAsTemporaryCopy` option
