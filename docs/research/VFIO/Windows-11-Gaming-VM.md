@@ -14,9 +14,23 @@ GPU #1 | VM | [AMD Radeon RX 6900 XT (16 GB)](https://www.techpowerup.com/gpu-sp
 GPU #2 | Host | [AMD Radeon RX 480 (8 GB)](https://www.techpowerup.com/gpu-specs/radeon-rx-480.c2848)
 PCIe USB Card | VM | VIA VL805/VL806/VL80x Super Speed USB 3.0 Host Controller
 
+### Used Software
+
+Property | Value
+---|---
+Date | August 2024
+Kernel | 5.15.0-119-generic
+Distribution | Linux Mint 21.3 Virginia
+QEMU | QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.22)
+libvirt | libvirtd (libvirt) 8.0.0
+virt-manager | 4.0.0
+
 ## Resources
 
 - <https://dannyvanheumen.nl/post/setting-scaling-governor-through-udev-rules/>
+- [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
+- [How to install virtiofs drivers on Windows](https://virtio-fs.gitlab.io/howto-windows.html)
+- [WinFsp](https://winfsp.dev/rel/)
 
 ## IOMMU Groups
 
@@ -306,9 +320,3 @@ IRQBALANCE_BANNED_CPULIST=8-15
 ```bash
 sudo systemctl restart irqbalance
 ```
-
-## Resources
-
-- [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
-- [How to install virtiofs drivers on Windows](https://virtio-fs.gitlab.io/howto-windows.html)
-- [WinFsp](https://winfsp.dev/rel/)
