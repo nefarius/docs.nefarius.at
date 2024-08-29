@@ -315,7 +315,7 @@ Reboot to activate.
 
 ```ini
 IRQBALANCE_BANNED_CPULIST=8-15
-``` 
+```
 
 ```bash
 sudo systemctl restart irqbalance
