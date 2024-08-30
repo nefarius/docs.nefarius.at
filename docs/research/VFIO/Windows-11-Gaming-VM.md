@@ -34,6 +34,7 @@ virt-manager | 4.0.0
 - [Configuring static Hugepages for virtual machine usage](https://mathiashueber.com/configuring-hugepages-use-virtual-machine/)
 - [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
 - [KVM - Using Hugepages](https://help.ubuntu.com/community/KVM%20-%20Using%20Hugepages)
+- [Comprehensive guide to performance optimizations for gaming on virtual machines with KVM/QEMU and PCI passthrough](https://mathiashueber.com/performance-tweaks-gaming-on-virtual-machines/)
 
 ## IOMMU Groups
 
