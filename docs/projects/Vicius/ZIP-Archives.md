@@ -8,7 +8,7 @@ To use, just put the ZIP address as the `downloadUrl` in your configuration.
 
 The ZIP file:
 
-- must be an actual ZIP file, i.e. not 7-zip, tarball, etc.
+- must be an actual ZIP file, i.e. not 7-zip, tarball, WinRAR, etc.
 - will be extracted verbatim in the same folder as your executable; this means that `foo.zip` should contain `foo.exe` in its' root, not `foo/foo.exe`
 
 By default:
@@ -20,11 +20,11 @@ See [Customizing Behavior](#customizing-behavior) for how to change to change th
 
 ## Warnings
 
-If you launch the updater from your executable, you will probably want to use the `--terminate-process-before-update` option.
+If you launch the updater from your executable, you will probably want to use the [`--terminate-process-before-update`](Terminate-Process-before-Update.md) option.
 
 If you include the updater in your zip, you will need to handle updating the updater; there are two ways to do this:
 
-- **Recommended**: set the `runAsTemporaryCopy` option
+- **Recommended**: set the `runAsTemporaryCopy` option to `true`
 - set the updater disposition to `CreateIfAbsent` (see below)
 
 If you do not do either, installing your update will fail when attempting to replace the updater, as the file will be in use.
