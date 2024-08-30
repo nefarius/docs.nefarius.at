@@ -33,6 +33,7 @@ virt-manager | 4.0.0
 - [WinFsp](https://winfsp.dev/rel/)
 - [Configuring static Hugepages for virtual machine usage](https://mathiashueber.com/configuring-hugepages-use-virtual-machine/)
 - [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
+- [KVM - Using Hugepages](https://help.ubuntu.com/community/KVM%20-%20Using%20Hugepages)
 
 ## IOMMU Groups
 
