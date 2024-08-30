@@ -31,6 +31,8 @@ virt-manager | 4.0.0
 - [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
 - [How to install virtiofs drivers on Windows](https://virtio-fs.gitlab.io/howto-windows.html)
 - [WinFsp](https://winfsp.dev/rel/)
+- [Configuring static Hugepages for virtual machine usage](https://mathiashueber.com/configuring-hugepages-use-virtual-machine/)
+- [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
 
 ## IOMMU Groups
 
