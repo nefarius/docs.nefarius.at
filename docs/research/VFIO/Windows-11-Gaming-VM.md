@@ -35,6 +35,7 @@ virt-manager | 4.0.0
 - [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
 - [KVM - Using Hugepages](https://help.ubuntu.com/community/KVM%20-%20Using%20Hugepages)
 - [Comprehensive guide to performance optimizations for gaming on virtual machines with KVM/QEMU and PCI passthrough](https://mathiashueber.com/performance-tweaks-gaming-on-virtual-machines/)
+- [Improving the performance of a Windows Guest on KVM/QEMU](https://leduccc.medium.com/improving-the-performance-of-a-windows-10-guest-on-qemu-a5b3f54d9cf5)
 
 ## IOMMU Groups
 
