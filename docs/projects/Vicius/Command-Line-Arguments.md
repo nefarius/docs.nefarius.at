@@ -110,6 +110,14 @@ Deletes the registry-backed postpone data, if present.
 
 An optional [handle](https://learn.microsoft.com/en-us/windows/win32/sysinfo/about-handles-and-objects) to a process object to terminate before the update starts. See [this article](Terminate-Process-before-Update.md) for details.
 
+### `--local-version <version>`
+
+Overrides the [detected local product version](Product-Detection.md) if no detection method was specified in either the local or server-provided configuration.
+
+### `--force-local-version <version>`
+
+Overrides the [detected local product version](Product-Detection.md). This value trumps any product detection method specified in either local or server-provided configuration.
+
 ## Internal
 
 !!! warning "Beware of altering"
