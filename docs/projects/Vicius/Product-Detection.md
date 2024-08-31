@@ -71,3 +71,13 @@ Field | Description | Mandatory
     - `merged` holds the shared configuration state of the client  
     - `remote` holds the server response and  
     - `parameters` holds what the server provided in the `data` field.
+
+### `FixedVersion`
+
+[![Badge](https://img.shields.io/badge/Show%20example-ff6600)](https://vicius.api.nefarius.systems/api/contoso/FixedVersion/updates.json)
+
+Overrides the detected version with a fixed version string.
+
+Field | Description | Mandatory
+---|---|---
+`version` | The version string. | Yes
