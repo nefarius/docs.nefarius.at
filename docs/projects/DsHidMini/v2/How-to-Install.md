@@ -26,6 +26,7 @@ This is the current latest stable major version.
 - **If you want Bluetooth support** you need to [install BthPS3 first](https://github.com/nefarius/BthPS3/releases/latest) (optional for USB)
 - [Grab the release from GitHub](https://github.com/nefarius/DsHidMini/releases/latest)
 - Download the attached `dshidmini_vX.X.X.X.zip` archive to an arbitrary location on your machine
+- Unblock the archive if blocked. ![image](https://github.com/user-attachments/assets/7391e7af-e8c0-4a64-bdba-c156aa2eb6be)
 - Extract the archive (doesn't matter where to, e.g. your Downloads folder)
 - [Make sure you know your architecture](../../../research/How-to-check-architecture.md)
     - On x64 navigate to `x64\dshidmini`
