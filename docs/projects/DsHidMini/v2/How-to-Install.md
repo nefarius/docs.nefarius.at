@@ -61,7 +61,7 @@ By now if you plug in your controller (or reboot the machine) chances are high t
     - [Make sure you know your architecture](../../../research/How-to-check-architecture.md)
         - On x64 navigate to `x64\dshidmini`
         - On x86 navigate to `x86\dshidmini`
-    - Right-click on `dshidmini.inf` and select Install
+    - Right-click on `dshidmini.inf` and select Install  
         ![hIh7PcxkC9.png](images/hIh7PcxkC9.png)
         - If you've never installed great software before 😉 this might show up (hit Install):  
         ![DRYeurZsPs.png](images/DRYeurZsPs.png)
