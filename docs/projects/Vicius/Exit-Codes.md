@@ -33,3 +33,5 @@ Code | Description
 `108` | The setup launch failed and the user aborted the update.
 `109` | The setup execution finished with a non-success exit code and the user aborted the update.
 `110` | The [`--purge-postpone`](Command-Line-Arguments.md#-purge-postpone) command didn't succeed. There might be no active postpone period.
+`111` | Failed to terminate the process specified via [`--terminate-process-before-update`](Command-Line-Arguments.md#-terminate-process-before-update-handle).
+`112` | Two or more specified [command line arguments](Command-Line-Arguments.md) were incompatible with each other.
