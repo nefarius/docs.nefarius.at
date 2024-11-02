@@ -7,4 +7,4 @@ Devices connected through BthPS3 can be interfaced with "driverless" by opening 
 
 ## Example implementation
 
-[Check out this archived project](https://github.com/ViGEm/Shibari/tree/master/Sources/Shibari.Sub.Source.BthPS3) for a reference implementation on how to enumerate and interact with devices exposed by BthPS3 (C#/.NET).
+[Check out this archived project](https://github.com/nefarius/Shibari/tree/master/Sources/Shibari.Sub.Source.BthPS3) for a reference implementation on how to enumerate and interact with devices exposed by BthPS3 (C#/.NET).
