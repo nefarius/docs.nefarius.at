@@ -126,3 +126,11 @@ If you're running [Windows on Raspberry](https://worproject.com/) and attempt to
 ![vEOfeRh9vF.png](images/vEOfeRh9vF.png)
 
 Note the `UART` in the parent device. Unfortunately the mandatory filter driver that ships with BthPS3 work with **USB only**, not UART. Therefore this solution is unable to operate on the Raspberry Pi 4 and any other device that uses UART for Bluetooth.
+
+## Can I install this on the Steam Deck?
+
+No, BthPS3 will not work on the Steam Deck [since it uses UART, not USB](#why-does-it-not-work-on-the-raspberry-pi-4).
+
+![hZszQF3qc1.png](images/hZszQF3qc1.png)
+
+![tey5NNAkBg.png](images/tey5NNAkBg.png)

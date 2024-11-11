@@ -94,6 +94,7 @@
         "Tripplecheck",
         "TUSB",
         "twemoji",
+        "UART",
         "udev",
         "upperfilter",
         "vcpu",
