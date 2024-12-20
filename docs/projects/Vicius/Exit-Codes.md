@@ -17,6 +17,7 @@ Code | Description
 `205` | The user postponed the update and 24 hours since then haven't yet passed.
 `206` | The [`--purge-postpone`](Command-Line-Arguments.md#-purge-postpone) command finished successfully.
 `207` | A new updater process was successfully created from a temporary location.
+`208` | The updater process was closed while a setup operation was still in progress.
 
 ## Error conditions
 
