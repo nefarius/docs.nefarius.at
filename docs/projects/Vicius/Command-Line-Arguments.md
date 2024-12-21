@@ -81,12 +81,17 @@ Overrides all other [Server Discovery](Server-Discovery.md) methods. Useful to q
 
 Specifies an alternate update channel to use. This value will be inserted into the server URL template e.g. `manufacturer/product/channel` which allows the caller to switch between [remote updater configurations](Remote-Configuration.md) when invoking the updater manually. This can be used to deliver different update mechanisms for Beta or VIP users etc.
 
-The value can be any alphanumeric string **excluding** the following characters:
+In versions above v1.8.876, therei s no validation of this parameter; server-side validation is assumed to be sufficient.
 
-- `'..'` (two consecutive dots)
+In v1.8.876 and below, the value can be any alphanumeric string **excluding** the following characters:
+
 - `'/'` (forward slash)
 - `'\'` (backslash)
 - `' '`&nbsp;(space)
+- `.` (period)
+- `2` (the number 2)
+
+Server-side path validation should still be used with earlier versions of the client.
 
 ### `--add-header <name=value>`
 
