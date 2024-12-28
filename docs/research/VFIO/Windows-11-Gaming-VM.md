@@ -326,3 +326,30 @@ IRQBALANCE_BANNED_CPULIST=8-15
 ```bash
 sudo systemctl restart irqbalance
 ```
+
+## Networking
+
+`/lib/systemd/system/qemu-startup.service`
+
+```ini
+[Unit]
+Description=Setup qemu network bridging
+After=network-online.target
+
+[Service]
+Type=oneshot
+Restart=on-failure
+ExecStart=brctl addbr br0
+ExecStart=brctl addif br0 enp5s0
+ExecStart=dhclient br0
+ExecStart=ip link set br0 up
+ExecStart=iptables -I FORWARD -m physdev --physdev-is-bridged -j ACCEPT
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl enable qemu-startup.service
+sudo systemctl start qemu-startup.service 
+```
