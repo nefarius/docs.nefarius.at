@@ -17,15 +17,15 @@ Typically called with only once when the bundled product gets installed. Perform
 !!! warning "Beware of parent path changes"
     If the updater executable is moved to a different location, this command needs to be issued again at least once.
 
-### `--no-scheduled-task`
+#### `--no-scheduled-task`
 
 Can be used in conjunction with the [`--install`](#-install) switch to skip the creation of the Scheduled Task. Useful if you rather wish to invoke the updater via your own mechanism, like a button in your product or whatever event works best for you.
 
-### `--no-autostart`
+#### `--no-autostart`
 
 Can be used in conjunction with the [`--install`](#-install) switch to skip registering in the current users autostart. Useful if you rather wish to invoke the updater via your own mechanism, like a button in your product or whatever event works best for you.
 
-### `--override-success-code <code>`
+#### `--override-success-code <code>`
 
 Can be used in conjunction with the [`--install`](#-install) and [`--uninstall`](#-uninstall) switch to override the default success exit code with the user-specified value. Useful if the calling process can not be configured to treat any other value than e.g. 0 as a success.
 
