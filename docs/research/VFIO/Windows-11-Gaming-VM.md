@@ -37,6 +37,8 @@ virt-manager | 4.0.0
 - [Comprehensive guide to performance optimizations for gaming on virtual machines with KVM/QEMU and PCI passthrough](https://mathiashueber.com/performance-tweaks-gaming-on-virtual-machines/)
 - [Improving the performance of a Windows Guest on KVM/QEMU](https://leduccc.medium.com/improving-the-performance-of-a-windows-10-guest-on-qemu-a5b3f54d9cf5)
 - [Nested Virtualization - Hyper-V 2019 in qemu-kvm](https://www.redpill-linpro.com/techblog/2021/04/07/nested-virtualization-hyper-v-in-qemu-kvm.html)
+- [Really Simple Network Bridging With qemu](https://www.spad.uk/posts/really-simple-network-bridging-with-qemu/)
+- [How to use bridged networking with libvirt and KVM](https://linuxconfig.org/how-to-use-bridged-networking-with-libvirt-and-kvm)
 
 ## IOMMU Groups
 
