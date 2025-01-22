@@ -36,3 +36,4 @@ Code | Description
 `110` | The [`--purge-postpone`](Command-Line-Arguments.md#-purge-postpone) command didn't succeed. There might be no active postpone period.
 `111` | Failed to terminate the process specified via [`--terminate-process-before-update`](Command-Line-Arguments.md#-terminate-process-before-update-handle).
 `112` | Two or more specified [command line arguments](Command-Line-Arguments.md) were incompatible with each other.
+`113` | The updater file name contains some invalid sequences.
