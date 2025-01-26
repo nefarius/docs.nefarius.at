@@ -1,7 +1,7 @@
 # Donations
 
 !!! important "A token of appreciation ❤️"
-    I accept donations solely as a token of appreciation if my work has brought you joy. I do not offer any services in return for donations. If you wish to contract me to carry out specific work for financial reimbursement you can hire my skills through my company. B2B relationships most welcome! Contact `vigem [_at] nefarius [dot_] at` to talk business 😘
+    I accept donations solely as a token of appreciation if my work has brought you joy. I do not offer any services in return for donations. If you wish to contract me to carry out specific work for financial reimbursement you can hire my skills through my company. B2B relationships most welcome! Contact `solutions [_at] nefarius [dot_] at` to talk business 😘
 
 A vast majority of [my](https://github.com/nefarius) work is available for free under permissive licenses, for both private individuals and enterprises alike. Maintaining this many popular projects requires time and skill and over the years a tremendous portion of my life has been dedicated to Free and Open Source Software. I usually work independent and without an "agenda" so if my chaotic creations have been useful to you consider supporting my path by tossing a coin or two 💖
 
