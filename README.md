@@ -18,6 +18,10 @@ The built site will be available at [localhost:8000](http://localhost:8000/).
 - `master` changes will get built and pushed online ASAP
 - `devel` can be used to make changes without affecting the currently online version
 
+## Participating
+
+If you found an error or want to improve any existing article [you can do so via GitHub PRs](https://github.com/firstcontributions/first-contributions).
+
 ## 3rd party credits
 
 - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
