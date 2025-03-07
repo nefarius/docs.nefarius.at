@@ -28,7 +28,7 @@ In `DS4Windows` HID Device Mode, the controller appears as a custom device that 
 ## Using the controller with DS4Windows
 
 - To start, [the controller must be in `DS4Windows` mode](HID-Device-Modes-Explained.md)
-- Download the latest [Ryochan7's DS4Windows](https://github.com/Ryochan7/DS4Windows/releases) release package according to your [system architecture](https://www.howtogeek.com/howto/21726/how-do-i-know-if-im-running-32-bit-or-64-bit-windows-answers/)
+- Download the latest [Ryochan7's DS4Windows](https://github.com/Ryochan7/DS4Windows/releases) release package according to your [system architecture](https://web.archive.org/web/20220831180434/https://www.howtogeek.com/howto/21726/how-do-i-know-if-im-running-32-bit-or-64-bit-windows-answers/)
 - Extract the package to an easily accessible folder
 - Run DS4Windows.exe
 - Install the ViGEmBus Driver if asked to
