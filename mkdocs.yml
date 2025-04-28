@@ -67,6 +67,7 @@ plugins:
       auto_caption: false
       caption_position: bottom
   - redirects:
+      # keeps old links working after moving original DsHidMini docs to v2 sub-directory
       redirect_maps:
         'projects/DsHidMini/How-to-Install.md': 'projects/DsHidMini/v2/How-to-Install.md'
         'projects/DsHidMini/HID-Device-Modes-Explained.md': 'projects/DsHidMini/v2/HID-Device-Modes-Explained.md'
