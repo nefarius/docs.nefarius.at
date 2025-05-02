@@ -134,3 +134,25 @@ No, BthPS3 will not work on the Steam Deck [since it uses UART, not USB](#why-do
 ![hZszQF3qc1.png](images/hZszQF3qc1.png)
 
 ![tey5NNAkBg.png](images/tey5NNAkBg.png)
+
+## Why does the driver stop working after turning Bluetooth off and on again, or on hibernate/sleep?
+
+If you are using **Intel(R) Wireless Bluetooth(R)** (quite common in Laptops) you can run into the following issue:
+
+```text
+This device can not start. (Code 10)
+
+STATUS_DEVICE_POWER_FAILURE
+```
+
+![intel-wireless-status-device-power-failure.png](images/intel-wireless-status-device-power-failure.png)
+
+Actions triggering this can be either waking up from sleep/hibernate or by manually turning Bluetooth off and on via the Windows-provided buttons:
+
+![windows-bluetooth-switch.png](images/windows-bluetooth-switch.png)
+
+Afterwards the profile driver greets you with a yellow exclamation mark:
+
+![intel-wireless-power-fail.png](images/intel-wireless-power-fail.png)
+
+**This is a problem caused by Intel Wireless and can not be fixed.** To mitigate, either do not disable and enable Bluetooth during operation, or use a different Bluetooth host.
