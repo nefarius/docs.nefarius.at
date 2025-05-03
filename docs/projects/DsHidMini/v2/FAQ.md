@@ -17,14 +17,14 @@ Check out the repository [README](https://github.com/nefarius/DsHidMini/blob/mas
 
 ## I am already using ScpToolKit / MotionInJoy / Shibari / Whatever, should I move to DsHidMini?
 
-That is entirely up to you of course 🙂 Do you wish to stick with abandoned, outdated, unmaintained, complex and potentially untrustworthy software that will work less and less the further Windows and Games advance or do you want to step into the light and use fresh, stable, thought-through open software that simple delivers what it promises? Your call 😉
+That is entirely up to you of course 🙂 Do you wish to stick with abandoned, outdated, unmaintained, complex and potentially untrustworthy software that will work less and less the further Windows and Games advance, or do you want to step into the light and use fresh, stable, thought-through open software that simply delivers what it promises? Your call 😉
 
 ## How do I use it?
 
 - Follow the [_How to Install_ guide](How-to-Install.md)
-- Learn the  about different [DsHidMini HID Device Modes](HID-Device-Modes-Explained.md) your controller can be, the characteristics each mode and how to change between them
+- Learn about the different [DsHidMini HID Device Modes](HID-Device-Modes-Explained.md) your controller can be, the characteristics of each mode and how to change between them.
 
-After DsHidMini is active and the controller connected, you just need to change to the mode best suited to your use case. Keep in mind that if you want to use your controller as a **XInput** (Xbox 360) or **DualShock 4** controller, [there are a few extra steps left to be followed](#how-do-i-use-my-controller-as-a-xbox-360-or-dualshock-4).
+After DsHidMini is active and the controller connected, all you need is to change to the mode best suited to your use case. Keep in mind that if you want to use your controller as a **XInput** (Xbox 360) or **DualShock 4** controller, [there are a few extra steps left to be followed](#how-do-i-use-my-controller-as-a-xbox-360-or-dualshock-4).
 
 ![HIDDeviceModes](images/HIDDeviceModes.png)  
 
@@ -55,7 +55,7 @@ This is a known issue that can happen in some occasions. By the time of writing,
 
 ### Recommended method
 
-Set the controller into `DS4Windows Mode` and use it with **Ryochan7's DS4Windows**. For more detailed instructions and other information, follow the [_DS4Windows Mode User Guide_](DS4-Mode-User-Guide.md) and you'll be good to go.
+Set the controller to `DS4Windows Mode` and use it with **Ryochan7's DS4Windows**. For more detailed instructions and other information, follow the [_DS4Windows Mode User Guide_](DS4-Mode-User-Guide.md) and you'll be good to go.
 
 ![DS4ModeDS4W](images/DS4ModeDS4W.png)  
 
@@ -110,13 +110,13 @@ The recommended method is the following:
 
 ## How do I use the motion sensors with emulators?
 
-The only emulator that can use the DS3 motion sensors is the RPCS3 when using the DualShock 3 handler.
+The only emulator that can use the DS3 motion sensors is the RPCS3 emulator when using the DualShock 3 handler.
 
 For now, **it's impossible to use the controller's motion with other emulators**, like CEMU, Yuzu, Dolphin etc. The reason for this is that the PS3 controller only has 1 gyroscope, while modern controllers have 3 gyros. While it's possible to "emulate" the missing gyros by using the sensors it does have, the whole process involves many _maths_ that are not implemented at the moment and are at the very bottom of DsHidMini's To-Do list.
 
 ## I did everything right and it just won't connect via Bluetooth!
 
-**Tripplecheck** that you didn't attempt "conventional pairing" in the past, if you did so **the controller will never ever successfully connect**, no matter what you do. To check this, open the Bluetooth Settings page within Windows and check the list for entries similar to:
+**Triple-check** that you didn't attempt "conventional pairing" in the past, if you did so **the controller will never ever successfully connect**, no matter what you do. To check this, open the Bluetooth Settings page within Windows and check the list for entries similar to:
 
 ![BluetoothDialog.png](images/BluetoothDialog.png)  
 
@@ -124,11 +124,11 @@ For now, **it's impossible to use the controller's motion with other emulators**
 
 Select it and click the "Remove device" button. Then properly pair it once by plugging it into USB, unplug and press the PS button. Should all work now!
 
-Another hint would be if you see an active connection in the notifications panel but the controller doesn't appear in DSHMC:
+Another hint would be if you see an active connection in the notifications panel, but the controller doesn't appear in DSHMC:
 
 ![BluetoothConnected.png](images/BluetoothConnected.png)  
 
-## I installed everything but the controller doesn't appear in Device Manager, Devices and Printers or th control app!
+## I installed everything but the controller doesn't appear in Device Manager, Devices and Printers or the control app!
 
 You do not have a SIXAXIS/DualShock 3 device then. To verify, plug in your device via USB, get the tool [DevManView from NirSoft](https://www.nirsoft.net/utils/device_manager_view.html) and search for `USB\VID_054C&PID_0268` like so:
 
