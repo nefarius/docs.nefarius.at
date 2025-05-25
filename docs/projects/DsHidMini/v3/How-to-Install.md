@@ -20,7 +20,7 @@ No matter what software you may have preinstalled, this step is always the same 
 
 For installation of the Version 3 BETA driver and tools, follow along:
 
-1. Download and install **DsHidMini Version 3 Driver** by downloading the [latest release marked as Pre-release] or any version labeled v3.x.x
+1. Download and install **DsHidMini Version 3 Driver** by downloading the [latest release marked as Pre-release](https://github.com/nefarius/DsHidMini/releases) or any version labeled v3.x.x
     - For the setup to work correctly **Windows UAC needs to be enabled**. If in doubt, the following page has instructions on how to check its status: [link here](https://articulate.com/support/article/how-to-turn-user-account-control-on-or-off-in-windows-10)
 2. Download and execute the [DsHidMini **ControlApp**](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe), a companion application for configuring DsHidMini controllers
     - You don't need to have the ControlApp open for DsHidMini to work. Only use it to monitor and configure DsHidMini controllers, so keep it in a convenient location for easy access
