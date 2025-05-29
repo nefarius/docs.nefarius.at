@@ -28,5 +28,5 @@ The following features are considered done and have been tested to the best of t
 
 ## Installation, removal and troubleshooting
 
-Check the dedicated [V3 BETA installation and removal page](how-to-install)
+Check the dedicated [V3 BETA installation and removal page](How-to-Install.md)
 
