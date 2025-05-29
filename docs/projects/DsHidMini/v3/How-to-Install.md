@@ -38,8 +38,8 @@ If you want to update, simply [follow the same installation steps](#installation
 ## Removal
 
 1. The main Beta v3 driver can be removed by just uninstalling `Nefarius DsHidMini Driver` in Windows' Apps & features
-3. BthPS3 can also be uninstalled the same way as above via Apps & Features
-2. The ControlApp companion application isn’t installed in the traditional sense and can be deleted like any other file
+2. BthPS3 can also be uninstalled the same way as above via Apps & Features
+3. The ControlApp companion application isn’t installed in the traditional sense and can be deleted like any other file
 
 ![ApplicationFrameHost_nFtPcyobyf.png](images/ApplicationFrameHost_nFtPcyobyf.png)
 
@@ -75,7 +75,7 @@ If the controller does not appear under `Nefarius HID Devices` or if this sectio
 
     **Official Sony driver**
 
-    If you have/had PS Now installed, chances are high you have the official Sony `sixaxis.sys` on your system. [Follow this procedure to remove it](SIXAXIS.SYS-to-DsHidMini-Guide.md).
+    If you have/had PS Now installed, chances are high you have the official Sony `sixaxis.sys` on your system. [Follow this procedure to remove it](../v2/SIXAXIS.SYS-to-DsHidMini-Guide.md).
 
     **FireShock**
 
