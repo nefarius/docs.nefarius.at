@@ -4,7 +4,7 @@
 
 - DsHidMini was designed to work with Official Sony PS3 DualShock 3 controllers. Most DualShock 3 controllers sold online these days are not original controllers. It can be difficult to tell these fake controllers apart from their original counterparts as they are made with the same molds and have the same symbols and labels on them as official DualShock 3 controllers. These fake controllers might be missing some features (such as motion controls or pressure-sensitive buttons) and most likely will not work with DsHidMini.  If your non-official controller does work, take it as a win.  However, if it does not, please do not contact support as there is nothing we can do.
 
-- Do *not* attempt to pair a PS3 Controller on Windows via the built-in device discovery dialog, like:
+- Do *not* attempt to pair a PS3 Controller on Windows via the built-in device discovery dialog, like:  
 ![pairing-fail.png](images/pairing-fail.png)  
 This will **not work** and can cause Bluetooth connection to fail completely.  
 To check if you did, open the Bluetooth Settings page within Windows and check the list for entries similar to:  
