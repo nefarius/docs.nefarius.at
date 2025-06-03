@@ -3,7 +3,7 @@
 ## Things to Know Before You Begin
 
 !!! danger highlight "DsHidMini V3 BETA installation page!"
-    Version 3 is still in BETA. Although all of our tests indicate things are working smoothly keep in mind that you may encounter unknown issues or features that are missing or yet to be implemented.
+    Version 3 is still in BETA. Although all of our tests indicate things are working smoothly, keep in mind that you may encounter unknown issues or features that are missing or yet to be implemented.
 
     Make sure to check the [intro page for the V3 Beta](../) before continuing!
 
@@ -16,27 +16,15 @@
 
 - **If you want Bluetooth support** you need to [install BthPS3](../../BthPS3/How-to-Install.md). This can be done either before or after installing DsHidMini. The DsHidMini installer has an option which will download BthPS3 for you, if desired.
 
-- Do *not* attempt to pair a PS3 Controller on Windows via the built-in device discovery dialog, like:  
-![pairing-fail.png](images/pairing-fail.png)  
-This will **not work** and can cause Bluetooth connection to fail completely.  
-To check if you did, open the Bluetooth Settings page within Windows and check the list for entries similar to:  
-![BluetoothDialog.png](images/BluetoothDialog.png)
-![explorer_7O9IulBc4C2.png](images/explorer_7O9IulBc4C2.png)  
-If you see this, simply select it and click the "Remove device" button.  
-
 - For the setup to work correctly **Windows UAC needs to be enabled**. If in doubt, the following page has instructions on how to check its status: [link here](https://articulate.com/support/article/how-to-turn-user-account-control-on-or-off-in-windows-10)   
 
-## Installation:
+## Installing DsHidMini v3.x.x
 
 !!! note "NOTE" 
     
-    No matter what software you may have preinstalled, this installation steps below are always the same 😀 
+    Previous versions of DsHidMini required you to uninstall old/outdated software that may cause conflicts.  This is no longer required, so no matter what software you may have preinstalled, the installation steps below are always the same 😀 
 
-
-### - Installing DsHidMini v3
-- Head to the official GitHub page for DsHidMini [here](https://github.com/nefarius/DsHidMini) and click on the link that says "releases".  
-![DsHidMini GitHub.png](<images/DsHidMini GitHub.png>)  
-- The top of the Releases page should show the latest version, which at the time of this writting is v3.5.1 and is currently listed as a "Pre-Release".  
+- Head to the official GitHub page for DsHidMini releases [here](https://github.com/nefarius/DsHidMini/releases). The top of the Releases page should show the latest version, which at the time of this writting is v3.5.1 and is currently listed as a "Pre-Release".  
 ![Releases.png](images/Releases.png)  
 - Scroll down a bit and click on the word "Assets" and you will see the installation file named "Nefarius_DsHidMini_Drivers_x64_arm64_vx.x.x.msi" (the x's represent the current version number and may be different from the photo below). Click on that name and download the file to your computer.  
 ![Assets.png](images/Assets.png)  
@@ -51,27 +39,9 @@ If you see this, simply select it and click the "Remove device" button.
 - After the DsHidMini Drivers have been installed, a webpage will open with some important information. Please read through it. When done, click "Next", then "Finish" to close the wizard.  
 ![Finish.png](images/Finish.png)  
 
-**Congratulations!!** DsHidMini is now installed! By now if you plug in your controller (or reboot the machine) chances are high that everything already works as expected. You can also now follow the [BthPS3 Installation Guide](../../BthPS3/How-to-Install.md) (if you haven't already) if you want to use your controller over Bluetooth.  
+**Congratulations!!** Now that [DsHidMini](How-to-Install.md) (and optionally [BthPS3](../../BthPS3/How-to-Install.md)) are installed with the default settings, your controller should be able to work with Windows and behave as if it were an Xbox Controller (Xinput Device). Check out the [Testing Your Controller](Testing-Controller.md) page for more steps to confirm that your controller is working properly.
 
-
-### - Testing Your Controller  
-
-Now that DsHidMini (and optionally BthPS3) are installed with the default settings, your controller should be able to work with Windows and behave as if it were an Xbox Controller (Xinput Device).  Perform the following steps to test this:  
-
-- On the lower left corner of your screen where it says "Type here to search" in your task bar, type "joy.cpl", then press ENTER.  
-![Search Bar.png](<images/Search Bar.png>)  
-- This will open the "Game Controllers" window.  We haven't connected our PS3 controller yet, so this should be blank unless you currently have another controller connected.  
-![Game Controller.png](<images/Game Controller.png>)  
-- Connect your PS3 controller to your computer with a USB cable. (Note: This will also automatically pair your controller to your computer for Bluetooth if you installed BthPS3). You should now see your controller in the list as "DS3 Compatible HID Device" and a Status of "OK". Click on the controller to highlight it, then click "Properties".  
-![USB Conencted.png](<images/USB Connected.png>)  
-- On the next screen, make sure that the "Test" tab is selected. Now move the joysticks and press each button on your controller to see if everything is working. (Note: Not all button lights will light up. This is normal. As long as a different one lights up each time you press a button, this confirms that everything is working). Click "OK" to exit out of the Properties window.  
-![Controller Test.png](<images/Controller Test.png>)  
-- To test your controller over Bluetooth (if you installed BthPS3), simply unplug the controller from the USB. The controller should still be listed as "DS3 Compatible HID Device". Then just click on "Properties" and test like before.  (Tip: To turn off your controller while connected via Bluetooth, hold down L1, R1, and the PS Button for 2 seconds.)  
-
-**Congratulations!!** Your PS3 controller has now been set up and verified working on your computer over USB (and optionally Bluetooth). If it doesn't, worry not, [read on here](#troubleshooting)!
-
-
-### - Extra Information  
+## Extra Information  
 
 Additional settings can be found and changed by downloading and executing the [DsHidMini **ControlApp**](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe), a companion application for configuring DsHidMini controllers.  
 - You don't need to have the ControlApp open for DsHidMini to work. Only use it to monitor and configure DsHidMini controllers, so keep it in a convenient location for easy access.  
