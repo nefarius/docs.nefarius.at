@@ -32,7 +32,7 @@ Now the setup should launch bypassing the error message. Follow the setup's inst
 
 ## How to fix Bluetooth device error codes 19 & 39?
 
-... or Code 31 or Code 43. If you end up with a damaged/partial installation for whatever reason (computers, right? 😅) the setup or uninstaller might not even be able to do its work. Worry not though, if you check Device Manager and see that yellow exclamation mark on your Bluetooth host device, check the details and if they give you a familiar error code, like...
+... or Code 31 or Code 37 or Code 43. If you end up with a damaged/partial installation for whatever reason (computers, right? 😅) the setup or uninstaller might not even be able to do its work. Worry not though, if you check Device Manager and see that yellow exclamation mark on your Bluetooth host device, check the details and if they give you a familiar error code, like...
 
 ![Error Code 19](images/host-error-19.png)  
 
