@@ -1,6 +1,6 @@
 # How to Install  
 
-## - Before You Begin:  
+## Before You Begin:  
 
 - This set of drivers has been designed for and tested with the original Sony PlayStation **3** peripherals, better known by the names SIXAXIS, DualShock and Navigation controller. If your controller works, great! Take it as a win. However, if it does not, please do not contact support as there is nothing we can do.  
 - Do *not* attempt to pair a PS3 Controller on Windows via the built-in device discovery dialog, like:  
@@ -13,7 +13,7 @@ If you see this, simply select it and click the "Remove device" button.
 
 - For the setup to work correctly **Windows UAC needs to be enabled**. If in doubt, the following page has instructions on how to check its status: [link here](https://articulate.com/support/article/how-to-turn-user-account-control-on-or-off-in-windows-10)   
 
-## - Installing BthPS3 Drivers:  
+## Installing BthPS3 Drivers:  
 
 !!! note "Note:" 
     The following steps are only required if you plan on using your PS3 controller wirelessly over Bluetooth. If you just plan on using a USB cable, then all you need is [DsHidMini](../DsHidMini/index.md).  
