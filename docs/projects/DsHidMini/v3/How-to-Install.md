@@ -47,7 +47,7 @@ After that, DsHidMini should be fully gone from your computer 😥
 
 ## Troubleshooting
 
-<!--
+<!-- this is incorrect and misleading users!
 ### Verifying if the controller is loading the correct driver
 
 The driver can't do anything if it is not being used, so to check this:
