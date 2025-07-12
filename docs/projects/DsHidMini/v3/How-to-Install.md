@@ -88,4 +88,4 @@ DsHidMini V3 requires the new ControlApp companion tool. Check the [installation
 
 ### Controller does not connect by Bluetooth
 
-This section is under construction.
+This section is under construction. Meanwhile consult all the other existing FAQ articles on our various project pages.
