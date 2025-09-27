@@ -91,6 +91,10 @@ This is unfortunately impossible to answer a 100% correctly. These drivers have 
 
 Yes, that's the whole purpose of this design 😉 BthPS3 *extends* the existing vanilla Bluetooth stack, it doesn't *replace* it (like ScpToolkit and alike did). This means it can never be as close to the original PlayStation Bluetooth stack (we need to play by Microsoft's design rules, remember?) as other solutions but the trade-off of keeping your stock wireless functionality should be worth it.
 
+## Can I use other wireless controllers with the DualShock 3?
+
+Yes, any PC-compatible Bluetooth device works with BthPS3. This means you can connect a DualShock 3 wirelessly with other wireless controllers.
+
 ## How many devices can I connect at the same time?
 
 There is no definitive answer to that one, as it depends heavily on the Bluetooth host hardware (quality, antenna design, size and position) and the amount of "noise" in your environment (Bluetooth is a fairly "weak" protocol compared to all the other radio chatter that's constantly happening in a common household). Users have reported all sorts of working constellations; like up to 6 controllers connected and working concurrently without any human-noticeable delay. So it's up to you to figure this one out! 😁
