@@ -22,6 +22,8 @@ By default verbose tracing is **off**, which means we will lose a lot of potenti
 
 After that **reboot the machine** before you proceed with the next step!
 
+This only needs to be done **once**, subsequent trace sessions do not require any more reboots.
+
 ## Capture the trace
 
 ### Start trace session
