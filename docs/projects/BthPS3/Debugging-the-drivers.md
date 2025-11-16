@@ -10,7 +10,7 @@ Fire up PowerShell with administrative privileges by pressing ++win+x++ and sele
 
 Keep it open until we're done, we'll need it throughout the process 😉
 
-By default verbose tracing is **off**, which means we will lose a lot of potentially interesting information. To enable verbose tracing, execute the following commands in PowerShell:
+By default verbose tracing is **off**, which means we will lose a lot of potentially interesting information. To enable verbose tracing, copy and paste the following commands into PowerShell and hit enter:
 
 !!! example "PowerShell"
     ```PowerShell
