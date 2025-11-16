@@ -48,7 +48,7 @@ Currently tracing is active and the events happening inside the driver will be r
 - Controller is not connecting wirelessly? Try connecting it a few times
     -  Make sure to turn on the controller as normal via the PS button and wait until the LEDs stop blinking before repeating
 - Controller is turning off randomly even if it's charged? Make sure to play with the controller until it disconnects on its own
-- Something (e.g.: LEDs, rumble, sticks) works as normal via USB but not via BT? make sure to repeat the same actions while via BT that work as normal via USB
+- Something (e.g.: LEDs, rumble, sticks) works as normal via USB but not via BT? Make sure to repeat the same actions while via BT that work as normal via USB
 
 ### Stop trace session
 
