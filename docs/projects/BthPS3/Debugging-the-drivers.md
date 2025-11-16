@@ -37,7 +37,7 @@ Once you've got PowerShell open again, paste the following three lines into it "
     Add-EtwTraceProvider -SessionName BthPS3 -Guid ‘{586aa8b1-53a6-404f-9b3e-14483e514a2c}’ -MatchAnyKeyword 0x0FFFFFFFFFFFFFFF -Level 0xFF -Property 0x40
     ```
 
-Should looks similar to this:
+Should looks similar to this (may differ on your system):
 
 ![PowerShell](../../images/35cnHUOIwv.png)
 
