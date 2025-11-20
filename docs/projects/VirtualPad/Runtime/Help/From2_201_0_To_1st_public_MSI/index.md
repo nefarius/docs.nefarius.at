@@ -1,10 +1,10 @@
 # Why You Are Seeing This Update
 
-You are seeing this update because a small background component called **Nefarius VirtualPad Driver Runtime** was installed together with an application named **DSX**.
+You are seeing this update because a small background component called **Nefarius VirtualPad Driver Runtime** was installed together with an application named [**DSX**](https://store.steampowered.com/app/1812620/DSX/).
 
-This component provides runtime features that DSX needs to work properly. It does **not** collect personal data (PII) or run constantly in the background. It only performs a lightweight periodic check for updates and does **not** affect your computer’s performance.
+This component provides runtime features that [DSX](https://store.steampowered.com/app/1812620/DSX/) needs to work properly. It does **not** collect personal data (PII) or run constantly in the background. It only performs a lightweight periodic check for updates and does **not** affect your computer’s performance.
 
-If you still use **DSX**, you should install this update to keep everything secure, working smoothly, and prepared for upcoming DSX updates and feature additions.
+If you still use [**DSX**](https://store.steampowered.com/app/1812620/DSX/), you should install this update to keep everything secure, working smoothly, and prepared for upcoming DSX updates and feature additions.
 
 ---
 
