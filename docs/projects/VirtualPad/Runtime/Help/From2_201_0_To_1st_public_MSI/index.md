@@ -33,7 +33,7 @@ Removing it does **not** affect any other applications on your system.
 
 If you’re not certain whether you need this software, you can simply choose **Postpone** in the update dialog to be reminded tomorrow.
 
-If you have any questions or concerns, feel free to reach out via our **support Discord**: 
+If you have any questions or concerns, feel free to reach out via our **support Discord**:
 
 [![chat on Discord](https://img.shields.io/discord/836790685784211486?logo=discord&label=Discord&style=for-the-badge&color=228B22)](https://discord.gg/PUThpCFByn)
 
