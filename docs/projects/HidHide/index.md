@@ -10,3 +10,7 @@ HidHide is an "input device firewall" inspired by HidGuardian but designed and w
 ## Downloads
 
 [Get the setup here](https://github.com/nefarius/HidHide/releases/latest) and follow its instructions. Done!
+
+## ARM64 manual installation
+
+Need to deploy HidHide on Windows on ARM? Follow the [manual ARM64 installation guide](Manual-Installation-ARM64.md) for a ZIP-based driver and client setup using `pnputil`.
