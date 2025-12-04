@@ -5,7 +5,7 @@
 !!! danger highlight "DsHidMini V3 BETA installation page!"
     Version 3 is still in BETA. Although tests indicate things are working smoothly, keep in mind that you may encounter unknown issues or missing features.
 
-    Make sure to check the [intro page for the V3 Beta](../) before continuing!
+    Make sure to check the [intro page for the V3 Beta](../index.md) before continuing!
 
 !!! danger highlight "STOP trying to use DsHidMini with random controllers"
     This and **only** this controller (Sony DualShock 3 a.k.a. PS3 Gamepad) is supported:
