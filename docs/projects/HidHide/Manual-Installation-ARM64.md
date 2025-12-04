@@ -13,7 +13,7 @@ Manual ARM64 builds of HidHide are provided for advanced users who need to deplo
 
 ## Download the ARM64 package
 
-1. Download the ARM64 manual installation archive directly: [HidHide_ARM64.zip](https://github.com/nefarius/HidHide/raw/refs/heads/master/drivers/HidHide_ARM64.zip).
+1. Download the ARM64 manual installation archive directly: [HidHide_ARM64.zip](https://github.com/nefarius/HidHide/raw/refs/heads/master/drivers/HidHide_ARM64.zip). This archive contains only the driver and its catalog/INF files.
 2. Unblock the archive if Windows marks it as downloaded from the internet (Right-click → **Properties** → **Unblock** → **OK**).
 3. Extract the archive to a folder you can access easily (e.g., `C:\Temp\HidHide_ARM64`). Extraction creates a folder `HidHide_ARM64` containing `HidHide.inf`, `HidHide.sys`, `HidHide.cat`, and `LICENSE.rtf`.
 
@@ -32,7 +32,11 @@ Manual ARM64 builds of HidHide are provided for advanced users who need to deplo
 
 ## Install the configuration client
 
-The archive also includes an ARM64 build of the configuration client. Copy the client files (usually inside a `Client` or `bin` subfolder) to a location of your choice, then create a Start menu shortcut if desired. Launch `HidHideClient.exe` to manage hidden devices and application whitelists.
+The driver archive does **not** include the graphical or CLI configuration clients. Download the pre-built ARM64 client binaries from the latest build pipeline:
+
+- [HidHide ARM64 client (GUI/CLI) binaries](https://buildbot.nefarius.at/builds/HidHide/latest/bin/Release/ARM64/)
+
+After downloading, extract the archive and copy the client files to a location of your choice (e.g., `C:\Program Files\HidHide`). Then create a Start menu shortcut if desired. Launch `HidHideClient.exe` to manage hidden devices and application whitelists.
 
 !!! tip
     If the client fails to start, install the ARM64 VC++ Redistributable and try again.
