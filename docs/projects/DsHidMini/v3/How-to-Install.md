@@ -8,7 +8,7 @@
     Make sure to check the [intro page for the V3 Beta](../index.md) before continuing!
 
 !!! danger highlight "STOP trying to use DsHidMini with random controllers"
-    This and **only** this controller (Sony DualShock 3 a.k.a. PS3 Gamepad) is supported:
+    This and **only** this controller (Sony DualShock 3 a.k.a. PS3 Gamepad) is supported:  
     ![ds3](images/dualshock-3-resized.png)
     Do NOT contact support for any other device, **it will not work**, no matter how many times you ask!
 
@@ -16,7 +16,7 @@
 
 - **If you want Bluetooth support** you need to [install BthPS3](../../BthPS3/How-to-Install.md). This can be done either before or after installing DsHidMini.
 
-- For the setup to work correctly **Windows UAC needs to be enabled**. If in doubt, the following page has instructions on how to check its status: [link here](https://articulate.com/support/article/how-to-turn-user-account-control-on-or-off-in-windows-10)   
+- For the setup to work correctly **Windows UAC needs to be enabled**. If in doubt, the following page has instructions on how to check its status: [link here](https://articulate.com/support/article/how-to-turn-user-account-control-on-or-off-in-windows-10)
 
 ## Installing DsHidMini v3.x.x
 
