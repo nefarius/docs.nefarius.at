@@ -10,7 +10,7 @@ Fire up PowerShell with administrative privileges by pressing ++win+x++ and sele
 
 Keep it open until we're done, we'll need it throughout the process 😉
 
-By default verbose tracing is **off**, which means we will lose a lot of potentially interesting information. To enable verbose tracing, execute the following commands in PowerShell:
+By default verbose tracing is **off**, which means we will lose a lot of potentially interesting information. To enable verbose tracing, copy and paste the following commands into PowerShell and hit enter:
 
 !!! example "PowerShell"
     ```PowerShell
@@ -21,6 +21,8 @@ By default verbose tracing is **off**, which means we will lose a lot of potenti
     ```
 
 After that **reboot the machine** before you proceed with the next step!
+
+This only needs to be done **once**, subsequent trace sessions do not require any more reboots.
 
 ## Capture the trace
 
@@ -35,7 +37,7 @@ Once you've got PowerShell open again, paste the following three lines into it "
     Add-EtwTraceProvider -SessionName BthPS3 -Guid ‘{586aa8b1-53a6-404f-9b3e-14483e514a2c}’ -MatchAnyKeyword 0x0FFFFFFFFFFFFFFF -Level 0xFF -Property 0x40
     ```
 
-Should looks similar to this:
+Should looks similar to this (may differ on your system):
 
 ![PowerShell](../../images/35cnHUOIwv.png)
 
@@ -46,7 +48,7 @@ Currently tracing is active and the events happening inside the driver will be r
 - Controller is not connecting wirelessly? Try connecting it a few times
     -  Make sure to turn on the controller as normal via the PS button and wait until the LEDs stop blinking before repeating
 - Controller is turning off randomly even if it's charged? Make sure to play with the controller until it disconnects on its own
-- Something (e.g.: LEDs, rumble, sticks) works as normal via USB but not via BT? make sure to repeat the same actions while via BT that work as normal via USB
+- Something (e.g.: LEDs, rumble, sticks) works as normal via USB but not via BT? Make sure to repeat the same actions while via BT that work as normal via USB
 
 ### Stop trace session
 

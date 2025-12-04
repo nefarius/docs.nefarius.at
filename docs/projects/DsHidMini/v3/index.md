@@ -5,6 +5,8 @@
 ## Before proceeding...
 
 - The Beta version of DsHidMini V3 is... well, Beta. This means it's not entirely finished and there may be unresolved issues or features that are not yet implemented
+    - This does *not* mean that horrible things like you PC catching fire can occur. If it does tho, I recommend having a fire extinguisher at hand.
+- You can always go back to v2 if the experience is not (yet) to your liking, this is not a one-way-street.
 - Before asking questions about what new features are available or which bugs were fixed **check both the [open](https://github.com/nefarius/DsHidMini/milestone/7) and [closed](https://github.com/nefarius/DsHidMini/milestone/7?closed=1) issues and PRs on GitHub** first! We know reading can be tedious, but repeatedly answering the same questions is equally frustrating for us.
 
 ## Highlights
@@ -29,4 +31,3 @@ The following features are considered done and have been tested to the best of t
 ## Installation, removal and troubleshooting
 
 Check the dedicated [V3 BETA installation and removal page](How-to-Install.md)
-

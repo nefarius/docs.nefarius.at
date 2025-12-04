@@ -32,7 +32,7 @@ Now the setup should launch bypassing the error message. Follow the setup's inst
 
 ## How to fix Bluetooth device error codes 19 & 39?
 
-... or Code 31 or Code 43. If you end up with a damaged/partial installation for whatever reason (computers, right? 😅) the setup or uninstaller might not even be able to do its work. Worry not though, if you check Device Manager and see that yellow exclamation mark on your Bluetooth host device, check the details and if they give you a familiar error code, like...
+... or Code 31 or Code 37 or Code 43. If you end up with a damaged/partial installation for whatever reason (computers, right? 😅) the setup or uninstaller might not even be able to do its work. Worry not though, if you check Device Manager and see that yellow exclamation mark on your Bluetooth host device, check the details and if they give you a familiar error code, like...
 
 ![Error Code 19](images/host-error-19.png)  
 
@@ -90,6 +90,10 @@ This is unfortunately impossible to answer a 100% correctly. These drivers have 
 ## Can I use my wireless Keyboard/Mouse/Headphones with this?
 
 Yes, that's the whole purpose of this design 😉 BthPS3 *extends* the existing vanilla Bluetooth stack, it doesn't *replace* it (like ScpToolkit and alike did). This means it can never be as close to the original PlayStation Bluetooth stack (we need to play by Microsoft's design rules, remember?) as other solutions but the trade-off of keeping your stock wireless functionality should be worth it.
+
+## Can I use other wireless controllers with the DualShock 3?
+
+Yes, any PC-compatible Bluetooth device works with BthPS3. This means you can connect a DualShock 3 wirelessly with other wireless controllers.
 
 ## How many devices can I connect at the same time?
 

@@ -89,6 +89,7 @@ After that, DsHidMini should be fully gone from your computer 😥
 
 ## Troubleshooting
 
+<!-- this is incorrect and misleading users!
 ### Verifying if the controller is loading the correct driver
 
 The driver can't do anything if it is not being used, so to check this:
@@ -101,7 +102,7 @@ The driver can't do anything if it is not being used, so to check this:
 If the device appears there but the driver status indicates some error (e.g. `This device cannot start (Error Code 10)`) try pressing the `Reset` button on the back of your controller and then reconnecting it. Rebooting your computer is also worth a shot.
 
 If the controller does not appear under `Nefarius HID Devices` or if this section doesn't exist at all, you probably have another driver taking priority over DsHidMini. To solve this try [uninstalling](#removal) and then [installing again](#installation) DsHidMini version 3.
-
+-->
 ### Removing conflicting drivers
 
 !!! warning highlight "Always try reinstalling DsHidMini V3 first!"
@@ -129,4 +130,4 @@ DsHidMini V3 requires the new ControlApp companion tool. Check the [Checking Con
 
 ### Controller does not connect by Bluetooth
 
-This section is under construction.
+This section is under construction. Meanwhile consult all the other existing FAQ articles on our various project pages.
