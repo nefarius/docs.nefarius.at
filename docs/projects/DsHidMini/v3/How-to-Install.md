@@ -26,24 +26,24 @@
 
     Previous versions of DsHidMini required you to uninstall old or outdated software that may cause conflicts. This is no longer required, so no matter what software you may have preinstalled, the installation steps below are always the same 😀
 
-- Head to the official GitHub page for DsHidMini releases [here](https://github.com/nefarius/DsHidMini/releases). The top of the Releases page shows the latest version, which at the time of writing is v3.5.1 and is currently listed as a "Pre-Release".
+- Head to the official GitHub page for DsHidMini releases [here](https://github.com/nefarius/DsHidMini/releases). The top of the Releases page shows the latest version, which at the time of writing is v3.5.1 and is currently listed as a "Pre-Release".  
 ![Releases.png](images/Releases.png)  
 - Scroll down a bit and click on the word "Assets" to see the installation file named "Nefarius_DsHidMini_Drivers_x64_arm64_vx.x.x.msi" (the x's represent the current version number and may be different from the photo below). Click on that name and download the file to your computer.
 ![Assets.png](images/Assets.png)  
-- Double click on the file you downloaded in the previous step to run the Installation Wizard. Click the "Next" button.
+- Double click on the file you downloaded in the previous step to run the Installation Wizard. Click the "Next" button.  
 ![Installation Wizard.png](<images/Installation Wizard.png>)  
-- The next screen is the "End-User License Agreement". Read through the agreement and click the box to accept the terms. Then click "Next".
+- The next screen is the "End-User License Agreement". Read through the agreement and click the box to accept the terms. Then click "Next".  
 ![EULA.png](images/EULA.png)  
-- The next screen shows what drivers will be installed. The "DsHidMini Drivers" option is selected by default. This is all you need if you intend to use your PS3 controller while connected to your computer using a USB cable. If you want to use your controller wirelessly over Bluetooth, click the box next to "BthPS3 Wireless Drivers". (Note: this only downloads the BthPS3 installation file, which must be run manually later.) Click "Next".
+- The next screen shows what drivers will be installed. The "DsHidMini Drivers" option is selected by default. This is all you need if you intend to use your PS3 controller while connected to your computer using a USB cable. If you want to use your controller wirelessly over Bluetooth, click the box next to "BthPS3 Wireless Drivers". (Note: this only downloads the BthPS3 installation file, which must be run manually later.) Click "Next".  
 ![Drivers.png](images/Drivers.png)  
-- The UAC window should pop up asking if you are ok with the wizard making changes to your computer. If you don't see it, check your taskbar for a shield icon and click that. After clicking "Yes" the installation wizard will continue.
+- The UAC window should pop up asking if you are ok with the wizard making changes to your computer. If you don't see it, check your taskbar for a shield icon and click that. After clicking "Yes" the installation wizard will continue.  
 ![UAC.png](images/UAC.png)  
-- After the DsHidMini Drivers have been installed, a webpage will open with important information. Please read through it. When done, click "Next", then "Finish" to close the wizard.
+- After the DsHidMini Drivers have been installed, a webpage will open with important information. Please read through it. When done, click "Next", then "Finish" to close the wizard.  
 ![Finish.png](images/Finish.png)  
 
 **Congratulations!** Now that [DsHidMini](How-to-Install.md) (and optionally [BthPS3](../../BthPS3/How-to-Install.md)) are installed with the default settings, your controller should be able to work with Windows and behave as if it were an Xbox Controller (XInput device). Continue with the next section to test this.
 
-### Checking Controller with ControlApp.exe  
+### Checking Controller with `ControlApp.exe`
 
 !!! note "ControlApp is optional at runtime"
     ControlApp is a companion application for configuring DsHidMini controllers and does not need to be open for DsHidMini to work. No changes need to be made, as the default settings should work just fine. In this section, it is only being used to verify that DsHidMini is seeing your controller.
@@ -60,11 +60,11 @@
 
 ### Testing Your Controller in Windows
 
-- On the lower left corner of your screen where it says "Type here to search" in your taskbar, type "joy.cpl", then press ENTER.
+- On the lower left corner of your screen where it says "Type here to search" in your taskbar, type "joy.cpl", then press ENTER.  
 ![Search Bar.png](<images/Search Bar.png>)  
-- This opens the "Game Controllers" control panel window. Connect your PS3 controller to your computer with a USB cable or Bluetooth. You should now see your controller in the list as "DS3 Compatible HID Device" with a Status of "OK". Click on the controller to highlight it, then click "Properties".
+- This opens the "Game Controllers" control panel window. Connect your PS3 controller to your computer with a USB cable or Bluetooth. You should now see your controller in the list as "DS3 Compatible HID Device" with a Status of "OK". Click on the controller to highlight it, then click "Properties".  
 ![USB Conencted.png](<images/USB Connected.png>)  
-- On the next screen, make sure that the "Test" tab is selected. Move the joysticks and press each button on your controller to see if everything is working. Click "OK" to exit the Properties window.
+- On the next screen, make sure that the "Test" tab is selected. Move the joysticks and press each button on your controller to see if everything is working. Click "OK" to exit the Properties window.  
 ![Controller Test.png](<images/Controller Test.png>)  
 
 **Congratulations!** Your PS3 controller has now been set up and verified working on your computer over USB (and optionally Bluetooth). If it does not, try restarting your computer and try again. If it still does not work, [read on here](How-to-Install.md/#troubleshooting)!
@@ -81,8 +81,7 @@ If you want to update, simply [follow the same installation steps](#installing-d
 
 1. The main Beta v3 driver can be removed by just uninstalling `Nefarius DsHidMini Driver` in Windows' Apps & features
 2. BthPS3 can also be uninstalled the same way as above via Apps & Features
-3. The ControlApp companion application isn’t installed in the traditional sense and can be deleted like any other file
-
+3. The ControlApp companion application isn’t installed in the traditional sense and can be deleted like any other file  
 ![ApplicationFrameHost_nFtPcyobyf.png](images/ApplicationFrameHost_nFtPcyobyf.png)
 
 After that, DsHidMini should be fully gone from your computer 😥
