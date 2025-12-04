@@ -33,4 +33,4 @@ Version 3 uses a completely different configuration system so the old `DSHMC.exe
 
 ## Removal
 
-Check the dedicated [V3 BETA installation/removal page](../../v3/How-to-Install.md#removal)
+Check the dedicated [V3 BETA installation/removal page](../v3/How-to-Install.md#removal)
