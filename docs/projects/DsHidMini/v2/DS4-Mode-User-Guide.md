@@ -160,6 +160,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
     No need to. The "real" part of the DS3 controller in DsHidMini's DS4Windows Mode can only be recognized by DS4Windows and is therefore already immune to the "double controller" or "double input" issue. Games will only be able to detect the DS3's emulated/virtual Xbox 360/DS4 counterpart.
 
+<a id="select-button-is-not-recognized-in-some-games-when-emulating-a-ds4-how-do-i-use-the-touch-pad-button"></a>
 ??? question "_Select button is not recognized in some games when emulating a DS4 / How do I use the Touch Pad button?_"
 
     A DS3 controller has 13 buttons while a real DS4 controller has 14, this extra button being the `Touch Pad` button which can't be mapped directly to the DS3 by DsHidMini.
@@ -176,6 +177,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
     If a game uses both the `Share` and `TP` buttons, you can have a profile with `Share` as it is and the `PS` button remapped to the `TP`. Or, if you want more advanced solutions, you can use `special actions` in the profile settings so you can switch between different profiles by button combinations mid-game.
 
+<a id="i-cant-control-steams-big-picture-when-using-a-emulated-ds4-steam-doesnt-detect-my-controller-when-its-emulated-as-a-ds4-only-when-emulated-as-a-xbox-360"></a>
 ??? question " _Steam/Some emulator or app doesn't detect my controller when emulating a DS4, only when emulating a Xbox 360_"
 
     Steam and some other apps/emulators (Yuzu/CEMU) will fully ignore DS4 controllers, real or virtual, if they detect that DS4Windows is running. This happens as their own means of preventing the "double controller" issue, which is not a problem for DS3 controllers being used with DS4Windows.
