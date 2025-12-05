@@ -22,11 +22,11 @@ Manual ARM64 builds of HidHide are provided for advanced users who need to deplo
 `nefcon` is the preferred way to stage and install drivers from an `.inf` file. It is not bundled with Windows, so you need to download it first:
 
 1. Download the latest Windows release ZIP from the [nefcon repository](https://github.com/nefarius/nefcon/releases/latest).
-2. Extract the ZIP and copy `nefcon.exe` to a folder in your user profile (for example, `C:\Tools\nefcon`).
-3. (Optional) Add that folder to your `PATH` so you can run `nefcon` from any directory:
+2. Extract the ZIP and copy `nefconc.exe` to a folder in your user profile (for example, `C:\Tools\nefcon`).
+3. (Optional) Add that folder to your `PATH` so you can run `nefconc` from any directory:
 
     ```powershell
-    setx PATH "$Env:PATH;C:\Tools\nefcon"
+    setx PATH "$Env:PATH;C:\Tools\nefcon\x64"
     ```
 
 4. Open **Windows Terminal** or **PowerShell** as **Administrator**.
@@ -34,7 +34,7 @@ Manual ARM64 builds of HidHide are provided for advanced users who need to deplo
 6. Run the following command to add and install the driver via `nefcon` (if you did not add it to `PATH`, use the full path to `nefcon.exe`):
 
     ```powershell
-    nefcon driver install HidHide.inf
+    nefconc install HidHide.inf root\HidHide
     ```
 
 7. Wait for **Driver package added successfully** and **Driver package installed on device(s)** in the output. If you see signature warnings, verify that Secure Boot is enabled and that you downloaded the official release archive.
