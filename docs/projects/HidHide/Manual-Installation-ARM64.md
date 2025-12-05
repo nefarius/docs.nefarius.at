@@ -17,17 +17,19 @@ Manual ARM64 builds of HidHide are provided for advanced users who need to deplo
 2. Unblock the archive if Windows marks it as downloaded from the internet (Right-click → **Properties** → **Unblock** → **OK**).
 3. Extract the archive to a folder you can access easily (e.g., `C:\Temp\HidHide_ARM64`). Extraction creates a folder `HidHide_ARM64` containing `HidHide.inf`, `HidHide.sys`, `HidHide.cat`, and `LICENSE.rtf`.
 
-## Install the driver with `pnputil`
+## Install the driver with `nefcon`
+
+`nefcon` is the preferred way to stage and install drivers from an `.inf` file. Download the latest release from the [nefcon repository](https://github.com/nefarius/nefcon) and place `nefcon.exe` alongside the extracted HidHide files for convenience.
 
 1. Open **Windows Terminal** or **PowerShell** as **Administrator**.
 2. Change into the extracted driver folder (e.g., `C:\Temp\HidHide_ARM64\HidHide_ARM64`). The folder must contain `HidHide.inf` alongside `HidHide.sys` and `HidHide.cat`.
-3. Run the following command to add and install the driver:
+3. Run the following command to add and install the driver via `nefcon`:
 
     ```powershell
-    pnputil /add-driver HidHide.inf /install
+    nefcon driver install HidHide.inf
     ```
 
-4. Wait for the command to report **Driver package added successfully** and **Driver package installed on device(s)**. If you see signature warnings, verify that Secure Boot is enabled and that you downloaded the official release archive.
+4. Wait for **Driver package added successfully** and **Driver package installed on device(s)** in the output. If you see signature warnings, verify that Secure Boot is enabled and that you downloaded the official release archive.
 5. Reboot Windows to make sure the filter driver is active for HID and XInput devices.
 
 ## Install the configuration client
@@ -44,7 +46,7 @@ After downloading, extract the archive and copy the client files to a location o
 ## Updating to a newer version
 
 1. Download and extract the latest ARM64 manual archive as above.
-2. Re-run the `pnputil /add-driver HidHide.inf /install` command from the new folder. This will stage and apply the updated driver.
+2. Re-run the `nefcon driver install HidHide.inf` command from the new folder. This will stage and apply the updated driver.
 3. Replace the configuration client files with the versions from the new archive.
 4. Reboot Windows.
 
@@ -54,7 +56,7 @@ After downloading, extract the archive and copy the client files to a location o
 2. Remove the driver package and its devices:
 
     ```powershell
-    pnputil /delete-driver HidHide.inf /uninstall /force
+    nefcon driver uninstall HidHide.inf --force
     ```
 
 3. Delete the configuration client files you copied earlier.
