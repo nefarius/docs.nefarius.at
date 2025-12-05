@@ -26,7 +26,7 @@ Manual ARM64 builds of HidHide are provided for advanced users who need to deplo
 3. (Optional) Add that folder to your `PATH` so you can run `nefcon` from any directory:
 
     ```powershell
-    setx PATH "$Env:PATH;C:\Tools\nefcon"
+    setx PATH "$Env:PATH;C:\Tools\nefcon\ARM64"
     ```
 
 4. Open **Windows Terminal** or **PowerShell** as **Administrator**.
@@ -34,7 +34,7 @@ Manual ARM64 builds of HidHide are provided for advanced users who need to deplo
 6. Run the following command to add and install the driver via `nefcon` (if you did not add it to `PATH`, use the full path to `nefcon.exe`):
 
     ```powershell
-    nefcon driver install HidHide.inf
+    nefconc install HidHide.inf root\HidHide
     ```
 
 7. Wait for **Driver package added successfully** and **Driver package installed on device(s)** in the output. If you see signature warnings, verify that Secure Boot is enabled and that you downloaded the official release archive.
@@ -67,17 +67,17 @@ After downloading, extract the archive and copy the client files to a location o
 ## Updating to a newer version
 
 1. Download and extract the latest ARM64 manual archive as above.
-2. Re-run the `nefcon driver install HidHide.inf` command from the new folder. This will stage and apply the updated driver.
+2. Re-run the `nefconc install HidHide.inf root\HidHide` command from the new folder. This will stage and apply the updated driver.
 3. Replace the configuration client files with the versions from the new archive.
 4. Reboot Windows.
 
 ## Uninstalling the manual installation
 
-1. Open an elevated **PowerShell** window in the folder that contains `HidHide.inf`.
+1. Open an elevated **PowerShell** window.
 2. Remove the driver package and its devices:
 
     ```powershell
-    nefcon driver uninstall HidHide.inf --force
+    nefconc --remove-device-node --hardware-id root\HidHide --class-guid 4D36E97D-E325-11CE-BFC1-08002BE10318
     ```
 
 3. Remove the class filters that were added during installation:
