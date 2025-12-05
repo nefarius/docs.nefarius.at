@@ -19,18 +19,26 @@ Manual ARM64 builds of HidHide are provided for advanced users who need to deplo
 
 ## Install the driver with `nefcon`
 
-`nefcon` is the preferred way to stage and install drivers from an `.inf` file. Download the latest release from the [nefcon repository](https://github.com/nefarius/nefcon) and place `nefcon.exe` alongside the extracted HidHide files for convenience.
+`nefcon` is the preferred way to stage and install drivers from an `.inf` file. It is not bundled with Windows, so you need to download it first:
 
-1. Open **Windows Terminal** or **PowerShell** as **Administrator**.
-2. Change into the extracted driver folder (e.g., `C:\Temp\HidHide_ARM64\HidHide_ARM64`). The folder must contain `HidHide.inf` alongside `HidHide.sys` and `HidHide.cat`.
-3. Run the following command to add and install the driver via `nefcon`:
+1. Download the latest Windows release ZIP from the [nefcon repository](https://github.com/nefarius/nefcon/releases/latest).
+2. Extract the ZIP and copy `nefcon.exe` to a folder in your user profile (for example, `C:\Tools\nefcon`).
+3. (Optional) Add that folder to your `PATH` so you can run `nefcon` from any directory:
+
+    ```powershell
+    setx PATH "$Env:PATH;C:\Tools\nefcon"
+    ```
+
+4. Open **Windows Terminal** or **PowerShell** as **Administrator**.
+5. Change into the extracted driver folder (e.g., `C:\Temp\HidHide_ARM64\HidHide_ARM64`). The folder must contain `HidHide.inf` alongside `HidHide.sys` and `HidHide.cat`.
+6. Run the following command to add and install the driver via `nefcon` (if you did not add it to `PATH`, use the full path to `nefcon.exe`):
 
     ```powershell
     nefcon driver install HidHide.inf
     ```
 
-4. Wait for **Driver package added successfully** and **Driver package installed on device(s)** in the output. If you see signature warnings, verify that Secure Boot is enabled and that you downloaded the official release archive.
-5. Reboot Windows to make sure the filter driver is active for HID and XInput devices.
+7. Wait for **Driver package added successfully** and **Driver package installed on device(s)** in the output. If you see signature warnings, verify that Secure Boot is enabled and that you downloaded the official release archive.
+8. Reboot Windows to make sure the filter driver is active for HID and XInput devices.
 
 ## Install the configuration client
 
