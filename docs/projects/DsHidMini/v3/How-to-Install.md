@@ -102,26 +102,10 @@ If the device appears there but the driver status indicates some error (e.g. `Th
 
 If the controller does not appear under `Nefarius HID Devices` or if this section doesn't exist at all, you probably have another driver taking priority over DsHidMini. To solve this try [uninstalling](#removal) and then [installing again](#installation) DsHidMini version 3.
 -->
-### Removing conflicting drivers
+### Conflicting drivers
 
-!!! warning highlight "Always try reinstalling DsHidMini V3 first!"
-    You don't need to follow this section manually, just try reinstalling DsHidMini V3 as its installer verifies and removes drivers known to conflict with it.
-
-??? info highlight "Legacy section on conflicting drivers removal (click to expand)"
-
-    We need to first determine if any other conflicting device driver is present on the system and remove it so DsHidMini can take over that job. The steps outlined here may or may not be applicable to your system, it entirely depends on your past 😜 and the stuff you potentially installed. Worry not though, together we shall succeed ✨
-
-    **ScpToolkit**
-
-    If you had ScpToolkit installed, you need to purge every remains from your machine. [Follow this comprehensive removal guide](../../ScpToolkit/ScpToolkit-Removal-Guide.md).
-
-    **Official Sony driver**
-
-    If you have/had PS Now installed, chances are high you have the official Sony `sixaxis.sys` on your system. [Follow this procedure to remove it](SIXAXIS.SYS-to-DsHidMini-Guide.md).
-
-    **FireShock**
-
-    If you've used [Shibari](https://github.com/nefarius/Shibari) before you probably have FireShock installed. [Follow this procedure to remove it](../../FireShock/Removal-Guide.md).
+!!! note "Handled by the installer"
+    The DsHidMini setup (MSI) automatically detects and handles conflicting drivers (e.g. SIXAXIS.SYS, ScpToolkit, FireShock). No manual removal steps are required—just run the installer.
 
 ### DSHMC.exe not detecting DsHidMini V3 controllers
 
@@ -129,4 +113,4 @@ DsHidMini V3 requires the new ControlApp companion tool. Check the [Checking Con
 
 ### Controller does not connect by Bluetooth
 
-This section is under construction. Meanwhile consult all the other existing FAQ articles on our various project pages.
+See the [BthPS3 FAQ](../../BthPS3/Frequently-Asked-Questions.md) for wireless connection issues.

@@ -1,3 +1,6 @@
+!!! warning "DsHidMini v2 is no longer maintained"
+    **DsHidMini v2** is no longer maintained. Please use [DsHidMini v3](../v3/index.md) instead. The content on this page is kept for archival purposes only.
+
 # How to Install/Remove
 
 DsHidMini can only work its magic if it's the dominant driver for your controller, you may have others preinstalled that need removal, this guide covers most of the known cases.
