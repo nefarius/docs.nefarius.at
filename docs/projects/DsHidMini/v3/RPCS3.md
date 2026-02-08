@@ -1,3 +1,4 @@
-#  RPCS3 Full Controller Support  
-## WORK IN PROGRESS
-### PLEASE CHECK BACK LATER
+# RPCS3 Full Controller Support
+## Work in Progress
+
+Please check back later.

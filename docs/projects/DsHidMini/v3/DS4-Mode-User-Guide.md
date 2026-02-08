@@ -43,7 +43,7 @@ From here, DS4Windows can be used _mostly_ as usual. XInput and DS4 emulation, a
 
 - Keep in mind: `Select` and `Start` buttons are recognized as the `Share` and `Options` buttons in DS4Windows
 ![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
-- In case you need, there are more detailed instructions on how to change to DS4 emulation in [the FAQ](#frequently-asked-questions)
+- If you need them, there are more detailed instructions on how to change to DS4 emulation in [the FAQ](#frequently-asked-questions)
 - If you want your controller's LEDs to represent the current battery level, check the **Simple LED Control -> Example 2** in the [Light Bar color to LEDs translation section](#light-bar-color-to-leds-translation)
     - Read the full Light Bar translation section if you want to check all possible types of LED control that are possible via DS4Windows settings
 - It's recommended you have a quick look at the [_Frequently Asked Questions_](#frequently-asked-questions) section, read at least the title of the topics
@@ -146,8 +146,8 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
     - Click on the "New" button to create a new profile
     - When asked if a preset is to be used, choose "yes"
     - Select `Gamepad` and then `DualShock 4` at the Output Controller
-    - Adjust the Light Bar color to what you desire accordingly to the [_Light Bar to LEDs translation_ section](#light-bar-color-to-leds-translation) (in the example below the profile will be represented by LED 2)
-    - Give a name to your profile (e.g.: DS3 to DS4)
+    - Adjust the Light Bar color to what you desire according to the [_Light Bar to LEDs translation_ section](#light-bar-color-to-leds-translation) (in the example below the profile will be represented by LED 2)
+    - Give your profile a name (e.g.: DS3 to DS4)
     - Save the profile
     - Back in the _Controllers_ tab, click on the _Selected profile_ box and change from default to the profile you just created
     ![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
@@ -167,7 +167,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
     Some games that support DS4 controllers use the `Touch Pad` for options, opening the map, etc. To work around this, the user needs to remap an existing button to the `TP` one.
 
-    Usually, games that use the `TP` button don't use the `Share` button (the default `Select`), so the usual bet is to remap it to the `TP`, though any other one can be chosen. So, after creating a profile with `DS4` emulation:
+    Usually, games that use the `TP` button don't use the `Share` button (the default `Select`), so the usual approach is to remap it to the `TP`, though any other one can be chosen. So, after creating a profile with `DS4` emulation:
 
     - Duplicate your DS4 profile, choose a different name to it
     - Edit the new profile
@@ -178,26 +178,26 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
     If a game uses both the `Share` and `TP` buttons, you can have a profile with `Share` as it is and the `PS` button remapped to the `TP`. Or, if you want more advanced solutions, you can use `special actions` in the profile settings so you can switch between different profiles by button combinations mid-game.
 
 <a id="i-cant-control-steams-big-picture-when-using-a-emulated-ds4-steam-doesnt-detect-my-controller-when-its-emulated-as-a-ds4-only-when-emulated-as-a-xbox-360"></a>
-??? question " _Steam/Some emulator or app doesn't detect my controller when emulating a DS4, only when emulating a Xbox 360_"
+??? question "_Steam/Some emulator or app doesn't detect my controller when emulating a DS4, only when emulating an Xbox 360_"
 
     Steam and some other apps/emulators (Yuzu/CEMU) will fully ignore DS4 controllers, real or virtual, if they detect that DS4Windows is running. This happens as their own means of preventing the "double controller" issue, which is not a problem for DS3 controllers being used with DS4Windows.
 
-    To workaround this detection and make those apps stop ignoring the DS4 controller, DS4Windows needs to be running under a custom ".exe" name (search online for how to set this up).
+    To work around this detection and make those apps stop ignoring the DS4 controller, DS4Windows needs to be running under a custom ".exe" name (search online for how to set this up).
 
     !!! note "Some remarks regarding Steam"
 
         - Regarding most Steam games, 99% of the games that support DS4 controllers should detect the emulated one as normal regardless if Steam itself is not
-        - If using a custom ".exe" name it's also recommended to DISABLE Steam's "**Playstation Configuration Support**", in its controller settings, so Steam doesn't remap your controller _again_ along DS4Windows
+        - If using a custom ".exe" name it's also recommended to disable Steam's "**PlayStation Configuration Support**", in its controller settings, so Steam does not remap your controller _again_ alongside DS4Windows
         - A custom ".exe" name must be used with DS4W for the emulated DS4 to interact with Steam's Big Picture Mode
             - But the "Playstation Configuration Support" option doesn't need to be enabled for this
 
 ??? question "_'X' game does not detect my emulated DS4 / my game is not showing PS button icons_"
 
-    - First, double check if the game actually supports DS4 controllers _and_ has native PS icons when played with a DualShock 4. There is no direct way to check this besides just testing, Googling around and looking at forums
+    - First, double-check if the game actually supports DS4 controllers _and_ has native PS icons when played with a DualShock 4. There is no direct way to check this besides testing, searching online, and checking forums
     - If the game does not support DualShock 4/PS icons then that's in no way related to us and we can't do anything about it
     - If you are 100% sure the game supports PS button icons/DualShock 4, then it may be detecting that DS4Windows is running and then ignoring DS4 controllers (super rare case, only 1 game is known to do it). Check the [topic above](#i-cant-control-steams-big-picture-when-using-a-emulated-ds4-steam-doesnt-detect-my-controller-when-its-emulated-as-a-ds4-only-when-emulated-as-a-xbox-360) on how to solve this
     - If the game still doesn't recognize the emulated DualShock 4 then we have no idea what's going on and you are welcome on [reaching us through the proper means](../../../Community-Support.md)
 
 ??? question "_How do I do 'X' thing on DS4Windows?_"
 
-    DS4Windows is a really amazing tool that can do lots of things, but the purpose of this guide isn't covering DS4Windows in itself, it's to give users the minimum necessary to have XInput/DS4 emulation and to cover DsHidMini related functions, like Light Bar color to LEDs translation. Because the other things it can do are not related to DsHidMini then it's recommended that you search online for tutorials.
+    DS4Windows is a really amazing tool that can do lots of things, but the purpose of this guide does not cover DS4Windows itself, it's to give users the minimum necessary to have XInput/DS4 emulation and to cover DsHidMini related functions, like Light Bar color to LEDs translation. Because the other things it can do are not related to DsHidMini, it's recommended that you search online for tutorials.

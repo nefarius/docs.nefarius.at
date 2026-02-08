@@ -1,13 +1,13 @@
 # HID Device Modes Explained
 
 !!! hint "Important topic"
-    This is one of *the* core features of the driver and understanding it is vital for great gaming experience so take your time and study thoroughly 😘
+    This is one of *the* core features of the driver and understanding it is vital for a great gaming experience, so take your time and study thoroughly 😘
 
-DsHidMini aims for maximum possible compatibility with existing tools or games without the need for any custom code. It supports different "HID Device emulation modes", meaning upon boot-up it can present the controller as different types of HID devices, each sporting a unique set of specialized features outlined below. The device mode you choose dictates the level of compatibility with certain 3rd party software and how the controller is "seen" by processes. Read on for details.
+DsHidMini aims for maximum possible compatibility with existing tools or games without the need for any custom code. It supports different "HID Device emulation modes", meaning upon boot-up it can present the controller as different types of HID devices, each sporting a unique set of specialized features outlined below. The device mode you choose dictates the level of compatibility with certain third-party software and how the controller is "seen" by processes. Read on for details.
 
 ## How to adjust the settings
 
-Connected controllers using DsHidMini can be adjusted in the **ControlApp** tool that you can [download from the build server](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). It needs to be run as Administrator to allow changing the current HID Device Mode. After every change, press the "Apply changes" button to make them effective, which will cause the affected controller to disconnect on Bluetooth and restart on USB. For Bluetooth it needs to be powered on again manually afterwards by pressing the "PS" button.
+Connected controllers using DsHidMini can be adjusted in the **ControlApp** tool that you can [download from the build server](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). It needs to be run as Administrator to allow changing the current HID Device Mode. After every change, press the "Apply changes" button to make them effective, which will cause the affected controller to disconnect on Bluetooth and restart on USB. For Bluetooth, it needs to be powered on again manually afterwards by pressing the "PS" button.
 
 ![ControlApp - HID mode selection](images/controlapp-hid-mode-change.jpg)
 
@@ -25,9 +25,9 @@ The games and tools outlined here are **recommendations**, please feel free to e
 !!! important "TL;DR:"
     Use this mode for best compatibility with the **older pre-Qt versions** of the [PCSX2 PlayStation 2 Emulator](https://pcsx2.net/). For **PCSX2 Qt** [follow this video guide](SCP-XInput-Bridge.md#rpcs3-and-pcsx2-qt-edition)!
 
-**Single Device** with **Force Feedback** mode. In this mode, the controller is presented as one "almost"-DirectInput-compatible HID device with **pressure sensitive** features exposed as additional sliders. The rumble motors can be controlled via **Force Feedback effects** (Constant Force Effect). The advantage of this mode is a 100% compatibility with all unmodified versions of PCSX2 with the LilyPad gamepad plugin (shipped by default).
+**Single Device** with **Force Feedback** mode. In this mode, the controller is presented as one "almost"-DirectInput-compatible HID device with **pressure sensitive** features exposed as additional sliders. The rumble motors can be controlled via **Force Feedback effects** (Constant Force Effect). The advantage of this mode is 100% compatibility with all unmodified versions of PCSX2 with the LilyPad gamepad plugin (shipped by default).
 
-The downside of this mode is, that the pressure axes exceed the limit of supported axes per device and therefore pressure sensitive axes will not be available in games using DirectInput. They will however work fine with any engine using the low level HID API instead.
+The downside of this mode is that the pressure axes exceed the limit of supported axes per device and therefore pressure sensitive axes will not be available in games using DirectInput. They will however work fine with any engine using the low level HID API instead.
 
 The default LED behavior in this mode is the charging animation and can't be altered.
 
@@ -36,7 +36,7 @@ The default LED behavior in this mode is the charging animation and can't be alt
 !!! important "TL;DR:"
     Use this mode with [x360ce](https://www.x360ce.com/) or to experiment with older games.
 
-**Gamepad plus Joystick** mode. In this mode, the controller is presented as **two separate HID devices**; a traditional gamepad featuring the same set of features like a common Xbox 360 controller and a Joystick, only handling the pressure axes. This mode guarantees the best potential compatibility with legacy solutions purely relying on DirectInput and works around the mentioned axis limit. The rumble motors can be controlled via **Force Feedback effects** (Constant Force Effect).
+**Gamepad plus Joystick** mode. In this mode, the controller is presented as **two separate HID devices**; a traditional gamepad featuring the same set of features as a common Xbox 360 controller and a Joystick, only handling the pressure axes. This mode guarantees the best potential compatibility with legacy solutions purely relying on DirectInput and works around the mentioned axis limit. The rumble motors can be controlled via **Force Feedback effects** (Constant Force Effect).
 
 The default LED behavior in this mode is the charging animation and can't be altered.
 
