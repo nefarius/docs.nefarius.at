@@ -22,7 +22,7 @@ This may seem obvious but is amongst the most common errors. In **ControlApp** t
 
 Fire up Device Manager, change the `View` to `Devices by connection` to make discovery easier and drill down into the node `Nefarius HID Devices`. Here you need to find your controller(s) and an additional `XINPUT compatible HID device` like so:
 
-![Device Manager - Default view](images/q55cLJbaB4.png)
+![TODO: Replace with Device Manager screenshot (default view)](images/PLACEHOLDER-DEVICE-MANAGER-DEFAULT-VIEW.svg)
 
 ![Device Manager - View by connections](images/CBfdxUmYSe.png)
 
