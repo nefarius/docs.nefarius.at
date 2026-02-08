@@ -1,41 +1,38 @@
-# Frequently Asked Questions about the DS4
+# DualShock 4 FAQ
 
 ## Pairing a DualShock 4 to Windows
 
-The pairing process of the controller on Windows does not change. Press the dedicated PC mode pairing button combination and the controller becomes visible to Windows. Use the search engine of your choice to find out how to do that, it's documented quite well.
+Pairing is the same as without BthPS3. Put the controller into PC mode (use the dedicated pairing button combination—search for "DualShock 4 PC pairing" for steps). The controller will then appear in Windows Bluetooth settings.
 
 ## Reconnecting an already paired DualShock 4 to Windows
 
-Reconnecting the controller (a.k.a. powering it on via the PS button and letting it connect via Bluetooth) follows a different pattern when these drivers are present.
+Reconnecting (turning the controller on with the PS button so it connects over Bluetooth) works differently when BthPS3 is installed.
 
-**Without** BthPS3 installed, the reconnecting process of the DS4 to Windows is as follows:
+**Without BthPS3:**
 
-- Wake Up the PS4 controller with the PS button
-    - Controller successfully connects to Windows after a few seconds
+- Press the PS button to wake the controller.
+- It connects to Windows after a few seconds.
 
-**With** BthPS3 installed, the reconnecting process of the DS4 to Windows requires 2 attempts:
+**With BthPS3:**
 
-- **1st Attempt:** Wake Up the PS4 controller with the PS Button
-    - Controller's Lightbar will blink white for a few short seconds before the controller turns itself off again (_expected_)
-- **2nd Attempt:** After the 1st Attempt fails, the user has 10 seconds to
-    1. turn on the controller again and
-    2. wait for the controller to successfully connect to Windows. If the controller does not connect in this 10s time windows, the user will have to go back to the 1st Attempt and retry
+- **First attempt:** Press the PS button to wake the controller.
+  - The light bar blinks white for a few seconds, then the controller turns off. This is expected.
+- **Second attempt:** Within **10 seconds**, turn the controller on again (press the PS button).
+  - Wait for it to connect. If it does not connect within that 10-second window, repeat from the first attempt.
 
-## What is different after installing BthPS3 for the reconnect process?
+## Why does reconnecting work this way with BthPS3?
 
-With BthPS3 installed there are two modes of operation:
+With BthPS3 installed there are two situations:
 
-- BthPS3's filter is enabled
-    - PS3 controllers can be connected to Windows, but not the DS4 (DS4 will connect, but Windows won't recognize it as a controller and tools like DS4Windows, Steam etc. will not detect it).
-- BthPS3's filter is disabled: you can connect DS4 controllers normally, but DS3s won't connect anymore.
+- **Filter enabled:** PS3 controllers can connect; the DS4 can connect but Windows and tools (DS4Windows, Steam, etc.) will not see it as a controller.
+- **Filter disabled:** DS4 controllers work normally; DS3 controllers cannot connect.
 
-Unless BthPS3's registry parameters have been altered from the defaults, this is what happens normally when trying to reconnect a DS4 to Windows with BthPS3 present:
+With default BthPS3 settings, when you try to reconnect a DS4:
 
-- Filter is enabled. DS3 controllers can be connected at will.
-- User wakes up an already paired DS4 controller that then tries to reconnect to Windows.
-- DS4 connects, but doesn't work properly because the filter is enabled. The filter will consider the DS4 an unsupported device and will almost instantly drop the DS4 connection (DS4 will turn turn off the process). This is what happens on "1st Attempt" stated above.
-- After the unsupported device is detected (DS4 that tried to connect) and its connection dropped, the filter will disable itself. If PS3 controllers are already connected their connection will NOT be dropped, they will stay connected normally to either Shibari or companion drivers even with the filter disabled, but the user won't be able to connect new PS3 controllers for now.
-- After being disabled, the filter will re-enable itself in 10 seconds.
-- Now, since the filter will enable itself after some time (10s by default) and you need it disabled to connect a DS4 controller, this means that after the 1st attempt to connect the controller "fails" the user needs to turn on again the DS4 in this 10s time window to allow it to properly reconnect to Windows before the filter is enabled again.
-- So, while the filter is Disabled 👉 DS4 controller is turned on again 👉 DS4 should connect normally to Windows
-- After 10s, the filter is re-enabled, allowing the user to connect PS3 controllers again. Since the DS4 is already properly connected to Windows, its connection won't be dropped and you will be able to use it normally.
+1. The filter is on, so DS3 controllers can connect.
+2. You wake the DS4; it tries to reconnect.
+3. The DS4 connects, but the filter treats it as unsupported and drops the connection almost immediately (the controller turns off). That is the "first attempt" above.
+4. After dropping the DS4, the filter turns itself off. Already connected PS3 controllers stay connected; you just cannot connect new ones for a while.
+5. After 10 seconds (by default), the filter turns itself back on.
+6. Because the filter is off only for those 10 seconds, you must turn the DS4 on again **within that window** so it can reconnect before the filter comes back. That is the "second attempt."
+7. Once the DS4 is connected, it stays connected. When the filter turns back on, the DS4 is not dropped. You can then connect PS3 controllers again as well.

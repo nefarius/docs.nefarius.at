@@ -1,21 +1,21 @@
 # Driver Configuration Utility Explained
 
-The `BthPS3 Driver Configuration Tool` is a small self-contained .NET application shipped with the setup providing the user with a simple way to adapt the drivers operation to their liking. You can find it in your start menu, just search for it 😉
+The **BthPS3 Driver Configuration Tool** is a small, self-contained .NET application included with the installer. It lets you adjust how the drivers behave. You can find it by searching for it in the Start menu.
 
 ## Profile Driver Settings
 
-These settings control the profile driver (the component which has the logic of detecting and connecting controllers in it) behavior. Depending on the companion solutions you have installed or want to install some of the following switches can or even need to be adjusted for the solution to work properly.
+These settings control the profile driver—the component that detects and connects controllers. Depending on which companion solutions you use (e.g. DsHidMini), you may need to change some of these for everything to work.
 
 ![Profile Driver Settings](../../images/BthPS3CfgUI_heAsEzf3Rj.png)
 
-### Enable SIXAXIS™️/DualShock™️ 3 Support
+### Enable SIXAXIS™/DualShock™ 3 Support
 
-!!! important "TL;DR:"
-    This needs to be **on** if you want your DS3 to work wireless 😜
+!!! important "TL;DR"
+    This must be **on** if you want your DS3 to work over Bluetooth.
 
-PS3 peripherals don't report much useful identification data like VendorID/ProductID fields or other common descriptors. Therefore the driver uses the **remote name** the device reports upon connection as an indicator to identify the type/make/model. The driver package ships with a set of well-known pre-configured names that get compared to identify a SIXAXIS-compatible device. This process is not flawless but it is reliable enough to cover the bulk of original and aftermarket devices.
+PS3 peripherals do not report much identification data (e.g. Vendor ID, Product ID). The driver instead uses the **remote name** the device reports when connecting to decide the type of device. The driver ships with a set of known names that are matched to identify SIXAXIS-compatible devices. This is not perfect but works for most original and many third-party devices.
 
-If this setting is ticked, the driver attempts to compar the remote name to a well-known set of names and if successful connects it as a SIXAXIS compatible. If this setting is disabled, the detection process is skipped completely and the connection gets denied.
+If this setting is enabled, the driver compares the remote name to that list and, on a match, connects the device as SIXAXIS-compatible. If it is disabled, detection is skipped and the connection is refused.
 
 The following PowerShell snippet returns the currently configured names which identify a SIXAXIS-ish device:
 
@@ -24,9 +24,9 @@ The following PowerShell snippet returns the currently configured names which id
     Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\BthPS3\Parameters" -Name "SIXAXISSupportedNames" | Select-Object -ExpandProperty "SIXAXISSupportedNames"
     ```
 
-An adventurous user can tinker with this setting and edit or add names in the registry to experiment with devices who report different and untested names. The comparison is case-sensitive, so make sure the names match a 100% (including spelling mistakes 😉).
+You can edit or add names in the registry to try devices that report different names. The comparison is case-sensitive; names must match exactly.
 
-### Enable PlayStation®️ Move Navigation Support
+### Enable PlayStation® Move Navigation Support
 
 If ticked, the pre-configured list of remote device names will be used to attempt to identify and connect a Move Navigation compatible device. The process is skipped and the connection denied, if the setting is off.
 
@@ -37,7 +37,7 @@ The following PowerShell snippet returns the currently configured names which id
     Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\BthPS3\Parameters" -Name "NAVIGATIONSupportedNames" | Select-Object -ExpandProperty "NAVIGATIONSupportedNames"
     ```
 
-### Enable PlayStation®️ Move Motion Support
+### Enable PlayStation® Move Motion Support
 
 If ticked, the pre-configured list of remote device names will be used to attempt to identify and connect a Move Motion compatible device. The process is skipped and the connection denied, if the setting is off.
 
@@ -50,7 +50,7 @@ The following PowerShell snippet returns the currently configured names which id
 
 This setting is off by default to not conflict with the [PSMoveService](https://github.com/psmoveservice/PSMoveService) project.
 
-### Enable Wireless Controller (DualShock™️ 4) Support
+### Enable Wireless Controller (DualShock™ 4) Support
 
 If ticked, the pre-configured list of remote device names will be used to attempt to identify and connect a Wireless/DualShock 4 compatible device. The process is skipped and the connection denied, if the setting is off.
 
@@ -71,37 +71,36 @@ Leaving this on is the default behavior. If you turn it off, you need to control
 
 ### Re-enable filter after...
 
-A time span (in seconds) to wait until the filter enables itself again. If you experience issues connecting a DS4 (or Xbox One Wireless Controllers or similar via Bluetooth) try increasing this value and make sure to attempt to power on your controller a few times in order to make it work. If this mechanism still fails your, see [Filter Driver Settings](#filter-driver-settings).
+How long (in seconds) to wait before the filter turns back on. If you have trouble connecting a DS4 or other wireless controllers over Bluetooth, try increasing this value and powering the controller on again. If it still fails, see [Filter Driver Settings](#filter-driver-settings).
 
 ### Automatically disable filter on unsupported device arrival
 
-If the remote device identification mechanism fails (unrecognized remote name or other issues in the connection process), the profile driver can automatically instruct the filter to temporarily disabling its capabilities, basically restoring "vanilla" operation of the Bluetooth stack. BthPS3 can interfere with the connection process of other well-known wireless controller devices due to design flaws of the PS3 peripherals, this automatism is meant to aid in working around those issues. It is recommended to keep this setting active.
+If the driver cannot identify the remote device (unknown name or other connection issues), the profile driver can tell the filter to temporarily **disable** itself, restoring normal ("vanilla") Bluetooth stack behaviour. BthPS3 can sometimes interfere with other wireless controllers because of how PS3 peripherals work; this option helps avoid that. It is recommended to leave it enabled.
 
 ## Filter Driver Settings
 
-The filter driver has one simple, powerful job: re-route HID-related traffic to the profile driver to investigate if a compatible PS3 peripherals is attempting to connect. This feature can be be altered on the fly with the settings outlined below.
+The filter driver re-routes HID-related traffic to the profile driver so it can detect when a compatible PS3 peripheral is trying to connect. The settings below can be changed at any time.
 
 ![Filter Driver Settings](../../images/BthPS3CfgUI_sOGOHOlymb.png)
 
 ### Enable PSM patching
 
-If on, the filter re-routes the "paths" necessary to connect a PS3 peripheral to the profile driver, which then can work its magic to further present the controller to the system. If off, the entire Bluetooth stack behaves as if BthPS3 wasn't there, which can help when experiencing troubles connecting other well-known Bluetooth gaming devices, in turn disables PS3 peripherals support entirely though. Can't have everything in life 😀
+When **on**, the filter re-routes traffic so the profile driver can handle PS3 peripherals. When **off**, the Bluetooth stack behaves as if BthPS3 were not installed—other Bluetooth gaming devices may connect more easily, but PS3 peripherals will not work.
 
-If you want to use e.g. a DS3, DS4 and Xbox One controller at the same time simply follow this:
+To use a DS3, DS4, and Xbox One controller at the same time:
 
-- Leave the filter on
-- Connect the DS3 and wait a few seconds until it is online
-- Turn the filter off
-- Now connect the DS4 and Xbox Wireless devices
-- Either leave the filter off and enable it later or enable it immediately again
-- Enjoy the game 🥳
+1. Leave the filter **on**.
+2. Connect the DS3 and wait until it is online.
+3. Turn the filter **off**.
+4. Connect the DS4 and Xbox Wireless devices.
+5. Turn the filter **on** again if you need to connect more PS3 peripherals later.
 
 ## Danger Zone
 
-!!! important "It's called Danger Zone for a reason 😜"
-    Depending on some companion solutions (like Shibari or DsHidMini) you may need to alter some of these settings. Read carefully though, some might cause system instability if configured incorrectly. You have been warned 👮
+!!! important "Use with care"
+    Some companion solutions (e.g. Shibari or DsHidMini) require specific values here. Changing these incorrectly can cause instability. Read the descriptions carefully.
 
-The Danger Zone hosts some of the more advanced settings of the solution. You're welcome to tinker with them as long as you can live with the consequences 😜 Some companion solutions (like Shibari or DsHidMini) even require a specific combination of settings as explained below.
+The Danger Zone contains advanced settings. Some companion solutions require a specific combination of these options; the table below summarises what is needed.
 
 ![Danger Zone](../../images/BthPS3CfgUI_xTFIBvuuAI.png)
 
@@ -112,30 +111,30 @@ The Danger Zone hosts some of the more advanced settings of the solution. You're
 | Shibari | On |
 | DsHidMini | Off |
 
-If this setting is on, the resulting child devices (PDO, Physical Device Object) of the profile driver can be brought up "driverless" and will be accessible for communication by any non-driver user-land application (like Shibari). Its HID Control/Interrupt channels can directly be consumed by the Windows API in any high-level language (see [API-Documentation](API-Documentation.md)). This mode is great for prototyping and experimenting with the devices without the need to write any (kernel- or user-mode) driver code.
+When **on**, the profile driver’s child devices (PDOs) can be used without a dedicated driver and can be opened by user-mode applications (e.g. Shibari). HID Control and Interrupt channels can be used via the Windows API from any language. See [API Documentation](API-Documentation.md). This is useful for prototyping without writing kernel or user-mode driver code.
 
-The default is on.
+**Default:** On
 
 ### Hide PDO from Device Manager
 
-When enabled, the connected controller devices will be hidden in Device Manager. They can still be examined by enabling `View / Show hidden devices`. This setting has no effect on any other operational logic and is there only for cosmetics.
+When enabled, connected controller devices are hidden in Device Manager. You can still see them by enabling **View** → **Show hidden devices**. This does not change how the drivers work.
 
-The default is off.
+**Default:** Off
 
 ### Restrict PDO access to elevated users
 
-If enabled, devices in RAW mode can only be enumerated and accessed from elevated processes (applications started as Administrator, System services). This might be useful if some companion solutions have to run as an elevated process anyway for whatever reason.
+When enabled, devices in RAW mode can only be enumerated and opened by elevated processes (run as Administrator or as a system service). Use this if a companion solution must run elevated.
 
-The default is off which allows any user to enumerate the devices.
+**Default:** Off (any user can enumerate devices)
 
 ### Exclusive PDO access enforced
 
-When in RAW mode, many processes can enumerate and open the devices at the same time. For game controllers presented through BthPS3 this behavior is undesired, since by design one driver/process needs authority of the exchanged packets, otherwise input information will be split across many processes resulting in unpredictable and lost button/axis change events and conflicting LED state events from different sources.
+In RAW mode, multiple processes could open the same device. For game controllers this is undesirable: only one process should handle input and LED state, or you get split input and conflicting behaviour. This option enforces exclusive access.
 
-It is recommended to leave this setting enabled unless a specific solution requires multiple open handles to the device.
+**Recommendation:** Leave enabled unless you need multiple handles for a specific use case.
 
 ### PDO S0 Idle Timeout
 
-Once PS3 peripherals have received their "magic start packet" they will continue sending input state changes to the host radio until disconnected (turned off) again. This process allocates buffer memory which needs to be consumed by either a function driver or user-land process. If both of these companion solutions are absent, this setting kicks in and drops the connection after the set amount of time has passed where no I/O traffic has happened.
+After a PS3 peripheral receives its start packet, it keeps sending input to the host until it is turned off. That uses buffer memory that must be read by a driver or application. If nothing is reading the data, this setting disconnects the device after the configured idle time with no I/O.
 
-It is usually not required to increase (or decrease) this value, leaving it at the default is recommended.
+**Recommendation:** Leave at the default unless you have a specific reason to change it.

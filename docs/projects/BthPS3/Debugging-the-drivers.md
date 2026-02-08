@@ -1,107 +1,102 @@
-# Getting a kernel driver to talk
+# Debugging the Drivers
 
-Kernel Drivers typically don't write traditional log files that end up on the disk somewhere, instead [Event Tracing for Windows](https://docs.microsoft.com/en-us/windows-hardware/test/wpt/event-tracing-for-windows) is used to write messages to a special logging facility we can tap into with a bit of command line magic.
+Kernel drivers do not write normal log files to disk. Instead, they use [Event Tracing for Windows](https://docs.microsoft.com/en-us/windows-hardware/test/wpt/event-tracing-for-windows) (ETW), which you can capture from the command line.
 
 ## Prepare verbose tracing
 
-Fire up PowerShell with administrative privileges by pressing ++win+x++ and selecting it from the appearing menu like so:
+1. Open **PowerShell as Administrator** (press ++win+x++ and choose it from the menu):
 
-![Start PowerShell](../../images/Y2bzZWdYK4.png)
+    ![Start PowerShell](../../images/Y2bzZWdYK4.png)
 
-Keep it open until we're done, we'll need it throughout the process 😉
+    Keep this window open; you will use it for the following steps.
 
-By default verbose tracing is **off**, which means we will lose a lot of potentially interesting information. To enable verbose tracing, copy and paste the following commands into PowerShell and hit enter:
+2. By default, verbose tracing is **off**. To enable it, run these commands in PowerShell:
 
-!!! example "PowerShell"
-    ```PowerShell
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\BthPS3\Parameters" -Name "VerboseOn" -Type DWord -Value 1 -Force
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\BthPS3\Parameters\Wdf" -Name "VerboseOn" -Type DWord -Value 1 -Force
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\BthPS3PSM\Parameters" -Name "VerboseOn" -Type DWord -Value 1 -Force
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\BthPS3PSM\Parameters\Wdf" -Name "VerboseOn" -Type DWord -Value 1 -Force
-    ```
+    !!! example "PowerShell"
+        ```PowerShell
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\BthPS3\Parameters" -Name "VerboseOn" -Type DWord -Value 1 -Force
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\BthPS3\Parameters\Wdf" -Name "VerboseOn" -Type DWord -Value 1 -Force
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\BthPS3PSM\Parameters" -Name "VerboseOn" -Type DWord -Value 1 -Force
+        Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\BthPS3PSM\Parameters\Wdf" -Name "VerboseOn" -Type DWord -Value 1 -Force
+        ```
 
-After that **reboot the machine** before you proceed with the next step!
+3. **Reboot** the machine before continuing.
 
-This only needs to be done **once**, subsequent trace sessions do not require any more reboots.
+You only need to do this once; later trace sessions do not require another reboot.
 
 ## Capture the trace
 
 ### Start trace session
 
-Once you've got PowerShell open again, paste the following three lines into it "as is" and hit enter:
+In PowerShell (as Administrator), run these three commands:
 
 !!! example "PowerShell"
     ```PowerShell
     New-EtwTraceSession -Name BthPS3 -LogFileMode 0x8100 -FlushTimer 1 -LocalFilePath "C:\BthPS3.etl"
-    Add-EtwTraceProvider -SessionName BthPS3 -Guid ‘{37dcd579-e844-4c80-9c8b-a10850b6fac6}’ -MatchAnyKeyword 0x0FFFFFFFFFFFFFFF -Level 0xFF -Property 0x40
-    Add-EtwTraceProvider -SessionName BthPS3 -Guid ‘{586aa8b1-53a6-404f-9b3e-14483e514a2c}’ -MatchAnyKeyword 0x0FFFFFFFFFFFFFFF -Level 0xFF -Property 0x40
+    Add-EtwTraceProvider -SessionName BthPS3 -Guid '{37dcd579-e844-4c80-9c8b-a10850b6fac6}' -MatchAnyKeyword 0x0FFFFFFFFFFFFFFF -Level 0xFF -Property 0x40
+    Add-EtwTraceProvider -SessionName BthPS3 -Guid '{586aa8b1-53a6-404f-9b3e-14483e514a2c}' -MatchAnyKeyword 0x0FFFFFFFFFFFFFFF -Level 0xFF -Property 0x40
     ```
 
-Should looks similar to this (may differ on your system):
+The output should look similar to this (it may differ on your system):
 
 ![PowerShell](../../images/35cnHUOIwv.png)
 
-### Perform the action you want captured
+### Reproduce the behaviour you want to capture
 
-Currently tracing is active and the events happening inside the driver will be registered in a log file, meaning now is the time to execute the actions that need to be investigated. Examples:
+While the trace is running, perform the actions you want to investigate. For example:
 
-- Controller is not connecting wirelessly? Try connecting it a few times
-    -  Make sure to turn on the controller as normal via the PS button and wait until the LEDs stop blinking before repeating
-- Controller is turning off randomly even if it's charged? Make sure to play with the controller until it disconnects on its own
-- Something (e.g.: LEDs, rumble, sticks) works as normal via USB but not via BT? Make sure to repeat the same actions while via BT that work as normal via USB
+- **Controller not connecting over Bluetooth:** Try connecting it several times (turn on with the PS button, wait until the LEDs stop blinking, then try again).
+- **Controller turning off randomly:** Use the controller until it disconnects on its own.
+- **Something works over USB but not Bluetooth (e.g. LEDs, rumble, sticks):** Repeat the same actions over Bluetooth that work over USB.
 
-### Stop trace session
+### Stop the trace session
 
-Once everything we like to know has been captured, stop the session so the data collection stops and the log file is closed:
+When you have captured enough, stop the session so the log file is closed:
 
 !!! example "PowerShell"
     ```PowerShell
     Remove-EtwTraceSession -Name BthPS3
     ```
 
-The log file should now exist under the C:\\-Drive:
+The log file will be at `C:\BthPS3.etl`:
 
-![Folder](../../images/AnyDesk_LVe8LzooAQ.png)
+![Trace file location](../../images/AnyDesk_LVe8LzooAQ.png)
 
-## Great, I got it, what now
+## What to do with the trace file
 
-So we've captured the `BthPS3.etl` file, but what now? Well, the easy way is to submit it to Nefarius for analysis 😁. Make sure to compact the file via WinRAR or 7zip before sending it.
+You now have a `BthPS3.etl` file. You can submit it (compressed with WinRAR or 7-Zip) to Nefarius for analysis, or inspect it yourself as described below.
 
-Or, you can take a peek at its contents for yourself if you read on.
+!!! note "Trace file contents"
+    The trace file may contain device identifiers needed for debugging. Share it securely with trusted recipients only.
 
-## Decipher the trace file content
+## Decoding the trace file
 
-The trace files are not readable with a traditional text editor, some special tools are required to get the spicy bits out of it. Microsoft provides tools for the task but they are awfully verbose and not easy on the beginner in the authors humble opinion, so use of a 3rd party tool is highly recommended.
+Trace files are not plain text. You need a tool that can decode ETW content. Microsoft provides such tools, but they are verbose and not very beginner-friendly; a third-party tool is recommended.
 
 ### Using MGTEK TraceView Plus 3
 
-Obtain a copy of [MGTEK TraceView Plus 3](https://www.mgtek.com/traceview) and install it.
+1. Download and install [MGTEK TraceView Plus 3](https://www.mgtek.com/traceview).
 
-!!! important "MGTEK TraceView Plus 3"
-    This software is **not** freeware. It offers a free evaluation version with a generous time of 30 days trial limit and a simple nag screen. If you plan on utilizing its features frequently [you can obtain a licensed copy on their shop](https://www.mgtek.com/traceview/shop). Thanks for supporting great software 🥰
+!!! important "MGTEK TraceView Plus 3 is not freeware"
+    A free 30-day evaluation is available. For longer use, you can [purchase a licence](https://www.mgtek.com/traceview/shop).
 
-You should now be able to simply double-click the `BthPS3.etl` we created before and it should open in TraceView Plus. If not, open Trace View Plus and use `File / Open Trace Log...` and navigate to the `BthPS3.etl` file like so:
+2. Double-click `BthPS3.etl` to open it in TraceView Plus, or use **File** → **Open Trace Log...** and select the file:  
+   ![Open trace log](../../images/HaKTOUJbIE.png)
 
-![HaKTOUJbIE.png](../../images/HaKTOUJbIE.png)
+3. Initially you will see raw, hard-to-read lines:  
+   ![Raw trace view](../../images/TraceView_PZJBtRmyn5.png)
 
-Once opened you should see some oddly formatted lines similar to this:
+4. TraceView Plus needs symbol files to decode the trace. Go to **Session** → **Add Trace Files...**:  
+   ![Add trace files](../../images/TraceView_OtoTHylNPh.png)
 
-![TraceView_PZJBtRmyn5.png](../../images/TraceView_PZJBtRmyn5.png)
+5. In the BthPS3 installation folder on your system, select **both** PDB files:  
+   ![Select PDB files](../../images/TraceView_GC5KAg7ee8.png)
 
-Trat's no good, TraceView Plus needs some information on how to decode the content into a useful format. So we navigate to `Session / Add Trace Files...` like so:
+6. The display should switch to readable text:  
+   ![Decoded trace](../../images/TraceView_ju8ERmEEUL.png)
 
-![TraceView_OtoTHylNPh.png](../../images/TraceView_OtoTHylNPh.png)
+You can then browse the trace; newest events are at the bottom, oldest at the top.
 
-Now navigate to the BthPS3 installation folder on your local drive and select **both** PDB files like shown:
+## Interpreting the trace
 
-![TraceView_GC5KAg7ee8.png](../../images/TraceView_GC5KAg7ee8.png)
-
-Now the display should change and readable text will appear:
-
-![TraceView_ju8ERmEEUL.png](../../images/TraceView_ju8ERmEEUL.png)
-
-Alright, now you can navigate the content of the trace, newest events on the bottom, oldest on top.
-
-## Fancy, but what do I do with that
-
-Once you've made it this far, you can see the inner workings of the drivers. Have a look for the levels `TRACE_LEVEL_WARNING` or `TRACE_LEVEL_ERROR`, which indicates a failure in the driver. This hints at the potential issue with the connection, which may or may not be solvable.
+Once the trace is decoded, look for `TRACE_LEVEL_WARNING` or `TRACE_LEVEL_ERROR` entries. These indicate driver failures and can point to the cause of connection or behaviour issues. Whether the issue can be fixed depends on the specific message and your setup.

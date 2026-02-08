@@ -1,10 +1,10 @@
 # API Documentation
 
-!!! important "Topic intended for developers"
-    This topic is intended for **developers** who'd like to build upon the capabilities of BthPS3 and directly talk to devices for prototyping or other experimental tasks.
+!!! important "For developers"
+    This section is for **developers** who want to build on BthPS3 and communicate with devices directly for prototyping or experimentation.
 
-Devices connected through BthPS3 can be interfaced with "driverless" by opening a handle and directly communicating with the HID Control and Interrupt channels. They can be enumerated via [SetupAPI](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/setupapi) by using the [Device Interface GUIDs documented in the project sources](https://github.com/nefarius/BthPS3/blob/e28e815fe50d91aeb5af692cff29946647d0fa24/common/include/BthPS3.h#L189-L211). Reading from and writing to the L2CAP channels is done via [DeviceIoControl](https://docs.microsoft.com/en-us/windows/win32/api/ioapiset/nf-ioapiset-deviceiocontrol) utilizing [these IOCTL commands](https://github.com/nefarius/BthPS3/blob/e28e815fe50d91aeb5af692cff29946647d0fa24/common/include/BthPS3.h#L357-L375).
+Devices connected through BthPS3 can be used without a dedicated driver by opening a handle and talking to the HID Control and Interrupt channels. Enumerate them with [SetupAPI](https://docs.microsoft.com/en-us/windows-hardware/drivers/install/setupapi) using the [device interface GUIDs in the project sources](https://github.com/nefarius/BthPS3/blob/e28e815fe50d91aeb5af692cff29946647d0fa24/common/include/BthPS3.h#L189-L211). Read and write L2CAP channels via [DeviceIoControl](https://docs.microsoft.com/en-us/windows/win32/api/ioapiset/nf-ioapiset-deviceiocontrol) with [these IOCTL commands](https://github.com/nefarius/BthPS3/blob/e28e815fe50d91aeb5af692cff29946647d0fa24/common/include/BthPS3.h#L357-L375).
 
 ## Example implementation
 
-[Check out this archived project](https://github.com/nefarius/Shibari/tree/master/Sources/Shibari.Sub.Source.BthPS3) for a reference implementation on how to enumerate and interact with devices exposed by BthPS3 (C#/.NET).
+For a reference implementation (C#/.NET) that enumerates and interacts with BthPS3 devices, see the [archived Shibari BthPS3 source](https://github.com/nefarius/Shibari/tree/master/Sources/Shibari.Sub.Source.BthPS3).

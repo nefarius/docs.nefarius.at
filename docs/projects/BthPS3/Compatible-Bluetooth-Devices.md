@@ -1,12 +1,12 @@
 # Compatible Bluetooth Devices
 
-!!! important "This list needs your help"
-    This list is compiled from community efforts, if you have a device not listed here **help by adding it!**
+!!! important "Community-maintained list"
+    This list is maintained from community reports. If you have a device that is not listed, please add it.
 
-Non-exhaustive list of Bluetooth host devices known to work with the drivers and supported controller devices. Meaning of Status column:
+Below is a non-exhaustive list of Bluetooth host devices known to work (or not) with BthPS3. Status meanings:
 
 - ✔️ = tested and confirmed working
-- ❔ = assumed to work (ported over from old Wiki)
+- ❔ = assumed to work (carried over from the old wiki)
 - ❌ = has issues (see Remarks)
 
 ## USB Dongles

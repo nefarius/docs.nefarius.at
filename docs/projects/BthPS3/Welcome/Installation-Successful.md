@@ -1,31 +1,31 @@
-# BthPS3 installed successfully
+# BthPS3 Installed Successfully
 
-Congratulations on your BthPS3 installation!
+Congratulations—BthPS3 is now installed.
 
-## Next Steps
+## Next steps
 
-You will most likely want to install the **companion solution [DsHidMini](../../DsHidMini/index.md)** (if you haven't already) to get support for a wide variety of games and emulators.
+You will probably want to install the **companion solution [DsHidMini](../../DsHidMini/index.md)** (if you have not already) for support in games and emulators.
 
-You will most likely *not* need to tweak any of the default settings, however [this article](../Driver-Configuration-Utility-Explained.md) explains the configuration utility in great detail.
+You usually do **not** need to change the default settings. For details on the configuration tool, see the [Driver Configuration Utility](../Driver-Configuration-Utility-Explained.md).
 
-You can [show your gratitude towards the authors of the software](../../../Donations.md) by **making a donation**.
+You can [support the authors](../../../Donations.md) by making a donation.
 
 ## Troubleshooting
 
-If you are facing difficulties getting your devices to connect check out the following resources **before seeking support**:
+If you have trouble getting your devices to connect, check these resources **before asking for help**:
 
-- [Controller Compatibility](../About-Controller-Compatibility.md)
-- [Frequently Asked Questions](../Frequently-Asked-Questions.md)
+- [About controller compatibility](../About-Controller-Compatibility.md)
+- [Frequently asked questions](../Frequently-Asked-Questions.md)
 
-### Event Logs
+### Event logs
 
-The drivers log warnings and critical errors to the [Windows Event Log](https://www.digitalcitizen.life/how-start-event-viewer-windows-all-versions/) under `Windows Logs` / `System` from these event sources:
+The drivers write warnings and critical errors to the [Windows Event Log](https://www.digitalcitizen.life/how-start-event-viewer-windows-all-versions/) under **Windows Logs** → **System**, from these sources:
 
-- `Nefarius Bluetooth PS Filter Service`
-- `Nefarius BthPS3 Profile Driver`
+- **Nefarius Bluetooth PS Filter Service**
+- **Nefarius BthPS3 Profile Driver**
 
 ![Event Viewer](images/event_viewer.png)
 
-### Driver Traces
+### Driver traces
 
-To get *even more* information out of the drivers [follow this article](../Debugging-the-drivers.md).
+For more detailed driver output, see [Debugging the drivers](../Debugging-the-drivers.md).
