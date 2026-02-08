@@ -105,7 +105,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
     === "Complete LED Control"
 
-        - "Harder" to set-up (not really)
+        - "Harder" to set up (not really)
         - Allows any combination of LEDs on
         - Useful if the user wants to differentiate between more than 4 profiles
 
