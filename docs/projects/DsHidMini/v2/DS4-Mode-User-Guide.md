@@ -185,7 +185,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
     Steam and some other apps/emulators (Yuzu/CEMU) will fully ignore DS4 controllers, real or virtual, if they detect that DS4Windows is running. This happens as their own means of preventing the "double controller" issue, which is not a problem for DS3 controllers being used with DS4Windows.
 
-    To workaround this detection and make those apps stop ignoring the DS4 controller, [DS4Windows needs to be running under a custom ".exe" name](https://docs.ds4windows.app/guides/ds4w-custom-name/).
+    To workaround this detection and make those apps stop ignoring the DS4 controller, DS4Windows needs to be running under a custom ".exe" name (search online for how to set this up).
 
     !!! note "Some remarks regarding Steam"
 
@@ -203,4 +203,4 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
 ??? question "_How do I do 'X' thing on DS4Windows?_"
 
-    DS4Windows is a really amazing tool that can do lots of things, but the purpose of this guide isn't covering DS4Windows in itself, it's to give users the minimum necessary to have XInput/DS4 emulation and to cover DsHidMini related functions, like Light Bar color to LEDs translation. Because the other things it can do are not related to DsHidMini then it's recommended that you look in [its wiki](https://github.com/Ryochan7/DS4Windows/wiki/Settings) or google around for online tutorials. 
+    DS4Windows is a really amazing tool that can do lots of things, but the purpose of this guide isn't covering DS4Windows in itself, it's to give users the minimum necessary to have XInput/DS4 emulation and to cover DsHidMini related functions, like Light Bar color to LEDs translation. Because the other things it can do are not related to DsHidMini then it's recommended that you search online for tutorials. 
