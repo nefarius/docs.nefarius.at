@@ -30,4 +30,11 @@ The following features are considered done and have been tested to the best of t
 
 ## Installation, removal and troubleshooting
 
-Check the dedicated [V3 BETA installation and removal page](How-to-Install.md)
+- [V3 BETA installation and removal](How-to-Install.md)
+- [HID Device Modes explained](HID-Device-Modes-Explained.md) — SXS, XInput, DS4Windows, SDF, GPJ
+- [XInput mode (default) — setup and Steam](XInput-Mode-Explained.md)
+- [DS4Windows mode user guide](DS4-Mode-User-Guide.md)
+- [Output rate control (Bluetooth)](Output-Rate-Control-Explained.md)
+- [SCP XInput Bridge (proxy DLL for games)](SCP-XInput-Bridge.md)
+- [Switch from SIXAXIS.SYS to DsHidMini](SIXAXIS.SYS-to-DsHidMini-Guide.md)
+- [Frequently Asked Questions](FAQ.md)

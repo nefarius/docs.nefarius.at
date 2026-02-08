@@ -67,7 +67,7 @@
 - On the next screen, make sure that the "Test" tab is selected. Move the joysticks and press each button on your controller to see if everything is working. Click "OK" to exit the Properties window.  
 ![Controller Test.png](<images/Controller Test.png>)  
 
-**Congratulations!** Your PS3 controller has now been set up and verified working on your computer over USB (and optionally Bluetooth). If it does not, try restarting your computer and try again. If it still does not work, [read on here](How-to-Install.md/#troubleshooting)!
+**Congratulations!** Your PS3 controller has now been set up and verified working on your computer over USB (and optionally Bluetooth). If it does not, try restarting your computer and try again. If it still does not work, [read on here](How-to-Install.md#troubleshooting)!
 
 !!! note "Map emulators for full support"
     You can now map your controller in your emulator of choice like you would any other controller. However, to get full controller support in [RPCS3](https://rpcs3.net/) (PS3 emulator) follow this guide [here](RPCS3.md). To get full controller support in [PCSX2](https://pcsx2.net/) (PS2 emulator), follow this guide [here](PCSX2.md).
@@ -117,7 +117,7 @@ If the controller does not appear under `Nefarius HID Devices` or if this sectio
 
     **Official Sony driver**
 
-    If you have/had PS Now installed, chances are high you have the official Sony `sixaxis.sys` on your system. [Follow this procedure to remove it](../v2/SIXAXIS.SYS-to-DsHidMini-Guide.md).
+    If you have/had PS Now installed, chances are high you have the official Sony `sixaxis.sys` on your system. [Follow this procedure to remove it](SIXAXIS.SYS-to-DsHidMini-Guide.md).
 
     **FireShock**
 
