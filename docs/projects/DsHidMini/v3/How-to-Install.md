@@ -2,10 +2,10 @@
 
 ## Things to Know Before You Begin
 
-!!! danger highlight "DsHidMini V3 BETA installation page!"
-    Version 3 is still in BETA. Although tests indicate things are working smoothly, keep in mind that you may encounter unknown issues or missing features.
+!!! danger highlight "DsHidMini V3 installation page!"
+    Version 3 is under active development. Although tests indicate things are working smoothly, keep in mind that you may encounter unknown issues or missing features.
 
-    Make sure to check the [intro page for the V3 Beta](../index.md) before continuing!
+    Make sure to check the [intro page for V3](../index.md) before continuing!
 
 !!! danger highlight "STOP trying to use DsHidMini with random controllers"
     This and **only** this controller (Sony DualShock 3 a.k.a. PS3 Gamepad) is supported:  
@@ -79,7 +79,7 @@ If you want to update, simply [follow the same installation steps](#installing-d
 
 ## Removal
 
-1. The main Beta v3 driver can be removed by just uninstalling `Nefarius DsHidMini Driver` in Windows' Apps & features
+1. The main v3 driver can be removed by just uninstalling `Nefarius DsHidMini Driver` in Windows' Apps & features
 2. BthPS3 can also be uninstalled the same way as above via Apps & Features
 3. The ControlApp companion application isn’t installed in the traditional sense and can be deleted like any other file  
 ![ApplicationFrameHost_nFtPcyobyf.png](images/ApplicationFrameHost_nFtPcyobyf.png)
