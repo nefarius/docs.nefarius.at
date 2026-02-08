@@ -2,7 +2,7 @@
 
 ## About
 
-DsHidMini ships with "XInput Mode" by default, this article explains what that actually means and what to expect when using DsHidMini with modern games instead of emulators. Thoroughly make yourself familiar with this topic, as it avoids confusion and false bug reports about issues that are not within the powers of the driver to change.
+DsHidMini ships with "XInput Mode" by default, this article explains what that actually means and what to expect when using DsHidMini with modern games instead of emulators. Thoroughly familiarize yourself with this topic, as it avoids confusion and false bug reports about issues that are not within the power of the driver to change.
 
 !!! tip "Click on images to enlarge"
     You can click/tap on each image and it will open in full resolution and become easier to read ❤️
@@ -50,7 +50,7 @@ You can download SCPUser [from here](https://github.com/nefarius/ScpToolkit/raw/
 
 #### Check controller in Web Browser
 
-You can also verify the controllers functionality via the [Gamepad Tester Website](https://gamepad-tester.com/). You may need to wiggle with the controls a bit before it shows up like so:
+You can also verify the controllers functionality via the [Gamepad Tester Website](https://gamepad-tester.com/). You may need to wiggle the controls a bit before it shows up like so:
 
 ![Gamepad Tester Website](images/msedge_gPmS1GWPZi.png)
 
@@ -74,11 +74,11 @@ Now after you connected your controller, it should get detected by Steam as an X
 
 ### Configure your Steam Games
 
-Now go into your games `Properties...`:
+Now go to your game's `Properties...`:
 
 ![Road Redemption Example](images/NKd9rKdLq0.png)
 
-In the upcoming dialog go to `CONTROLLER` and set the override to `Enable Steam Input`:
+In the dialog that appears, go to `CONTROLLER` and set the override to `Enable Steam Input`:
 
 ![Per-Game Controller Settings](images/7wCVPUB6dL.png)
 

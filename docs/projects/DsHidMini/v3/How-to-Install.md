@@ -63,7 +63,7 @@
 - On the lower left corner of your screen where it says "Type here to search" in your taskbar, type "joy.cpl", then press ENTER.  
 ![Search Bar.png](<images/Search Bar.png>)  
 - This opens the "Game Controllers" control panel window. Connect your PS3 controller to your computer with a USB cable or Bluetooth. You should now see your controller in the list as "DS3 Compatible HID Device" with a Status of "OK". Click on the controller to highlight it, then click "Properties".  
-![USB Conencted.png](<images/USB Connected.png>)  
+![USB Connected](<images/USB Connected.png>)  
 - On the next screen, make sure that the "Test" tab is selected. Move the joysticks and press each button on your controller to see if everything is working. Click "OK" to exit the Properties window.  
 ![Controller Test.png](<images/Controller Test.png>)  
 
@@ -75,12 +75,12 @@
 
 ## Updating
 
-If you want to update, simply [follow the same installation steps](#installing-dshidmini-v3xx) and overwrite any existing files. Reboot your machine to be extra safe if it didn't work right away.
+If you want to update, simply [follow the same installation steps](#installing-dshidmini-v3xx) and overwrite any existing files. If it does not work right away, reboot your machine to be safe.
 
 ## Removal
 
-1. The main v3 driver can be removed by just uninstalling `Nefarius DsHidMini Driver` in Windows' Apps & features
-2. BthPS3 can also be uninstalled the same way as above via Apps & Features
+1. The main v3 driver can be removed by uninstalling `Nefarius DsHidMini Driver` via **Settings** → **Apps** → **Apps & features**
+2. BthPS3 can also be uninstalled the same way via **Apps & features**
 3. The ControlApp companion application isn’t installed in the traditional sense and can be deleted like any other file  
 ![ApplicationFrameHost_nFtPcyobyf.png](images/ApplicationFrameHost_nFtPcyobyf.png)
 
@@ -105,7 +105,7 @@ If the controller does not appear under `Nefarius HID Devices` or if this sectio
 ### Conflicting drivers
 
 !!! note "Handled by the installer"
-    The DsHidMini setup (MSI) automatically detects and handles conflicting drivers (e.g. SIXAXIS.SYS, ScpToolkit, FireShock). No manual removal steps are required—just run the installer.
+    The DsHidMini setup (MSI) automatically detects and handles conflicting drivers (e.g., SIXAXIS.SYS, ScpToolkit, FireShock). No manual removal steps are required—just run the installer.
 
 ### DSHMC.exe not detecting DsHidMini V3 controllers
 

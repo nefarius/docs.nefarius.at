@@ -36,7 +36,7 @@ Short answer: it depends. Long answer: [it depends](../../BthPS3/About-Controlle
 
 Go back to the [_How do I use it?_](#how-do-i-use-it) question.
 
-## What does my controllers' LED represent? How do I quickly disconnect the controller on Bluetooth?
+## What does my controller's LED represent? How do I quickly disconnect the controller on Bluetooth?
 
 Read the [_Features_ section](https://github.com/nefarius/DsHidMini#features) of the main GitHub page of DsHidMini.
 
@@ -49,7 +49,7 @@ Read the [_Features_ section](https://github.com/nefarius/DsHidMini#features) of
 
 ![timeout](images/timeout.png)
 
-This is a known issue that can happen in some occasions. By the time of writing, **no known fix exists**.
+This is a known issue that can happen in some occasions. At the time of writing, **no known fix exists**.
 
 ## How do I use my controller as a Xbox 360 or DualShock 4?
 
@@ -97,13 +97,13 @@ The recommended method is the following:
 
 - Set the controller into `SDF Mode`
 - Go to PCSX2 input settings
-- Make sure `DirectInput` is activated at the `Game Devices APIs` options (**DO NOT CHECK** the `DualShock 3 native mode` box)
+- Make sure `DirectInput` is enabled in the `Game Devices APIs` options (**do not check** the `DualShock 3 native mode` box)
 - Open ControlApp and check the `Mute digital pressure buttons` checkbox
-- Back to PCSX2 input settings, on the `Pad X` tab, **configure everything EXCEPT** **L3** / **R3** / **Start** / **Select** / **Analog** / **Mouse**
+- Back to PCSX2 input settings, on the `Pad X` tab, **configure everything except** **L3** / **R3** / **Start** / **Select** / **Analog** / **Mouse**
 - Go into ControlApp and uncheck the `Mute digital pressure buttons`
 - Finish setting the L3 / R3 / Start / Select buttons. The `Analog` and `Mouse` buttons are not necessary
-- At the `Add Force Feedback Effect` select your DS3 controller
-  - Only `Constant Force` is required/supported, don't select any other effect, it will not work
+- At `Add Force Feedback Effect`, select your DS3 controller
+  - Only `Constant Force` is required/supported; do not select any other effect, as it will not work
 - Finish by clicking on `OK`
 
 ![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
@@ -112,7 +112,7 @@ The recommended method is the following:
 
 The only emulator that can use the DS3 motion sensors is the RPCS3 emulator when using the DualShock 3 handler.
 
-For now, **it's impossible to use the controller's motion with other emulators**, like CEMU, Yuzu, Dolphin etc. The reason for this is that the PS3 controller only has 1 gyroscope, while modern controllers have 3 gyros. While it's possible to "emulate" the missing gyros by using the sensors it does have, the whole process involves many _maths_ that are not implemented at the moment and are at the very bottom of DsHidMini's To-Do list.
+For now, **it's impossible to use the controller's motion with other emulators**, like CEMU, Yuzu, Dolphin, etc. The reason for this is that the PS3 controller only has 1 gyroscope, while modern controllers have 3 gyros. While it's possible to "emulate" the missing gyros by using the sensors it does have, the whole process involves many _maths_ that are not implemented at the moment and are at the very bottom of DsHidMini's To-Do list.
 
 ## I did everything right and it just won't connect via Bluetooth!
 
@@ -134,7 +134,7 @@ You do not have a SIXAXIS/DualShock 3 device then. To verify, plug in your devic
 
 ![g2JC4BVcck.png](images/g2JC4BVcck.png)
 
-If you can not find at least one match **you do not have a DS3 and DsHidMini will not work**. End of story. No, support can not help you with that. Accept it.
+If you cannot find at least one match **you do not have a DS3 and DsHidMini will not work**. End of story. No, support can not help you with that. Accept it.
 
 This is a DS3:
 
@@ -169,4 +169,4 @@ Short answer: you probably can't. Long answer: [read this](https://github.com/ne
 
 - **Trouble when installing DsHidMini or connecting your controllers to the computer:** check the [_How to Install Troubleshooting_ section](How-to-Install.md#troubleshooting)
 - **Controller works normally most of the time but have random button presses or buttons fail to register:** most likely a hardware fault, not related to DsHidMini
-- Figure it out yourself 👍 There isn't always someone available in life to hold your hand 💪
+- Figure it out yourself 👍 There isn't always someone available to hold your hand 💪
