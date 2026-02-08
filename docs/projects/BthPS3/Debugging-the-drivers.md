@@ -66,6 +66,9 @@ The log file will be at `C:\BthPS3.etl`:
 
 You now have a `BthPS3.etl` file. You can submit it (compressed with WinRAR or 7-Zip) to Nefarius for analysis, or inspect it yourself as described below.
 
+!!! note "Trace file contents"
+    The trace file may contain device identifiers needed for debugging. Share it securely with trusted recipients only.
+
 ## Decoding the trace file
 
 Trace files are not plain text. You need a tool that can decode ETW content. Microsoft provides such tools, but they are verbose and not very beginner-friendly; a third-party tool is recommended.
