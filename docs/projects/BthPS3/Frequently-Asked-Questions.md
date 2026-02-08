@@ -1,162 +1,153 @@
-# Frequently Asked Questions about BthPS3
+# Frequently Asked Questions
 
-Got questions? Who can blame you 😅 we can provide some answers, though! Read on, traveler!
+Answers to common questions about BthPS3.
 
-## How to fix this setup message?
+## How do I fix the "Bluetooth Host Radio not found" setup message?
 
 > Bluetooth Host Radio not found. A working Bluetooth stack is required for driver installation or removal.
 
-![Error message](images/glvDeYjpQi.png)
+![Bluetooth host not found](images/glvDeYjpQi.png)
 
-Your Bluetooth isn't working 🙂 If you're on a Laptop, make sure you haven't disabled wireless either via a physical switch or a key combination (depends on the device model). On Desktop, make sure you actually have a Bluetooth dongle plugged in 😉 If you had other solutions like ScpToolkit or AirBender installed, make sure they have been removed completely and you run stock drivers. If you don't see the little Bluetooth tray icon in your taskbar, chances are your Bluetooth isn't working or turned on. Fix it and setup will be happy 😘
+Your Bluetooth stack is not working or not available. If you are on a laptop, make sure wireless is not disabled (physical switch or key combination—depends on the model). On a desktop, ensure a Bluetooth dongle is plugged in. If you had ScpToolkit, AirBender, or similar solutions installed, remove them completely and use stock drivers. If you do not see the Bluetooth icon in the taskbar, Bluetooth is likely off or not working. Fix the Bluetooth stack and run setup again.
 
-## How to fix "previous version found" on reinstall?
+## How do I fix "previous version found" on reinstall?
 
-If you're getting this setup error...
+If you see this setup error:
 
-![Error message](images/previous-version-found.png)  
+![Previous version found](images/previous-version-found.png)
 
-...and can't get rid of it, do the following:
+and cannot get past it, do the following:
 
-Let's assume you downloaded `BthPS3Setup_x64.msi` to `F:\Downloads` (adjust for your particular system's paths accordingly), open a `cmd`/`PowerShell`/`Terminal` as Administrator:
+1. Open **Command Prompt**, **PowerShell**, or **Terminal** as Administrator.
+   ![Start menu](images/JfVi16IRZJ.png)
+2. Change to the folder where you downloaded the setup (for example, `F:\Downloads`). Replace the path with your own:
+   - `cd "F:\Downloads\"`
+   - Example: `cd "C:\Users\<YourUsername>\Downloads"`
+3. Run the setup with the bypass flag:
+   - `.\BthPS3Setup_x64.msi FILTERNOTFOUND="1"`
 
-![Start menu](images/JfVi16IRZJ.png)  
+The setup should then launch. Follow the installer instructions to complete.
 
-In the resulting window insert the following lines (followed by an Enter key press):
+## How do I fix Bluetooth device error codes 19, 31, 37, 39, or 43?
 
-- `cd "F:\Downloads\"`
-    - Replace `F:\Downloads\` with wherever **you** downloaded the setup to! For example `C:\Users\<yourUsernameHere>\Downloads`
-- `.\BthPS3Setup_x64.msi FILTERNOTFOUND="1"`
+If you have a damaged or partial installation, the setup or uninstaller may not run. If Device Manager shows a yellow exclamation mark on your Bluetooth host with an error code such as:
 
-Now the setup should launch bypassing the error message. Follow the setup's instructions and you're done.
+![Error Code 19](images/host-error-19.png)
 
-## How to fix Bluetooth device error codes 19 & 39?
+![Error Code 39](images/host-error-39.png)
 
-... or Code 31 or Code 37 or Code 43. If you end up with a damaged/partial installation for whatever reason (computers, right? 😅) the setup or uninstaller might not even be able to do its work. Worry not though, if you check Device Manager and see that yellow exclamation mark on your Bluetooth host device, check the details and if they give you a familiar error code, like...
+![Error Code 31](images/intel-driver-error-31.png)
 
-![Error Code 19](images/host-error-19.png)  
+![Error Code 43](images/error-code-43.png)
 
-...or...
+you can try the following fix.
 
-![Error Code 39](images/host-error-39.png)  
-
-...or...
-
-![Error Code 31](images/intel-driver-error-31.png)  
-
-...or...
-
-![Error Code 43](images/error-code-43.png)  
-
-...this may look frightening, but in essence is an easy fix.
-
-Fire up PowerShell as Administrator and execute:
+Open **PowerShell as Administrator** and run:
 
 !!! example "PowerShell"
     ```PowerShell
     Remove-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{e0cbf06c-cd8b-4647-bb8a-263b43f0f974}' -Name 'LowerFilters'
     ```
 
-This removes the requirement to load the filter driver, which might be missing, and therefore prohibiting your radio to boot properly. After this line got executed, either power-cycle your radio or simply reboot and see if that issue got fixed ❤️ You may also need to uninstall and install BthPS3 again to completely fix the issue.
+This removes the filter driver requirement that may be blocking the radio from starting. Then power-cycle the Bluetooth radio or reboot. You may also need to uninstall and reinstall BthPS3 to fully resolve the issue.
 
-## What do do about error Code 10 `STATUS_DEVICE_POWER_FAILURE`?
+## What to do about error Code 10 (`STATUS_DEVICE_POWER_FAILURE`)
 
-> This device can not start. (Code 10)
+> This device cannot start. (Code 10)
 
-![Code_10](images/code_10.png)  
+![Code 10](images/code_10.png)
 
-Your Bluetooth host dongle/card is too old or incompatible 🙂 Time to upgrade or switch to something slightly more expensive and sturdy 🤞 There is no software-fix possible for this error.
+Your Bluetooth host dongle or card is too old or incompatible. There is no software fix; you will need to use a different Bluetooth host.
 
-### What about Code 10 `The specified request is not a valid operation for the target device.`?
+### What about Code 10 "The specified request is not a valid operation for the target device"?
 
-![Code_10](images/kppi8Fg8Qx.png)
+![Code 10 alternate](images/kppi8Fg8Qx.png)
 
-Your Bluetooth host dongle/card is incompatible 🙂 Time to switch to something slightly more expensive and sturdy 🤞 There is no software-fix possible for this error.
+Your Bluetooth host is incompatible with BthPS3. There is no software fix; use a different Bluetooth host.
 
 ## What Bluetooth hosts are supported?
 
-In short: all of them manufactured within the last decade and running proper stock drivers (means no ScpServer/ScpToolkit, no AirBender, stock as the manufacturer intended). [For details see this article](Compatible-Bluetooth-Devices.md).
+In short: most hosts from the last decade that run stock drivers (no ScpServer/ScpToolkit, no AirBender). For a list of tested devices, see [Compatible Bluetooth devices](Compatible-Bluetooth-Devices.md).
 
-!!! warning "There's a catch"
-    Only host radios using **USB** are supported! This includes the majority of external dongles or integrated cards (they use USB under the hood to connect to the rest of the system). So if your device is using something more exotic like I²C or UART, I'm afraid that's not gonna work 😔
+!!! warning "USB only"
+    Only Bluetooth host radios that use **USB** are supported. This includes most external dongles and many integrated cards. Hosts that use I²C or UART (for example, on Raspberry Pi or Steam Deck) are **not** supported.
 
 ## What controllers are supported?
 
 !!! important "TL;DR"
-    The genuine original Sony hardware, anything else is a nice-to-have that may or may not work ✨
+    Genuine Sony hardware is the target; third-party controllers may or may not work.
 
-This is unfortunately impossible to answer a 100% correctly. These drivers have been designed with compromises in mind. They aim to support the **original genuine Sony SIXAXIS/DualShock 3** (and Navigation, Move) controllers while operating within the realms of possibilities the Microsoft Bluetooth stack offers and allows. The DualShock 3 (or DS3 in short) has been a fairly popular piece of hardware and many clones have arisen over time, some coming close to the quality of the original, some... well, not quite as much. Aftermarket devices spoof (forge) the Hardware Identification Information that Windows sees and the labels and manufacturer notes on the housing itself. There simply is no rock-solid way to properly identify these devices to separate the good from the ugly. That's the inconvenient truth, any other statement would be a wild guess and not facts. [For details see this article](About-Controller-Compatibility.md).
+These drivers are designed for the **original Sony SIXAXIS/DualShock 3** (and Navigation and Move) controllers within the limits of the Microsoft Bluetooth stack. Many third-party and clone DualShock 3–compatible devices exist; some behave like the original, others do not. Aftermarket devices often spoof the hardware identification that Windows sees, so there is no reliable way to guarantee support for all of them. For more detail, see [About controller compatibility](About-Controller-Compatibility.md).
 
-## Can I use my wireless Keyboard/Mouse/Headphones with this?
+## Can I use my wireless keyboard, mouse, or headphones with BthPS3?
 
-Yes, that's the whole purpose of this design 😉 BthPS3 *extends* the existing vanilla Bluetooth stack, it doesn't *replace* it (like ScpToolkit and alike did). This means it can never be as close to the original PlayStation Bluetooth stack (we need to play by Microsoft's design rules, remember?) as other solutions but the trade-off of keeping your stock wireless functionality should be worth it.
+Yes. BthPS3 **extends** the existing Windows Bluetooth stack; it does **not** replace it (unlike ScpToolkit and similar tools). Your normal Bluetooth devices keep working. The trade-off is that BthPS3 cannot fully mimic the original PlayStation Bluetooth stack, but you retain standard wireless functionality.
 
-## Can I use other wireless controllers with the DualShock 3?
+## Can I use other wireless controllers alongside the DualShock 3?
 
-Yes, any PC-compatible Bluetooth device works with BthPS3. This means you can connect a DualShock 3 wirelessly with other wireless controllers.
+Yes. Any PC-compatible Bluetooth device works with BthPS3. You can use a DualShock 3 over Bluetooth at the same time as other wireless controllers.
 
 ## How many devices can I connect at the same time?
 
-There is no definitive answer to that one, as it depends heavily on the Bluetooth host hardware (quality, antenna design, size and position) and the amount of "noise" in your environment (Bluetooth is a fairly "weak" protocol compared to all the other radio chatter that's constantly happening in a common household). Users have reported all sorts of working constellations; like up to 6 controllers connected and working concurrently without any human-noticeable delay. So it's up to you to figure this one out! 😁
+There is no fixed limit. It depends on your Bluetooth host (quality, antenna, placement) and radio interference. Users have reported up to six controllers connected at once without noticeable delay. You will need to try your own setup to see what works.
 
-## Can it emulate another common controller, like Xbox One?
+## Can BthPS3 emulate another controller (e.g. Xbox One)?
 
-Controller emulation is *not* the job of these drivers, they provide the plumbing required to get them connected to Windows (and stay connected and keep talk), nothing more, nothing less. Other drivers (which you can find on this site) handle the controller-specific work required.
+No. BthPS3 only provides the Bluetooth connection so that PS3 peripherals can connect to Windows and stay connected. It does not emulate other controller types. For that, use a companion solution such as [DsHidMini](../DsHidMini/index.md), which you can find on this site.
 
-## Is there any noticeable input lag over Bluetooth?
+## Is there noticeable input lag over Bluetooth?
 
-Another stellar question! With no definite answer 😅 The truthful answer would be: don't know, don't care since it hasn't been measured with scientific equipment. The more down-to-earth answer comes from simple experience and interaction, human to machine: no. You might feel it working better or worse compared to USB, real or placebo. Those who ask this question usually just wanna hear "nope, it's all fine" so that they can move on. Well, there you have it, you can move on now 😘
+This has not been measured with dedicated equipment. In practice, users do not report noticeable lag. You may perceive a difference compared to USB (better or worse); that can be real or placebo. For most use cases, Bluetooth latency is acceptable.
 
-## Why is the DualShock 4 even supported?
+## Why is the DualShock 4 supported?
 
-Because I can 😜 literally. It wasn't much extra work to add DS4 compatibility, as under the hood it operates quite similar to the DS3, without the unnecessary quirks. The DualShock 4 works natively without any custom drivers on Windows if paired in "PC mode" (PS and share button pressed at the same time until the light bar flashes rapidly), but a little known "secret" about this device is, that by default it operates in "PS mode" (PlayStation Bluetooth compatible) which BthPS3 can emulate! For now this doesn't really have any real-world advantages but leaves a backdoor for experimentation, if adventurous developers wanna talk to it they way the PlayStation originally does.
+DualShock 4 support was added because it is similar to the DS3 at the protocol level and required little extra work. The DS4 works on Windows without custom drivers when paired in "PC mode" (PS + Share held until the light bar flashes). By default it uses "PS mode" (PlayStation Bluetooth), which BthPS3 can emulate. This mainly enables experimentation for developers who want to talk to the device the way the PlayStation does.
 
-## How do I uninstall this?
+## How do I uninstall BthPS3?
 
-In case you don't want/need the software anymore or you're getting this setup message:
+If you no longer need BthPS3 or you see this setup message:
 
-![msiexec_2e33lI1uwF.png](../../images/msiexec_2e33lI1uwF.png)
+![Uninstall prompt](../../images/msiexec_2e33lI1uwF.png)
 
-Simply head over to Apps & features and uninstall from there:
+Go to **Settings** → **Apps** → **Apps & features**, find BthPS3, and uninstall it:
 
-![qBS61SD83D.png](../../images/qBS61SD83D.png)
+![Apps and features](../../images/qBS61SD83D.png)
 
-Follow the instructions of the uninstaller and you're all set! 👋
+Follow the uninstaller instructions to complete removal.
 
-## Why does it not work on the Raspberry Pi 4?
+## Why does BthPS3 not work on the Raspberry Pi 4?
 
-If you're running [Windows on Raspberry](https://worproject.com/) and attempt to install BthPS3 you will be greeted by error `Code 31` in Device Manager:
+On [Windows on Raspberry](https://worproject.com/), installing BthPS3 leads to error **Code 31** in Device Manager:
 
-![vEOfeRh9vF.png](images/vEOfeRh9vF.png)
+![Raspberry Pi Code 31](images/vEOfeRh9vF.png)
 
-Note the `UART` in the parent device. Unfortunately the mandatory filter driver that ships with BthPS3 work with **USB only**, not UART. Therefore this solution is unable to operate on the Raspberry Pi 4 and any other device that uses UART for Bluetooth.
+The parent device uses **UART** for Bluetooth. BthPS3's filter driver supports **USB** Bluetooth hosts only, not UART, so BthPS3 cannot run on the Raspberry Pi 4 or other UART-based Bluetooth hosts.
 
-## Can I install this on the Steam Deck?
+## Can I install BthPS3 on the Steam Deck?
 
-No, BthPS3 will not work on the Steam Deck [since it uses UART, not USB](#why-does-it-not-work-on-the-raspberry-pi-4).
+No. BthPS3 does not work on the Steam Deck because [it uses UART for Bluetooth, not USB](#why-does-bthps3-not-work-on-the-raspberry-pi-4).
 
-![hZszQF3qc1.png](images/hZszQF3qc1.png)
+![Steam Deck Bluetooth](images/hZszQF3qc1.png)
+![Steam Deck UART](images/tey5NNAkBg.png)
 
-![tey5NNAkBg.png](images/tey5NNAkBg.png)
+## Why does the driver stop working after turning Bluetooth off and on, or after sleep/hibernate?
 
-## Why does the driver stop working after turning Bluetooth off and on again, or on hibernate/sleep?
-
-If you are using **Intel(R) Wireless Bluetooth(R)** (quite common in Laptops) you can run into the following issue:
+With **Intel(R) Wireless Bluetooth(R)** (common on laptops), you may see:
 
 ```text
-This device can not start. (Code 10)
+This device cannot start. (Code 10)
 
 STATUS_DEVICE_POWER_FAILURE
 ```
 
-![intel-wireless-status-device-power-failure.png](images/intel-wireless-status-device-power-failure.png)
+![Intel wireless power failure](images/intel-wireless-status-device-power-failure.png)
 
-Actions triggering this can be either waking up from sleep/hibernate or by manually turning Bluetooth off and on via the Windows-provided buttons:
+This can happen after waking from sleep or hibernate, or after turning Bluetooth off and on in Windows:
 
-![windows-bluetooth-switch.png](images/windows-bluetooth-switch.png)
+![Windows Bluetooth switch](images/windows-bluetooth-switch.png)
 
-Afterwards the profile driver greets you with a yellow exclamation mark:
+The profile driver then shows a yellow exclamation mark in Device Manager:
 
-![intel-wireless-power-fail.png](images/intel-wireless-power-fail.png)
+![Intel wireless power fail](images/intel-wireless-power-fail.png)
 
-**This is a problem caused by Intel Wireless and can not be fixed.** To mitigate, either do not disable and enable Bluetooth during operation, or use a different Bluetooth host.
+**This is an Intel Wireless issue and cannot be fixed by BthPS3.** To avoid it, do not turn Bluetooth off and on during use, or use a different Bluetooth host.
