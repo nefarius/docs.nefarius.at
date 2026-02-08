@@ -67,8 +67,8 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
     === "Simple LED control"
 
-        - Simple to set-up
-            - Check the examples in the end of this section!
+        - Simple to set up
+            - Check the examples at the end of this section!
         - Good to represent which profile is active (see example 1)
         - Necessary when making DS4Windows show the controller's battery level and for battery related `Special Actions` (see examples 2 and 3 respectively)
 
