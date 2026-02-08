@@ -39,7 +39,7 @@ After that, the controller should be properly recognized by DS4Windows. If it's 
 
 ### Important remarks
 
-From here, DS4Windows can be used _mostly_ as usual. XInput and DS4 emulation, as well other functions, can then be set-up in the profiles settings according to the user needs. Besides that:
+From here, DS4Windows can be used _mostly_ as usual. XInput and DS4 emulation, as well as other functions, can then be set up in the profile settings according to the user needs. Besides that:
 
 - Keep in mind: `Select` and `Start` buttons are recognized as the `Share` and `Options` buttons in DS4Windows
 ![DS3toDS4ButtonLayout](images/DS3toDS4ButtonLayout.png)
