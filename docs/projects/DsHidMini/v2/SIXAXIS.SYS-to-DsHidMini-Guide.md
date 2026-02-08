@@ -1,3 +1,6 @@
+!!! warning "DsHidMini v2 is no longer maintained"
+    **DsHidMini v2** is no longer maintained. Please use [DsHidMini v3](../v3/index.md) instead. The content on this page is kept for archival purposes only.
+
 # Switch from SIXAXIS.SYS to DsHidMini
 
 If the Sony SIXAXIS.SYS driver is present on your system, it may take priority over DsHidMini (on USB) and you need to manually switch drivers like outlined below:

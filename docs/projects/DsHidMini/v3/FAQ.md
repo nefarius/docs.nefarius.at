@@ -26,7 +26,7 @@ That is entirely up to you of course 🙂 Do you wish to stick with abandoned, o
 
 After DsHidMini is active and the controller connected, all you need is to change to the mode best suited to your use case. Keep in mind that if you want to use your controller as a **XInput** (Xbox 360) or **DualShock 4** controller, [there are a few extra steps left to be followed](#how-do-i-use-my-controller-as-a-xbox-360-or-dualshock-4).
 
-![HIDDeviceModes](images/HIDDeviceModes.png)
+![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
 ## Does my fake PS3 controller work with DsHidMini?
 
@@ -57,7 +57,7 @@ This is a known issue that can happen in some occasions. By the time of writing,
 
 Set the controller to `DS4Windows Mode` and use it with **Ryochan7's DS4Windows**. For more detailed instructions and other information, follow the [_DS4Windows Mode User Guide_](DS4-Mode-User-Guide.md) and you'll be good to go.
 
-![DS4ModeDS4W](images/DS4ModeDS4W.png)
+![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
 ### Alternative methods
 
@@ -87,7 +87,7 @@ You need to verify which `Input API` is supported in whatever you are using and 
 
 It's recommended that you use your DS3 controller in `SXS Mode` and then choose on RPCS3's controller settings the `DualShock 3` Handler. When doing so, RPCS3 should automatically pick and set your DS3, with full support to all its functions including LEDs, pressure buttons and motion.
 
-![SXSModeRPCS3](images/SXSModeRPCS3.png)
+![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
 ## How do I set the controller's pressure buttons in PCSX2?
 
@@ -106,7 +106,7 @@ The recommended method is the following:
   - Only `Constant Force` is required/supported, don't select any other effect, it will not work
 - Finish by clicking on `OK`
 
-![SDFModePCSX2](images/SDFModePCSX2.png)
+![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
 ## How do I use the motion sensors with emulators?
 

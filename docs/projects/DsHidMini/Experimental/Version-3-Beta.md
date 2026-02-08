@@ -1,6 +1,6 @@
-# Welcome to Version 3 Beta Testing
+# Welcome to Version 3 (Experimental)
 
-Ahoy there! 👋 If you can read this you're most probably part of the DsHidMini Version 3 Beta crew, welcome!
+Ahoy there! 👋 If you can read this you're most probably part of the DsHidMini Version 3 testing crew, welcome!
 
 Please read this article thoroughly before continuing to use the software or asking questions about it.
 
@@ -8,7 +8,7 @@ Please read this article thoroughly before continuing to use the software or ask
 
 The dev team is small, like, *really* small, so we have no time for any BS. If you want to help us find and fix bugs, some rules are inevitable or the ride won't be any fun.
 
-- Participating in a Beta implies you are somewhat comfortable with advanced Windows/PC usage and able to solve problems on your own. **Do not use the Beta releases if you just want to get gaming ASAP, use the stable version 2 releases instead!**
+- Participating in early testing implies you are somewhat comfortable with advanced Windows/PC usage and able to solve problems on your own. **Do not use these releases if you just want to get gaming ASAP, use the stable version 2 releases instead!**
 - Before asking questions about what new features are available or which bugs were fixed **check both the [open](https://github.com/nefarius/DsHidMini/milestone/7) and [closed](https://github.com/nefarius/DsHidMini/milestone/7?closed=1) issues and PRs on GitHub** first! We know reading is annoying but so is repeating answering the same questions over and over again to us.
 
 ## Make sure to have the new ControlApp tool
@@ -33,4 +33,4 @@ Version 3 uses a completely different configuration system so the old `DSHMC.exe
 
 ## Removal
 
-Check the dedicated [V3 BETA installation/removal page](../v3/How-to-Install.md#removal)
+Check the dedicated [V3 installation/removal page](../v3/How-to-Install.md#removal)

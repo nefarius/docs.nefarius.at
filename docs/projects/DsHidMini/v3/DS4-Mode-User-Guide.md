@@ -35,14 +35,14 @@ In `DS4Windows` HID Device Mode, the controller appears as a custom device that 
 
 After that, the controller should be properly recognized by DS4Windows. If it's not, verify again if it is in "[DS4Windows mode](HID-Device-Modes-Explained.md)".
 
-![DS4ModeDS4W](images/DS4ModeDS4W.png)
+![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
 ### Important remarks
 
 From here, DS4Windows can be used _mostly_ as usual. XInput and DS4 emulation, as well as other functions, can then be set up in the profile settings according to the user needs. Besides that:
 
 - Keep in mind: `Select` and `Start` buttons are recognized as the `Share` and `Options` buttons in DS4Windows
-![DS3toDS4ButtonLayout](images/DS3toDS4ButtonLayout.png)
+![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 - In case you need, there are more detailed instructions on how to change to DS4 emulation in [the FAQ](#frequently-asked-questions)
 - If you want your controller's LEDs to represent the current battery level, check the **Simple LED Control -> Example 2** in the [Light Bar color to LEDs translation section](#light-bar-color-to-leds-translation)
     - Read the full Light Bar translation section if you want to check all possible types of LED control that are possible via DS4Windows settings
@@ -72,7 +72,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
         - Good to represent which profile is active (see example 1)
         - Necessary when making DS4Windows show the controller's battery level and for battery-related `Special Actions` (see examples 2 and 3 respectively)
 
-        ![Simple LED Control summary](images/SimpleLEDControlSummary.png)
+        ![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
         __FORMS OF ACTIVATION:__
 
@@ -93,15 +93,15 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
         ??? example "Example 1: Setting up a profile to be represented as LED 3 only (__single mode__)"
 
-            ![Simple LED Control eg 1 - LED 3 on](images/SimpleLedControl_eg1_LED3on.png)
+            ![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
         ??? example "Example 2: Setting up a profile to reflect the controller's battery level"
 
-            ![Simple LED Control eg 2 - Battery charge indication](images/SimpleLedControl_eg2_Battery.png)
+            ![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
         ??? example "Example 3: Setting up a _Special Action_ to make the LEDs reflect the controller's battery level"
 
-            ![Simple LED Control eg 3 - Macro example](images/SimpleLedControl_eg3_Macro.png)
+            ![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
     === "Complete LED Control"
 
@@ -134,7 +134,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
         __e.g.:__ Setting up a profile to be represented as LEDs 4 and 2.
 
-        ![Total LED Control eg - LEDs 4 and 2](images/TotalLedControl_eg_LEDs_4_2.png)
+        ![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
 ## Frequently Asked Questions
 
@@ -150,7 +150,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
     - Give a name to your profile (e.g.: DS3 to DS4)
     - Save the profile
     - Back in the _Controllers_ tab, click on the _Selected profile_ box and change from default to the profile you just created
-    ![Ds4Profile](images/Ds4Profile.png)
+    ![TODO: Replace with ControlApp screenshot (was DSHMC.exe)](images/PLACEHOLDER-DSHMC-REPLACE-WITH-CONTROLAPP.svg)
 
     And done, now you can switch between XInput/DS4 emulation by changing between profiles.
 
@@ -182,7 +182,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
     Steam and some other apps/emulators (Yuzu/CEMU) will fully ignore DS4 controllers, real or virtual, if they detect that DS4Windows is running. This happens as their own means of preventing the "double controller" issue, which is not a problem for DS3 controllers being used with DS4Windows.
 
-    To workaround this detection and make those apps stop ignoring the DS4 controller, [DS4Windows needs to be running under a custom ".exe" name](https://docs.ds4windows.app/guides/ds4w-custom-name/).
+    To workaround this detection and make those apps stop ignoring the DS4 controller, DS4Windows needs to be running under a custom ".exe" name (search online for how to set this up).
 
     !!! note "Some remarks regarding Steam"
 
@@ -200,4 +200,4 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
 ??? question "_How do I do 'X' thing on DS4Windows?_"
 
-    DS4Windows is a really amazing tool that can do lots of things, but the purpose of this guide isn't covering DS4Windows in itself, it's to give users the minimum necessary to have XInput/DS4 emulation and to cover DsHidMini related functions, like Light Bar color to LEDs translation. Because the other things it can do are not related to DsHidMini then it's recommended that you look in [its wiki](https://github.com/Ryochan7/DS4Windows/wiki/Settings) or google around for online tutorials.
+    DS4Windows is a really amazing tool that can do lots of things, but the purpose of this guide isn't covering DS4Windows in itself, it's to give users the minimum necessary to have XInput/DS4 emulation and to cover DsHidMini related functions, like Light Bar color to LEDs translation. Because the other things it can do are not related to DsHidMini then it's recommended that you search online for tutorials.
