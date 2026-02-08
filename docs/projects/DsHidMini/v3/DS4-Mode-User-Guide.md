@@ -44,7 +44,7 @@ From here, DS4Windows can be used _mostly_ as usual. XInput and DS4 emulation, a
 - Keep in mind: `Select` and `Start` buttons are recognized as the `Share` and `Options` buttons in DS4Windows
 ![DS3toDS4ButtonLayout](images/DS3toDS4ButtonLayout.png)
 - In case you need, there are more detailed instructions on how to change to DS4 emulation in [the FAQ](#frequently-asked-questions)
-- If you want your controller's LEDs to represent the current battery level, check the **Simple Led Control -> Example 2** in the [Light Bar color to LEDs translation SECTION](#light-bar-color-to-leds-translation)
+- If you want your controller's LEDs to represent the current battery level, check the **Simple LED Control -> Example 2** in the [Light Bar color to LEDs translation section](#light-bar-color-to-leds-translation)
     - Read the full Light Bar translation section if you want to check all possible types of LED control that are possible via DS4Windows settings
 - It's recommended you have a quick look at the [_Frequently Asked Questions_](#frequently-asked-questions) section, read at least the title of the topics
 
@@ -65,18 +65,18 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
 ??? info "Modes of Light Bar Translation (click to expand)"
 
-    === "Simple LED control"
+    === "Simple LED Control"
 
         - Simple to set up
             - Check the examples at the end of this section!
         - Good to represent which profile is active (see example 1)
-        - Necessary when making DS4Windows show the controller's battery level and for battery related `Special Actions` (see examples 2 and 3 respectively)
+        - Necessary when making DS4Windows show the controller's battery level and for battery-related `Special Actions` (see examples 2 and 3 respectively)
 
-        ![SimpleLEDControlSummary](images/SimpleLEDControlSummary.png)
+        ![Simple LED Control summary](images/SimpleLEDControlSummary.png)
 
         __FORMS OF ACTIVATION:__
 
-        | Simple LED control mode | How to activate | Description |
+        | Simple LED Control mode | How to activate | Description |
         | :---: | :---: | :---: |
         | __Single mode__ | Green and Blue = 0 | Only the chosen LED is ON |
         | __Filling Mode__ | Green = 0, Blue = 255 | The chosen LED and the ones before it are ON |
@@ -93,17 +93,17 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
         ??? example "Example 1: Setting up a profile to be represented as LED 3 only (__single mode__)"
 
-            ![SimpleLedControl eg 1 - LED 3 on](images/SimpleLedControl_eg1_LED3on.png)
+            ![Simple LED Control eg 1 - LED 3 on](images/SimpleLedControl_eg1_LED3on.png)
 
         ??? example "Example 2: Setting up a profile to reflect the controller's battery level"
 
-            ![SimpleLedControl eg 2 - Battery charge indication](images/SimpleLedControl_eg2_Battery.png)
+            ![Simple LED Control eg 2 - Battery charge indication](images/SimpleLedControl_eg2_Battery.png)
 
         ??? example "Example 3: Setting up a _Special Action_ to make the LEDs reflect the controller's battery level"
 
-            ![SimpleLedControl eg 3 - Macro example](images/SimpleLedControl_eg3_Macro.png)
+            ![Simple LED Control eg 3 - Macro example](images/SimpleLedControl_eg3_Macro.png)
 
-    === "Complete LED control"
+    === "Complete LED Control"
 
         - "Harder" to set-up (not really)
         - Allows any combination of LEDs on
@@ -134,7 +134,7 @@ There are 2 modes of Light Bar to LED control: **Simple** and **Complete**. To l
 
         __e.g.:__ Setting up a profile to be represented as LEDs 4 and 2.
 
-        ![TotalLedControl eg - LEDs 4 and 2](images/TotalLedControl_eg_LEDs_4_2.png)
+        ![Total LED Control eg - LEDs 4 and 2](images/TotalLedControl_eg_LEDs_4_2.png)
 
 ## Frequently Asked Questions
 
