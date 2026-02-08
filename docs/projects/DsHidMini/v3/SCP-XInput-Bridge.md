@@ -4,7 +4,7 @@ DsHidMini ships with a custom `XInput1_3.dll` you can drop in the game directory
 
 ## Latest downloads
 
-The DLLs included in the GitHub releases can be outdated, the latest builds from Continuous Integration (build server) can be downloaded here. Those contain the latest features and bugfixes but might still contain unaddressed issues. When in doubt, stick to the GitHub release copies.
+The DLLs included in the GitHub releases can be outdated, the latest builds from Continuous Integration (build server) can be downloaded here. Those contain the latest features and bug fixes but might still contain unaddressed issues. When in doubt, stick to the GitHub release copies.
 
 The DLL architecture has to match your game/emulator or it will result in errors.
 
