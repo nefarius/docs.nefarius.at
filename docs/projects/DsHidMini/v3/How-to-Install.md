@@ -3,9 +3,7 @@
 ## Things to Know Before You Begin
 
 !!! danger highlight "DsHidMini V3 installation page!"
-    Version 3 is under active development. Although tests indicate things are working smoothly, keep in mind that you may encounter unknown issues or missing features.
-
-    Make sure to check the [intro page for V3](../index.md) before continuing!
+    Make sure to check the [intro page for v3](../index.md) before continuing.
 
 !!! danger highlight "STOP trying to use DsHidMini with random controllers"
     This and **only** this controller (Sony DualShock 3 a.k.a. PS3 Gamepad) is supported:  
@@ -26,7 +24,7 @@
 
     Previous versions of DsHidMini required you to uninstall old or outdated software that may cause conflicts. This is no longer required, so no matter what software you may have preinstalled, the installation steps below are always the same 😀
 
-- Head to the official GitHub page for DsHidMini releases [here](https://github.com/nefarius/DsHidMini/releases). The top of the Releases page shows the latest version, which at the time of writing is v3.5.1 and is currently listed as a "Pre-Release".  
+- Head to the official GitHub page for DsHidMini releases [here](https://github.com/nefarius/DsHidMini/releases) and open the latest v3 release.  
 ![Releases.png](images/Releases.png)  
 - Scroll down a bit and click on the word "Assets" to see the installation file named "Nefarius_DsHidMini_Drivers_x64_arm64_vx.x.x.msi" (the x's represent the current version number and may be different from the photo below). Click on that name and download the file to your computer.
 ![Assets.png](images/Assets.png)  
