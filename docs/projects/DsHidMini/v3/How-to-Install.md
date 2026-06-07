@@ -24,7 +24,7 @@
 
     Previous versions of DsHidMini required you to uninstall old or outdated software that may cause conflicts. This is no longer required, so no matter what software you may have preinstalled, the installation steps below are always the same 😀
 
-- Head to the official GitHub page for DsHidMini releases [here](https://github.com/nefarius/DsHidMini/releases) and open the latest v3 release.  
+- Head to the [DsHidMini releases page](https://github.com/nefarius/DsHidMini/releases) and open the latest v3 release.  
 ![Releases.png](images/Releases.png)  
 - Scroll down a bit and click on the word "Assets" to see the installation file named "Nefarius_DsHidMini_Drivers_x64_arm64_vx.x.x.msi" (the x's represent the current version number and may be different from the photo below). Click on that name and download the file to your computer.
 ![Assets.png](images/Assets.png)  

@@ -12,7 +12,7 @@ DsHidMini is a universal driver for the dated yet beloved DualShock 3 Controller
 
 ## Installation
 
-Join the cool-kids-gang and follow the [installation instructions for v3](v3/How-to-Install.md)! If you need the legacy v2 docs, they are preserved [here](v2/How-to-Install.md).
+Join the cool-kids-gang and follow the [installation instructions for v3](v3/How-to-Install.md)! If you need the legacy v2 docs, they are preserved in the [v2 installation docs](v2/How-to-Install.md).
 
 ## Development activity
 
