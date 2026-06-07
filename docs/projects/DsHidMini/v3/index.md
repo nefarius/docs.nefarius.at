@@ -22,9 +22,7 @@ The following features are considered done and have been tested to the best of t
     - tweak rumble settings
     - etc.
 - ARM64 builds of the driver
-    - ~~Currently **untested**, feedback welcome!~~
     - Appears to work fine on Apple Silicon using Windows 11 on Parallels
-- To be filled...
 
 ## Installation, removal and troubleshooting
 
