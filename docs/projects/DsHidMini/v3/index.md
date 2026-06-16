@@ -38,3 +38,4 @@ The following features are considered done and have been tested to the best of t
 - [SCP XInput Bridge (proxy DLL for games)](SCP-XInput-Bridge.md)
 - [Switch from SIXAXIS.SYS to DsHidMini](SIXAXIS.SYS-to-DsHidMini-Guide.md)
 - [Frequently Asked Questions](FAQ.md)
+- [Debugging the drivers (ETW traces)](Debugging-the-drivers.md)
