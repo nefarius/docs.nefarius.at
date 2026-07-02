@@ -165,3 +165,21 @@ Returns true if it exists, false otherwise.
 Parameter Pos. | Description | Mandatory
 ---|---|---
 1 | The file path to check. | Yes
+
+### `log`
+
+Emits a message to the updater's debug log at the `debug` level. Returns nothing (void).
+
+Useful for troubleshooting complex template expressions during development.
+
+Parameter Pos. | Description | Mandatory
+---|---|---
+1 | The message string to log. | Yes
+
+!!! example "Debug a resolved path"
+    ```json
+    "input": "{{ log(resolvedPath) }}{{ resolvedPath }}"
+    ```
+
+!!! note "Debug builds and log levels"
+    The message appears in the [debug output](Logging.md) whenever the current log level is `debug` or lower. It has no effect in production builds where logging is disabled (`NV_FLAGS_NO_LOGGING`).

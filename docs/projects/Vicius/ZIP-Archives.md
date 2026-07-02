@@ -42,6 +42,27 @@ For both the default and individual paths, you can choose between:
 - `CreateIfAbsent`: the path is created if not present, but left alone if it's already there
 - `DeleteIfPresent`: the path is deleted if present; there is no error if it is absent
 
+You can change the default with the `zipExtractDefaultFileDisposition` configuration option, or change it for specific paths with the `zipExtractFileDispositionOverrides` key; for example.
+
+## Running the setup as Administrator
+
+If the ZIP-based update process needs elevated privileges (e.g. to write to `Program Files`), add `runAsAdmin` to the release:
+
+```json
+{
+    "releases": [
+        {
+            "name": "My Tool",
+            "version": "2024.7.18",
+            "downloadUrl": "https://example.com/example.zip",
+            "runAsAdmin": true
+        }
+    ]
+}
+```
+
+When `true`, the extracted setup is launched via the `runas` shell verb, which triggers a UAC elevation prompt. This field is also available at the `instance` level to set it as a default for all releases.
+
 You can change the default with the `zipExtractDefaultFileDisposition` configuration option, or change it for specific paths with the `zipExtractFileDispositionOverrides` key; for example:
 
 ```json
