@@ -37,3 +37,9 @@ Code | Description
 `111` | Failed to terminate the process specified via [`--terminate-process-before-update`](Command-Line-Arguments.md#-terminate-process-before-update-handle).
 `112` | Two or more specified [command line arguments](Command-Line-Arguments.md) were incompatible with each other.
 `113` | The updater file name contains some invalid sequences.
+`114` | Failed to create the Direct3D 11 rendering device (display driver issue or insufficient GPU).
+`115` | Downloaded file checksum mismatch — computed hash differs from the expected value in the release. See [Download Integrity](Download-Integrity.md).
+`116` | Setup Authenticode signature is invalid or the chain could not be validated. See [Signature Verification](Signature-Verification.md).
+`117` | Publisher certificate does not match the configured pin. See [Signature Verification](Signature-Verification.md).
+`118` | Manifest Ed25519 signature is invalid or the `.minisig` sidecar could not be fetched. See [Signature Verification](Signature-Verification.md).
+`119` | Manifest version rollback detected — the server delivered an older manifest version. See [Signature Verification](Signature-Verification.md).

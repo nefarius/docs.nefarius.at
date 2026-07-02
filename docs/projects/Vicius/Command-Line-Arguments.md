@@ -124,6 +124,15 @@ Overrides the [detected local product version](Product-Detection.md) if no detec
 
 Overrides the [detected local product version](Product-Detection.md). This value trumps any product detection method specified in either local or server-provided configuration.
 
+### `--strict-verification`
+
+Activates a client-side hardened verification mode. Has two effects:
+
+1. **Checksum required** — if the selected release does not provide a `checksum` field in the [remote configuration](Remote-Configuration.md), the update is rejected immediately (exit code `115`).
+2. **Server cannot downgrade security** — the signature verification settings (`signatureVerificationMode`, `signaturePolicy`, `signatureStrategy`, `signatureConfig`) from the server's `shared` section are ignored. Only values already present in the local configuration or baked into the build apply.
+
+See [Signature & Manifest Verification](Signature-Verification.md) for full details on the verification pipeline.
+
 ## Internal
 
 !!! warning "Beware of altering"

@@ -8,7 +8,10 @@ The current [master branch update response schema](https://github.com/nefarius/N
 
 ## C# POCO
 
-The response types (classes, enums) are available via the [example server implementation](https://github.com/nefarius/vicius/blob/master/examples/server/Models).
+The response types (classes, enums) are available in the [`abstractions/src/Models`](https://github.com/nefarius/vicius/tree/master/abstractions/src/Models) directory of the repository, published as the **Nefarius.Vicius.Abstractions** NuGet package.
+
+!!! note "Migrating from the old standalone package"
+    The standalone [Nefarius.Vicius.Abstractions](https://github.com/nefarius/Nefarius.Vicius.Abstractions) repository has been archived. The package id and namespace are unchanged — simply update your package source/version to pick up the in-repo package.
 
 ## C++ models
 
