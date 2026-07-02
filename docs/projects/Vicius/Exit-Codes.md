@@ -38,7 +38,7 @@ Code | Description
 `112` | Two or more specified [command line arguments](Command-Line-Arguments.md) were incompatible with each other.
 `113` | The updater file name contains some invalid sequences.
 `114` | Failed to create the Direct3D 11 rendering device (display driver issue or insufficient GPU).
-`115` | Downloaded file checksum mismatch — computed hash differs from the expected value in the release. See [Download Integrity](Download-Integrity.md).
+`115` | Checksum failure — either the release was rejected before download because it lacks a `checksum` field when [`--strict-verification`](Command-Line-Arguments.md#--strict-verification) is active, or the computed hash of the downloaded file does not match the expected value. See [Download Integrity](Download-Integrity.md).
 `116` | Setup Authenticode signature is invalid or the chain could not be validated. See [Signature Verification](Signature-Verification.md).
 `117` | Publisher certificate does not match the configured pin. See [Signature Verification](Signature-Verification.md).
 `118` | Manifest Ed25519 signature is invalid or the `.minisig` sidecar could not be fetched. See [Signature Verification](Signature-Verification.md).

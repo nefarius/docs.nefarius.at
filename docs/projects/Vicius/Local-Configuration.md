@@ -30,7 +30,7 @@ Field | Type | Description
     ```json
     {
         "shared": {
-            "iconBase64": "AAABAAEAEBAAAAEAIAAoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAA..."
+            "iconBase64": "<base64-encoded .ico data>"
         }
     }
     ```

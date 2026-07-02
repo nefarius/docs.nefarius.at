@@ -165,9 +165,9 @@ minisign -S -s ~/.minisign/minisign.key -m updates.json
 
 Serve both files from the same URL root. The updater derives the sidecar URL automatically by appending `.minisig` to the manifest URL.
 
-### Key rotation
+### Signing new manifests after a cert renewal
 
-Sign your new manifest with the **same Ed25519 key**. No redeployment of the updater binary is required.
+Sign your updated manifest with the **same Ed25519 key**. No redeployment of the updater binary is required.
 
 ---
 
