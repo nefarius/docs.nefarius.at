@@ -57,6 +57,10 @@ Does nothing if the product is already up to date.
 
 Ignores if the user session is busy and displays the main window if updates were found.
 
+### `--ignore-product-in-use`
+
+Skips the [product-busy detection gate](Local-Configuration.md#productbusydetection) and shows the update notification dialog immediately, even if the watched product is currently running. Has no effect when `productBusyDetection` is not configured.
+
 ### `--log-level <value>`
 
 Alters the default logging level (`info`) to the provided `<value>`.

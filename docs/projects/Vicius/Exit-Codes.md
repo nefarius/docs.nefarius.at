@@ -18,6 +18,7 @@ Code | Description
 `206` | The [`--purge-postpone`](Command-Line-Arguments.md#-purge-postpone) command finished successfully.
 `207` | A new updater process was successfully created from a temporary location.
 `208` | The updater process was closed while a setup operation was still in progress.
+`209` | The watched product was still running after the maximum wait period ([`productBusyDetection`](Local-Configuration.md#productbusydetection)); nothing was shown or installed. The next scheduled or logon invocation will retry.
 
 ## Error conditions
 
