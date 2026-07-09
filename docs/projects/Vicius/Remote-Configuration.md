@@ -24,3 +24,7 @@ Check out the [Swagger documentation](https://vicius.api.nefarius.systems/swagge
 ## Hosted examples
 
 An ever growing collection of example configurations [is hosted here](https://vicius.api.nefarius.systems/swagger/index.html#/Examples).
+
+## Related topics
+
+- [Setup Exit Code Handling](Setup-Exit-Codes.md) — configure which setup exit codes are treated as success, attach custom UI messages, and add per-code help buttons.
