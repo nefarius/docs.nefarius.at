@@ -72,6 +72,25 @@ MSI installers exit with `3010` (`ERROR_SUCCESS_REBOOT_REQUIRED`) when the insta
 
 Because `isSuccess` is `true` on the `"3010"` entry, the code does not also need to appear in `successCodes`.
 
+### User cancelled the installer (MSI exit code 1602)
+
+MSI returns `1602` (`ERROR_INSTALL_USEREXIT`) when the user clicks **Cancel** in the installer UI. Without configuration the updater shows a generic "unexpected exit code" error. A message entry lets you explain clearly that no changes were made and the user can simply retry.
+
+```json
+{
+    "releases": [{
+        "exitCode": {
+            "successCodes": [0],
+            "messages": {
+                "1602": {
+                    "message": "The installation was cancelled before it could complete. No changes have been made to your system.\n\nYou can retry the update at any time by running the updater again."
+                }
+            }
+        }
+    }]
+}
+```
+
 ### Custom message for a known failure code
 
 ```json
