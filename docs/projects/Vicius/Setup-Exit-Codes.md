@@ -48,9 +48,9 @@ Field | Type | Required | Description
 
 ### UI behaviour
 
-**Success path** — when the setup exits with a code that resolves to success (via `skipCheck`, `successCodes`, or `isSuccess: true` in the map) and a `messages` entry exists for that code, the updater displays a success screen with the configured message text and an optional help button. The user must click **Finish** to close the updater. Without a message entry the updater closes silently, as it always has.
+**Success path** — when the setup exits with a code that resolves to success (via `skipCheck`, `successCodes`, or `isSuccess: true` in the map) and a `messages` entry exists for that code with a non-empty `message` string, the updater displays a success screen with the configured message text and an optional help button. The user must click **Finish** to close the updater. If no entry exists, or the entry's `message` is an empty string, the updater closes silently, as it always has.
 
-**Failure path** — when the setup exits with a non-success code and a `messages` entry exists for it, the updater shows the distributor-supplied message and optional help button instead of the generic "unexpected exit code" text, allowing you to provide more actionable guidance for known failure modes.
+**Failure path** — when the setup exits with a non-success code and a `messages` entry exists for it with a non-empty `message` string, the updater shows the distributor-supplied message and optional help button instead of the generic "unexpected exit code" text, allowing you to provide more actionable guidance for known failure modes. If no entry exists, or the entry's `message` is empty, the generic error text is shown.
 
 ## Examples
 

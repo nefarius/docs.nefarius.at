@@ -59,7 +59,7 @@ When using the [local configuration file](Local-Configuration.md) approach, addi
 
 - **`fallbackServerUrlTemplates`** — an array of additional URLs tried in order if the primary URL fails.
 - **`filenameRegex`** — override the regex used to extract `manufacturer` and `product` from the executable name. Useful if your binary doesn't follow the default `manufacturer_product_Updater` naming convention.
-- **`channel`** — sets an update channel name that is inserted as the third segment of the URL template (`manufacturer/product/channel`). Can also be supplied at runtime via [`--channel`](Command-Line-Arguments.md#--channel-value).
+- **`channel`** — sets an update channel name that is inserted as the third segment of the URL template (`manufacturer/product/channel`). It can also be supplied at runtime via [`--channel`](Command-Line-Arguments.md#--channel-value).
 - **`network`** — configures proxy, DNS-over-HTTPS, and IP-family preferences.
 
 See [Local Configuration — Notable instance fields](Local-Configuration.md#notable-instance-fields) for full details and available sub-fields.

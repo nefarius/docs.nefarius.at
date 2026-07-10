@@ -4,13 +4,13 @@ Anything that can go wrong will at some point go wrong. When that happens, the u
 
 ## Default log level
 
-The default log level is **`info`**. Debug and trace messages (including output from the `log()` callback in [Inja templates](Inja-Templates.md)) require explicitly raising the level to `debug` or lower via [`--log-level debug`](Command-Line-Arguments.md#-log-level-value).
+The default log level is **`info`**. Debug messages (including output from the `log()` callback in [Inja templates](Inja-Templates.md)) require [`--log-level debug`](Command-Line-Arguments.md#-log-level-value); trace messages require `--log-level trace`.
 
 ## Observing logs
 
 To observe the live `OutputDebugString` output I recommend using the tool [DebugView++](https://github.com/CobaltFusion/DebugViewPP) since it offers nice filtering options and other convenience features.
 
-Alternatively, you can also enable [logging to file](Command-Line-Arguments.md#-log-to-file-value) to persist the output, or [raise the log level](Command-Line-Arguments.md#-log-level-value) to get more details.
+Alternatively, you can also enable [logging to file](Command-Line-Arguments.md#-log-to-file-value) to persist the output, or [select a more verbose log level](Command-Line-Arguments.md#-log-level-value) to get more details.
 
 ## Examples
 

@@ -9,12 +9,18 @@ This is the intended pattern when the updater is launched directly **by** the pr
 
 ## Handle requirements
 
-The value passed to `--terminate-process-before-update` is a Win32 `HANDLE` expressed as a **decimal integer**. The updater validates the handle at startup and silently disables the feature (logging an error) for any of the following:
+The value passed to `--terminate-process-before-update` is a Win32 `HANDLE` expressed as a **decimal integer**. The updater performs a limited validation at startup and silently disables the feature (logging an error) if validation fails.
 
-- **MUST** be a real Win32 `HANDLE` — a **PID is not a handle**. If you only have a PID, obtain a handle first with `OpenProcess()`.
-- The handle should have at least `PROCESS_TERMINATE | PROCESS_QUERY_LIMITED_INFORMATION` permissions. `PROCESS_QUERY_LIMITED_INFORMATION` is needed because the updater calls `GetProcessId()` to confirm the handle is valid. The updater does not verify these permissions at startup — an insufficient-permissions handle will fail only when `TerminateProcess` is actually called.
-- The handle should be inheritable (`bInheritHandle = TRUE`). This is not checked at startup; without it the handle will be invalid in the child process.
-- **MUST NOT** be a pseudo-handle (e.g. the raw return value of `GetCurrentProcess()`). Pseudo-handles are per-process constants whose numeric values are meaningless in any other process. The updater explicitly rejects them.
+**Checked at startup** — the feature is disabled immediately if:
+
+- The value is zero (no handle provided).
+- The handle is a pseudo-handle (e.g. the raw return value of `GetCurrentProcess()`). Pseudo-handles are per-process constants whose numeric values are meaningless in any other process.
+- `GetProcessId()` on the handle fails — this confirms it is a valid, open kernel handle. A **PID is not a handle**; if you only have a PID, obtain a real handle first with `OpenProcess()`.
+
+**Not checked at startup — may fail at runtime** — the updater does not verify:
+
+- **Permissions**: the handle should have at least `PROCESS_TERMINATE | PROCESS_QUERY_LIMITED_INFORMATION` access rights. `PROCESS_QUERY_LIMITED_INFORMATION` is what makes the startup `GetProcessId()` call succeed; `PROCESS_TERMINATE` is required when `TerminateProcess` is called immediately before the setup runs. An under-privileged handle passes startup validation but will fail at that point.
+- **Inheritability**: the handle must be inheritable (`bInheritHandle = TRUE`) so the operating system copies it into the child updater process. This is not validated at startup; a non-inheritable handle will be unusable in the child process even though startup succeeds.
 
 ## Step 1 — Create a real, inheritable handle
 
