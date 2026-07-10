@@ -9,12 +9,18 @@ This is the intended pattern when the updater is launched directly **by** the pr
 
 ## Handle requirements
 
-The value passed to `--terminate-process-before-update` is a Win32 `HANDLE` expressed as a **decimal integer**. The updater validates the handle at startup and silently disables the feature (logging an error) for any of the following:
+The value passed to `--terminate-process-before-update` is a Win32 `HANDLE` expressed as a **decimal integer**. The updater performs a limited validation at startup and silently disables the feature (logging an error) if validation fails.
 
-- **MUST** be a real Win32 `HANDLE` — a **PID is not a handle**. If you only have a PID, obtain a handle first with `OpenProcess()`.
-- **MUST** have `PROCESS_TERMINATE | PROCESS_QUERY_LIMITED_INFORMATION` permissions — `PROCESS_QUERY_LIMITED_INFORMATION` is required because the updater calls `GetProcessId()` on the handle to validate it.
-- **MUST** be inheritable (`bInheritHandle = TRUE`) and owned by the updater's parent process.
-- **MUST NOT** be a pseudo-handle (e.g. the raw return value of `GetCurrentProcess()`). Pseudo-handles are per-process constants whose numeric values are meaningless in any other process. The updater explicitly rejects them.
+**Checked at startup** — the feature is disabled immediately if:
+
+- The value is zero (no handle provided).
+- The handle is a pseudo-handle (e.g. the raw return value of `GetCurrentProcess()`). Pseudo-handles are per-process constants whose numeric values are meaningless in any other process.
+- `GetProcessId()` on the handle fails — this confirms it is a valid, open kernel handle. A **PID is not a handle**; if you only have a PID, obtain a real handle first with `OpenProcess()`.
+
+**Not checked at startup — may fail at runtime** — the updater does not verify:
+
+- **Permissions**: the handle should have at least `PROCESS_TERMINATE | PROCESS_QUERY_LIMITED_INFORMATION` access rights. `PROCESS_QUERY_LIMITED_INFORMATION` is what makes the startup `GetProcessId()` call succeed; `PROCESS_TERMINATE` is required when `TerminateProcess` is called immediately before the setup runs. An under-privileged handle passes startup validation but will fail at that point.
+- **Inheritability**: the handle must be inheritable (`bInheritHandle = TRUE`) so the operating system copies it into the child updater process. This is not validated at startup; a non-inheritable handle will be unusable in the child process even though startup succeeds.
 
 ## Step 1 — Create a real, inheritable handle
 
@@ -75,4 +81,7 @@ CreateProcessW(
 
     `TerminateProcess` returns before the process has fully exited. The operating system does not guarantee that all file handles held by the process are released by the time the setup starts. If the setup fails due to locked files immediately after termination, a brief wait or retry in the installer itself is the appropriate remedy.
 
-If the `TerminateProcess` call fails for any reason, the updater aborts the update and exits with code [`111`](Exit-Codes.md).
+If the `TerminateProcess` call fails for any reason, the updater aborts the update. The failure is reported as exit code `109` (`NV_E_SETUP_FAILED`). Exit code `111` (`NV_E_TERMINATE_PROCESS_BEFORE_UPDATE_FAILED`) is reserved for this condition but is not yet individually emitted.
+
+!!! note "No user confirmation in `--silent-update` mode"
+    When the updater is launched with [`--silent-update`](Command-Line-Arguments.md#--silent-update), the process is terminated without any user-facing prompt. Ensure the calling application saves state and notifies the user appropriately before launching the updater in this mode.

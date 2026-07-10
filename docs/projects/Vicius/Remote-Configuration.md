@@ -1,6 +1,12 @@
 # Remote Configuration
 
-The updater expects a JSON response from the update server; you can find various implementation details and examples below. The updater as a client is quite resilient; every property/field marked as optional/nullable can be omitted entirely in the response. In theory you don't even need to provide any releases in the response, just make it an empty array and you're good to go.
+The updater expects a JSON response from the update server; you can find various implementation details and examples below.
+
+!!! warning "Empty `releases` is not safe"
+    Serving an empty `releases` array (`"releases": []`) is **not** a no-op. The updater will successfully parse the response but will then fail product version detection (it needs at least one release to compare against), and exit with code `105` (`NV_E_PRODUCT_DETECTION`). If you want to signal "nothing to do", remove the `emergencyUrl` and use a release whose version matches what you expect users to have installed.
+
+!!! note "Optional vs. required fields"
+    Top-level `instance` and `shared` objects are optional and can be omitted. However, each entry in the `releases` array has required fields (`name`, `version`, `summary`, `publishedAt`, `downloadUrl`). Omitting required release fields may cause parsing or version-comparison failures.
 
 ## JSON Schema
 

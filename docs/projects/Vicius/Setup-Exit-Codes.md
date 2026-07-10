@@ -2,6 +2,12 @@
 
 When the updater runs the downloaded setup process, it captures the exit code the setup returns and decides whether the installation succeeded or failed. By default only exit code `0` is treated as success.
 
+!!! note "ZIP archive updates bypass exit code checking"
+    For ZIP-based updates the updater performs file copy operations directly and does not launch an external setup executable. Success is determined by whether the extraction and copy succeeded, not by an exit code. The `exitCode` configuration has no effect on ZIP updates.
+
+!!! note "Setup launch failures"
+    If the setup process cannot be launched at all (e.g. the downloaded file is missing or not executable), the updater exits with code `109` (`NV_E_SETUP_FAILED`) rather than consulting the exit-code configuration.
+
 The `exitCode` object in the [remote configuration](Remote-Configuration.md) lets you control this behaviour. It can be placed either on the `instance` object (applies to every release) or directly on an individual release entry (takes precedence over the instance-level setting when both are present).
 
 ## Basic fields
@@ -35,16 +41,16 @@ The `messages` field is an object whose **keys are exit codes expressed as decim
 
 Field | Type | Required | Description
 ---|---|---|---
-`message` | `string` | Yes | Text shown to the user when this exit code is encountered.
+`message` | `string` | Yes | Text shown to the user when this exit code is encountered. An empty string (`""`) is treated the same as no entry — no custom screen is shown and the updater falls back to default behavior (success closes silently; failure shows the generic error text).
 `isSuccess` | `bool` | No | When `true`, this exit code is treated as a success condition even if it is absent from `successCodes`.
 `helpUrl` | `string` | No | URL opened in the browser when the user clicks the help button shown alongside the message.
 `buttonText` | `string` | No | Custom label for the help button. Defaults to `"Open help page"` when omitted.
 
 ### UI behaviour
 
-**Success path** — when the setup exits with a code that resolves to success (via `skipCheck`, `successCodes`, or `isSuccess: true` in the map) and a `messages` entry exists for that code, the updater displays a success screen with the configured message text and an optional help button. The user must click **Finish** to close the updater. Without a message entry the updater closes silently, as it always has.
+**Success path** — when the setup exits with a code that resolves to success (via `skipCheck`, `successCodes`, or `isSuccess: true` in the map) and a `messages` entry exists for that code with a non-empty `message` string, the updater displays a success screen with the configured message text and an optional help button. The user must click **Finish** to close the updater. If no entry exists, or the entry's `message` is an empty string, the updater closes silently, as it always has.
 
-**Failure path** — when the setup exits with a non-success code and a `messages` entry exists for it, the updater shows the distributor-supplied message and optional help button instead of the generic "unexpected exit code" text, allowing you to provide more actionable guidance for known failure modes.
+**Failure path** — when the setup exits with a non-success code and a `messages` entry exists for it with a non-empty `message` string, the updater shows the distributor-supplied message and optional help button instead of the generic "unexpected exit code" text, allowing you to provide more actionable guidance for known failure modes. If no entry exists, or the entry's `message` is empty, the generic error text is shown.
 
 ## Examples
 

@@ -36,7 +36,7 @@ The comparison is **case-insensitive**.
 !!! warning "Algorithm recommendations"
     Prefer `SHA256` for new configurations. `MD5` and `SHA1` are provided for compatibility but are not collision-resistant; they should not be used in security-sensitive environments.
 
-If the computed hash does not match the expected value, the download is rejected and the update fails with exit code `115`.
+If the computed hash does not match the expected value, the download is rejected and the update fails with exit code `116`.
 
 ## Self-updater checksum
 
@@ -57,14 +57,21 @@ You can also protect the self-updater binary download. Add a `latestChecksum` fi
 
 The self-updater module receives this value and verifies the downloaded binary before swapping it for the running updater.
 
+!!! warning "Algorithm support differs for self-updater"
+    The self-updater module only accepts `SHA256` and `SHA1` for `latestChecksum`. Specifying `MD5` will cause self-updater integrity verification to fail. If `latestChecksum` is absent entirely, the self-updater falls back to Authenticode verification only.
+
+## Detection checksum
+
+The `detectionChecksum` field on a release object is separate from the download `checksum`. It is used by the [`FileChecksum` product detection method](Product-Detection.md#filechecksum) to determine whether the locally installed version matches the release, and has no effect on download integrity.
+
 ## Strict mode
 
-When the updater is invoked with [`--strict-verification`](Command-Line-Arguments.md#--strict-verification), a release that does not provide a `checksum` object is **rejected immediately** — even before the download begins. This enforces checksum presence as a policy requirement.
+When the updater is invoked with [`--strict-verification`](Command-Line-Arguments.md#--strict-verification), a release that does not provide a `checksum` object is rejected **after download**, during the integrity check phase. This enforces checksum presence as a policy requirement. The rejection exits with code `116`.
 
 ## Related exit codes
 
 Code | Description
 ---|---
-`115` | Checksum mismatch — the computed hash of the downloaded file does not match the expected value.
+`116` | All post-download integrity/authenticity failures, including checksum mismatch and (when `--strict-verification` is active) a missing `checksum` field.
 
 See [Exit Codes](Exit-Codes.md) for the full list.
