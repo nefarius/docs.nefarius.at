@@ -6,7 +6,7 @@ The default behaviour of the updater if invoked without any CLI arguments is to 
 
 ### `--install`
 
-Typically called with only once when the bundled product gets installed. Performs self-registration in current users' autostart and daily runs via Task Scheduler. Errors will be logged but the user will not be actively notified. Check the exit code for potential error cases.
+Typically called only once when the bundled product gets installed. Performs self-registration in current users' autostart and daily runs via Task Scheduler, and extracts the embedded self-updater component. Errors will be logged but the user will not be actively notified. Check the exit code for potential error cases.
 
 !!! important "Beware of the target directory permissions"
     If your updater instance gets deployed into a restricted directory (like `Program Files`) this command needs to be invoked with administrative privileges or some steps requiring write-permissions will fail.
@@ -130,10 +130,11 @@ Overrides the [detected local product version](Product-Detection.md). This value
 
 ### `--strict-verification`
 
-Activates a client-side hardened verification mode. Has two effects:
+Activates a client-side hardened verification mode. Has three effects:
 
 1. **Checksum required** — if the selected release does not provide a `checksum` field in the [remote configuration](Remote-Configuration.md), the update is rejected immediately (exit code `115`).
 2. **Server cannot downgrade security** — the signature verification settings (`signatureVerificationMode`, `signaturePolicy`, `signatureStrategy`, `signatureConfig`) from the server's `shared` section are ignored. Only values already present in the local configuration or baked into the build apply.
+3. **Minimum security floor** — if the merged `signatureVerificationMode` is `WhenPresent` or `Disabled`, it is silently upgraded to `Required`; if `signaturePolicy` is `Relaxed`, it is upgraded to `Strict`.
 
 See [Signature & Manifest Verification](Signature-Verification.md) for full details on the verification pipeline.
 
@@ -160,14 +161,41 @@ The following parameters are passed from the main updater process to the self-up
 
 They can not be altered by the user.
 
+!!! info "Forwarded common arguments"
+    `--silent` and [`--log-level`](#--log-level-value) are always forwarded from the parent process and apply identically inside the self-updater module.
+
 ### `--pid`
 
 The Process ID of the parent updater process that invoked the self-update module.
 
 ### `--url`
 
-The download URL of the latest updater executable. Redirects are supported.
+The primary download URL of the latest updater executable. Redirects are supported.
 
 ### `--path`
 
-The absolute path to the local updater executable.
+The absolute path to the local updater executable that will be replaced.
+
+### `--checksum <value>`
+
+The expected hash digest (lowercase hex string) of the downloaded updater binary. The self-updater verifies this before swapping the binary into place. Populated from the `latestChecksum` field in the [remote configuration](Download-Integrity.md#self-updater-checksum). Omitted when no checksum was provided server-side.
+
+### `--checksum-alg <value>`
+
+The hashing algorithm to use when verifying `--checksum`. Possible values: `MD5`, `SHA1`, `SHA256`. Defaults to `sha256` when omitted.
+
+### `--mirror-url <url>`
+
+A fallback download URL used if the primary `--url` fails. May be specified multiple times, once per mirror. Populated from the `latestMirrorUrls` array in the remote configuration.
+
+### `--proxy <url>`
+
+An explicit HTTP proxy URL (e.g. `http://proxy.corp:8080`) forwarded from the network configuration. Only present when a proxy is explicitly configured.
+
+### `--no-proxy`
+
+Forces a direct connection for the self-updater download, overriding any environment-variable proxy. Forwarded when the network configuration sets `ProxyMode::None`.
+
+### `--doh-url <url>`
+
+A DNS-over-HTTPS resolver URL forwarded from the network configuration.

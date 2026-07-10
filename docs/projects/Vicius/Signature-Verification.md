@@ -194,10 +194,11 @@ If the server delivers a manifest whose `manifestVersion` is lower than the last
 
 ## `--strict-verification`
 
-Passing `--strict-verification` on the command line activates a client-side hardened mode with two effects:
+Passing `--strict-verification` on the command line activates a client-side hardened mode with three effects:
 
 1. **Checksum required** — if the selected release has no `checksum` field, the update is rejected immediately (exit code `115`).
 2. **Server cannot downgrade security** — the server-provided `signatureVerificationMode`, `signaturePolicy`, `signatureStrategy`, and `signatureConfig` fields in `shared` are ignored. Only the settings already baked into the local configuration or forced by the build take effect.
+3. **Minimum security floor** — if the merged `signatureVerificationMode` is `WhenPresent` or `Disabled`, it is silently upgraded to `Required`; if `signaturePolicy` is `Relaxed`, it is upgraded to `Strict`.
 
 See [Command Line Arguments](Command-Line-Arguments.md#--strict-verification) for the full argument reference.
 
