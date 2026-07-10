@@ -175,17 +175,23 @@ Sign your updated manifest with the **same Ed25519 key**. No redeployment of the
 
 When manifest signing is enabled (`NV_MANIFEST_PUBLIC_KEY` defined), the updater also enforces a monotonically increasing `manifestVersion` field.
 
-Add an unsigned integer to your manifest's `instance` block:
+Add an unsigned integer as a **root-level** field of your manifest JSON:
 
 ```json
 {
-    "instance": {
-        "manifestVersion": 42
-    }
+    "manifestVersion": 42,
+    "instance": { ... },
+    "releases": [ ... ]
 }
 ```
 
-If the server delivers a manifest whose `manifestVersion` is lower than the last successfully processed version on that client, the update check is rejected with error code `119`. This prevents an attacker from replaying an older, legitimately signed manifest that contained a vulnerable release.
+!!! warning "`manifestVersion` is a root-level field"
+    The field must be at the top level of the JSON object, not nested inside `instance`. Nesting it under `instance` will cause it to be ignored.
+
+If the server delivers a manifest whose `manifestVersion` is lower than the last successfully processed version on that client, the update check is rejected. The last seen version is persisted in the registry at `HKCU\Software\<manufacturer>\<product>\Vicius\ManifestVersion`. A registry failure (e.g. write permission error) is non-fatal — the updater logs a warning and continues.
+
+!!! note "Current runtime behavior"
+    A manifest rollback detection failure causes `RequestUpdateInfo()` to fail, which the process reports as exit code `104` (`NV_E_SERVER_RESPONSE`). Exit code `119` (`NV_E_MANIFEST_DOWNGRADE`) is reserved for this condition but is not yet individually emitted.
 
 !!! note "Only active when `NV_MANIFEST_PUBLIC_KEY` is defined"
     The downgrade check is only executed when manifest signing is enabled. Without a trusted signature, the manifest version field cannot be trusted.
@@ -196,7 +202,7 @@ If the server delivers a manifest whose `manifestVersion` is lower than the last
 
 Passing `--strict-verification` on the command line activates a client-side hardened mode with three effects:
 
-1. **Checksum required** — if the selected release has no `checksum` field, the update is rejected immediately (exit code `115`).
+1. **Checksum required** — if the selected release has no `checksum` field, the update is rejected *after download* during the integrity check phase (exit code `116`). The rejection happens post-download, not before.
 2. **Server cannot downgrade security** — the server-provided `signatureVerificationMode`, `signaturePolicy`, `signatureStrategy`, and `signatureConfig` fields in `shared` are ignored. Only the settings already baked into the local configuration or forced by the build take effect.
 3. **Minimum security floor** — if the merged `signatureVerificationMode` is `WhenPresent` or `Disabled`, it is silently upgraded to `Required`; if `signaturePolicy` is `Relaxed`, it is upgraded to `Strict`.
 
@@ -204,14 +210,18 @@ See [Command Line Arguments](Command-Line-Arguments.md#--strict-verification) fo
 
 ---
 
+## Notes on ZIP / non-PE payloads
+
+ZIP archives and other non-executable payloads cannot carry an Authenticode signature. When the updater attempts to verify such a file, the Windows trust infrastructure returns `TRUST_E_SUBJECT_FORM_UNKNOWN`, which the updater treats as "unsigned". Under the default `WhenPresent` mode this is accepted; under `Required` mode or `--strict-verification` it causes the update to be rejected with exit code `116`. If you distribute ZIP archives, keep `signatureVerificationMode` at `WhenPresent` or `Disabled` (and rely on checksums instead), or sign a wrapper executable.
+
 ## Related exit codes
 
 Code | Description
 ---|---
-`115` | Download checksum mismatch (computed hash differs from `release.checksum`).
-`116` | Setup Authenticode signature is invalid or the chain could not be validated.
-`117` | Publisher certificate does not match the configured pin.
-`118` | Manifest Ed25519 signature is invalid or the `.minisig` sidecar could not be fetched.
-`119` | Manifest version rollback detected; the server delivered an older manifest version.
+`104` | Manifest processing failure — covers manifest Ed25519 verification failure (code `118`) and manifest version rollback (code `119`), which currently surface as this code.
+`116` | All post-download integrity/authenticity failures — covers checksum mismatch (code `115`), invalid or untrusted Authenticode chain, publisher pin mismatch (code `117`), and a missing `checksum` field when `--strict-verification` is active.
+
+!!! note "Granular codes 115, 117, 118, 119 are reserved"
+    These codes are defined in the source but are not yet individually emitted. All post-download failures report `116`; all manifest failures report `104`. See the [full exit code reference](Exit-Codes.md#reserved--not-yet-individually-emitted) for details.
 
 See [Exit Codes](Exit-Codes.md) for the full list.

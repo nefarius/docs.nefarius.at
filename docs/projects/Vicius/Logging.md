@@ -1,10 +1,16 @@
 # Logging
 
-Anything that can go wrong will at some point go wrong. When that happens, the updater provides you with a ton of information via [debug logging](https://learn.microsoft.com/en-us/windows/win32/api/debugapi/nf-debugapi-outputdebugstringa), which is always on by default (can be disabled on compilation though; set `NV_FLAGS_NO_LOGGING` in `CustomizeMe.h`).
+Anything that can go wrong will at some point go wrong. When that happens, the updater provides detailed information via [debug output](https://learn.microsoft.com/en-us/windows/win32/api/debugapi/nf-debugapi-outputdebugstringa) using an MSVC/OutputDebugString sink. Logging is enabled by default and can be disabled at compile time by setting `NV_FLAGS_NO_LOGGING` in `CustomizeMe.h` (it is commented out in the default build, so logging is active unless you explicitly opt out).
 
-To observe the live logs I recommend using the tool [DebugView++](https://github.com/CobaltFusion/DebugViewPP) since it offers some nice filtering options and other convenience features.
+## Default log level
 
-Alternatively, you can also enable [logging to file](Command-Line-Arguments.md#-log-to-file-value) or [raise the log level](Command-Line-Arguments.md#-log-level-value) to get even more details.
+The default log level is **`info`**. Debug and trace messages (including output from the `log()` callback in [Inja templates](Inja-Templates.md)) require explicitly raising the level to `debug` or lower via [`--log-level debug`](Command-Line-Arguments.md#-log-level-value).
+
+## Observing logs
+
+To observe the live `OutputDebugString` output I recommend using the tool [DebugView++](https://github.com/CobaltFusion/DebugViewPP) since it offers nice filtering options and other convenience features.
+
+Alternatively, you can also enable [logging to file](Command-Line-Arguments.md#-log-to-file-value) to persist the output, or [raise the log level](Command-Line-Arguments.md#-log-level-value) to get more details.
 
 ## Examples
 

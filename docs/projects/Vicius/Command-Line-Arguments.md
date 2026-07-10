@@ -39,7 +39,7 @@ Skips the self-update procedure, even if a newer version is available.
 
 ### `--silent`
 
-Suppresses any UI interaction, even when updates are found.
+Suppresses TaskDialog popups (error messages, "up to date" notices, and UAC prompts). The main update notification window is **still shown** if updates are found. For a fully headless run that also performs the download and install without any UI, use [`--silent-update`](#--silent-update) instead.
 
 Check the app [exit code](Exit-Codes.md) for status details.
 
@@ -55,7 +55,7 @@ Does nothing if the product is already up to date.
 
 ### `--ignore-busy-state`
 
-Ignores if the user session is busy and displays the main window if updates were found.
+Ignores if the user session is busy and displays the main window if updates were found. This flag is only relevant in silent modes (`--background`, `--autostart`, `--silent`, `--silent-update`), because interactive runs always show the window regardless of session state.
 
 ### `--ignore-product-in-use`
 
@@ -132,7 +132,7 @@ Overrides the [detected local product version](Product-Detection.md). This value
 
 Activates a client-side hardened verification mode. Has three effects:
 
-1. **Checksum required** — if the selected release does not provide a `checksum` field in the [remote configuration](Remote-Configuration.md), the update is rejected immediately (exit code `115`).
+1. **Checksum required** — if the selected release does not provide a `checksum` field in the [remote configuration](Remote-Configuration.md), the update is rejected after download with exit code `116`.
 2. **Server cannot downgrade security** — the signature verification settings (`signatureVerificationMode`, `signaturePolicy`, `signatureStrategy`, `signatureConfig`) from the server's `shared` section are ignored. Only values already present in the local configuration or baked into the build apply.
 3. **Minimum security floor** — if the merged `signatureVerificationMode` is `WhenPresent` or `Disabled`, it is silently upgraded to `Required`; if `signaturePolicy` is `Relaxed`, it is upgraded to `Strict`.
 
@@ -154,6 +154,9 @@ Tells the updater it's run by Task Scheduler. It will not display any UI except 
 ### `--temporary`
 
 Tells the updater it's run as a temporary child process to avoid blocking an in-progress setup procedure by locking the origin file. If this flag is present, certain commands (like `--install`) are ignored.
+
+!!! warning "Incompatible with silent-mode flags"
+    Combining `--temporary` with any silent-mode flag (`--silent`, `--background`, `--autostart`, or `--silent-update`) is not supported. The updater will abort at startup and exit with code `112`.
 
 ## Self-Updater
 
@@ -182,7 +185,10 @@ The expected hash digest (lowercase hex string) of the downloaded updater binary
 
 ### `--checksum-alg <value>`
 
-The hashing algorithm to use when verifying `--checksum`. Possible values: `MD5`, `SHA1`, `SHA256`. Defaults to `sha256` when omitted.
+The hashing algorithm to use when verifying `--checksum`. Possible values: `SHA256`, `SHA1`. Defaults to `SHA256` when omitted.
+
+!!! warning "MD5 not supported by the self-updater"
+    Although the main updater supports `MD5` for release checksums, the self-updater module only accepts `SHA256` and `SHA1`. Specifying `MD5` for `latestChecksum` in the remote configuration will cause self-updater verification to fail.
 
 ### `--mirror-url <url>`
 

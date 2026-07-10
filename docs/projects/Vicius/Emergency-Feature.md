@@ -15,7 +15,7 @@ In your server-side configuration add the following snippet with a URL of your c
     }
     ```
 
-No matter if the local software is up to date; if the `emergencyUrl` value is set on the server, it will get opened on the client as soon as the next check-cycle is run via Task Scheduler (or during user logon).
+No matter if the local software is up to date; if the `emergencyUrl` value is set on the server, it will be opened on the client on **every successful server response** — including interactive and manual runs, not only scheduled Task Scheduler or logon invocations. The URL is opened via `ShellExecuteA` (default browser or handler) immediately after the server response is processed, before any self-update, product-version, or update-installation logic runs.
 
 !!! danger "This is a powerful mechanism, do not abuse it!"
     Obviously your users will not shower you with praise if you push a random URL on them every day; only set this value if you have a good, unavoidable reason to do so! You have been warned ❤
