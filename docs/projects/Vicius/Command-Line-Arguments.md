@@ -6,7 +6,7 @@ The default behaviour of the updater if invoked without any CLI arguments is to 
 
 ### `--install`
 
-Typically called with only once when the bundled product gets installed. Performs self-registration in current users' autostart and daily runs via Task Scheduler, and extracts the embedded self-updater component. Errors will be logged but the user will not be actively notified. Check the exit code for potential error cases.
+Typically called only once when the bundled product gets installed. Performs self-registration in current users' autostart and daily runs via Task Scheduler, and extracts the embedded self-updater component. Errors will be logged but the user will not be actively notified. Check the exit code for potential error cases.
 
 !!! important "Beware of the target directory permissions"
     If your updater instance gets deployed into a restricted directory (like `Program Files`) this command needs to be invoked with administrative privileges or some steps requiring write-permissions will fail.
