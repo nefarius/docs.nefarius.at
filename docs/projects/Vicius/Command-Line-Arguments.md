@@ -160,14 +160,41 @@ The following parameters are passed from the main updater process to the self-up
 
 They can not be altered by the user.
 
+!!! info "Forwarded common arguments"
+    `--silent` and [`--log-level`](#--log-level-value) are always forwarded from the parent process and apply identically inside the self-updater module.
+
 ### `--pid`
 
 The Process ID of the parent updater process that invoked the self-update module.
 
 ### `--url`
 
-The download URL of the latest updater executable. Redirects are supported.
+The primary download URL of the latest updater executable. Redirects are supported.
 
 ### `--path`
 
-The absolute path to the local updater executable.
+The absolute path to the local updater executable that will be replaced.
+
+### `--checksum <value>`
+
+The expected hash digest (lowercase hex string) of the downloaded updater binary. The self-updater verifies this before swapping the binary into place. Populated from the `latestChecksum` field in the [remote configuration](Download-Integrity.md#self-updater-checksum). Omitted when no checksum was provided server-side.
+
+### `--checksum-alg <value>`
+
+The hashing algorithm to use when verifying `--checksum`. Possible values: `MD5`, `SHA1`, `SHA256`. Defaults to `sha256` when omitted.
+
+### `--mirror-url <url>`
+
+A fallback download URL used if the primary `--url` fails. May be specified multiple times, once per mirror. Populated from the `latestMirrorUrls` array in the remote configuration.
+
+### `--proxy <url>`
+
+An explicit HTTP proxy URL (e.g. `http://proxy.corp:8080`) forwarded from the network configuration. Only present when a proxy is explicitly configured.
+
+### `--no-proxy`
+
+Forces a direct connection for the self-updater download, overriding any environment-variable proxy. Forwarded when the network configuration sets `ProxyMode::None`.
+
+### `--doh-url <url>`
+
+A DNS-over-HTTPS resolver URL forwarded from the network configuration.
