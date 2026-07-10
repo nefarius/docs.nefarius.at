@@ -6,7 +6,7 @@ The default behaviour of the updater if invoked without any CLI arguments is to 
 
 ### `--install`
 
-Typically called with only once when the bundled product gets installed. Performs self-registration in current users' autostart and daily runs via Task Scheduler. Errors will be logged but the user will not be actively notified. Check the exit code for potential error cases.
+Typically called with only once when the bundled product gets installed. Performs self-registration in current users' autostart and daily runs via Task Scheduler, and extracts the embedded self-updater component. Errors will be logged but the user will not be actively notified. Check the exit code for potential error cases.
 
 !!! important "Beware of the target directory permissions"
     If your updater instance gets deployed into a restricted directory (like `Program Files`) this command needs to be invoked with administrative privileges or some steps requiring write-permissions will fail.
@@ -130,10 +130,11 @@ Overrides the [detected local product version](Product-Detection.md). This value
 
 ### `--strict-verification`
 
-Activates a client-side hardened verification mode. Has two effects:
+Activates a client-side hardened verification mode. Has three effects:
 
 1. **Checksum required** — if the selected release does not provide a `checksum` field in the [remote configuration](Remote-Configuration.md), the update is rejected immediately (exit code `115`).
 2. **Server cannot downgrade security** — the signature verification settings (`signatureVerificationMode`, `signaturePolicy`, `signatureStrategy`, `signatureConfig`) from the server's `shared` section are ignored. Only values already present in the local configuration or baked into the build apply.
+3. **Minimum security floor** — if the merged `signatureVerificationMode` is `WhenPresent` or `Disabled`, it is silently upgraded to `Required`; if `signaturePolicy` is `Relaxed`, it is upgraded to `Strict`.
 
 See [Signature & Manifest Verification](Signature-Verification.md) for full details on the verification pipeline.
 
