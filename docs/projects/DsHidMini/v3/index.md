@@ -4,10 +4,8 @@
 
 ## Before proceeding...
 
-- DsHidMini V3 is under active development. This means there may be unresolved issues or features that are not yet implemented.
-    - This does *not* mean that horrible things like your PC catching fire can occur. If it does though, I recommend having a fire extinguisher at hand.
-- You can always go back to v2 if the experience is not (yet) to your liking, this is not a one-way-street.
-- Before asking questions about what new features are available or which bugs were fixed **check both the [open](https://github.com/nefarius/DsHidMini/milestone/7) and [closed](https://github.com/nefarius/DsHidMini/milestone/7?closed=1) issues and PRs on GitHub** first! We know reading can be tedious, but repeatedly answering the same questions is equally frustrating for us.
+- DsHidMini v3 is the current stable release series. If you need to go back, you can always reinstall v2 (this is not a one-way street).
+- For ongoing changes and known issues, check both the [open](https://github.com/nefarius/DsHidMini/milestone/7) and [closed](https://github.com/nefarius/DsHidMini/milestone/7?closed=1) issues and PRs on GitHub.
 
 ## Highlights
 
@@ -24,9 +22,7 @@ The following features are considered done and have been tested to the best of t
     - tweak rumble settings
     - etc.
 - ARM64 builds of the driver
-    - ~~Currently **untested**, feedback welcome!~~
     - Appears to work fine on Apple Silicon using Windows 11 on Parallels
-- To be filled...
 
 ## Installation, removal and troubleshooting
 
