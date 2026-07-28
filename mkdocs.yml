@@ -77,6 +77,7 @@ plugins:
         'projects/DsHidMini/SCP-XInput-Bridge.md': 'projects/DsHidMini/v2/SCP-XInput-Bridge.md'
         'projects/DsHidMini/SIXAXIS.SYS-to-DsHidMini-Guide.md': 'projects/DsHidMini/v2/SIXAXIS.SYS-to-DsHidMini-Guide.md'
         'projects/DsHidMini/XInput-Mode-Explained.md': 'projects/DsHidMini/v2/XInput-Mode-Explained.md'
+        'projects/DsHidMini/Experimental/Version-3-Beta.md': 'projects/DsHidMini/v3/index.md'
 
 markdown_extensions:
   - admonition:
