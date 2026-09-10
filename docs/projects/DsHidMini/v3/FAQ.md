@@ -15,6 +15,10 @@
 
 Check out the repository [README](https://github.com/nefarius/DsHidMini/blob/master/README.md) and the [main project page](../index.md).
 
+## Does DsHidMini support the Navigation Controller?
+
+Yes. A genuine Sony Navigation Controller (`VID_054C` / `PID_042F`) is supported over USB and Bluetooth (with BthPS3). It has one LED, no rumble, and fewer buttons/axes than a DualShock 3. XInput is the recommended HID mode. Details: [DsHidMini Navigation Controller notes](https://github.com/nefarius/DsHidMini/blob/master/docs/NAVIGATION_CONTROLLER.md). The PlayStation Move Motion Controller is not supported.
+
 ## I am already using ScpToolKit / MotionInJoy / Shibari / Whatever, should I move to DsHidMini?
 
 That is entirely up to you of course 🙂 Do you wish to stick with abandoned, outdated, unmaintained, complex and potentially untrustworthy software that will work less and less the further Windows and Games advance, or do you want to step into the light and use fresh, stable, thought-through open software that simply delivers what it promises? Your call 😉

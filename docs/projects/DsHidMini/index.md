@@ -2,7 +2,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-yellowgreen?logo=github)](https://github.com/nefarius/DsHidMini) ![Maintained](https://img.shields.io/badge/Project%20actively%20maintained-brightgreen)
 
-DsHidMini is a universal driver for the dated yet beloved DualShock 3 Controllers used by the Sony PlayStation 3 (Navigation and Motion Controller support is planned). It's aimed to be a full, modern replacement of the discontinued ScpToolkit, feature-rich yet lightweight providing a wide range of compatibility with existing Games, Tools and Emulators. Developed for and compatible with latest Windows 10/11.
+DsHidMini is a universal driver for the dated yet beloved DualShock 3 Controllers used by the Sony PlayStation 3. Navigation Controller support is available ([issue #48](https://github.com/nefarius/DsHidMini/issues/48)); Motion Controller support is not in scope. It's aimed to be a full, modern replacement of the discontinued ScpToolkit, feature-rich yet lightweight providing a wide range of compatibility with existing Games, Tools and Emulators. Developed for and compatible with latest Windows 10/11.
 
 !!! warning "No Windows XP/Vista/7/8/8.1 support"
     DsHidMini heavily depends on amazing libraries and frameworks provided by Microsoft, unfortunately those are not available on anything older than Windows 10/11. Upgrade now ✨
