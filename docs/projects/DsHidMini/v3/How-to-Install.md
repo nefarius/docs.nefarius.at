@@ -6,7 +6,7 @@
     Make sure to check the [intro page for v3](../index.md) before continuing.
 
 !!! danger highlight "STOP trying to use DsHidMini with random controllers"
-    This and **only** this controller (Sony DualShock 3 a.k.a. PS3 Gamepad) is supported:  
+    Official Sony DualShock 3 / SIXAXIS and Navigation Controller hardware is supported.  
     ![ds3](images/dualshock-3-resized.png)
     Do NOT contact support for any other device, **it will not work**, no matter how many times you ask!
 
