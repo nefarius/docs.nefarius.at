@@ -34,9 +34,11 @@ The fix is to force the device stack to be rebuilt. In order of convenience:
 
 **Option 1 — replug the device (simplest).** Unplug the device and plug it back in. This tears down and recreates the whole stack, and cloaking takes effect immediately.
 
-**Option 2 — reboot.** Achieves the same thing and is an alternative for internal or non-removable devices.
+**Option 2 — disable and re-enable the device in Device Manager.** Does the same job without touching the cabling, so it's the practical choice for devices you can't easily unplug. See the walkthrough below.
 
-**Option 3 — Device Manager.** Useful for devices you can't easily unplug.
+**Option 3 — reboot.** Achieves the same thing, but it's the slowest route and is rarely necessary — reach for it only if neither of the above is possible.
+
+#### Rebuilding the stack from Device Manager
 
 Note that for a USB HID device, *both* the parent and child nodes appear under **Human Interface Devices** — the parent is not under "Universal Serial Bus controllers", despite having a `USB\...` instance path. The two nodes are typically:
 
