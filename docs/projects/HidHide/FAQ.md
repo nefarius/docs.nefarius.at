@@ -30,9 +30,44 @@ HidHide's filter driver only attaches to device stacks that are created **after*
 
 Confirm with `HidHideCLI.exe --cloak-state` and `--dev-list`; if the device is listed as hidden but an unauthorized application still sees it, the stack needs rebuilding.
 
-To fix without rebooting, force the device stack to rebuild:
+The fix is to force the device stack to be rebuilt. In order of convenience:
 
-1. Open Device Manager and enable **View → Devices by connection**, or locate the device's parent **USB container** entry (for example `USB\VID_044F&PID_B687\...`, as opposed to the child `HID\...` node).
-2. Disable the USB container entry, wait a few seconds, then re-enable it.
+**Option 1 — replug the device (simplest).** Unplug the device and plug it back in. This tears down and recreates the whole stack, and cloaking takes effect immediately.
 
-Cloaking takes effect immediately afterwards. Rebooting achieves the same thing.
+**Option 2 — disable and re-enable the device in Device Manager.** Does the same job without touching the cabling, so it's the practical choice for devices you can't easily unplug. See the walkthrough below.
+
+**Option 3 — reboot.** Achieves the same thing, but it's the slowest route and is rarely necessary — reach for it only if neither of the above is possible.
+
+#### Rebuilding the stack from Device Manager
+
+Note that for a USB HID device, *both* the parent and child nodes appear under **Human Interface Devices** — the parent is not under "Universal Serial Bus controllers", despite having a `USB\...` instance path. The two nodes are typically:
+
+- parent: `USB\VID_xxxx&PID_xxxx\...`, usually displayed as **USB Input Device**
+- child: `HID\VID_xxxx&PID_xxxx\...`, e.g. **HID-compliant game controller**
+
+Disabling and re-enabling the **parent** node rebuilds the child along with it.
+
+Be aware that every USB HID device on the system produces an entry named "USB Input Device", so there may be many identical-looking entries. To identify the right one, open its **Properties → Details** tab and check **Bus reported device description**, which shows the real product name (e.g. `TWCS Throttle`). **Device instance path** on the same tab confirms the VID/PID.
+
+Equivalent from an elevated PowerShell prompt, if you already know the instance path:
+
+```powershell
+$id = 'USB\VID_044F&PID_B687\7&33565146&0&1'   # your device's parent node
+Disable-PnpDevice -InstanceId $id -Confirm:$false
+Start-Sleep -Seconds 3
+Enable-PnpDevice  -InstanceId $id -Confirm:$false
+```
+
+To list candidate parent nodes with their real product names:
+
+```powershell
+Get-PnpDevice -Class HIDClass -PresentOnly |
+  Where-Object InstanceId -like 'USB\*' |
+  ForEach-Object {
+    [pscustomobject]@{
+      Product    = (Get-PnpDeviceProperty -InstanceId $_.InstanceId |
+                    Where-Object KeyName -eq 'DEVPKEY_Device_BusReportedDeviceDesc').Data
+      InstanceId = $_.InstanceId
+    }
+  } | Format-Table -AutoSize
+```
