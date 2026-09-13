@@ -4,9 +4,13 @@
 
 [Head over to the support page](../../Community-Support.md), we prefer Discord.
 
-## Can it hide mice, keyboards, touch- or trackpads?
+## Can it hide mice, keyboards, touch- or trackpads? {#hide-mice-keyboards}
 
 Unfortunately not. Mouse and Keyboard inputs travel through different means and routes through Windows and HidHide's blocking mechanism can not interfere with those in the same fashion as it does with Joysticks and Gamepads.
+
+The same limit applies to **Raw Input**. Some applications (voice macros, overlay tools, and similar) read devices through that path and will still see a cloaked controller. HidHide cannot block Raw Input.
+
+Cloaking is also **all or nothing per device**. You cannot hide a single button (Share, mute, volume, and so on) while leaving the rest of the pad visible. If those keys are not a separate HID device you can leave uncloaked, HidHide cannot split them out.
 
 A major redesign would be required to make this a reality, bear in mind that HidHide is a hobby project so the authors can not make any promises as many other tasks in life have priority. If any developer would be interested in this topic, contact us! 😄
 
@@ -26,7 +30,15 @@ Simply download and run the latest setup, go through the installation again and 
 
 ## I hid my device, but the application can still see it
 
-HidHide's filter driver only attaches to device stacks that are created **after** the driver was registered. If you configured cloaking immediately after installing HidHide, devices that were already enumerated are still running on a stack with no filter attached, so they remain visible even though the configuration looks correct.
+Check these in order; more than one can be true at the same time.
+
+**Inverse application cloak.** On the Applications tab, inverse cloak hides the marked devices *only* from the programs on that list and leaves them visible to everything else. If games still see the pad, turn inverse cloak **off**. The normal mode is the opposite: hidden from every process except the ones you whitelist.
+
+**Xbox / XInput devices.** Cloaking Xbox 360, Xbox One, and similar XInput controllers through the configuration client is a [known limitation](https://github.com/nefarius/HidHide/issues/39) and is not reliable. If an Xbox pad stays visible after a stack rebuild, that is this issue, not a missed checkbox.
+
+**Raw Input.** Some applications never use the HID/XInput path HidHide can intercept. Those apps will keep seeing the device; see [Can it hide mice, keyboards, touch- or trackpads?](#hide-mice-keyboards).
+
+**Stale device stack after install.** HidHide's filter driver only attaches to device stacks that are created **after** the driver was registered. If you configured cloaking immediately after installing HidHide, devices that were already enumerated are still running on a stack with no filter attached, so they remain visible even though the configuration looks correct.
 
 Confirm with `HidHideCLI.exe --cloak-state` and `--dev-list`; if the device is listed as hidden but an unauthorized application still sees it, the stack needs rebuilding.
 
@@ -71,3 +83,16 @@ Get-PnpDevice -Class HIDClass -PresentOnly |
     }
   } | Format-Table -AutoSize
 ```
+
+## Why did an application appear on the Applications list by itself?
+
+HidHide only adds its own configuration client. Third-party software that integrates with HidHide can whitelist itself through the [public API](API-Documentation.md). If an entry keeps coming back after you remove it, that program is adding it — ask that vendor to stop, or leave the entry and use inverse cloak only if you understand the inversion above.
+
+## HidHide does not seem to hide anything at all
+
+Nine times out of ten **inverse application cloak** is on, or hiding is off on the Devices tab. Confirm that:
+
+- **Enable device hiding** is checked
+- Inverse application cloak is **unchecked** unless you really want the inverted logic
+- The controller row shows the red lock on **both** USB and Bluetooth if it uses both
+- You [rebuilt the device stack](#i-hid-my-device-but-the-application-can-still-see-it) after changing the list

@@ -28,6 +28,17 @@ and cannot get past it, do the following:
 
 The setup should then launch. Follow the installer instructions to complete.
 
+## How do I fix "setup wizard ended prematurely"?
+
+That message is the generic MSI abort. The useful error is a few lines above it in the setup log. Typical causes, in the order we see them:
+
+- **Bluetooth Host Radio not found** — the stack is missing or stopped. See [How do I fix the "Bluetooth Host Radio not found" setup message?](#how-do-i-fix-the-bluetooth-host-radio-not-found-setup-message).
+- **Previous version / filter not found** — leftover state from an older install. See [How do I fix "previous version found" on reinstall?](#how-do-i-fix-previous-version-found-on-reinstall).
+- **Radio restart failed because the host is not USB** — BthPS3 can only restart **USB** radios. UART or I²C hosts (Steam Deck, Raspberry Pi, some laptop modules) will fail here. See [What Bluetooth hosts are supported?](#what-bluetooth-hosts-are-supported).
+- **Helper tools missing mid-setup** — if the log says a file under `C:\Program Files\Nefarius Software Solutions\BthPS3\nefcon\` could not be started, security software often deleted it during install. Exclude that folder (and the downloaded MSI) from real-time scanning and run setup again.
+
+If Device Manager already shows a yellow mark on the Bluetooth host, jump to [error codes 19, 31, 37, 39, or 43](#how-do-i-fix-bluetooth-device-error-codes-19-31-37-39-or-43).
+
 ## How do I fix Bluetooth device error codes 19, 31, 37, 39, or 43?
 
 If you have a damaged or partial installation, the setup or uninstaller may not run. If Device Manager shows a yellow exclamation mark on your Bluetooth host with an error code such as:
@@ -78,6 +89,12 @@ In short: most hosts from the last decade that run stock drivers (no ScpServer/S
     Genuine Sony hardware is the target; third-party controllers may or may not work.
 
 These drivers are designed for the **original Sony SIXAXIS/DualShock 3** (and Navigation and Move) controllers within the limits of the Microsoft Bluetooth stack. Many third-party and clone DualShock 3–compatible devices exist; some behave like the original, others do not. Aftermarket devices often spoof the hardware identification that Windows sees, so there is no reliable way to guarantee support for all of them. For more detail, see [About controller compatibility](About-Controller-Compatibility.md).
+
+## The controller tries to connect, then BthPS3 drops it
+
+BthPS3 identifies PlayStation peripherals by the **Bluetooth remote name**, not by USB-style VID/PID. The name must be present and must match a supported list (SIXAXIS, Navigation, Motion, or Wireless Controller). Details and the registry lists are on [Driver Configuration Utility Explained](Driver-Configuration-Utility-Explained.md).
+
+If a trace shows an empty name (`name:` with nothing after it) followed by `not identified or denied, dropping connection`, the device did not advertise a name. That is a firmware or radio problem on the controller (common with clones). There is no software override that makes a nameless device connect reliably. See [About controller compatibility](About-Controller-Compatibility.md).
 
 ## Can I use my wireless keyboard, mouse, or headphones with BthPS3?
 

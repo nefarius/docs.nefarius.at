@@ -64,6 +64,7 @@
 ![USB Connected](<images/USB Connected.png>)  
 - On the next screen, make sure that the "Test" tab is selected. Move the joysticks and press each button on your controller to see if everything is working. Click "OK" to exit the Properties window.  
 ![Controller Test.png](<images/Controller Test.png>)  
+- Optional: you can also confirm buttons and axes in a browser at [hardwaretester.com/gamepad](https://hardwaretester.com/gamepad).  
 
 **Congratulations!** Your PS3 controller has now been set up and verified working on your computer over USB (and optionally Bluetooth). If it does not, try restarting your computer and try again. If it still does not work, [read on here](How-to-Install.md#troubleshooting)!
 

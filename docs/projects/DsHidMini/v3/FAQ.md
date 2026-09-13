@@ -44,6 +44,35 @@ Go back to the [_How do I use it?_](#how-do-i-use-it) question.
 
 Read the [_Features_ section](https://github.com/nefarius/DsHidMini#features) of the main GitHub page of DsHidMini.
 
+In **v3**, the wireless disconnect combo can be changed or disabled in ControlApp. Apply the change, then reconnect the controller so the new setting is loaded.
+
+## Why do the LEDs keep blinking?
+
+Usually one of two things:
+
+- **Wireless did not come up.** The pad is still trying to join the radio. Follow the [Bluetooth pairing notes](#i-did-everything-right-and-it-just-wont-connect-via-bluetooth) and the [BthPS3 FAQ](../../BthPS3/Frequently-Asked-Questions.md).
+- **The controller ignores LED commands.** Some hardware (especially clones) never applies the pattern the driver sends. Software cannot fix that.
+
+## Can I use a DualShock 3 together with a DualShock 4 or DualSense?
+
+Yes. Pair the DualShock 4 or DualSense to Windows the usual way (stock Bluetooth, no extra driver). Only the DualShock 3 needs DsHidMini, and only wireless DualShock 3 use needs [BthPS3](../../BthPS3/How-to-Install.md).
+
+## Where is ControlApp? It was not in the installer.
+
+ControlApp is a companion tool, not part of the driver MSI. Download it from the [build server](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). It needs the [.NET Desktop Runtime 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). You do not have to keep it open for the driver to work.
+
+## Can I turn rumble off?
+
+Yes. In ControlApp, in the normal rumble mode, the left and right motors can be disabled independently.
+
+## How many controllers can I use at once?
+
+DsHidMini itself does not cap the count. Wireless limits come from the Bluetooth host. See [How many devices can I connect at the same time?](../../BthPS3/Frequently-Asked-Questions.md#how-many-devices-can-i-connect-at-the-same-time) on the BthPS3 FAQ.
+
+## Why is there no battery reading over USB?
+
+On USB the controller is charging, so it does not report a battery level the way it does over Bluetooth. Wireless is the connection where a battery reading is meaningful.
+
 ## How to fix `Device Timeout`?
 
 > This device cannot start. (Code 10)
@@ -167,10 +196,10 @@ In very rare cases Windows might have installed the driver but is not loading it
 
 ## How can I check if my DualShock 3 is genuine?
 
-Short answer: you probably can't. Long answer: [read this](https://github.com/nefarius/DsHidMini/discussions/166).
+Short answer: you probably can't. Long answer: [read this](https://github.com/nefarius/DsHidMini/discussions/166). A second-best check without opening the shell is comparing the controller's Bluetooth MAC OUI against the [published OUI list](../genuine_oui_db.json). A match is not proof; a mismatch is a strong hint it is aftermarket.
 
 ## I'm having "X" problem when using DsHidMini, what should I do?
 
 - **Trouble when installing DsHidMini or connecting your controllers to the computer:** check the [_How to Install Troubleshooting_ section](How-to-Install.md#troubleshooting)
-- **Controller works normally most of the time but have random button presses or buttons fail to register:** most likely a hardware fault, not related to DsHidMini
+- **Controller works normally most of the time but have random button presses, buttons fail to register, or a stick sits off-center:** most likely a hardware fault (worn pot, cracked flex, dirty pad), not related to DsHidMini. The driver reports what the controller sends.
 - Figure it out yourself 👍 There isn't always someone available to hold your hand 💪

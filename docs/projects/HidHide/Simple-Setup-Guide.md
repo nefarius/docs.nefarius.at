@@ -111,6 +111,8 @@ Common things to know regarding using HidHide with your controllers:
 - Contrary to HidGuardian, HidHide affects isolated devices instead of device types. This means that if you have (for example) 4 different controllers that are the exact same model, you would still need to mark each one as hidden separately, both on USB and on Bluetooth
 - HidHide whitelists applications based on their location in your computer. This means that if you whitelist "UCR.exe" that is on your desktop, but then move it to another folder you will need to whitelist it again on its new location
 - If you think something is wrong and want to disable HidHide to run tests, just open the `HidHide Configuration Utility`, go into the `Devices` tab and un-check the `Enable Device Hiding` checkbox. If this doesn't make the devices visible again, try then reconnecting them
+- Leave **inverse application cloak** off unless you know you need it. When it is on, devices are hidden *only* from the applications on the list and stay visible to everything else — which looks like "HidHide does nothing"
+- Xbox / XInput controllers may stay visible even when marked; that is a [known client limitation](https://github.com/nefarius/HidHide/issues/39), not a setup mistake
 - Applications may add native support to HidHide in future updates, automating the process by whitelisting themselves and auto-hiding detected controllers
 
 
