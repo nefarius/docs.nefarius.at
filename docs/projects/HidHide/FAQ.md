@@ -34,7 +34,7 @@ The fix is to force the device stack to be rebuilt. In order of convenience:
 
 **Option 1 — replug the device (simplest).** Unplug the device and plug it back in. This tears down and recreates the whole stack, and cloaking takes effect immediately.
 
-**Option 2 — reboot.** Achieves the same thing, and is the only option for internal or non-removable devices.
+**Option 2 — reboot.** Achieves the same thing and is an alternative for internal or non-removable devices.
 
 **Option 3 — Device Manager.** Useful for devices you can't easily unplug.
 
