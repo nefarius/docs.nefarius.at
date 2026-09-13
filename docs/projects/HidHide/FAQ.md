@@ -23,3 +23,16 @@ At this point we only provide a setup for **Intel/AMD 64-Bit** installations. Fo
 ![AnyDesk_STmajKjQwQ.png](images/AnyDesk_STmajKjQwQ.png)
 
 Simply download and run the latest setup, go through the installation again and you're done.
+
+## I hid my device, but the application can still see it
+
+HidHide's filter driver only attaches to device stacks that are created **after** the driver was registered. If you configured cloaking immediately after installing HidHide, devices that were already enumerated are still running on a stack with no filter attached, so they remain visible even though the configuration looks correct.
+
+Confirm with `HidHideCLI.exe --cloak-state` and `--dev-list`; if the device is listed as hidden but an unauthorized application still sees it, the stack needs rebuilding.
+
+To fix without rebooting, force the device stack to rebuild:
+
+1. Open Device Manager and enable **View → Devices by connection**, or locate the device's parent **USB container** entry (for example `USB\VID_044F&PID_B687\...`, as opposed to the child `HID\...` node).
+2. Disable the USB container entry, wait a few seconds, then re-enable it.
+
+Cloaking takes effect immediately afterwards. Rebooting achieves the same thing.
