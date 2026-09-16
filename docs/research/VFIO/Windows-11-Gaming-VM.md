@@ -248,13 +248,13 @@ and
 
 ```xml
   <cpu mode="host-passthrough" check="none" migratable="on">
-    <topology sockets="1" dies="1" cores="4" threads="2"/>
+    <topology sockets="1" dies="1" cores="8" threads="1"/>
     <cache mode="passthrough"/>
     <feature policy="require" name="topoext"/>
   </cpu>
 ```
 
-This config maps the last 8 cores to the Windows guest.
+This config maps host CPUs `8-15` to the Windows guest. Those host CPUs are not four SMT pairs, so the guest topology is **8 cores / 1 thread**. See [Guest CPU topology vs pin map](./Guest-CPU-topology-vs-pin-map.md). The older `cores="4" threads="2"` line did not match this pin list.
 
 For hugepages support add or adjust:
 
