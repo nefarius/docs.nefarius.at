@@ -101,9 +101,15 @@ autoResize=no
 fullScreen=no
 maximize=no
 borderless=no
+
+[input]
+grabKeyboardOnFocus=yes
+ignoreWindowsKeys=no
 ```
 
 `win:position` is `<left>x<top>` in the combined desktop. `0x0` plus `1920x1080` fills a 1080p output and the window manager treats that as fullscreen. The values above park a 1080p window on a 2560×1440 display at `+1920+0`. `win:autoResize=yes` follows the guest framebuffer, not a fixed 1080p.
+
+`input:grabKeyboardOnFocus` sends host combos such as Win+R into the guest as soon as the Looking Glass window has keyboard focus (no Scroll Lock). `ignoreWindowsKeys=no` is the default and must stay off. Hover alone is not enough on a click-to-focus desktop; enable sloppy/mouse focus in the window manager if the pointer entering the window should grab keys. Leave `input:captureOnFocus` off unless the mouse should lock into the window on focus.
 
 ## Windows host (B7)
 
