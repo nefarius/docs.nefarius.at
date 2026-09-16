@@ -256,6 +256,8 @@ and
 
 This config maps the last 8 cores to the Windows guest.
 
+Looking Glass B7 (IVSHMEM, Spice input, no QXL): [Looking Glass B7 with IVSHMEM](./Looking-Glass-B7.md). Use `/dev/shm` when the guest also has virtiofs.
+
 For hugepages support add or adjust:
 
 ```xml
