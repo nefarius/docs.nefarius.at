@@ -1,48 +1,186 @@
 # Windows 11 Gaming VM with GPU pass-thru
 
-WIP
-
-## Prerequisites
-
-### Used Hardware
-
-Part | Usage | Description
----|---|---
-Mainboard | Host | [ASUS ROG Crosshair VIII Hero](https://rog.asus.com/us/motherboards/rog-crosshair/rog-crosshair-viii-hero-model/)
-CPU | Host, VM | AMD Ryzen 7 3700X 8-Core Processor
-GPU #1 | VM | [AMD Radeon RX 6900 XT (16 GB)](https://www.techpowerup.com/gpu-specs/amd-radeon-rx-6900-xt.b10943)
-GPU #2 | Host | [AMD Radeon RX 480 (8 GB)](https://www.techpowerup.com/gpu-specs/radeon-rx-480.c2848)
-PCIe USB Card | VM | VIA VL805/VL806/VL80x Super Speed USB 3.0 Host Controller
-
-### Used Software
+Hardware and the IOMMU dump below were recorded in August 2024. Host software and the domain XML match the same machine as of September 2026.
 
 Property | Value
 ---|---
-Date | August 2024
-Kernel | 5.15.0-119-generic
-Distribution | Linux Mint 21.3 Virginia
-QEMU | QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.22)
-libvirt | libvirtd (libvirt) 8.0.0
-virt-manager | 4.0.0
+Date | September 2026
+Kernel | 6.8.0-139-generic
+Distribution | Linux Mint 22.3
+QEMU | 8.2.2
+libvirt | 10.0.0
+
+Related: [Looking Glass B7 with IVSHMEM](./Looking-Glass-B7.md), [Guest CPU topology vs pin map](./Guest-CPU-topology-vs-pin-map.md), [CPU governor for pinned KVM vCPUs](./CPU-governor-for-pinned-vCPUs.md), [Host CPU affinity for pinned VMs](./Host-CPU-affinity-for-pinned-VMs.md), [Raw virtio-blk boot disk](./Raw-virtio-blk-boot-disk.md).
+
+## Hardware
+
+Part | Role | Device
+---|---|---
+Mainboard | Host | [ASUS ROG Crosshair VIII Hero](https://rog.asus.com/us/motherboards/rog-crosshair/rog-crosshair-viii-hero-model/)
+CPU | Host and guest | AMD Ryzen 7 3700X
+GPU | Guest (VFIO) | [AMD Radeon RX 6900 XT (16 GB)](https://www.techpowerup.com/gpu-specs/amd-radeon-rx-6900-xt.b10943)
+GPU | Host display | [AMD Radeon RX 480 (8 GB)](https://www.techpowerup.com/gpu-specs/radeon-rx-480.c2848)
+USB | Guest | VIA VL805/VL806 SuperSpeed USB 3.0 host controller
+
+Two GPUs are required. The host keeps the RX 480. The 6900 XT and its extra functions go to the guest.
+
+## Host kernel
+
+Bind the guest GPU functions to `vfio-pci` and reserve hugepages before QEMU starts. PCI BDFs move if the card changes slot; the IDs do not.
+
+```bash
+GRUB_CMDLINE_LINUX_DEFAULT="... vfio_pci.ids=1002:73bf,1002:ab28,1002:73a6,1002:73a4 kvm.ignore_msrs=1 hugepages=8192"
+```
+
+`8192` pages of 2 MiB is 16 GiB. Confirm page size with `grep Hugepagesize /proc/meminfo`.
+
+`/etc/sysctl.conf`:
+
+```ini
+kernel.shmmax = 17179869184
+vm.nr_hugepages = 8192
+vm.min_free_kbytes = 112640
+vm.hugetlb_shm_group = 1000
+```
+
+`hugetlb_shm_group` is the desktop user’s gid so QEMU can use the pool.
+
+## Guest GPU (VFIO)
+
+Navi 21 exposes four functions. Pass all of them. In the 2024 dump they sat at `0b:00.0`–`0b:00.3` (IOMMU groups 26–29):
+
+```text
+0b:00.0 VGA compatible controller [1002:73bf]  Navi 21 (RX 6900 XT)
+0b:00.1 Audio device             [1002:ab28]  HDMI audio
+0b:00.2 USB controller           [1002:73a6]
+0b:00.3 Serial bus controller    [1002:73a4]  Navi 21 USB
+```
+
+The full group list is in [IOMMU dump](#iommu-dump).
+
+## USB passthrough
+
+A dedicated USB controller goes to the guest so keyboard, mouse, and similar devices do not share the host xHCI. On this board the front-panel Matisse controller (`1022:149c` at `06:00.3`) holds the G815 and a Cherry keyboard.
+
+`lsusb` **before** that controller is unbound (host still sees those devices):
+
+```text
+Bus 003 Device 003: ID 046a:0001 Cherry GmbH Keyboard
+Bus 003 Device 009: ID 046d:c33f Logitech, Inc. G815 Mechanical Keyboard
+```
+
+**After** bind, those buses disappear from the host. Remaining host USB is the rear hub (AURA, headset dongle, Bluetooth, webcam, and the Cooler Master ARES on the 6900 XT’s own USB).
+
+## Domain CPU and memory
+
+Pin the guest to host CPUs `8-15`. Leave `0-7` for the desktop. Those eight host CPUs are not four SMT pairs, so the guest topology is **8 cores / 1 thread**. `cores=4 threads=2` does not match this pin map. See [Guest CPU topology vs pin map](./Guest-CPU-topology-vs-pin-map.md).
+
+A SATA qcow2 system disk should be converted to raw virtio-blk once `viostor` is a Boot-start driver. Recipe: [Raw virtio-blk boot disk](./Raw-virtio-blk-boot-disk.md).
+
+```xml
+<vcpu placement="static" cpuset="8-15">8</vcpu>
+<iothreads>2</iothreads>
+<cputune>
+  <vcpupin vcpu="0" cpuset="8"/>
+  <vcpupin vcpu="1" cpuset="9"/>
+  <vcpupin vcpu="2" cpuset="10"/>
+  <vcpupin vcpu="3" cpuset="11"/>
+  <vcpupin vcpu="4" cpuset="12"/>
+  <vcpupin vcpu="5" cpuset="13"/>
+  <vcpupin vcpu="6" cpuset="14"/>
+  <vcpupin vcpu="7" cpuset="15"/>
+  <emulatorpin cpuset="0-1"/>
+  <iothreadpin iothread="1" cpuset="0-1"/>
+  <iothreadpin iothread="2" cpuset="2-3"/>
+</cputune>
+
+<cpu mode="host-passthrough" check="none" migratable="on">
+  <topology sockets="1" dies="1" cores="8" threads="1"/>
+  <cache mode="passthrough"/>
+  <feature policy="require" name="topoext"/>
+</cpu>
+
+<memoryBacking>
+  <hugepages>
+    <page size="2048" unit="KiB"/>
+  </hugepages>
+  <access mode="shared"/>
+</memoryBacking>
+```
+
+`access mode=shared` is required for virtiofs. On Mint 22, rust `virtiofsd` 1.10 cannot share a domain with `/dev/kvmfr0` (`Illegal seek`). Looking Glass on a virtiofs guest must use `/dev/shm` — see [Looking Glass B7](./Looking-Glass-B7.md).
+
+Spice stays for input. Do not add a QXL head when the 6900 XT is the only display.
+
+## Host CPU tuning
+
+Keep host CPUs `8-15` on `performance` so pinned vCPUs can clock up. A udev rule on `ACTION=="add"` is the first step:
+
+```bash
+echo 'KERNEL=="cpu8|cpu9|cpu10|cpu11|cpu12|cpu13|cpu14|cpu15", SUBSYSTEM=="cpu", ACTION=="add", ATTR{cpufreq/scaling_governor}="performance"' | sudo tee /etc/udev/rules.d/90-scaling-governor-performance.rules
+```
+
+After a Debian / Mint upgrade, `cpufrequtils` may start later and write `ondemand` to every CPU. Confirm with `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor`. If everything is `ondemand`, the udev rule lost the race. Restore `performance` on the pinned CPUs with the oneshot in [CPU governor for pinned KVM vCPUs](./CPU-governor-for-pinned-vCPUs.md).
+
+Keep host IRQs off the guest CPUs:
+
+```ini
+# /etc/default/irqbalance
+IRQBALANCE_BANNED_CPULIST=8-15
+```
+
+```bash
+sudo systemctl restart irqbalance
+```
+
+`isolcpus=8-15` was tried and not proven better. Leave it off unless you re-test host and guest together. Prefer systemd slice `AllowedCPUs=` so host userspace stays off the guest CPUs without a kernel cmdline change: [Host CPU affinity for pinned VMs](./Host-CPU-affinity-for-pinned-VMs.md).
+
+## Bridge
+
+One way to put the guest on the LAN is a oneshot that builds `br0` on the I211 (`enp5s0`):
+
+```ini
+# /lib/systemd/system/qemu-startup.service
+[Unit]
+Description=Setup qemu network bridging
+After=network-online.target
+
+[Service]
+Type=oneshot
+Restart=on-failure
+ExecStart=brctl addbr br0
+ExecStart=brctl addif br0 enp5s0
+ExecStart=dhclient br0
+ExecStart=ip link set br0 up
+ExecStart=iptables -I FORWARD -m physdev --physdev-is-bridged -j ACCEPT
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl enable --now qemu-startup.service
+```
+
+The guest NIC is virtio on that bridge.
 
 ## Resources
 
-- <https://dannyvanheumen.nl/post/setting-scaling-governor-through-udev-rules/>
-- [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
-- [How to install virtiofs drivers on Windows](https://virtio-fs.gitlab.io/howto-windows.html)
+- [Sharing files with virtiofs](https://libvirt.org/kbase/virtiofs.html)
+- [Virtiofs on Windows](https://virtio-fs.gitlab.io/howto-windows.html)
 - [WinFsp](https://winfsp.dev/rel/)
-- [Configuring static Hugepages for virtual machine usage](https://mathiashueber.com/configuring-hugepages-use-virtual-machine/)
-- [Sharing files with Virtiofs](https://libvirt.org/kbase/virtiofs.html)
-- [KVM - Using Hugepages](https://help.ubuntu.com/community/KVM%20-%20Using%20Hugepages)
-- [Comprehensive guide to performance optimizations for gaming on virtual machines with KVM/QEMU and PCI passthrough](https://mathiashueber.com/performance-tweaks-gaming-on-virtual-machines/)
-- [Improving the performance of a Windows Guest on KVM/QEMU](https://leduccc.medium.com/improving-the-performance-of-a-windows-10-guest-on-qemu-a5b3f54d9cf5)
-- [Nested Virtualization - Hyper-V 2019 in qemu-kvm](https://www.redpill-linpro.com/techblog/2021/04/07/nested-virtualization-hyper-v-in-qemu-kvm.html)
-- [Really Simple Network Bridging With qemu](https://www.spad.uk/posts/really-simple-network-bridging-with-qemu/)
-- [How to use bridged networking with libvirt and KVM](https://linuxconfig.org/how-to-use-bridged-networking-with-libvirt-and-kvm)
+- [Static hugepages for VMs](https://mathiashueber.com/configuring-hugepages-use-virtual-machine/)
+- [KVM hugepages (Ubuntu)](https://help.ubuntu.com/community/KVM%20-%20Using%20Hugepages)
+- [Performance tweaks for KVM/QEMU GPU passthrough](https://mathiashueber.com/performance-tweaks-gaming-on-virtual-machines/)
+- [Windows guest performance on QEMU](https://leduccc.medium.com/improving-the-performance-of-a-windows-10-guest-on-qemu-a5b3f54d9cf5)
+- [CPU governor via udev](https://dannyvanheumen.nl/post/setting-scaling-governor-through-udev-rules/)
+- [Bridged networking with libvirt](https://linuxconfig.org/how-to-use-bridged-networking-with-libvirt-and-kvm)
+- [Simple QEMU bridging](https://www.spad.uk/posts/really-simple-network-bridging-with-qemu/)
+- IOMMU group script: <https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada>
 
-## IOMMU Groups
+## IOMMU dump
 
-Script: <https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada>
+August 2024. `[R]` means the group has a reset. USB lines are devices on that controller at capture time.
 
 ```text
 Group 0:	[1022:1482]     00:01.0  Host bridge                              Starship/Matisse PCIe Dummy Host Bridge
@@ -75,25 +213,6 @@ Group 18:	[1022:57a3] [R] 03:05.0  PCI bridge                               Mati
 Group 19:	[1022:57a4] [R] 03:08.0  PCI bridge                               Matisse PCIe GPP Bridge
 		[1022:1485] [R] 06:00.0  Non-Essential Instrumentation [1300]     Starship/Matisse Reserved SPP
 		[1022:149c]     06:00.1  USB controller                           Matisse USB 3.0 Host Controller
-USB:		[0b05:18f3]		 Bus 001 Device 008                       ASUSTek Computer, Inc. AURA LED Controller 
-USB:		[05e3:0610]		 Bus 001 Device 007                       Genesys Logic, Inc. Hub 
-USB:		[046d:c547]		 Bus 001 Device 005                       Logitech, Inc. USB Receiver 
-USB:		[08bb:29c0]		 Bus 001 Device 003                       Texas Instruments PCM2900C Audio CODEC 
-USB:		[1038:1294]		 Bus 001 Device 006                       SteelSeries ApS Arctis Pro Wireless 
-USB:		[1038:1290]		 Bus 001 Device 004                       SteelSeries ApS Arctis Pro Wireless 
-USB:		[0451:2036]		 Bus 001 Device 002                       Texas Instruments, Inc. TUSB2036 Hub 
-USB:		[1d6b:0002]		 Bus 001 Device 001                       Linux Foundation 2.0 root hub 
-USB:		[1d6b:0003]		 Bus 002 Device 001                       Linux Foundation 3.0 root hub 
-		[1022:149c] [R] 06:00.3  USB controller                           Matisse USB 3.0 Host Controller
-USB:		[046a:0001]		 Bus 003 Device 003                       Cherry GmbH Keyboard 
-USB:		[046d:c33f]		 Bus 003 Device 005                       Logitech, Inc. G815 Mechanical Keyboard 
-USB:		[05e3:0610]		 Bus 003 Device 004                       Genesys Logic, Inc. Hub 
-USB:		[174c:2074]		 Bus 003 Device 002                       ASMedia Technology Inc. ASM1074 High-Speed hub 
-USB:		[1d6b:0002]		 Bus 003 Device 001                       Linux Foundation 2.0 root hub 
-USB:		[04c5:2028]		 Bus 004 Device 003                       Fujitsu, Ltd iodd_ST400 
-USB:		[05e3:0626]		 Bus 004 Device 004                       Genesys Logic, Inc. USB3.1 Hub 
-USB:		[174c:3074]		 Bus 004 Device 002                       ASMedia Technology Inc. ASM1074 SuperSpeed hub 
-USB:		[1d6b:0003]		 Bus 004 Device 001                       Linux Foundation 3.0 root hub 
 Group 20:	[1022:57a4] [R] 03:09.0  PCI bridge                               Matisse PCIe GPP Bridge
 		[1022:7901] [R] 07:00.0  SATA controller                          FCH SATA Controller [AHCI mode]
 Group 21:	[1022:57a4] [R] 03:0a.0  PCI bridge                               Matisse PCIe GPP Bridge
@@ -105,9 +224,6 @@ Group 25:	[1002:1479] [R] 0a:00.0  PCI bridge                               Navi
 Group 26:	[1002:73bf] [R] 0b:00.0  VGA compatible controller                Navi 21 [Radeon RX 6800/6800 XT / 6900 XT]
 Group 27:	[1002:ab28]     0b:00.1  Audio device                             Navi 21 HDMI Audio [Radeon RX 6800/6800 XT / 6900 XT]
 Group 28:	[1002:73a6]     0b:00.2  USB controller                           Device 73a6
-USB:		[2516:014d]		 Bus 005 Device 002                       Cooler Master Co., Ltd. ARES 
-USB:		[1d6b:0002]		 Bus 005 Device 001                       Linux Foundation 2.0 root hub 
-USB:		[1d6b:0003]		 Bus 006 Device 001                       Linux Foundation 3.0 root hub 
 Group 29:	[1002:73a4]     0b:00.3  Serial bus controller                    Navi 21 USB
 Group 30:	[1002:67df] [R] 0c:00.0  VGA compatible controller                Ellesmere [Radeon RX 470/480/570/570X/580/580X/590]
 		[1002:aaf0]     0c:00.1  Audio device                             Ellesmere HDMI Audio [Radeon RX 470/480 / 570/580/590]
@@ -115,237 +231,5 @@ Group 31:	[1022:148a] [R] 0d:00.0  Non-Essential Instrumentation [1300]     Star
 Group 32:	[1022:1485] [R] 0e:00.0  Non-Essential Instrumentation [1300]     Starship/Matisse Reserved SPP
 Group 33:	[1022:1486] [R] 0e:00.1  Encryption controller                    Starship/Matisse Cryptographic Coprocessor PSPCPP
 Group 34:	[1022:149c] [R] 0e:00.3  USB controller                           Matisse USB 3.0 Host Controller
-USB:		[0a12:0001]		 Bus 007 Device 006                       Cambridge Silicon Radio, Ltd Bluetooth Dongle (HCI mode) 
-USB:		[05e3:0608]		 Bus 007 Device 005                       Genesys Logic, Inc. Hub 
-USB:		[046d:082d]		 Bus 007 Device 003                       Logitech, Inc. HD Pro Webcam C920 
-USB:		[1d6b:0002]		 Bus 007 Device 001                       Linux Foundation 2.0 root hub 
-USB:		[1d6b:0003]		 Bus 008 Device 001                       Linux Foundation 3.0 root hub 
 Group 35:	[1022:1487]     0e:00.4  Audio device                             Starship/Matisse HD Audio Controller
-```
-
-### VGA PCI IOMMU
-
-```text
-/sys/kernel/iommu_groups/26/devices/0000:0b:00.0
-/sys/kernel/iommu_groups/27/devices/0000:0b:00.1
-/sys/kernel/iommu_groups/28/devices/0000:0b:00.2
-
-0b:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 21 [Radeon RX 6800/6800 XT / 6900 XT] [1002:73bf] (rev c0)
-0b:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 21 HDMI Audio [Radeon RX 6800/6800 XT / 6900 XT] [1002:ab28]
-0b:00.2 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD/ATI] Device [1002:73a6]
-0b:00.3 Serial bus controller [0c80]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 21 USB [1002:73a4]
-```
-
-```bash
-GRUB_CMDLINE_LINUX_DEFAULT="... vfio_pci.ids=1002:73bf,1002:ab28,1002:73a6,1002:73a4 kvm.ignore_msrs=1"
-```
-
-### USB PCI IOMMU
-
-#### Front USB
-
-```text
-[1022:149c] [R] 06:00.3  USB controller                           Matisse USB 3.0 Host Controller
-USB:		[046a:0001]		 Bus 003 Device 003                       Cherry GmbH Keyboard 
-USB:		[046d:c33f]		 Bus 003 Device 009                       Logitech, Inc. G815 Mechanical Keyboard 
-USB:		[05e3:0610]		 Bus 003 Device 008                       Genesys Logic, Inc. Hub 
-USB:		[174c:2074]		 Bus 003 Device 002                       ASMedia Technology Inc. ASM1074 High-Speed hub 
-USB:		[1d6b:0002]		 Bus 003 Device 001                       Linux Foundation 2.0 root hub 
-USB:		[05e3:0626]		 Bus 004 Device 005                       Genesys Logic, Inc. USB3.1 Hub 
-USB:		[174c:3074]		 Bus 004 Device 002                       ASMedia Technology Inc. ASM1074 SuperSpeed hub 
-USB:		[1d6b:0003]		 Bus 004 Device 001                       Linux Foundation 3.0 root hub 
-``` 
-
-## USB Controllers
-
-### Before
-
-```text
-Bus 008 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-Bus 007 Device 004: ID 0a12:0001 Cambridge Silicon Radio, Ltd Bluetooth Dongle (HCI mode)
-Bus 007 Device 003: ID 05e3:0608 Genesys Logic, Inc. Hub
-Bus 007 Device 002: ID 046d:082d Logitech, Inc. HD Pro Webcam C920
-Bus 007 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-Bus 006 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-Bus 005 Device 002: ID 2516:014d Cooler Master Co., Ltd. ARES
-Bus 005 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-Bus 004 Device 005: ID 05e3:0626 Genesys Logic, Inc. USB3.1 Hub
-Bus 004 Device 002: ID 174c:3074 ASMedia Technology Inc. ASM1074 SuperSpeed hub
-Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-Bus 003 Device 003: ID 046a:0001 Cherry GmbH Keyboard
-Bus 003 Device 009: ID 046d:c33f Logitech, Inc. G815 Mechanical Keyboard
-Bus 003 Device 008: ID 05e3:0610 Genesys Logic, Inc. Hub
-Bus 003 Device 002: ID 174c:2074 ASMedia Technology Inc. ASM1074 High-Speed hub
-Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-Bus 001 Device 008: ID 0b05:18f3 ASUSTek Computer, Inc. AURA LED Controller
-Bus 001 Device 007: ID 05e3:0610 Genesys Logic, Inc. Hub
-Bus 001 Device 005: ID 046d:c547 Logitech, Inc. USB Receiver
-Bus 001 Device 003: ID 08bb:29c0 Texas Instruments PCM2900C Audio CODEC
-Bus 001 Device 006: ID 1038:1294 SteelSeries ApS Arctis Pro Wireless
-Bus 001 Device 004: ID 1038:1290 SteelSeries ApS Arctis Pro Wireless
-Bus 001 Device 002: ID 0451:2036 Texas Instruments, Inc. TUSB2036 Hub
-Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-```
-
-### After
-
-```text
-Bus 009 Device 004: ID 0a12:0001 Cambridge Silicon Radio, Ltd Bluetooth Dongle (HCI mode)
-Bus 009 Device 003: ID 05e3:0608 Genesys Logic, Inc. Hub
-Bus 009 Device 002: ID 046d:082d Logitech, Inc. HD Pro Webcam C920
-Bus 009 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-Bus 010 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-Bus 008 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-Bus 007 Device 002: ID 2516:014d Cooler Master Co., Ltd. ARES
-Bus 007 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-Bus 006 Device 003: ID 05e3:0626 Genesys Logic, Inc. USB3.1 Hub
-Bus 006 Device 002: ID 174c:3074 ASMedia Technology Inc. ASM1074 SuperSpeed hub
-Bus 006 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-Bus 005 Device 004: ID 046d:c33f Logitech, Inc. G815 Mechanical Keyboard
-Bus 005 Device 003: ID 05e3:0610 Genesys Logic, Inc. Hub
-Bus 005 Device 002: ID 174c:2074 ASMedia Technology Inc. ASM1074 High-Speed hub
-Bus 005 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-Bus 003 Device 008: ID 0b05:18f3 ASUSTek Computer, Inc. AURA LED Controller
-Bus 003 Device 007: ID 05e3:0610 Genesys Logic, Inc. Hub
-Bus 003 Device 005: ID 046d:c547 Logitech, Inc. USB Receiver
-Bus 003 Device 003: ID 08bb:29c0 Texas Instruments PCM2900C Audio CODEC
-Bus 003 Device 006: ID 1038:1294 SteelSeries ApS Arctis Pro Wireless
-Bus 003 Device 004: ID 1038:1290 SteelSeries ApS Arctis Pro Wireless
-Bus 003 Device 002: ID 0451:2036 Texas Instruments, Inc. TUSB2036 Hub
-Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-Bus 001 Device 002: ID 2109:3431 VIA Labs, Inc. Hub
-Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-```
-
-## Performance tuning
-
-### QEMU Configuration
-
-Set fixed amount of cores, topology and pin cores to best die layout; for `AMD Ryzen 7 3700X 8-Core Processor` it is
-
-```xml
-  <vcpu placement="static" cpuset="8-15">8</vcpu>
-  <iothreads>2</iothreads>
-  <cputune>
-    <vcpupin vcpu="0" cpuset="8"/>
-    <vcpupin vcpu="1" cpuset="9"/>
-    <vcpupin vcpu="2" cpuset="10"/>
-    <vcpupin vcpu="3" cpuset="11"/>
-    <vcpupin vcpu="4" cpuset="12"/>
-    <vcpupin vcpu="5" cpuset="13"/>
-    <vcpupin vcpu="6" cpuset="14"/>
-    <vcpupin vcpu="7" cpuset="15"/>
-    <emulatorpin cpuset="0-1"/>
-    <iothreadpin iothread="1" cpuset="0-1"/>
-    <iothreadpin iothread="2" cpuset="2-3"/>
-  </cputune>
-```
-
-and
-
-```xml
-  <cpu mode="host-passthrough" check="none" migratable="on">
-    <topology sockets="1" dies="1" cores="8" threads="1"/>
-    <cache mode="passthrough"/>
-    <feature policy="require" name="topoext"/>
-  </cpu>
-```
-
-This config maps host CPUs `8-15` to the Windows guest. Those host CPUs are not four SMT pairs, so the guest topology is **8 cores / 1 thread**. See [Guest CPU topology vs pin map](./Guest-CPU-topology-vs-pin-map.md). The older `cores="4" threads="2"` line did not match this pin list.
-
-A SATA qcow2 system disk should be converted to raw virtio-blk once `viostor` is a Boot-start driver. Recipe: [Raw virtio-blk boot disk](./Raw-virtio-blk-boot-disk.md).
-
-For hugepages support add or adjust:
-
-```xml
-  <memoryBacking>
-    <hugepages>
-      <page size="2048" unit="KiB"/>
-    </hugepages>
-    <access mode="shared"/>
-  </memoryBacking>
-```
-
-### Host configuration
-
-#### Hugepages
-
-```bash
-grep Hugepagesize /proc/meminfo
-Hugepagesize:       2048 kB
-```
-
-So a value of `8192` pages at a page size of 2MB equals **16GB of RAM reserved** for hugepages.
-
-```ini
-GRUB_CMDLINE_LINUX_DEFAULT="... hugepages=8192"
-```
-
-`/etc/sysctl.conf`
-
-```ini
-kernel.shmmax = 17179869184
-vm.nr_hugepages = 8192
-vm.min_free_kbytes = 112640
-vm.hugetlb_shm_group = 1000
-```
-
-#### CPU Governor on performance mode
-
-A udev rule at boot is not enough once `cpufrequtils` is installed: that service rewrites every CPU to `ondemand` afterward. Use the oneshot in [CPU governor for pinned KVM vCPUs](./CPU-governor-for-pinned-vCPUs.md). The udev line below can stay as a first attempt:
-
-```bash
-echo 'KERNEL=="cpu8|cpu9|cpu10|cpu11|cpu12|cpu13|cpu14|cpu15", SUBSYSTEM=="cpu", ACTION=="add", ATTR{cpufreq/scaling_governor}="performance"' | sudo tee /etc/udev/rules.d/90-scaling-governor-performance.rules
-```
-
-#### Isolate CPU cores from scheduler
-
-> Do more testing if this is beneficial or worse for both host and VM performance
-
-`isolcpus=` is optional. Prefer systemd slice `AllowedCPUs=` so host userspace stays off the guest CPUs without a kernel cmdline change: [Host CPU affinity for pinned VMs](./Host-CPU-affinity-for-pinned-VMs.md).
-
-```bash
-GRUB_CMDLINE_LINUX_DEFAULT="... isolcpus=8-15"
-```
-
-#### IRQL re-balance
-
-`/etc/default/irqbalance`
-
-```ini
-IRQBALANCE_BANNED_CPULIST=8-15
-```
-
-```bash
-sudo systemctl restart irqbalance
-```
-
-## Networking
-
-`/lib/systemd/system/qemu-startup.service`
-
-```ini
-[Unit]
-Description=Setup qemu network bridging
-After=network-online.target
-
-[Service]
-Type=oneshot
-Restart=on-failure
-ExecStart=brctl addbr br0
-ExecStart=brctl addif br0 enp5s0
-ExecStart=dhclient br0
-ExecStart=ip link set br0 up
-ExecStart=iptables -I FORWARD -m physdev --physdev-is-bridged -j ACCEPT
-
-[Install]
-WantedBy=multi-user.target
-```
-
-```bash
-sudo systemctl enable qemu-startup.service
-sudo systemctl start qemu-startup.service 
 ```
