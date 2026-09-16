@@ -303,19 +303,11 @@ echo 'KERNEL=="cpu8|cpu9|cpu10|cpu11|cpu12|cpu13|cpu14|cpu15", SUBSYSTEM=="cpu",
 
 > Do more testing if this is beneficial or worse for both host and VM performance
 
-```bash
-sudo vim /etc/default/grub
-```
+`isolcpus=` is optional. Prefer systemd slice `AllowedCPUs=` so host userspace stays off the guest CPUs without a kernel cmdline change: [Host CPU affinity for pinned VMs](./Host-CPU-affinity-for-pinned-VMs.md).
 
 ```bash
 GRUB_CMDLINE_LINUX_DEFAULT="... isolcpus=8-15"
 ```
-
-```bash
-sudo update-grub
-```
-
-Reboot to activate.
 
 #### IRQL re-balance
 

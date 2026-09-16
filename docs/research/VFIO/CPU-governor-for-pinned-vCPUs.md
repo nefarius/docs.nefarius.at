@@ -176,5 +176,6 @@ Re-check after a reboot. If everything is `ondemand` again, `vm-cpu-governor.ser
 ## Notes
 
 - Changing the governor does not pin QEMU threads. Keep `<cputune>` in the domain XML.
-- `isolcpus=` is a separate, more aggressive step. It was left unused here.
+- Keeping *other* host tasks off those CPUs is a separate step: [Host CPU affinity for pinned VMs](./Host-CPU-affinity-for-pinned-VMs.md).
+- `isolcpus=` is a more aggressive option than slice `AllowedCPUs=`. It was left unused here.
 - On AMD Zen, Linux CPU numbers `N` and `N+core_count` are usually SMT siblings of the same physical core. Pin and governor lists should still match whatever you already chose in libvirt; this unit does not change that layout.
