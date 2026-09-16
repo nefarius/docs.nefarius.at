@@ -87,13 +87,23 @@ cmake --install client/build
 looking-glass-client --help   # banner: Looking Glass (B7)
 ```
 
-B7 defaults `app:shmFile` to `/dev/kvmfr0`. Point it at the shm file instead:
+B7 defaults `app:shmFile` to `/dev/kvmfr0`. Point it at the shm file instead. The client does not save the last window position; `win:position` is only the startup coordinate (`center` or `<left>x<top>`).
 
 ```ini
 # ~/.config/looking-glass/client.ini
 [app]
 shmFile=/dev/shm/looking-glass
+
+[win]
+size=1920x1080
+position=2112x180
+autoResize=no
+fullScreen=no
+maximize=no
+borderless=no
 ```
+
+`win:position` is `<left>x<top>` in the combined desktop. `0x0` plus `1920x1080` fills a 1080p output and the window manager treats that as fullscreen. The values above park a 1080p window on a 2560×1440 display at `+1920+0`. `win:autoResize=yes` follows the guest framebuffer, not a fixed 1080p.
 
 ## Windows host (B7)
 
