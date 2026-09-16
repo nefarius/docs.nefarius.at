@@ -49,6 +49,8 @@ The snippets below are also in [`host/`](./host/) in this repository. From a che
 sudo sh docs/research/VFIO/host/install-host-affinity.sh
 ```
 
+Reruns keep an existing `/etc/default/vm-host-cpus` so a custom `HOST_CPUS` is not replaced by the sample.
+
 `systemctl set-property` applies the limit immediately. A reboot is not required, but it is the cleanest way to make sure every existing process picked it up.
 
 ### 1. CPU list

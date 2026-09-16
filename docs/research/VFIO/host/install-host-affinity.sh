@@ -14,7 +14,9 @@ elif [ -r ./vm-host-cpus ]; then
 	. ./vm-host-cpus
 fi
 
-install -m 0644 vm-host-cpus /etc/default/vm-host-cpus
+if [ ! -e /etc/default/vm-host-cpus ]; then
+	install -m 0644 vm-host-cpus /etc/default/vm-host-cpus
+fi
 
 install -d -m 0755 /etc/systemd/system/user.slice.d
 install -d -m 0755 /etc/systemd/system/system.slice.d

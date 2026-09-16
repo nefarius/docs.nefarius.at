@@ -31,12 +31,18 @@ In one downtime window:
 <disk type="file" device="disk">
   <driver name="qemu" type="raw" cache="none" io="io_uring" discard="unmap" iothread="1"/>
   <source file="/var/lib/libvirt/images/guest-system.raw"/>
-  <target dev="vda" bus="virtio"/>
+  <target dev="vde" bus="virtio"/>
   <boot order="1"/>
 </disk>
 ```
 
-Leave existing virtio data disks and GPU hostdevs unchanged. Omit `<address>` on the new disk so libvirt picks a free PCIe port.
+`target dev` must be an unused virtio name. List existing ones before you edit:
+
+```bash
+virsh dumpxml --inactive <domain> | grep -E "bus=.virtio"
+```
+
+If `vda`–`vdd` are already data disks (or other virtio devices), pick the next free `vdX` (`vde` in the example). Leave those disks and GPU hostdevs unchanged. Omit `<address>` on the new disk so libvirt picks a free PCIe port.
 
 Have BitLocker recovery material reachable. A controller change can demand it.
 
@@ -59,8 +65,17 @@ Need enough free space for the raw file *plus* the qcow2 until you delete the ol
 
 ```bash
 virsh dumpxml --inactive <domain> > /tmp/<domain>.xml
-# edit the system <disk> as above
+cp /tmp/<domain>.xml /tmp/<domain>.rollback.xml
+# edit /tmp/<domain>.xml (the system <disk> as above)
 virsh define /tmp/<domain>.xml
+virsh start <domain>
+```
+
+If Windows does not boot on the raw virtio-blk disk, define the rollback XML and start again. The qcow2 is still the boot image in that file:
+
+```bash
+virsh destroy <domain>   # only if it is still running
+virsh define /tmp/<domain>.rollback.xml
 virsh start <domain>
 ```
 

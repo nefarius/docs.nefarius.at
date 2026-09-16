@@ -42,8 +42,10 @@ Example: a guest pinned to host CPUs `8-15` uses that same list here. Substitute
 The snippets below are also in [`host/`](./host/) in this repository. From a checkout:
 
 ```bash
-sudo sh docs/research/VFIO/host/install.sh
+sudo sh docs/research/VFIO/host/install.sh 8-15
 ```
+
+Without the CPU-list argument the script only installs the sample `VM_CPUS=8-15` file and does not enable the unit. Pass this host’s guest pin list to write it and `systemctl enable --now`.
 
 ### 1. CPU list
 
