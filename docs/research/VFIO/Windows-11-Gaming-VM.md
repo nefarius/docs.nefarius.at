@@ -256,6 +256,8 @@ and
 
 This config maps host CPUs `8-15` to the Windows guest. Those host CPUs are not four SMT pairs, so the guest topology is **8 cores / 1 thread**. See [Guest CPU topology vs pin map](./Guest-CPU-topology-vs-pin-map.md). The older `cores="4" threads="2"` line did not match this pin list.
 
+A SATA qcow2 system disk should be converted to raw virtio-blk once `viostor` is a Boot-start driver. Recipe: [Raw virtio-blk boot disk](./Raw-virtio-blk-boot-disk.md).
+
 For hugepages support add or adjust:
 
 ```xml
