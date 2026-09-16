@@ -293,10 +293,10 @@ vm.hugetlb_shm_group = 1000
 
 #### CPU Governor on performance mode
 
+A udev rule at boot is not enough once `cpufrequtils` is installed: that service rewrites every CPU to `ondemand` afterward. Use the oneshot in [CPU governor for pinned KVM vCPUs](./CPU-governor-for-pinned-vCPUs.md). The udev line below can stay as a first attempt:
+
 ```bash
 echo 'KERNEL=="cpu8|cpu9|cpu10|cpu11|cpu12|cpu13|cpu14|cpu15", SUBSYSTEM=="cpu", ACTION=="add", ATTR{cpufreq/scaling_governor}="performance"' | sudo tee /etc/udev/rules.d/90-scaling-governor-performance.rules
-# reboot, then confirm changes with
-cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 ```
 
 #### Isolate CPU cores from scheduler
