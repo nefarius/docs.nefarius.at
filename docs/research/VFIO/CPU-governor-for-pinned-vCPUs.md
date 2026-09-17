@@ -39,13 +39,13 @@ Example: a guest pinned to host CPUs `8-15` uses that same list here. Substitute
 
 ## Host files
 
-The snippets below are also in [`host/`](./host/) in this repository. From a checkout:
+The unit, helper, and defaults below are also in [`host/`](./host/) in this repository. The optional udev rule is not. From a checkout:
 
 ```bash
 sudo sh docs/research/VFIO/host/install.sh 8-15
 ```
 
-Without the CPU-list argument the script only installs the sample `VM_CPUS=8-15` file and does not enable the unit. Pass this host’s guest pin list to write it and `systemctl enable --now`.
+Without the CPU-list argument the script only installs the sample `VM_CPUS=8-15` file and does not enable the unit. Pass this host’s guest pin list to write it and `systemctl enable --now`. An existing `/etc/default/cpufrequtils` is left in place.
 
 ### 1. CPU list
 
@@ -147,9 +147,9 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now vm-cpu-governor.service
 ```
 
-### 5. Optional udev rule
+### 5. Optional udev rule (manual only)
 
-Harmless to keep. It is **not** sufficient on its own after `cpufrequtils` is installed.
+This rule is **not** in [`host/`](./host/) and `install.sh` does not install it. Create the file by hand if you still want the boot-time first attempt. It is **not** sufficient on its own after `cpufrequtils` is installed.
 
 `/etc/udev/rules.d/90-scaling-governor-performance.rules`
 

@@ -8,7 +8,9 @@ install -d -m 0755 /usr/local/sbin
 if [ ! -e /etc/default/vm-cpu-governor ]; then
 	install -m 0644 vm-cpu-governor /etc/default/vm-cpu-governor
 fi
-install -m 0644 cpufrequtils /etc/default/cpufrequtils
+if [ ! -e /etc/default/cpufrequtils ]; then
+	install -m 0644 cpufrequtils /etc/default/cpufrequtils
+fi
 install -m 0755 set-vm-cpu-governor /usr/local/sbin/set-vm-cpu-governor
 install -m 0644 vm-cpu-governor.service /etc/systemd/system/vm-cpu-governor.service
 
