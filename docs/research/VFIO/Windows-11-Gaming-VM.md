@@ -10,7 +10,7 @@ Distribution | Linux Mint 22.3
 QEMU | 8.2.2
 libvirt | 10.0.0
 
-Related: [Looking Glass B7 with IVSHMEM](./Looking-Glass-B7.md).
+Related: [Looking Glass B7 with IVSHMEM](./Looking-Glass-B7.md), [Guest CPU topology vs pin map](./Guest-CPU-topology-vs-pin-map.md), [CPU governor for pinned KVM vCPUs](./CPU-governor-for-pinned-vCPUs.md), [Host CPU affinity for pinned VMs](./Host-CPU-affinity-for-pinned-VMs.md), [Raw virtio-blk boot disk](./Raw-virtio-blk-boot-disk.md).
 
 ## Hardware
 
@@ -73,7 +73,9 @@ Bus 003 Device 009: ID 046d:c33f Logitech, Inc. G815 Mechanical Keyboard
 
 ## Domain CPU and memory
 
-Pin the guest to host CPUs `8-15`. Leave `0-7` for the desktop. Those eight host CPUs are not four SMT pairs, so the guest topology is **8 cores / 1 thread**. `cores=4 threads=2` does not match this pin map.
+Pin the guest to host CPUs `8-15`. Leave `0-7` for the desktop. Those eight host CPUs are not four SMT pairs, so the guest topology is **8 cores / 1 thread**. `cores=4 threads=2` does not match this pin map. See [Guest CPU topology vs pin map](./Guest-CPU-topology-vs-pin-map.md).
+
+A SATA qcow2 system disk should be converted to raw virtio-blk once `viostor` is a Boot-start driver. Recipe: [Raw virtio-blk boot disk](./Raw-virtio-blk-boot-disk.md).
 
 ```xml
 <vcpu placement="static" cpuset="8-15">8</vcpu>
@@ -118,7 +120,7 @@ Keep host CPUs `8-15` on `performance` so pinned vCPUs can clock up. A udev rule
 echo 'KERNEL=="cpu8|cpu9|cpu10|cpu11|cpu12|cpu13|cpu14|cpu15", SUBSYSTEM=="cpu", ACTION=="add", ATTR{cpufreq/scaling_governor}="performance"' | sudo tee /etc/udev/rules.d/90-scaling-governor-performance.rules
 ```
 
-After a Debian / Mint upgrade, `cpufrequtils` may start later and write `ondemand` to every CPU. Confirm with `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor`. If everything is `ondemand`, the udev rule lost the race.
+After a Debian / Mint upgrade, `cpufrequtils` may start later and write `ondemand` to every CPU. Confirm with `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor`. If everything is `ondemand`, the udev rule lost the race. Restore `performance` on the pinned CPUs with the oneshot in [CPU governor for pinned KVM vCPUs](./CPU-governor-for-pinned-vCPUs.md).
 
 Keep host IRQs off the guest CPUs:
 
@@ -131,7 +133,7 @@ IRQBALANCE_BANNED_CPULIST=8-15
 sudo systemctl restart irqbalance
 ```
 
-`isolcpus=8-15` was tried and not proven better. Leave it off unless you re-test host and guest together.
+`isolcpus=8-15` was tried and not proven better. Leave it off unless you re-test host and guest together. Prefer systemd slice `AllowedCPUs=` so host userspace stays off the guest CPUs without a kernel cmdline change: [Host CPU affinity for pinned VMs](./Host-CPU-affinity-for-pinned-VMs.md).
 
 ## Bridge
 
