@@ -43,7 +43,7 @@ Example split for a 16-thread host with guests pinned to `8-15`: host slices get
 
 ## Host files
 
-The snippets below are also in [`host/`](./host/) in this repository. From a checkout:
+The snippets below are also in [`host/`](./host/index.md) in this repository. From a checkout:
 
 ```bash
 sudo sh docs/research/VFIO/host/install-host-affinity.sh

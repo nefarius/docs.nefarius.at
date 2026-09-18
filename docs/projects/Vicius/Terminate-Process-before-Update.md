@@ -84,4 +84,4 @@ CreateProcessW(
 If the `TerminateProcess` call fails for any reason, the updater aborts the update. The failure is reported as exit code `109` (`NV_E_SETUP_FAILED`). Exit code `111` (`NV_E_TERMINATE_PROCESS_BEFORE_UPDATE_FAILED`) is reserved for this condition but is not yet individually emitted.
 
 !!! note "No user confirmation in `--silent-update` mode"
-    When the updater is launched with [`--silent-update`](Command-Line-Arguments.md#--silent-update), the process is terminated without any user-facing prompt. Ensure the calling application saves state and notifies the user appropriately before launching the updater in this mode.
+    When the updater is launched with [`--silent-update`](Command-Line-Arguments.md#-silent-update), the process is terminated without any user-facing prompt. Ensure the calling application saves state and notifies the user appropriately before launching the updater in this mode.

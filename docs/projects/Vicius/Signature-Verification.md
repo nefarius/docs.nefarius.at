@@ -206,7 +206,7 @@ Passing `--strict-verification` on the command line activates a client-side hard
 2. **Server cannot downgrade security** — the server-provided `signatureVerificationMode`, `signaturePolicy`, `signatureStrategy`, and `signatureConfig` fields in `shared` are ignored. Only the settings already baked into the local configuration or forced by the build take effect.
 3. **Minimum security floor** — if the merged `signatureVerificationMode` is `WhenPresent` or `Disabled`, it is silently upgraded to `Required`; if `signaturePolicy` is `Relaxed`, it is upgraded to `Strict`.
 
-See [Command Line Arguments](Command-Line-Arguments.md#--strict-verification) for the full argument reference.
+See [Command Line Arguments](Command-Line-Arguments.md#-strict-verification) for the full argument reference.
 
 ---
 

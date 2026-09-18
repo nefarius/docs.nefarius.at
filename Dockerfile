@@ -1,2 +1,3 @@
-FROM squidfunk/mkdocs-material
-RUN pip install mkdocs-material mkdocs-glightbox mkdocs-awesome-pages-plugin
+FROM squidfunk/mkdocs-material:9.7.7
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir --root-user-action=ignore -r /tmp/requirements.txt

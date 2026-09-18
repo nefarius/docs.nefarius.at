@@ -18,7 +18,7 @@ The default templates in `CustomizeMe.h` are:
 #define NV_API_URL_TEMPLATE "http://localhost:5200/api/{}/updates.json"
 ```
 
-The `{}` placeholder is automatically replaced with `manufacturer/product` (extracted from the executable file name via `filenameRegex`) or with `manufacturer/product/channel` when a channel is set (via [`--channel`](Command-Line-Arguments.md#--channel-value) or the `channel` field in the [local configuration](Local-Configuration.md#notable-instance-fields)).
+The `{}` placeholder is automatically replaced with `manufacturer/product` (extracted from the executable file name via `filenameRegex`) or with `manufacturer/product/channel` when a channel is set (via [`--channel`](Command-Line-Arguments.md#-channel-value) or the `channel` field in the [local configuration](Local-Configuration.md#notable-instance-fields)).
 
 !!! note "Consider signing your executable"
     Consider signing the resulting binary with your (company's) code signing certificate.
@@ -59,7 +59,7 @@ When using the [local configuration file](Local-Configuration.md) approach, addi
 
 - **`fallbackServerUrlTemplates`** — an array of additional URLs tried in order if the primary URL fails.
 - **`filenameRegex`** — override the regex used to extract `manufacturer` and `product` from the executable name. Useful if your binary doesn't follow the default `manufacturer_product_Updater` naming convention.
-- **`channel`** — sets an update channel name that is inserted as the third segment of the URL template (`manufacturer/product/channel`). It can also be supplied at runtime via [`--channel`](Command-Line-Arguments.md#--channel-value).
+- **`channel`** — sets an update channel name that is inserted as the third segment of the URL template (`manufacturer/product/channel`). It can also be supplied at runtime via [`--channel`](Command-Line-Arguments.md#-channel-value).
 - **`network`** — configures proxy, DNS-over-HTTPS, and IP-family preferences.
 
 See [Local Configuration — Notable instance fields](Local-Configuration.md#notable-instance-fields) for full details and available sub-fields.
