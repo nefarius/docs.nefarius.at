@@ -66,7 +66,7 @@ The `detectionChecksum` field on a release object is separate from the download 
 
 ## Strict mode
 
-When the updater is invoked with [`--strict-verification`](Command-Line-Arguments.md#--strict-verification), a release that does not provide a `checksum` object is rejected **after download**, during the integrity check phase. This enforces checksum presence as a policy requirement. The rejection exits with code `116`.
+When the updater is invoked with [`--strict-verification`](Command-Line-Arguments.md#-strict-verification), a release that does not provide a `checksum` object is rejected **after download**, during the integrity check phase. This enforces checksum presence as a policy requirement. The rejection exits with code `116`.
 
 ## Related exit codes
 

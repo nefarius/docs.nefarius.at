@@ -79,12 +79,23 @@ plugins:
         'projects/DsHidMini/XInput-Mode-Explained.md': 'projects/DsHidMini/v2/XInput-Mode-Explained.md'
         'projects/DsHidMini/Experimental/Version-3-Beta.md': 'projects/DsHidMini/v3/index.md'
 
+validation:
+  nav:
+    omitted_files: info
+    not_found: warn
+    absolute_links: info
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: info
+    unrecognized_links: warn
+
 markdown_extensions:
   - admonition:
   - attr_list:
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
   - pymdownx.tabbed:
       alternate_style: true 

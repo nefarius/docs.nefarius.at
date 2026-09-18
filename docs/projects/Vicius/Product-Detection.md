@@ -100,5 +100,5 @@ Two CLI flags bypass whatever detection method is configured:
 
 Flag | Effect
 ---|---
-[`--local-version <version>`](Command-Line-Arguments.md#--local-version-version) | Overrides the detected local version only when no detection method is configured in either the local or remote configuration.
-[`--force-local-version <version>`](Command-Line-Arguments.md#--force-local-version-version) | Unconditionally overrides the detected version, ignoring any detection method in local or remote configuration.
+[`--local-version <version>`](Command-Line-Arguments.md#-local-version-version) | Overrides the detected local version only when no detection method is configured in either the local or remote configuration.
+[`--force-local-version <version>`](Command-Line-Arguments.md#-force-local-version-version) | Unconditionally overrides the detected version, ignoring any detection method in local or remote configuration.

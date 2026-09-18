@@ -42,7 +42,9 @@ Code | Description
 `114` | Failed to create the Direct3D 11 rendering device (display driver issue or insufficient GPU).
 `116` | A post-download integrity or authenticity check failed. This covers all of: checksum mismatch, invalid or untrusted Authenticode chain, publisher certificate not matching the configured pin, and (when `--strict-verification` is active) a release that lacks a required `checksum` field. See [Signature Verification](Signature-Verification.md) and [Download Integrity](Download-Integrity.md).
 
-!!! note "Reserved / not yet individually emitted"
+### Reserved / not yet individually emitted {: #reserved--not-yet-individually-emitted }
+
+!!! note
     The following codes are defined in the source but currently all map to `116` (post-download) or `104` (manifest) or `109` (terminate-process) at runtime:
 
     Code | Reserved meaning

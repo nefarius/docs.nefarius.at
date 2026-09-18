@@ -10,7 +10,7 @@ Source repository for **[docs.nefarius.at](https://docs.nefarius.at)** — the d
 
 ## Local build
 
-Requires [Docker](https://www.docker.com/). From the repo root:
+Pinned Python packages live in [`requirements.txt`](requirements.txt). Local preview is easiest with [Docker](https://www.docker.com/). From the repo root:
 
 ```bash
 docker build -t mkdocs .

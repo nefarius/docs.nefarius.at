@@ -57,7 +57,7 @@ Field | Type | Description | Required
     Deployments that do not set `productBusyDetection` are entirely unaffected. The behavior of the updater is unchanged unless this object is present.
 
 !!! note "Can be overridden on the command line"
-    Passing [`--ignore-product-in-use`](Command-Line-Arguments.md#--ignore-product-in-use) bypasses the gate and shows the dialog immediately regardless of this setting.
+    Passing [`--ignore-product-in-use`](Command-Line-Arguments.md#-ignore-product-in-use) bypasses the gate and shows the dialog immediately regardless of this setting.
 
 !!! note "Interaction with `--terminate-process-before-update`"
     The product-busy gate is automatically skipped when [`--terminate-process-before-update`](Command-Line-Arguments.md#-terminate-process-before-update-handle) is active, because that mode is designed to kill the product before installation and waiting would be contradictory.
@@ -101,7 +101,7 @@ Field | Type | Description
 `serverUrlTemplate` | `string` | The URL or URL template used to fetch the remote configuration. `{}` is replaced with `manufacturer/product` (or `manufacturer/product/channel` when a channel is set). See [Server Discovery](Server-Discovery.md).
 `fallbackServerUrlTemplates` | `string[]` | Additional URLs tried in order if the primary `serverUrlTemplate` request fails.
 `filenameRegex` | `string` | Regular expression used to extract the `manufacturer` and `product` from the updater executable name. Default: `^(\w+)_(\w+)_Updater.*?`. Override this if your executable uses a different naming convention.
-`channel` | `string` | Update channel name inserted into the server URL template as the third path segment. It can also be supplied via [`--channel`](Command-Line-Arguments.md#--channel-value) on the command line.
+`channel` | `string` | Update channel name inserted into the server URL template as the third path segment. It can also be supplied via [`--channel`](Command-Line-Arguments.md#-channel-value) on the command line.
 `authority` | `string` | Controls which configuration source wins for overlapping `shared` fields. Possible values: `Remote` (default), `Local`. See [Authority](#authority-field) below.
 `network` | `object` | Network and proxy settings. See the table below.
 

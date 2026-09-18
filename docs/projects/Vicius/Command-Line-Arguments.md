@@ -39,7 +39,7 @@ Skips the self-update procedure, even if a newer version is available.
 
 ### `--silent`
 
-Suppresses TaskDialog popups (error messages, "up to date" notices, and UAC prompts). The main update notification window is **still shown** if updates are found. For a fully headless run that also performs the download and install without any UI, use [`--silent-update`](#--silent-update) instead.
+Suppresses TaskDialog popups (error messages, "up to date" notices, and UAC prompts). The main update notification window is **still shown** if updates are found. For a fully headless run that also performs the download and install without any UI, use [`--silent-update`](#-silent-update) instead.
 
 Check the app [exit code](Exit-Codes.md) for status details.
 
@@ -165,7 +165,7 @@ The following parameters are passed from the main updater process to the self-up
 They can not be altered by the user.
 
 !!! info "Forwarded common arguments"
-    `--silent` and [`--log-level`](#--log-level-value) are always forwarded from the parent process and apply identically inside the self-updater module.
+    `--silent` and [`--log-level`](#-log-level-value) are always forwarded from the parent process and apply identically inside the self-updater module.
 
 ### `--pid`
 
