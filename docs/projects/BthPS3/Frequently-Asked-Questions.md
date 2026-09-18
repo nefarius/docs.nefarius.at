@@ -209,4 +209,8 @@ The profile driver then shows a yellow exclamation mark in Device Manager:
 
 ![Intel wireless power fail](images/intel-wireless-power-fail.png)
 
-**This is an Intel Wireless issue and cannot be fixed by BthPS3.** To avoid it, do not turn Bluetooth off and on during use, or use a different Bluetooth host.
+!!! note "BthPS3 v2.x"
+    This is an Intel Wireless issue that **v2.x** cannot recover from. To avoid it, do not turn Bluetooth off and on during use, or use a different Bluetooth host.
+
+!!! info "BthPS3 v3.0.0 and newer"
+    This is **fixed** in v3. After sleep, hibernate, or toggling Bluetooth, the host radio should start again without Code 10. If you still see it on v3, treat it as a remaining host or firmware problem—or an unsupported radio, see [error Code 10](#what-to-do-about-error-code-10-status_device_power_failure).
