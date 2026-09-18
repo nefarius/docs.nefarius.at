@@ -26,7 +26,7 @@
   ![BthPS3 EULA](images/BthPS3 EULA.png)
 - The next screen shows which drivers will be installed. **BthPS3 Bluetooth Drivers** and **Open post-installation article** are selected by default. Leave them checked and click **Next**.  
   ![BthPS3 Drivers](images/BthPS3 Drivers.png)
-- Choose **Modern hot-plug** or **Legacy sequential**. The modern method does not require a restart on most USB radios; the legacy method should always work but requires a restart. Click **Next**.  
+- Choose **Modern hot-plug** or **Legacy sequential**. The modern method does not require a restart on most USB radios; the legacy method is more compatible but requires a restart. Neither path can install on an unsupported host transport, and both can still fail if helper tools are missing. Click **Next**.  
   ![BthPS3 Method](images/BthPS3 Method.png)
 
     !!! info "BthPS3 v3.0.0 and newer"
