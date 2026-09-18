@@ -81,7 +81,16 @@ If the driver cannot identify the remote device (unknown name or other connectio
 
 The filter driver re-routes HID-related traffic to the profile driver so it can detect when a compatible PS3 peripheral is trying to connect. The settings below can be changed at any time.
 
+!!! info "BthPS3 v3.0.0 and newer"
+    PSM patching works the same way on BTHX/BthMini radios. The filter intercepts `IOCTL_BTHX_READ_HCI` instead of USB bulk transfers; the options below do not change. On some BTHX stacks the radio has no `SymbolicLinkName`, so the tool may not associate the filter with a named radio even though patching is active.
+
 ![Filter Driver Settings](../../images/BthPS3CfgUI_sOGOHOlymb.png)
+
+If the tool cannot talk to the filter, it reports:
+
+> BthPS3 filter driver access failed. Is Bluetooth turned on? Are the drivers installed?
+
+Turn Bluetooth on, confirm the drivers are installed, and retry. On BTHX radios this can also appear until you reboot after setup—see [setup error 9002](Frequently-Asked-Questions.md#how-do-i-fix-setup-error-9002).
 
 ### Enable PSM patching
 
