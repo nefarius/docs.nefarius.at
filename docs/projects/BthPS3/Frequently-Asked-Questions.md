@@ -23,8 +23,8 @@ and cannot get past it, do the following:
 2. Change to the folder where you downloaded the setup (for example, `F:\Downloads`). Replace the path with your own:
    - `cd "F:\Downloads\"`
    - Example: `cd "C:\Users\<YourUsername>\Downloads"`
-3. Run the setup with the bypass flag:
-   - `.\BthPS3Setup_x64.msi FILTERNOTFOUND="1"`
+3. Run the setup with the bypass flag (replace the version number to match the MSI you downloaded):
+   - `.\Nefarius_BthPS3_Drivers_x64_arm64_vx.x.x.msi FILTERNOTFOUND="1"`
 
 The setup should then launch. Follow the installer instructions to complete.
 
@@ -34,10 +34,42 @@ That message is the generic MSI abort. The useful error is a few lines above it 
 
 - **Bluetooth Host Radio not found** — the stack is missing or stopped. See [How do I fix the "Bluetooth Host Radio not found" setup message?](#how-do-i-fix-the-bluetooth-host-radio-not-found-setup-message).
 - **Previous version / filter not found** — leftover state from an older install. See [How do I fix "previous version found" on reinstall?](#how-do-i-fix-previous-version-found-on-reinstall).
-- **Radio restart failed because the host is not USB** — BthPS3 can only restart **USB** radios. UART or I²C hosts (Steam Deck, Raspberry Pi, some laptop modules) will fail here. See [What Bluetooth hosts are supported?](#what-bluetooth-hosts-are-supported).
+- **Unsupported transport (error 9004)** — **BthPS3 v3.0.0 and newer** refuse to install when the host radio is neither USB nor BTHX/BthMini. Setup exits without changing anything. See [How do I fix setup error 9004?](#how-do-i-fix-setup-error-9004).
+- **Radio restart timed out (error 9002)** — on **BthPS3 v2.x**, only **USB** radios can be restarted; UART or I²C hosts fail here. On **v3.0.0 and newer**, USB radios are still hot-cycled, while BTHX/BthMini radios (for example Intel PCIe `iBtPciBus`) are re-enumerated instead. A timeout is expected if they cannot come back online without a reboot. See [How do I fix setup error 9002?](#how-do-i-fix-setup-error-9002) and [What Bluetooth hosts are supported?](#what-bluetooth-hosts-are-supported).
 - **Helper tools missing mid-setup** — if the log says a file under `C:\Program Files\Nefarius Software Solutions\BthPS3\nefcon\` could not be started, security software often deleted it during install. Exclude that folder (and the downloaded MSI) from real-time scanning and run setup again.
 
 If Device Manager already shows a yellow mark on the Bluetooth host, jump to [error codes 19, 31, 37, 39, or 43](#how-do-i-fix-bluetooth-device-error-codes-19-31-37-39-or-43).
+
+## How do I fix setup error 9004?
+
+!!! info "BthPS3 v3.0.0 and newer"
+    This check was added in v3. Older setup does not show error 9004.
+
+You may see:
+
+> The detected Bluetooth host radio is not attached via a supported transport (USB, or BTHX/BthMini for select non-USB radios such as Intel PCIe iBtPciBus). Installing the drivers would not work and could leave your Bluetooth stack in a broken state. Setup will now exit without making changes.
+
+Setup refused to install because the host radio is neither USB nor a BTHX/BthMini radio. **Nothing was changed** on the machine—you can close setup and keep using Bluetooth as before.
+
+To confirm the transport, open **Device Manager**, find the Bluetooth radio, then **Properties** → **Details**:
+
+- If the enumerator is `USB`, the radio is supported on every current BthPS3 version.
+- If **Compatible IDs** contain `MS_BTHX_BTHMINI`, or the device **Service** is `BthMini`, the radio is supported on **BthPS3 v3.0.0 and newer**.
+- Anything else is unsupported. Use a USB Bluetooth dongle, or a radio Windows binds to `BthMini.sys`. See [What Bluetooth hosts are supported?](#what-bluetooth-hosts-are-supported).
+
+## How do I fix setup error 9002?
+
+You may see:
+
+> Radio online detection timed out. This error can be misleading on some systems (using Intel Wireless), and is expected on BTHX/BthMini-based radios (e.g. Intel PCIe iBtPciBus), which cannot be power-cycled without a reboot. Choosing Ignore lets setup finish; a reboot will then be required to fully load the driver.
+
+This happens when setup registers the filter and then cannot confirm that the Bluetooth radio came back online.
+
+- **USB radios:** choose **Retry**. If it keeps failing, run setup again and pick the **Legacy sequential** method, then reboot.
+- **BTHX/BthMini radios (BthPS3 v3.0.0 and newer):** a timeout is expected. Choose **Ignore**, finish setup, and **reboot** before pairing a controller. The filter loads after the reboot.
+- **Abort** ends setup with an error.
+
+See [How to Install](How-to-Install.md) for the method selection screen.
 
 ## How do I fix Bluetooth device error codes 19, 31, 37, 39, or 43?
 
@@ -80,8 +112,18 @@ Your Bluetooth host is incompatible with BthPS3. There is no software fix; use a
 
 In short: most hosts from the last decade that run stock drivers (no ScpServer/ScpToolkit, no AirBender). For a list of tested devices, see [Compatible Bluetooth devices](Compatible-Bluetooth-Devices.md).
 
-!!! warning "USB only"
+!!! note "BthPS3 v2.x"
     Only Bluetooth host radios that use **USB** are supported. This includes most external dongles and many integrated cards. Hosts that use I²C or UART (for example, on Raspberry Pi or Steam Deck) are **not** supported.
+
+!!! info "BthPS3 v3.0.0 and newer"
+    USB radios remain supported. In addition, radios attached via Microsoft's Bluetooth Extensibility Transport (BTHX) and bound to `BthMini.sys` are supported—for example, Intel PCIe `iBtPciBus`. UART or I²C radios that Windows does **not** expose as BTHX/BthMini are still unsupported.
+
+To check a non-USB radio yourself, open **Device Manager**, find the Bluetooth radio, then **Properties** → **Details**, and look for:
+
+- Compatible IDs containing `MS_BTHX_BTHMINI`, or
+- the device service name `BthMini`
+
+If neither is present, **v3** setup will refuse to install (see [error 9004](#how-do-i-fix-setup-error-9004)).
 
 ## What controllers are supported?
 
@@ -138,11 +180,11 @@ On [Windows on Raspberry](https://worproject.com/), installing BthPS3 leads to e
 
 ![Raspberry Pi Code 31](images/vEOfeRh9vF.png)
 
-The parent device uses **UART** for Bluetooth. BthPS3's filter driver supports **USB** Bluetooth hosts only, not UART, so BthPS3 cannot run on the Raspberry Pi 4 or other UART-based Bluetooth hosts.
+The parent device uses **UART** for Bluetooth and is **not** exposed through BTHX/`BthMini`. BthPS3's filter attaches only to USB radios, or (from **v3.0.0**) to radios Windows binds to `BthMini.sys`. A raw UART host does not qualify, so BthPS3 cannot run on the Raspberry Pi 4 unless that radio later shows up as BTHX/BthMini.
 
 ## Can I install BthPS3 on the Steam Deck?
 
-No. BthPS3 does not work on the Steam Deck because [it uses UART for Bluetooth, not USB](#why-does-bthps3-not-work-on-the-raspberry-pi-4).
+No. The Steam Deck's Bluetooth radio is UART and is not exposed through BTHX/`BthMini`, so it is unsupported for the same reason as the [Raspberry Pi 4](#why-does-bthps3-not-work-on-the-raspberry-pi-4).
 
 ![Steam Deck Bluetooth](images/hZszQF3qc1.png)
 ![Steam Deck UART](images/tey5NNAkBg.png)

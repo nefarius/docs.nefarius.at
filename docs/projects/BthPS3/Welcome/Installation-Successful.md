@@ -2,6 +2,9 @@
 
 Congratulations—BthPS3 is now installed.
 
+!!! info "BthPS3 v3.0.0 and newer"
+    If setup asked you to reboot—typical for BTHX/BthMini radios such as Intel PCIe `iBtPciBus`, or if you chose **Ignore** on error **9002**—reboot **before** pairing a controller. The filter does not finish loading until after that reboot.
+
 ## Next steps
 
 You will probably want to install the **companion solution [DsHidMini](../../DsHidMini/index.md)** (if you have not already) for support in games and emulators.

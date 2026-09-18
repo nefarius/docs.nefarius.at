@@ -3,6 +3,9 @@
 !!! important "Community-maintained list"
     This list is maintained from community reports. If you have a device that is not listed, please add it.
 
+!!! info "BthPS3 v3.0.0 and newer"
+    BthPS3 attaches to USB radios and to radios on Microsoft's Bluetooth Extensibility Transport (BTHX) bound to `BthMini.sys`. Hardware IDs in the [non-USB table](#non-usb-radios-bthxbthmini) will not look like `USB\VID_…`. **BthPS3 v2.x** supports USB radios only.
+
 Below is a non-exhaustive list of Bluetooth host devices known to work (or not) with BthPS3. Status meanings:
 
 - ✔️ = tested and confirmed working
@@ -87,6 +90,15 @@ Hardware ID | Name | Status | Remarks
 `USB\VID_8086&PID_0189` | Intel Centrino Advanced-N 6230 Bluetooth adapter | ❔ | 
 `USB\VID_8087&PID_07DA` | Intel Centrino Wireless Bluetooth 4.0 + High Speed Adapter | ❔ | 
 `USB\VID_8087&PID_0AAA` | Intel Wireless Bluetooth | ✔️ | Must be on manufacturer driver version from **2021** to work.
+
+## Non-USB radios (BTHX/BthMini)
+
+!!! info "BthPS3 v3.0.0 and newer"
+    These radios need **BthPS3 v3.0.0 or newer**. Confirm the Bluetooth radio's Compatible IDs include `MS_BTHX_BTHMINI`, or that its device service is `BthMini`. See [What Bluetooth hosts are supported?](Frequently-Asked-Questions.md#what-bluetooth-hosts-are-supported).
+
+Identifier | Name | Status | Remarks
+---------- | ---- | ------ | -------
+`iBtPciBus` / `BthMini` | Intel PCIe Bluetooth (`iBtPciBus`) | ✔️ | Typical BTHX/BthMini host. Setup cannot power-cycle this radio; expect a reboot (or error **9002**—choose **Ignore**, then reboot).
 
 ## Unknown Devices
 
