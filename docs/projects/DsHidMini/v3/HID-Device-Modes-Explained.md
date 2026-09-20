@@ -40,6 +40,17 @@ The default LED behavior in this mode is the charging animation and can't be alt
 
 The default LED behavior in this mode is the charging animation and can't be altered.
 
+### CGP
+
+!!! important "TL;DR:"
+    Use this mode for the **best compatibility with older DirectInput-only games** (e.g. *Legacy of Kain: Defiance*) that mishandle the extra pressure-sensitive axes exposed by **SDF** or **GPJ**. See [issue #68](https://github.com/nefarius/DsHidMini/issues/68) for background.
+
+**Common Gamepad** mode. In this mode, the controller is presented as a single, minimal, DirectInput-friendly HID device with the same standard buttons, sticks, and triggers as **SDF**, but with **no pressure-sensitive slider axes** at all. Some older games get confused (missing or out-of-order buttons) once a device declares more axes than DirectInput's classic limit, which is exactly what SDF's extra pressure sliders do; CGP sidesteps that entirely by never declaring them. Unlike **GPJ**, it also only ever spawns a single device, avoiding issues with games/emulators that only look at the first controller they see. The rumble motors can be controlled via **Force Feedback effects** (Constant Force Effect), same as SDF and GPJ.
+
+The trade-off is that pressure-sensitive button data is unavailable in this mode — if you need it, use **SDF** or **GPJ** instead.
+
+The default LED behavior in this mode is the charging animation and can't be altered.
+
 ### SXS
 
 !!! important "TL;DR:"

@@ -98,7 +98,7 @@ If, for whatever reason, you don't want to use DS4Windows and prefer to choose y
 
 - **Using the Controller in `SXS Mode` + Steam:** Steam will detect the controller as an official PlayStation 3 controller as long as `PlayStation configuration support` is enabled. XInput and DS4 emulation are then done automatically according to what Steam thinks the game supports.
 
-- **Using the controller in `SDF or GPJ Mode` + another remapping software:** in `SDF/GPJ Mode` the controller is presented as a generic gamepad which can then be used with remapping tools like x360ce, UCR etc.
+- **Using the controller in `SDF`, `GPJ`, or `CGP Mode` + another remapping software:** in these modes the controller is presented as a generic gamepad which can then be used with remapping tools like x360ce, UCR etc. Prefer `CGP Mode` for older games that get confused by the extra pressure-sensitive axes `SDF`/`GPJ` expose (see [_HID Device Modes explained_](HID-Device-Modes-Explained.md#cgp)).
 
 ## What is the best way to use my controller in games/emulators?
 
@@ -113,6 +113,7 @@ You need to verify which `Input API` is supported in whatever you are using and 
 | Use RetroArch | `XInput` | Though RetroArch does support `DirectInput`, its rumble support is currently broken. `XInput` should be used instead to have working rumble |
 | Use RPCS3 | `SXS Mode` | Check the [_How do I use DsHidMini with RPCS3?_ section](#how-do-i-use-dshidmini-with-rpcs3) |
 | Use the DS3 in PCSX2 with pressure buttons | `SDF Mode` | Check the [_How do I set the controller's pressure buttons in PCSX2?_ section](#how-do-i-set-the-controllers-pressure-buttons-in-pcsx2) |
+| Use the DS3 in an older game that mishandles pressure axes (missing/out-of-order buttons) | `CGP Mode` | Presents a single, minimal DirectInput-friendly gamepad with no pressure-sensitive slider axes; see [_CGP_](HID-Device-Modes-Explained.md#cgp) |
 
 ## How do I use DsHidMini with RPCS3?
 
