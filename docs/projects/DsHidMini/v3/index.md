@@ -27,7 +27,7 @@ The following features are considered done and have been tested to the best of t
 ## Installation, removal and troubleshooting
 
 - [V3 installation and removal](How-to-Install.md)
-- [HID Device Modes explained](HID-Device-Modes-Explained.md) — SXS, XInput, DS4Windows, SDF, GPJ
+- [HID Device Modes explained](HID-Device-Modes-Explained.md) — SXS, XInput, DS4Windows, SDF, GPJ, CGP
 - [XInput mode (default) — setup and Steam](XInput-Mode-Explained.md)
 - [DS4Windows mode user guide](DS4-Mode-User-Guide.md)
 - [Output rate control (Bluetooth)](Output-Rate-Control-Explained.md)
