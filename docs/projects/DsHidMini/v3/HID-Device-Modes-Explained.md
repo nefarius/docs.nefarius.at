@@ -7,7 +7,7 @@ DsHidMini aims for maximum possible compatibility with existing tools or games w
 
 ## How to adjust the settings
 
-Connected controllers using DsHidMini can be adjusted in the **ControlApp** tool that you can [download from the build server](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). It needs to be run as Administrator to allow changing the current HID Device Mode. After every change, press the "Apply changes" button to make them effective, which will cause the affected controller to disconnect on Bluetooth and restart on USB. For Bluetooth, it needs to be powered on again manually afterwards by pressing the "PS" button.
+Connected controllers using DsHidMini can be adjusted in **ControlApp**. On **v3.9.0** or newer, open **DsHidMini Control App** from the Start Menu (**Nefarius Software Solutions** → **DsHidMini**). On an older installer, download and run [ControlApp.exe](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). You can still [download a newer build](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) from the build server if you want one. It needs to be run as Administrator to allow changing the current HID Device Mode. After every change, press the "Apply changes" button to make them effective, which will cause the affected controller to disconnect on Bluetooth and restart on USB. For Bluetooth, it needs to be powered on again manually afterwards by pressing the "PS" button.
 
 ![ControlApp - HID mode selection](images/controlapp-hid-mode-change.jpg)
 
