@@ -47,16 +47,16 @@
     ControlApp is a companion application for configuring DsHidMini controllers and does not need to be open for DsHidMini to work. No changes need to be made, as the default settings should work just fine. In this section, it is only being used to verify that DsHidMini is seeing your controller.
 
 !!! note "ControlApp ships with the installer"
-    Starting with **v3.4.0**, the driver MSI installs ControlApp and adds a **DsHidMini Control App** shortcut to the Start Menu, under **Nefarius Software Solutions** → **DsHidMini**. Open that shortcut to launch the copy setup installed. If you want to try a newer build than the one that came with your installer, you can still download [ControlApp.exe](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) from the build server. Installers older than v3.4.0 do not include it; update to a current release, or use that download.
+    Starting with **v3.9.0**, the driver MSI installs ControlApp and adds a **DsHidMini Control App** shortcut to the Start Menu, under **Nefarius Software Solutions** → **DsHidMini**. Open that shortcut to launch the copy setup installed. If you want to try a newer build than the one that came with your installer, you can still download [ControlApp.exe](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) from the build server. Installers older than v3.9.0 do not include ControlApp. Download [ControlApp.exe](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) and run that file.
 
 !!! note "ControlApp needs .NET Desktop Runtime 10 (x64)"
     ControlApp requires the **.NET Desktop Runtime 10 (x64)** to run. The current installer checks for it and stops if it is missing. If ControlApp asks you to install the runtime, use [.NET Desktop Runtime 10 (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
 
 - Connect your PS3 controller to your computer with a USB cable. (This also automatically pairs your controller to your computer for Bluetooth if you installed [BthPS3](../../BthPS3/How-to-Install.md)).
-- Open **DsHidMini Control App** from the Start Menu.
+- On **v3.9.0** or newer, open **DsHidMini Control App** from the Start Menu. On an older installer, download [ControlApp.exe](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) and double-click it.
 - If you see your controller under "Devices" and it shows "XInput", then DsHidMini is seeing your controller properly. (If you installed [BthPS3](../../BthPS3/How-to-Install.md), remove your USB cable and see if it shows connected with XInput too.)
 ![ControlApp XInput](<images/ControlApp XInput.PNG>)  
-- Close ControlApp when you are done. The Start Menu shortcut remains available.  
+- Close ControlApp when you are done. On **v3.9.0** or newer, the Start Menu shortcut remains available. On an older installer, keep the downloaded **ControlApp.exe**.  
 
 ### Testing Your Controller in Windows
 
@@ -80,9 +80,9 @@ If you want to update, simply [follow the same installation steps](#installing-d
 
 ## Removal
 
-1. The main v3 driver can be removed by uninstalling `Nefarius DsHidMini Driver` via **Settings** → **Apps** → **Apps & features**. That also removes the ControlApp copy and the **DsHidMini Control App** Start Menu shortcut that the installer added.
+1. The main v3 driver can be removed by uninstalling `Nefarius DsHidMini Driver` via **Settings** → **Apps** → **Apps & features**. On **v3.9.0** or newer, that also removes the ControlApp copy and the **DsHidMini Control App** Start Menu shortcut that the installer added.
 2. BthPS3 can also be uninstalled the same way via **Apps & features**
-3. A **ControlApp.exe** you downloaded yourself from the build server is a separate file. Delete that copy on its own if you no longer want it.  
+3. On an installer older than **v3.9.0**, ControlApp is the **ControlApp.exe** you downloaded. A newer build you downloaded yourself is also a separate file. Delete that copy on its own if you no longer want it.  
 ![ApplicationFrameHost_nFtPcyobyf.png](images/ApplicationFrameHost_nFtPcyobyf.png)
 
 After that, DsHidMini should be fully gone from your computer 😥
@@ -110,7 +110,7 @@ If the controller does not appear under `Nefarius HID Devices` or if this sectio
 
 ### DSHMC.exe not detecting DsHidMini V3 controllers
 
-DsHidMini V3 uses ControlApp. Open **DsHidMini Control App** from the Start Menu. See [Checking Controller with ControlApp.exe](#checking-controller-with-controlappexe).
+DsHidMini V3 uses ControlApp. On **v3.9.0** or newer, open **DsHidMini Control App** from the Start Menu. On an older installer, download and run [ControlApp.exe](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). See [Checking Controller with ControlApp.exe](#checking-controller-with-controlappexe).
 
 ### Controller does not connect by Bluetooth
 

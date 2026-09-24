@@ -8,7 +8,7 @@ The default **XInput** mode usually works without changing any settings. Connect
 
 For Bluetooth, install [BthPS3](../../../BthPS3/How-to-Install.md) and connect the controller by USB once to pair it. Do not pair it through Windows Bluetooth discovery.
 
-To verify or configure the controller, open **DsHidMini Control App** from the Start Menu (**Nefarius Software Solutions** → **DsHidMini**). The installer has included ControlApp and that shortcut since **v3.4.0**. It requires the [.NET Desktop Runtime 10 (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0). You do not need to keep it open for the driver to work. To try a newer build than the one setup installed, download [ControlApp](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). For other modes, see [HID Device Modes explained](../HID-Device-Modes-Explained.md).
+To verify or configure the controller, open **DsHidMini Control App** from the Start Menu (**Nefarius Software Solutions** → **DsHidMini**). The installer has included ControlApp and that shortcut since **v3.9.0**. It requires the [.NET Desktop Runtime 10 (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0). You do not need to keep it open for the driver to work. To try a newer build than the one setup installed, or if your installer is older than v3.9.0, download and run [ControlApp](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). For other modes, see [HID Device Modes explained](../HID-Device-Modes-Explained.md).
 
 You can [support the authors](../../../../Donations.md) by making a donation.
 
