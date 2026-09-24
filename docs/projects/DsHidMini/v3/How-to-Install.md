@@ -46,8 +46,8 @@
 !!! note "ControlApp is optional at runtime"
     ControlApp is a companion application for configuring DsHidMini controllers and does not need to be open for DsHidMini to work. No changes need to be made, as the default settings should work just fine. In this section, it is only being used to verify that DsHidMini is seeing your controller.
 
-!!! note "ControlApp needs .NET Desktop Runtime 8"
-    ControlApp requires the **.NET Desktop Runtime 8** to run. To check whether you already have it, simply try opening ControlApp. It will either open normally or prompt you to install [.NET Desktop Runtime 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
+!!! note "ControlApp needs .NET Desktop Runtime 10 (x64)"
+    ControlApp requires the **.NET Desktop Runtime 10 (x64)** to run. To check whether you already have it, simply try opening ControlApp. It will either open normally or prompt you to install [.NET Desktop Runtime 10 (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
 
 - Connect your PS3 controller to your computer with a USB cable. (This also automatically pairs your controller to your computer for Bluetooth if you installed [BthPS3](../../BthPS3/How-to-Install.md)).
 - Download the latest version of **ControlApp** from [here](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe)

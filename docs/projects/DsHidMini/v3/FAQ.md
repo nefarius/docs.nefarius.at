@@ -59,7 +59,7 @@ Yes. Pair the DualShock 4 or DualSense to Windows the usual way (stock Bluetooth
 
 ## Where is ControlApp? It was not in the installer.
 
-ControlApp is a companion tool, not part of the driver MSI. Download it from the [build server](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). It needs the [.NET Desktop Runtime 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0). You do not have to keep it open for the driver to work.
+ControlApp is a companion tool, not part of the driver MSI. Download it from the [build server](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). It needs the [.NET Desktop Runtime 10 (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0). You do not have to keep it open for the driver to work.
 
 ## Can I turn rumble off?
 
