@@ -96,6 +96,8 @@ Turn Bluetooth on, confirm the drivers are installed, and retry. On BTHX radios 
 
 When **on**, the filter re-routes traffic so the profile driver can handle PS3 peripherals. When **off**, the Bluetooth stack behaves as if BthPS3 were not installed—other Bluetooth gaming devices may connect more easily, but PS3 peripherals will not work.
 
+To confirm the filter actually saw and rewrote a connect, capture a trace and look for `PsmPatchActivity` / `PsmPatchActivityDetailed` (and `PsmRegistrationSucceeded` on the profile driver). See [Interpreting common events](Debugging-the-drivers.md#interpreting-common-events).
+
 To use a DS3, DS4, and Xbox One controller at the same time:
 
 1. Leave the filter **on**.

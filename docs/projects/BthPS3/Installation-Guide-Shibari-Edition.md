@@ -59,7 +59,10 @@ No. This is a community project, not affiliated with Sony. It started as a resea
 
 ### Does BthPS3 phone home?
 
-No. Earlier versions included an updater that checked for updates; that was removed in BthPS3 v1.3.x. BthPS3 does not send data to external servers.
+!!! note "Historic v1.3.x answer"
+    This page describes the obsolete Shibari-era stack. The sentence below is true for **BthPS3 v1.3.x through v2.x**. **BthPS3 v3** setup again ships a signed updater. See the current FAQ: [Does BthPS3 update itself?](Frequently-Asked-Questions.md#does-bthps3-update-itself).
+
+No. Earlier versions included an updater that checked for updates; that was removed in BthPS3 v1.3.x. Those historic builds do not send data to external servers.
 
 ### Why only Windows 10 and later?
 

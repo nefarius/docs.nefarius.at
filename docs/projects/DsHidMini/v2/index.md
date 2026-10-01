@@ -1,7 +1,7 @@
-# Major Version 2
-
 !!! warning "DsHidMini v2 is no longer maintained"
     **DsHidMini v2** is no longer maintained. New development and fixes happen in [DsHidMini v3](../v3/index.md). The documentation below is kept for archival purposes and for users who choose to stay on v2.
+
+# Major Version 2
 
 ## Still fine to use
 

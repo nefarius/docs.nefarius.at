@@ -36,7 +36,7 @@ That message is the generic MSI abort. The useful error is a few lines above it 
 - **Previous version / filter not found** — leftover state from an older install. See [How do I fix "previous version found" on reinstall?](#how-do-i-fix-previous-version-found-on-reinstall).
 - **Unsupported transport (error 9004)** — **BthPS3 v3.0.0 and newer** refuse to install when the host radio is neither USB nor BTHX/BthMini. Setup exits without changing anything. See [How do I fix setup error 9004?](#how-do-i-fix-setup-error-9004).
 - **Radio restart timed out (error 9002)** — on **BthPS3 v2.x**, only **USB** radios can be restarted; UART or I²C hosts fail here. On **v3.0.0 and newer**, USB radios are still hot-cycled, while BTHX/BthMini radios (for example Intel PCIe `iBtPciBus`) are re-enumerated instead. A timeout is expected if they cannot come back online without a reboot. See [How do I fix setup error 9002?](#how-do-i-fix-setup-error-9002) and [What Bluetooth hosts are supported?](#what-bluetooth-hosts-are-supported).
-- **Helper tools missing mid-setup** — if the log says a file under `C:\Program Files\Nefarius Software Solutions\BthPS3\nefcon\` could not be started, security software often deleted it during install. Exclude that folder (and the downloaded MSI) from real-time scanning and run setup again.
+- **Helper tools missing mid-setup** — if the log says a file under `C:\Program Files\Nefarius Software Solutions\BthPS3\nefcon\` could not be started, security software often deleted it during install. Exclude that folder (and the downloaded MSI) from real-time scanning and run setup again. The same exclusion covers `nefarius_BthPS3_Updater.exe` if the updater was quarantined; the drivers can still be installed.
 
 If Device Manager already shows a yellow mark on the Bluetooth host, jump to [error codes 19, 31, 37, 39, or 43](#how-do-i-fix-bluetooth-device-error-codes-19-31-37-39-or-43).
 
@@ -161,6 +161,24 @@ This has not been measured with dedicated equipment. In practice, users do not r
 ## Why is the DualShock 4 supported?
 
 DualShock 4 support was added because it is similar to the DS3 at the protocol level and required little extra work. The DS4 works on Windows without custom drivers when paired in "PC mode" (PS + Share held until the light bar flashes). By default it uses "PS mode" (PlayStation Bluetooth), which BthPS3 can emulate. This mainly enables experimentation for developers who want to talk to the device the way the PlayStation does.
+
+## Which BthPS3 MSI should I download?
+
+Download the latest **published** installer from [GitHub Releases](https://github.com/nefarius/BthPS3/releases). Driver tags stay `vMAJOR.MINOR.PATCH`. The first setup for that payload is `setup-vMAJOR.MINOR.PATCH`; later installer-only respins use `setup-vMAJOR.MINOR.PATCH-r1`, `-r2`, and so on. The MSI file name and product version stay `MAJOR.MINOR.PATCH` across respins, so a `-rN` build can still look like `Nefarius_BthPS3_Drivers_x64_arm64_v3.2.0.msi`. Prefer the newest release on the list.
+
+## Does BthPS3 update itself?
+
+**BthPS3 v3** setup installs `nefarius_BthPS3_Updater.exe` under `%ProgramFiles%\Nefarius Software Solutions\BthPS3\` and registers it with [Vīcĭus](../Vicius/index.md). The updater is a scheduled, signed agent that checks a Nefarius update server for a newer BthPS3 installer. It does not send controller input, traces, or personal files.
+
+- Registration runs at the end of setup (`--install --silent`). If antivirus quarantines the updater, **setup still succeeds** and the drivers remain installed.
+- Uninstalling BthPS3 from **Apps & features** de-registers the updater (`--uninstall --silent`).
+- To stop update checks without removing the drivers, uninstall BthPS3 and reinstall after excluding the install folder, or remove the updater scheduled task / exclude the executable in your security software. The drivers do not depend on the updater.
+
+Older historic pages that say the updater was removed in v1.3.x describe that era only. See the [Shibari-edition install guide](Installation-Guide-Shibari-Edition.md#does-bthps3-phone-home).
+
+## I have more than one Bluetooth radio
+
+BthPS3 attaches a filter to each supported host radio. v3.0.0 and newer harden filter teardown so the control device is removed only when the last filter instance goes away, and they clean up failed L2CAP connects. If Device Manager looks odd after swapping dongles or disabling a radio, turn Bluetooth off and on, or reboot once, then run setup again only if the profile driver is missing.
 
 ## How do I uninstall BthPS3?
 

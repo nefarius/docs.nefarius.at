@@ -2,13 +2,13 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-yellowgreen?logo=github)](https://github.com/nefarius/DsHidMini) ![Maintained](https://img.shields.io/badge/Project%20actively%20maintained-brightgreen)
 
-DsHidMini is a universal driver for the dated yet beloved DualShock 3 Controllers used by the Sony PlayStation 3. Navigation Controller support is available ([issue #48](https://github.com/nefarius/DsHidMini/issues/48)); Motion Controller support is not in scope. It's aimed to be a full, modern replacement of the discontinued ScpToolkit, feature-rich yet lightweight, providing a wide range of compatibility with existing Games, Tools and Emulators. Developed for and compatible with latest Windows 10/11.
+DsHidMini is a universal driver for the dated yet beloved DualShock 3 Controllers used by the Sony PlayStation 3. Navigation Controller support is available ([issue #48](https://github.com/nefarius/DsHidMini/issues/48)); two wired [PS1/PS2 USB adapters](v3/PS1-PS2-USB-Adapters.md) are also supported. Motion Controller support is not in scope. It's aimed to be a full, modern replacement of the discontinued ScpToolkit, feature-rich yet lightweight, providing a wide range of compatibility with existing Games, Tools and Emulators. Developed for and compatible with latest Windows 10/11.
 
 !!! warning "No Windows XP/Vista/7/8/8.1 support"
     DsHidMini heavily depends on amazing libraries and frameworks provided by Microsoft, unfortunately those are not available on anything older than Windows 10/11. Upgrade now ✨
 
-!!! danger highlight "No fake/aftermarket/3rd-party/non-Sony Controller support"
-    This solution was developed for the **official Sony-designed and sold SIXAXIS/DualShock 3** controller hardware that was shipped with the consoles. Over time countless (cheaply designed and manufactured) copy-cats have been released, some with major compatibility issues with Windows that can't be addressed. So if you attempt to use DsHidMini with wannabe-PS3-Controllers and it doesn't work **you're on your own, do not open issues regarding this, you will receive no help because we can't provide any.** Refund the controller and get a genuine one (new-old-stock) or buy an Xbox controller ❤️
+!!! danger highlight "Genuine DualShock 3 first; limited adapter exceptions"
+    This solution was developed for the **official Sony-designed and sold SIXAXIS/DualShock 3** (and Navigation Controller). Two USB adapters are also supported: the ShanWan PS1/PS2 adapter (`VID_2563` / `PID_0575`) and DS3-identity PS1/PS2 adapters (`VID_054C` / `PID_0268` with `bMaxPacketSize0` of 8). See [PS1/PS2 USB adapters](v3/PS1-PS2-USB-Adapters.md). Aftermarket DualShock 3 clones are a different story: many have compatibility issues Windows cannot fix. If you try a wannabe-PS3-controller and it doesn't work **you're on your own — do not open issues about that.** Refund it and get a genuine one, or buy an Xbox controller ❤️
 
 ## Installation
 

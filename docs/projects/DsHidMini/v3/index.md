@@ -20,16 +20,23 @@ The following features are considered done and have been tested to the best of t
     - change/disable the combo used to turn off the controller when wireless
     - adjust the deadzone of the sticks
     - tweak rumble settings
+    - test input and rumble in any HID mode
+    - export diagnostics
     - etc.
+- Wired **PS1/PS2 USB adapters** (ShanWan and DualShock 3 identity)
+    - See [PS1/PS2 USB adapters](PS1-PS2-USB-Adapters.md)
 - ARM64 builds of the driver
     - Appears to work fine on Apple Silicon using Windows 11 on Parallels
 
 ## Installation, removal and troubleshooting
 
 - [V3 installation and removal](How-to-Install.md)
+- [ControlApp overview](ControlApp-Overview.md)
 - [HID Device Modes explained](HID-Device-Modes-Explained.md) — SXS, XInput, DS4Windows, SDF, GPJ, CGP
 - [XInput mode (default) — setup and Steam](XInput-Mode-Explained.md)
 - [DS4Windows mode user guide](DS4-Mode-User-Guide.md)
+- [PS1/PS2 USB adapters](PS1-PS2-USB-Adapters.md)
+- [Collecting diagnostics](Collecting-Diagnostics.md)
 - [Output rate control (Bluetooth)](Output-Rate-Control-Explained.md)
 - [SCP XInput Bridge (proxy DLL for games)](SCP-XInput-Bridge.md)
 - [Switch from SIXAXIS.SYS to DsHidMini](SIXAXIS.SYS-to-DsHidMini-Guide.md)

@@ -19,7 +19,7 @@
 !!! note "Bluetooth setup only"
     The following steps are only required if you plan on using your PS3 controller wirelessly over Bluetooth. If you just plan on using a USB cable, then all you need is [DsHidMini](../DsHidMini/index.md).
 
-- If the DsHidMini installation wizard downloaded the BthPS3 installer for you, look for it in your **Downloads** folder—it should be named `Nefarius_BthPS3_Drivers_x64_arm64_vx.x.x.msi` (the x's represent the version number). Otherwise, download it from the [BthPS3 GitHub Releases page](https://github.com/nefarius/BthPS3/releases).
+- If the DsHidMini installation wizard downloaded the BthPS3 installer for you, look for it in your **Downloads** folder—it should be named `Nefarius_BthPS3_Drivers_x64_arm64_vx.x.x.msi` (the x's represent the version number). Otherwise, download the latest published MSI from the [BthPS3 GitHub Releases page](https://github.com/nefarius/BthPS3/releases). Release tags may be `setup-v3.x.y` or a later `setup-v3.x.y-rN` respin; the MSI product version stays `MAJOR.MINOR.PATCH`. Always take the newest published installer.
 - Double-click the installation file to start the Installation Wizard, then click **Next**.  
   ![BthPS3 Wizard](images/BthPS3 Wizard.png)
 - On the **End-User License Agreement** screen, read the agreement, check the box to accept the terms, then click **Next**.  
@@ -39,6 +39,8 @@
   ![BthPS3 Finish](images/BthPS3 Finish.PNG)
 
 **Congratulations!** BthPS3 is now installed. Plug in your controller via USB to pair it for Bluetooth—this is the only supported way to pair your controller.
+
+Files land under `%ProgramFiles%\Nefarius Software Solutions\BthPS3\`. That folder includes the drivers, the [configuration utility](Driver-Configuration-Utility-Explained.md), helper tools such as `nefcon`, and `nefarius_BthPS3_Updater.exe`. The updater is registered at the end of setup; registration failure (for example antivirus quarantine) does **not** fail the driver install. See [Does BthPS3 update itself?](Frequently-Asked-Questions.md#does-bthps3-update-itself).
 
 !!! info "Silent or unattended install (BthPS3 v3.0.0 and newer)"
     Administrators can install without the wizard:

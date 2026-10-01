@@ -92,3 +92,15 @@ Here's an example of the controller working like an Xbox Controller in a game wi
 
 !!! note "Don't expect Sony button overlays"
     This should be fairly self-explanatory but we repeat it here nonetheless: since the game "sees" only an Xbox One Controller (variant), it will show you the Xbox button layout when navigating, this is expected and can not be altered.
+
+### Steam lists the same pad twice
+
+Steam can show **two** "Xbox One Controller" (or similar) entries for **one** DsHidMini device in XInput mode and bind the same input twice. ControlApp still shows a single pad. This is a Steam / SDL enumeration bug when **Microsoft GameInput** and the XInput backend both claim `VID_045E` / `PID_02FF`. It is not a DsHidMini or BthPS3 defect, and it is not Bluetooth-only — wireless just hits the race more often.
+
+Until Steam ships an SDL build that ignores GameInput when that backend is disabled, pick one:
+
+1. Switch the pad to **SXS mode** in ControlApp for Steam use. Steam has native DualShock 3 support in that layout, so the XInput / GameInput overlap does not exist. This is the cleanest option.
+2. Uninstall **Microsoft GameInput** from Apps & Features. Steam then falls back to XInput-only enumeration. A game that depends on GameInput may reinstall it later.
+3. In Steam, disable Steam Input for Xbox controllers (**Settings → Controller**). Steam stops binding either entry; XInput games keep talking to the pad directly.
+
+Changing DsHidMini serials, container IDs, or HID descriptors will not merge the two Steam entries. Background and a `controller.txt` fingerprint: [Steam GameInput duplicates](https://github.com/nefarius/DsHidMini/blob/master/docs/STEAM_GAMEINPUT_DUPLICATES.md).

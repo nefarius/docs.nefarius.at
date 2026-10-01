@@ -1,6 +1,11 @@
 # Debugging the Drivers
 
+!!! tip "Most users should export from ControlApp first"
+    For a DualShock 3 that is already visible in ControlApp, use **Info → Export diagnostics** instead of a raw ETW session. See [Collecting diagnostics](Collecting-Diagnostics.md). Come here when ControlApp cannot run, or when a maintainer asks for a live trace.
+
 Kernel and user-mode drivers do not write log files to disk. Instead they use [Event Tracing for Windows](https://docs.microsoft.com/en-us/windows-hardware/test/wpt/event-tracing-for-windows) (ETW), which you capture from the command line using `etwutils`.
+
+Starting with **v3.16.0**, the DsHidMini MSI registers the ETW instrumentation manifest (`DsHidMini.man`) during install and removes it on uninstall. That makes structured events available to Windows tooling. Verbose WPP-style tracing below is still **off** until you enable it once.
 
 ## Prerequisites
 

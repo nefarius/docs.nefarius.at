@@ -100,3 +100,37 @@ You can then browse the trace; newest events are at the bottom, oldest at the to
 ## Interpreting the trace
 
 Once the trace is decoded, look for `TRACE_LEVEL_WARNING` or `TRACE_LEVEL_ERROR` entries. These indicate driver failures and can point to the cause of connection or behaviour issues. Whether the issue can be fixed depends on the specific message and your setup.
+
+Also look at the structured events below. **BthPS3 v3.1** and **v3.2** added correlatable events for PSM registration, remote connect, filter initialization, and BTHX transport. They show up in the same `.etl` once symbols (or the installed manifests) are applied.
+
+## Interpreting common events
+
+These names come from the shipped manifests (`BthPS3.man`, `BthPS3PSM.man`). You do not need every line; use the table to tell expected noise from a real failure.
+
+### Profile driver (`BthPS3`)
+
+| Event | What it means |
+| --- | --- |
+| `RemoteConnectReceived` | An inbound L2CAP connect reached the profile driver (address + PSM). |
+| `PsmRegistrationSucceeded` / `PsmRegistrationFailed` | HID Control / Interrupt PSM listen was registered or failed. A failure here means PS3 peripherals cannot connect. |
+| `PsmRegistrationStale` / `PsmRegistrationDeferred` / `PsmRegistrationRecovered` | A previous listen was still committed; the driver reclaims it and retries. Recovery is success. |
+| `RemoteDeviceName` / `RemoteDeviceIdentified` / `RemoteDeviceNotIdentified` | The remote Bluetooth name was read and matched (or not) against the supported-name lists. An empty name followed by "not identified or denied" is a firmware/radio problem on the pad. See [The controller tries to connect, then BthPS3 drops it](Frequently-Asked-Questions.md#the-controller-tries-to-connect-then-bthps3-drops-it). |
+| `HidControlChannelConnected` / `HidInterruptChannelConnected` / `HidChannelConnectedDetailed` | The two HID channels came up. |
+| `RemoteDeviceOnline` | Both channels are up; the pad is ready. |
+| `RemoteDisconnectCompleted` / `RemoteL2capDisconnected` | The remote went away (status or channel). |
+| `PowerPolicyIdleSettingsFailed` | **Informational.** Idle settings were left unchanged because BthPS3 does not own the device power policy and the device is not in RAW mode. **This is expected when DsHidMini is installed.** It is not a failure. |
+| `WdfDeviceAssignS0IdleSettingsFailed` | A real power-policy assignment error (different from the informational skip above). |
+
+### Filter driver (`BthPS3PSM`)
+
+| Event | What it means |
+| --- | --- |
+| `TransportTypeDetected` | The radio was classified as USB (`1`) or BTHX (`2`). |
+| `FilterDeviceInitialized` | Filter init succeeded for that instance (transport, patch status, NTSTATUS). Logged only on success. |
+| `PsmPatchActivity` / `PsmPatchActivityDetailed` | An L2CAP connection request was seen and optionally rewritten. Use these when PSM patching looks off. |
+| `UnsupportedTransportType` | The radio is neither USB nor BTHX; the filter will not attach. Matches [setup error 9004](Frequently-Asked-Questions.md#how-do-i-fix-setup-error-9004). |
+| `BthxAclDataRejected` | A BTHX ACL completion reported an implausible length. Host-stack / radio noise; collect the trace if it repeats around a failed connect. |
+| `FailedToFindBulkInPipe` / `HookSendFailed` | The USB or BTHX hook could not be installed or a hooked send failed. Patching will not work until this is resolved. |
+
+!!! note "PSM patching and traces"
+    Filter options in the [Driver Configuration Utility](Driver-Configuration-Utility-Explained.md#enable-psm-patching) are what you change; these events are how you confirm the filter actually saw and rewrote a connect.

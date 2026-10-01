@@ -36,6 +36,8 @@ After DsHidMini is active and the controller connected, all you need is to chang
 
 Short answer: it depends. Long answer: [it depends](../../BthPS3/About-Controller-Compatibility.md) 🙂 This is community software with no ties to any hardware manufacturer, all we can provide is knowledge based on research and reverse engineering.
 
+Two **wired USB adapters** are documented exceptions (not DualShock 3 clones): the ShanWan PS1/PS2 adapter (`VID_2563` / `PID_0575`, from **v3.14.0**) and DS3-identity PS1/PS2 adapters that spoof `VID_054C` / `PID_0268` but report `bMaxPacketSize0` of 8 (from **v3.18.0**). See [PS1/PS2 USB adapters](PS1-PS2-USB-Adapters.md). Everything else that only looks like a DualShock 3 remains unsupported.
+
 ## What are the HID Device Modes? Which one should I use?
 
 Go back to the [_How do I use it?_](#how-do-i-use-it) question.
@@ -59,7 +61,7 @@ Yes. Pair the DualShock 4 or DualSense to Windows the usual way (stock Bluetooth
 
 ## Where is ControlApp? It was not in the installer.
 
-Starting with **v3.9.0**, ControlApp is included in the driver MSI. Open **DsHidMini Control App** from the Start Menu, under **Nefarius Software Solutions** → **DsHidMini**. You can leave it closed; the driver keeps working without it. It needs the [.NET Desktop Runtime 10 (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
+Starting with **v3.9.0**, ControlApp is included in the driver MSI. Open **DsHidMini Control App** from the Start Menu, under **Nefarius Software Solutions** → **DsHidMini**. You can leave it closed; the driver keeps working without it. It needs the [.NET Desktop Runtime 10 (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) — any **10.0.x** release is accepted. The first launch on **v3.16.0** or newer runs a one-time setup wizard; see the [ControlApp overview](ControlApp-Overview.md).
 
 If you want a newer build than the one setup installed, download it from the [build server](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe). Installers older than v3.9.0 do not include ControlApp. Download [ControlApp.exe](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) and run that file.
 
@@ -98,7 +100,7 @@ Set the controller to `DS4Windows Mode` and use it with **Ryochan7's DS4Windows*
 
 If, for whatever reason, you don't want to use DS4Windows and prefer to choose your own remapping tool, then you have the following options:
 
-- **Using the Controller in `SXS Mode` + Steam:** Steam will detect the controller as an official PlayStation 3 controller as long as `PlayStation configuration support` is enabled. XInput and DS4 emulation are then done automatically according to what Steam thinks the game supports.
+- **Using the Controller in `SXS Mode` + Steam:** Steam will detect the controller as an official PlayStation 3 controller as long as `PlayStation configuration support` is enabled. XInput and DS4 emulation are then done automatically according to what Steam thinks the game supports. If Steam lists **one** XInput-mode pad as **two** Xbox controllers, use SXS or see [Steam lists the same pad twice](XInput-Mode-Explained.md#steam-lists-the-same-pad-twice).
 
 - **Using the controller in `SDF`, `GPJ`, or `CGP Mode` + another remapping software:** in these modes the controller is presented as a generic gamepad which can then be used with remapping tools like x360ce, UCR etc. Prefer `CGP Mode` for older games that get confused by the extra pressure-sensitive axes `SDF`/`GPJ` expose (see [_HID Device Modes explained_](HID-Device-Modes-Explained.md#cgp)).
 
@@ -164,13 +166,17 @@ Another hint would be if you see an active connection in the notifications panel
 
 ![BluetoothConnected.png](images/BluetoothConnected.png)
 
+On **v3.16.0** or newer, open ControlApp and finish first-run setup or run the Bluetooth diagnostic. The wizard checks that Bluetooth is on, BthPS3 is installed, the filter is loaded, and required settings (RAW PDO off, PSM patching on) are correct. See the [ControlApp overview](ControlApp-Overview.md#bluetooth-diagnostic).
+
 ## I installed everything but the controller doesn't appear in Device Manager, Devices and Printers or the control app!
 
-You do not have a SIXAXIS/DualShock 3 device then. To verify, plug in your device via USB, get the tool [DevManView from NirSoft](https://www.nirsoft.net/utils/device_manager_view.html) and search for `USB\VID_054C&PID_0268` like so:
+You do not have a SIXAXIS/DualShock 3 device then — unless you have one of the two [supported USB adapters](PS1-PS2-USB-Adapters.md). To verify, plug in your device via USB, get the tool [DevManView from NirSoft](https://www.nirsoft.net/utils/device_manager_view.html) and search for `USB\VID_054C&PID_0268` like so:
 
 ![g2JC4BVcck.png](images/g2JC4BVcck.png)
 
-If you cannot find at least one match **you do not have a DS3 and DsHidMini will not work**. End of story. No, support can not help you with that. Accept it.
+If you cannot find at least one match, also search for `USB\VID_2563&PID_0575` (ShanWan PS1/PS2 adapter, **v3.14.0+**). If neither ID is present **DsHidMini will not work**. End of story. No, support can not help you with that. Accept it.
+
+A match on `USB\VID_054C&PID_0268` is **not** proof of a DualShock 3. DS3-identity PS1/PS2 adapters reuse those IDs. Open ControlApp and check the device type: a genuine DualShock 3 / SIXAXIS reports `bMaxPacketSize0` of 64; the adapter reports 8. The adapter has no Bluetooth and no real motion. See [PS1/PS2 USB adapters](PS1-PS2-USB-Adapters.md#ds3-identity-adapter-vid_054c-pid_0268).
 
 This is a DS3:
 
@@ -201,8 +207,19 @@ In very rare cases Windows might have installed the driver but is not loading it
 
 Short answer: you probably can't. Long answer: [read this](https://github.com/nefarius/DsHidMini/discussions/166). A second-best check without opening the shell is comparing the controller's Bluetooth MAC OUI against the [published OUI list](../genuine_oui_db.json). A match is not proof; a mismatch is a strong hint it is aftermarket.
 
+ControlApp's **Info** tab shows the same OUI check plus an identification-pattern hint. Those two results are independent approximations, not a verdict. ControlApp caches the OUI list locally so the address check can still run if the download is temporarily unavailable. See the [ControlApp overview](ControlApp-Overview.md#info-tab).
+
+## ControlApp crashes or will not start
+
+If `%AppData%\ControlApp.json` is empty or not valid JSON, current ControlApp builds copy the broken file to a `ControlApp.json.corrupt-...` backup and continue with defaults. Delete the backup when you no longer need it. If ControlApp still will not start, install any [.NET Desktop Runtime 10.0.x (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) and try again.
+
+## Steam shows two Xbox controllers for one pad
+
+That is a Steam / SDL + Microsoft GameInput enumeration bug, not a DsHidMini defect. Use **SXS mode** for Steam, or see [Steam lists the same pad twice](XInput-Mode-Explained.md#steam-lists-the-same-pad-twice).
+
 ## I'm having "X" problem when using DsHidMini, what should I do?
 
 - **Trouble when installing DsHidMini or connecting your controllers to the computer:** check the [_How to Install Troubleshooting_ section](How-to-Install.md#troubleshooting)
+- **Need a support bundle:** use ControlApp **Info → Export diagnostics** ([Collecting diagnostics](Collecting-Diagnostics.md))
 - **Controller works normally most of the time but have random button presses, buttons fail to register, or a stick sits off-center:** most likely a hardware fault (worn pot, cracked flex, dirty pad), not related to DsHidMini. The driver reports what the controller sends.
 - Figure it out yourself 👍 There isn't always someone available to hold your hand 💪

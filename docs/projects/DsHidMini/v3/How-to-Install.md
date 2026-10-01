@@ -5,12 +5,12 @@
 !!! danger highlight "DsHidMini V3 installation page!"
     Make sure to check the [intro page for v3](../index.md) before continuing.
 
-!!! danger highlight "STOP trying to use DsHidMini with random controllers"
-    Official Sony DualShock 3 / SIXAXIS and Navigation Controller hardware is supported.  
+!!! danger highlight "Official Sony DualShock 3 / SIXAXIS is the target"
+    Official Sony DualShock 3 / SIXAXIS and Navigation Controller hardware is supported, plus two documented [PS1/PS2 USB adapters](PS1-PS2-USB-Adapters.md).  
     ![ds3](images/dualshock-3-resized.png)
-    Do NOT contact support for any other device, **it will not work**, no matter how many times you ask!
+    Aftermarket DualShock 3 clones are not supported. Do NOT contact support for random third-party pads — they usually will not work.
 
-- DsHidMini was designed to work with Official Sony PS3 DualShock 3 controllers. Most DualShock 3 controllers sold online these days are not original controllers. It can be difficult to tell these fake controllers apart from their original counterparts as they are made with the same molds and have the same symbols and labels on them as official DualShock 3 controllers. These fake controllers might be missing some features (such as motion controls or pressure-sensitive buttons) and most likely will not work with DsHidMini. If your non-official controller does work, take it as a win. However, if it does not, please do not contact support as there is nothing we can do.
+- DsHidMini was designed to work with Official Sony PS3 DualShock 3 controllers. Most DualShock 3 controllers sold online these days are not original controllers. It can be difficult to tell these fake controllers apart from their original counterparts as they are made with the same molds and have the same symbols and labels on them as official DualShock 3 controllers. These fake controllers might be missing some features (such as motion controls or pressure-sensitive buttons) and most likely will not work with DsHidMini. If your non-official controller does work, take it as a win. However, if it does not, please do not contact support as there is nothing we can do. Two wired adapters are documented exceptions: see [PS1/PS2 USB adapters](PS1-PS2-USB-Adapters.md).
 
 - **If you want Bluetooth support** you need to [install BthPS3](../../BthPS3/How-to-Install.md). This can be done either before or after installing DsHidMini.
 
@@ -50,10 +50,11 @@
     Starting with **v3.9.0**, the driver MSI installs ControlApp and adds a **DsHidMini Control App** shortcut to the Start Menu, under **Nefarius Software Solutions** → **DsHidMini**. Open that shortcut to launch the copy setup installed. If you want to try a newer build than the one that came with your installer, you can still download [ControlApp.exe](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) from the build server. Installers older than v3.9.0 do not include ControlApp. Download [ControlApp.exe](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) and run that file.
 
 !!! note "ControlApp needs .NET Desktop Runtime 10 (x64)"
-    ControlApp requires the **.NET Desktop Runtime 10 (x64)** to run. The current installer checks for it and stops if it is missing. If ControlApp asks you to install the runtime, use [.NET Desktop Runtime 10 (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
+    ControlApp requires the **.NET Desktop Runtime 10 (x64)** to run. Any **10.0.x** release is accepted. The current installer checks for it and stops if it is missing. If ControlApp asks you to install the runtime, use [.NET Desktop Runtime 10 (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
 
 - Connect your PS3 controller to your computer with a USB cable. (This also automatically pairs your controller to your computer for Bluetooth if you installed [BthPS3](../../BthPS3/How-to-Install.md)).
 - On **v3.9.0** or newer, open **DsHidMini Control App** from the Start Menu. On an older installer, download [ControlApp.exe](https://buildbot.nefarius.at/builds/DsHidMini/latest/bin/ControlApp.exe) and double-click it.
+- Starting with **v3.16.0**, the first launch opens **Let's connect your controller**. Follow the on-screen pairing checks. If this PC has no Bluetooth and you only use USB, choose **Continue with USB only** (**v3.19.0** and newer). Details: [ControlApp overview](ControlApp-Overview.md#first-run-setup).
 - If you see your controller under "Devices" and it shows "XInput", then DsHidMini is seeing your controller properly. (If you installed [BthPS3](../../BthPS3/How-to-Install.md), remove your USB cable and see if it shows connected with XInput too.)
 ![ControlApp XInput](<images/ControlApp XInput.PNG>)  
 - Close ControlApp when you are done. On **v3.9.0** or newer, the Start Menu shortcut remains available. On an older installer, keep the downloaded **ControlApp.exe**.  
@@ -114,4 +115,8 @@ DsHidMini V3 uses ControlApp. On **v3.9.0** or newer, open **DsHidMini Control A
 
 ### Controller does not connect by Bluetooth
 
-See the [BthPS3 FAQ](../../BthPS3/Frequently-Asked-Questions.md) for wireless connection issues.
+Open ControlApp and finish first-run setup, or run the in-app Bluetooth diagnostic. See the [ControlApp overview](ControlApp-Overview.md#bluetooth-diagnostic) and the [BthPS3 FAQ](../../BthPS3/Frequently-Asked-Questions.md) for wireless connection issues.
+
+### ControlApp asks to set the controller up again
+
+First-run setup is mandatory until it is completed or skipped. If you only use USB, choose **Continue with USB only**. If you skipped setup and Bluetooth does not work, run ControlApp again and complete the wizard — skipped setups are not a support case.
