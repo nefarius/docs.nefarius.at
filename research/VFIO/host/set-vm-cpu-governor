@@ -1,0 +1,40 @@
+#!/bin/sh
+# Apply a cpufreq governor to the host CPUs reserved for pinned KVM guests.
+set -eu
+
+VM_CPUS=8-15
+VM_GOVERNOR=performance
+
+if [ -r /etc/default/vm-cpu-governor ]; then
+	# shellcheck disable=SC1091
+	. /etc/default/vm-cpu-governor
+fi
+
+expand_cpus() {
+	echo "$1" | tr ',' '\n' | while IFS= read -r tok; do
+		tok=$(printf '%s' "$tok" | tr -d '[:space:]')
+		[ -z "$tok" ] && continue
+		case "$tok" in
+		*-*)
+			start=${tok%-*}
+			end=${tok#*-}
+			seq "$start" "$end"
+			;;
+		*)
+			printf '%s\n' "$tok"
+			;;
+		esac
+	done
+}
+
+status=0
+for cpu in $(expand_cpus "$VM_CPUS"); do
+	gov="/sys/devices/system/cpu/cpu${cpu}/cpufreq/scaling_governor"
+	if [ ! -f "$gov" ]; then
+		echo "set-vm-cpu-governor: missing $gov" >&2
+		status=1
+		continue
+	fi
+	printf '%s\n' "$VM_GOVERNOR" > "$gov"
+done
+exit "$status"
