@@ -41,7 +41,7 @@ The client picks a mode from the command line and from whether stdin is a consol
 
 | Mode | How you get it | How it ends |
 |---|---|---|
-| One-shot | Pass one or more `--command` arguments | Commands run, then pending changes are written |
+| One-shot | Pass one or more command flags (`--cloak-on`, `--dev-hide`, …) | Commands run, then pending changes are written |
 | Interactive | Start with no arguments and a real console | Prompt `$ `; ++ctrl+z++ then ++enter++ writes changes and exits |
 | Script / piped | Redirect stdin (file, pipe, here-string) | Reads lines until EOF, then writes changes |
 
@@ -99,7 +99,7 @@ The CLI loads the current cloak state, inverse-list flag, device list, and appli
 
 That has a few consequences:
 
-- A sequence of `--dev-hide` / `--app-reg` / `--cloak-on` is one transaction from the driver's point of view.
+- A sequence of `--dev-hide` / `--app-reg` / `--cloak-on` is one batch applied on clean exit. The driver still receives those updates as separate writes, not as an atomic all-or-nothing transaction.
 - `--cancel` (interactive: `cancel`) abandons the in-memory copy and skips the write. Use it after a mistake, or append it to a one-shot line if you only wanted to validate arguments.
 - `--app-list`, `--dev-list`, `--cloak-state`, and `--inv-state` report the **pending** copy, including edits you have not committed yet.
 - The CLI always keeps itself on the application list while inverse cloak is off (and off the list while inverse cloak is on). That self-registration is applied immediately so the tool can still see hidden devices.
@@ -272,12 +272,8 @@ List commands print **replayable** CLI text, not a private dump format:
 Capture a snapshot:
 
 ```powershell
-@(
-  & $cli --inv-state
-  & $cli --cloak-state
-  & $cli --dev-list
-  & $cli --app-list
-) | Set-Content -Encoding utf8 hidhide-backup.txt
+& $cli --inv-state --cloak-state --dev-list --app-list |
+  Set-Content -Encoding utf8 hidhide-backup.txt
 ```
 
 Restore by feeding that file back in (after reviewing it — do not blindly wipe another tool's entries):
@@ -331,7 +327,7 @@ Turn it back on with `--cloak-on`. Lists stay as they were.
 & $cli --dev-hide "HID\VID_054C&PID_0CE6\6&1bce44cb&0&0000" --cancel
 ```
 
-The path is validated; nothing is written.
+The path is validated. `--cancel` discards the staged hide and skips the exit-time write; it does not undo the CLI's immediate self-whitelist adjustment.
 
 ## Errors, exit codes, and quoting
 
@@ -346,17 +342,17 @@ Parser messages:
 | `The number of command arguments is not correct.` | Extra or missing argument |
 | `The device instance path has too many characters.` | Path exceeds `MAX_DEVICE_ID_LEN` |
 
-PowerShell sometimes swallows arguments that start with `--`. If a command appears to be ignored, use stop-parsing:
+PowerShell passes `--dev-hide` and similar flags to a native executable as ordinary arguments. Use `--%` only when you need to stop PowerShell from parsing the rest of the line (for example, so `&` inside a hardware ID is not treated as a call operator):
 
 ```powershell
 & $cli --% --dev-hide "HID\VID_054C&PID_0CE6\6&1bce44cb&0&0000" --cloak-on
 ```
 
-Or call through `cmd.exe /c`. Always quote instance paths; `&` inside a hardware ID is easy to mis-parse.
+Or call through `cmd.exe /c`. Always quote instance paths.
 
 ## Automation notes
 
-- Commands are idempotent: registering the same app or hiding the same instance twice is safe.
+- Add commands are idempotent: registering the same app or hiding the same instance twice is safe. `--cloak-toggle` flips state on every invocation; retryable scripts should use `--cloak-on` or `--cloak-off`.
 - Do **not** treat the configuration as yours alone. Feeder apps may whitelist themselves through the [public API](API-Documentation.md). Prefer add/remove of the entries you own.
 - Kaspersky can break process matching for the application list; that is independent of the CLI. See the note on the [HidHide overview](index.md).
 - Inverse cloak, Raw Input, and mice/keyboards are still out of scope — the [FAQ](FAQ.md) covers those limits.
