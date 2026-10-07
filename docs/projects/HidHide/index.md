@@ -11,6 +11,10 @@ HidHide is an "input device firewall" inspired by HidGuardian but designed and w
 
 [Get the setup here](https://github.com/nefarius/HidHide/releases/latest) and follow its instructions. Done!
 
+## Command-line interface
+
+Power users, scripts, and installer integrations can drive HidHide through `HidHideCLI.exe`. See the [CLI usage guide](CLI-Usage.md) for every command, replayable backups, and the Xbox / XInput workaround the configuration client cannot do reliably.
+
 ## ARM64 manual installation
 
 Need to deploy HidHide on Windows on ARM? Follow the [manual ARM64 installation guide](Manual-Installation-ARM64.md) for a ZIP-based driver and client setup using `nefcon`.
