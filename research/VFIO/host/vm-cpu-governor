@@ -1,0 +1,4 @@
+# Host CPUs reserved for pinned KVM guests.
+# Use the same set as <vcpu cpuset="..."> / <cputune><vcpupin>.
+VM_CPUS=8-15
+VM_GOVERNOR=performance

@@ -1,0 +1,5383 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Projects devoted to USB input device emulation and game peripherals reverse engineering">
+      
+      
+      
+        <link rel="canonical" href="https://docs.nefarius.at/projects/HidHide/CLI-Usage/">
+      
+      
+        <link rel="prev" href="../API-Documentation/">
+      
+      
+        <link rel="next" href="../FAQ/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Command Line Interface - Nefarius™ Project Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/toots.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/video.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+  
+
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#command-line-interface" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Nefarius™ Project Documentation" class="md-header__button md-logo" aria-label="Nefarius™ Project Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nefarius™ Project Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Command Line Interface
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nefarius/docs.nefarius.at" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Welcome
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Community-Support/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Community and Support
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Donations/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Donations
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Downloads/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Downloads
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../research/" class="md-tabs__link">
+          
+  
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Nefarius™ Project Documentation" class="md-nav__button md-logo" aria-label="Nefarius™ Project Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    Nefarius™ Project Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nefarius/docs.nefarius.at" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Community-Support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community and Support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Donations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Donations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Downloads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About Projects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2">
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AirBender
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AirBender
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AirBender/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About AirBender
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AirBender/Removal-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AirBender Removal Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3">
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BthPS3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BthPS3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About BthPS3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/API-Documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/About-Controller-Compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About Controller Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/Amazon-Choice-Pro-Controller/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Amazon's Choice "Pro Controller" Compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/Compatible-Bluetooth-Devices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatible Bluetooth Devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/Debugging-the-drivers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging the Drivers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/Driver-Configuration-Utility-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Driver Configuration Utility Explained
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/DualShock-4-FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DualShock 4 FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/Frequently-Asked-Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frequently Asked Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/How-to-Install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BthPS3/Installation-Guide-Shibari-Edition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation Guide (Shibari Edition)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4">
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DsHidMini
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DsHidMini
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About DsHidMini
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_5_4_2" id="__nav_5_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    V2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    V2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v2/DS4-Mode-User-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DS4 Mode User Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v2/FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v2/HID-Device-Modes-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HID Device Modes Explained
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v2/How-to-Install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Install
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v2/Output-Rate-Control-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Output Rate Control Explained
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v2/SCP-XInput-Bridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCP XInput Bridge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v2/SIXAXIS.SYS-to-DsHidMini-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIXAXIS.SYS to DsHidMini Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v2/XInput-Mode-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XInput Mode Explained
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_3">
+        
+          
+          <label class="md-nav__link" for="__nav_5_4_3" id="__nav_5_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    V3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    V3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Major Version 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/Collecting-Diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collecting Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/ControlApp-Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ControlApp Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/DS4-Mode-User-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DS4Windows Mode User Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/Debugging-the-drivers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging the Drivers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frequently Asked Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/HID-Device-Modes-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HID Device Modes Explained
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/How-to-Install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Install/Remove
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/Output-Rate-Control-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Output Rate Control Explained
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/PCSX2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PCSX2 Full Controller Support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/PS1-PS2-USB-Adapters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PS1/PS2 USB Adapters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/RPCS3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RPCS3 Full Controller Support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/SCP-XInput-Bridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCP XInput Bridge (Proxy DLL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/SIXAXIS.SYS-to-DsHidMini-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Switch from SIXAXIS.SYS to DsHidMini
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DsHidMini/v3/XInput-Mode-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XInput Mode Explained
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FireShock
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    FireShock
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FireShock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About FireShock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FireShock/Removal-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FireShock Removal Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6">
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HidGuardian
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HidGuardian
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HidGuardian/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About HidGuardian
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HidGuardian/Hall-of-fame/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Users of HidGuardian
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HidGuardian/HidGuardian-Gen1-Installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HidGuardian (Gen1) Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HidGuardian/Taming-HidGuardian-Gen1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taming HidGuardian (Gen1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HidHide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HidHide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About HidHide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API-Documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line Interface
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#location-and-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Location and prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invocation-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invocation modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Invocation modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-shot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One-shot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-piped" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script / piped
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-changes-are-applied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How changes are applied
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Application list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloak-global-enable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloak (global enable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverse-application-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inverse application list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discovering-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovering devices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hiding-xbox-xinput-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hiding Xbox / XInput controllers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inspecting-backing-up-and-restoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspecting, backing up, and restoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-to-end-recipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        End-to-end recipes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="End-to-end recipes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remap-a-generic-pad-and-hide-it-from-games" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remap a generic pad and hide it from games
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steam-controller-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Show the real pad to Steam, the emulated pad to everything else
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloak-an-xbox-pad-that-the-gui-could-not-hide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloak an Xbox pad that the GUI could not hide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temporarily-disable-hiding-without-losing-the-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temporarily disable hiding without losing the lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-stale-application-entries-after-moving-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drop stale application entries after moving tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dry-run-a-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dry-run a command line
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors-exit-codes-and-quoting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors, exit codes, and quoting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automation-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frequently Asked Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Manual-Installation-ARM64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manual installation on ARM64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Simple-Setup-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simple setup guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fixing-a-bricked-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fixing an improper removal of HidHide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8">
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identinator
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Identinator
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Identinator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About Nefarius' Identinator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9">
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ScpToolkit
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ScpToolkit
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ScpToolkit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About ScpToolkit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ScpToolkit/History/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    History of SCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ScpToolkit/ScpToolkit-Removal-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manual removal of ScpToolkit residue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10">
+        
+          
+          <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shibari
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Shibari
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Shibari/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About Shibari
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_11">
+        
+          
+          <label class="md-nav__link" for="__nav_5_11" id="__nav_5_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ViGEm
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ViGEm
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ViGEm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About ViGEm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ViGEm/End-of-Life/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    End of Life Statement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ViGEm/How-to-Install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Install/Remove
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12">
+        
+          
+          <label class="md-nav__link" for="__nav_5_12" id="__nav_5_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vicius
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Vicius
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About Vīcĭus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Command-Line-Arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Common-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Download-Integrity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Download Integrity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Emergency-Feature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Emergency Feature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Exit-Codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Possible Exit Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Inja-Templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inja Templates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Local-Configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Product-Detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Remote-Configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Server-Discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Server Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Setup-Exit-Codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Exit Code Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Signature-Verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Signature &amp; Manifest Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/Terminate-Process-before-Update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process Termination on Update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Vicius/ZIP-Archives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ZIP Archives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13">
+        
+          
+          <label class="md-nav__link" for="__nav_5_13" id="__nav_5_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VirtuaLED
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    VirtuaLED
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VirtuaLED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About VirtuaLED
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_14">
+        
+          
+          <label class="md-nav__link" for="__nav_5_14" id="__nav_5_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VirtualPad
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    VirtualPad
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VirtualPad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About Nefarius VirtualPad Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_15">
+        
+          
+          <label class="md-nav__link" for="__nav_5_15" id="__nav_5_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WireShock
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    WireShock
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../WireShock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About WireShock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research area
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/ASUS-PG278Q-Monitor-on-Linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ASUS PG278Q Monitor on Linux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/CORSAIR-GLAIVE-RGB-native-HID-Report-Descriptor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CORSAIR GLAIVE RGB native HID Report Descriptor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/How-to-check-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to check which architecture I'm running
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/PDB-in-WinDbg-Session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fix Symbol loading for Kernel Driver minidump analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/SIXAXIS-native-HID-Report-Descriptor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SIXAXIS/DualShock 3 native HID Report Descriptor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/Sign-dotnet-assemblies-on-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sign .NET assemblies during build
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/Virtual-VID-PID-used-by-NSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vendor and Product IDs used by NSS drivers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/nmake-in-PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Have MSBuild/nmake available in PowerShell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../research/vJoy-HID-Report-Descriptor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vJoy HID Report Descriptor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#location-and-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Location and prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invocation-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invocation modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Invocation modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-shot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One-shot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-piped" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script / piped
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-changes-are-applied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How changes are applied
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Application list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloak-global-enable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloak (global enable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverse-application-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inverse application list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discovering-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovering devices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hiding-xbox-xinput-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hiding Xbox / XInput controllers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inspecting-backing-up-and-restoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspecting, backing up, and restoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-to-end-recipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        End-to-end recipes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="End-to-end recipes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remap-a-generic-pad-and-hide-it-from-games" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remap a generic pad and hide it from games
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steam-controller-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Show the real pad to Steam, the emulated pad to everything else
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloak-an-xbox-pad-that-the-gui-could-not-hide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloak an Xbox pad that the GUI could not hide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temporarily-disable-hiding-without-losing-the-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temporarily disable hiding without losing the lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drop-stale-application-entries-after-moving-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drop stale application entries after moving tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dry-run-a-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dry-run a command line
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors-exit-codes-and-quoting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors, exit codes, and quoting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automation-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="command-line-interface">Command Line Interface</h1>
+<div class="admonition important">
+<p class="admonition-title">Topic intended for power users</p>
+<p>The configuration client is enough for most people. Use <code>HidHideCLI.exe</code> when you need scripting, a replayable backup of the current lists, or to hide Xbox / XInput controllers that the GUI cannot cloak reliably.</p>
+</div>
+<p>HidHide ships a command-line client next to the driver and the GUI. It talks to the same control device as the <a href="../API-Documentation/">API</a> and the configuration client: <code>\\.\HidHide</code>. Third-party installers are expected to <strong>extend</strong> a user's lists, not replace them.</p>
+<h2 id="location-and-prerequisites">Location and prerequisites</h2>
+<p>Current installers place the binary at:</p>
+<div class="highlight"><pre><span></span><code>%ProgramFiles%\Nefarius Software Solutions\HidHide\HidHideCLI.exe
+</code></pre></div>
+<p>That path is architecture-neutral. Older layouts used an <code>x64</code> subdirectory; if <code>HidHideCLI.exe</code> is missing at the path above, look one level deeper or reinstall from the <a href="https://github.com/nefarius/HidHide/releases/latest">latest release</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Close the configuration client first</p>
+<p>Only one process may open <code>\\.\HidHide</code> at a time. If the GUI is running, the CLI fails to start. Close <strong>HidHide Configuration Client</strong>, then retry. The same exclusive-handle rule applies the other way around.</p>
+</div>
+<p>The CLI does <strong>not</strong> need elevation. Do not run it from an administrator prompt unless the rest of your script already requires that.</p>
+<p>Useful first checks:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$cli</span> <span class="p">=</span> <span class="nb">Join-Path</span> <span class="nv">$env:ProgramFiles</span> <span class="s1">'Nefarius Software Solutions\HidHide\HidHideCLI.exe'</span>
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-version</span>
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-help</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>"%ProgramFiles%\Nefarius Software Solutions\HidHide\HidHideCLI.exe" --version
+"%ProgramFiles%\Nefarius Software Solutions\HidHide\HidHideCLI.exe" --help
+</code></pre></div>
+<p><code>--help</code> prints every command, its argument syntax, and a reminder that commands can be sequenced on one line.</p>
+<h2 id="invocation-modes">Invocation modes</h2>
+<p>The client picks a mode from the command line and from whether stdin is a console:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>How you get it</th>
+<th>How it ends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One-shot</td>
+<td>Pass one or more command flags (<code>--cloak-on</code>, <code>--dev-hide</code>, …)</td>
+<td>Commands run, then pending changes are written</td>
+</tr>
+<tr>
+<td>Interactive</td>
+<td>Start with no arguments and a real console</td>
+<td>Prompt <code>$</code>; <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-z">Z</kbd></span> then <span class="keys"><kbd class="key-enter">Enter</kbd></span> writes changes and exits</td>
+</tr>
+<tr>
+<td>Script / piped</td>
+<td>Redirect stdin (file, pipe, here-string)</td>
+<td>Reads lines until EOF, then writes changes</td>
+</tr>
+</tbody>
+</table>
+<p>Interactive guidance is:</p>
+<blockquote>
+<p>Type help for options. Press CTRL-Z to save changes and exit. Type Cancel to exit without saving changes.</p>
+</blockquote>
+<p>Commands are the same in every mode. The leading <code>--</code> is optional after the parser strips it, but keep it in scripts so the dump commands stay copy-pasteable.</p>
+<h3 id="one-shot">One-shot</h3>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-cloak-state</span> <span class="p">-</span><span class="n">-inv-state</span> <span class="p">-</span><span class="n">-dev-list</span> <span class="p">-</span><span class="n">-app-list</span>
+</code></pre></div>
+<p>Several commands may appear on one invocation. They run in order and share one driver handle, which is the low-overhead form the built-in help refers to.</p>
+<h3 id="interactive">Interactive</h3>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>HidHide command line interface
+Type help for options. Press CTRL-Z to save changes and exit. Type Cancel to exit without saving changes.
+
+$ --dev-gaming
+$ --dev-hide "HID\VID_054C&amp;PID_0CE6\..."
+$ --cloak-on
+$
+</code></pre></div>
+<p>Then press <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-z">Z</kbd></span> and <span class="keys"><kbd class="key-enter">Enter</kbd></span>.</p>
+<h3 id="script-piped">Script / piped</h3>
+<div class="highlight"><pre><span></span><code><span class="sh">@"</span>
+<span class="sh">--app-reg "C:\Tools\UCR\UCR.exe"</span>
+<span class="sh">--dev-hide "HID\VID_054C&amp;PID_0CE6\6&amp;1bce44cb&amp;0&amp;0000"</span>
+<span class="sh">--cloak-on</span>
+<span class="sh">"@</span> <span class="p">|</span> <span class="p">&amp;</span> <span class="nv">$cli</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>HidHideCLI.exe &lt; setup.hidhide
+</code></pre></div>
+<p>A syntax error on a piped or one-shot run prints the message to stderr and <strong>stops without applying</strong> later commands from that line. Interactive mode stays open after an error so you can correct it.</p>
+<h2 id="how-changes-are-applied">How changes are applied</h2>
+<p>The CLI loads the current cloak state, inverse-list flag, device list, and application list when it opens the driver. Most commands edit that in-memory copy. The driver is updated once, when the process exits normally.</p>
+<p>That has a few consequences:</p>
+<ul>
+<li>A sequence of <code>--dev-hide</code> / <code>--app-reg</code> / <code>--cloak-on</code> is one batch applied on clean exit. The driver still receives those updates as separate writes, not as an atomic all-or-nothing transaction.</li>
+<li><code>--cancel</code> (interactive: <code>cancel</code>) abandons the in-memory copy and skips the write. Use it after a mistake, or append it to a one-shot line if you only wanted to validate arguments.</li>
+<li><code>--app-list</code>, <code>--dev-list</code>, <code>--cloak-state</code>, and <code>--inv-state</code> report the <strong>pending</strong> copy, including edits you have not committed yet.</li>
+<li>The CLI always keeps itself on the application list while inverse cloak is off (and off the list while inverse cloak is on). That self-registration is applied immediately so the tool can still see hidden devices.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Re-enumerate after hiding</p>
+<p>Updating the lists is not enough for devices that were already plugged in. Unplug and replug, disable/enable the parent node in Device Manager, or reboot. See <a href="../FAQ/#i-hid-my-device-but-the-application-can-still-see-it">I hid my device, but the application can still see it</a>.</p>
+</div>
+<h2 id="command-reference">Command reference</h2>
+<p>Arguments that contain spaces or backslashes must be quoted. Device instance paths and executable paths almost always need quotes.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Arguments</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--help</code></td>
+<td>none</td>
+<td>List commands</td>
+</tr>
+<tr>
+<td><code>--version</code></td>
+<td>none</td>
+<td>Print the client version</td>
+</tr>
+<tr>
+<td><code>--cancel</code></td>
+<td>none</td>
+<td>Exit without writing configuration</td>
+</tr>
+<tr>
+<td><code>--app-list</code></td>
+<td>none</td>
+<td>Print registered applications as <code>--app-reg</code> lines</td>
+</tr>
+<tr>
+<td><code>--app-reg</code></td>
+<td><code>"&lt;fully qualified path&gt;"</code></td>
+<td>Allow that executable to see hidden devices</td>
+</tr>
+<tr>
+<td><code>--app-unreg</code></td>
+<td><code>"&lt;fully qualified path&gt;"</code></td>
+<td>Remove that executable from the list</td>
+</tr>
+<tr>
+<td><code>--app-clean</code></td>
+<td>none</td>
+<td>Drop list entries whose files no longer exist</td>
+</tr>
+<tr>
+<td><code>--dev-list</code></td>
+<td>none</td>
+<td>Print hidden devices as <code>--dev-hide</code> lines</td>
+</tr>
+<tr>
+<td><code>--dev-hide</code></td>
+<td><code>"&lt;device instance path&gt;"</code></td>
+<td>Add a device instance to the hide list</td>
+</tr>
+<tr>
+<td><code>--dev-unhide</code></td>
+<td><code>"&lt;device instance path&gt;"</code></td>
+<td>Remove a device instance from the hide list</td>
+</tr>
+<tr>
+<td><code>--dev-gaming</code></td>
+<td>none</td>
+<td>JSON inventory of present gaming HID devices</td>
+</tr>
+<tr>
+<td><code>--dev-all</code></td>
+<td>none</td>
+<td>JSON inventory of all HID devices the client can see</td>
+</tr>
+<tr>
+<td><code>--cloak-on</code></td>
+<td>none</td>
+<td>Enable hiding</td>
+</tr>
+<tr>
+<td><code>--cloak-off</code></td>
+<td>none</td>
+<td>Disable hiding (pass-through)</td>
+</tr>
+<tr>
+<td><code>--cloak-toggle</code></td>
+<td>none</td>
+<td>Flip the current cloak state</td>
+</tr>
+<tr>
+<td><code>--cloak-state</code></td>
+<td>none</td>
+<td>Print <code>--cloak-on</code> or <code>--cloak-off</code></td>
+</tr>
+<tr>
+<td><code>--inv-on</code></td>
+<td>none</td>
+<td>Invert the application list</td>
+</tr>
+<tr>
+<td><code>--inv-off</code></td>
+<td>none</td>
+<td>Restore the normal application list</td>
+</tr>
+<tr>
+<td><code>--inv-state</code></td>
+<td>none</td>
+<td>Print <code>--inv-on</code> or <code>--inv-off</code></td>
+</tr>
+</tbody>
+</table>
+<p>Reads (<code>--*-list</code>, <code>--*-state</code>, <code>--dev-gaming</code>, <code>--dev-all</code>, <code>--help</code>, <code>--version</code>) do not need a write-out to be useful. Writes stay pending until a clean exit.</p>
+<h3 id="application-list">Application list</h3>
+<p><code>--app-reg</code> and <code>--app-unreg</code> take a <strong>fully qualified</strong> executable path (drive letter or volume mount, no relative names). The file name must end in <code>.exe</code>, <code>.com</code>, or <code>.bin</code>. The CLI then converts that path to the DOS device form the driver stores (<code>\Device\HarddiskVolume3\...</code>).</p>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-app-reg</span> <span class="s2">"C:\Tools\Joystick Gremlin\joystick_gremlin.exe"</span>
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-app-unreg</span> <span class="s2">"C:\Tools\Joystick Gremlin\joystick_gremlin.exe"</span>
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-app-list</span>
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-app-clean</span>
+</code></pre></div>
+<p>Validation failures you will see:</p>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Typical cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>The file name should include a full path.</code></td>
+<td>Relative path such as <code>UCR.exe</code></td>
+</tr>
+<tr>
+<td><code>The file name should be an executable (.exe, .com, .bin).</code></td>
+<td>Wrong extension</td>
+</tr>
+<tr>
+<td><code>The file name should be located on a storage volume (volume is case sensitive).</code></td>
+<td>Volume prefix does not match a mount point; try the exact drive-letter casing Windows reports</td>
+</tr>
+</tbody>
+</table>
+<p>The file does not have to exist at register time. <code>--app-clean</code> later removes entries whose image is gone from disk. If you move an <code>.exe</code>, register the new location — the driver matches the on-disk image path, not the process name.</p>
+<h3 id="device-list">Device list</h3>
+<p><code>--dev-hide</code> / <code>--dev-unhide</code> take a Windows <a href="https://learn.microsoft.com/en-us/windows-hardware/drivers/install/device-instance-ids">device instance path</a>. The CLI does <strong>not</strong> check that the device is currently present, so you can pre-seed Bluetooth or currently unplugged instances. The path must stay under the system device-ID length limit.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-dev-hide</span> <span class="s2">"HID\VID_054C&amp;PID_0CE6\6&amp;1bce44cb&amp;0&amp;0000"</span>
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-dev-unhide</span> <span class="s2">"HID\VID_054C&amp;PID_0CE6\6&amp;1bce44cb&amp;0&amp;0000"</span>
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-dev-list</span>
+</code></pre></div>
+<p>Adding an entry that is already listed, or removing one that is not, is a no-op.</p>
+<p>HidHide cloaks <strong>instance paths</strong>, not VID/PID wildcards. Two identical pads need two <code>--dev-hide</code> lines. A pad that appears on USB and Bluetooth needs both instance paths.</p>
+<h3 id="cloak-global-enable">Cloak (global enable)</h3>
+<p><code>--cloak-on</code> is the CLI equivalent of <strong>Enable device hiding</strong>. <code>--cloak-off</code> is pass-through: every application sees every device again, but the lists are kept.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-cloak-on</span>
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-cloak-state</span>
+</code></pre></div>
+<h3 id="inverse-application-list">Inverse application list</h3>
+<p>Leave inverse cloak <strong>off</strong> unless you know you need it.</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--inv-off</code> (default)</td>
+<td>Hidden devices are invisible to every process <strong>except</strong> those on the application list</td>
+</tr>
+<tr>
+<td><code>--inv-on</code></td>
+<td>Hidden devices are invisible <strong>only</strong> to processes on the application list and stay visible to everything else</td>
+</tr>
+</tbody>
+</table>
+<p>The second mode looks like "HidHide does nothing" if you expected games to lose the pad. Confirm with <code>--inv-state</code> before debugging anything else.</p>
+<p>HidHide cannot hide device A from one application and device B from another at the same time. The hide list is global and the application-list polarity is global. Different visibility per app means switching profiles, not a single static config.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-inv-off</span>
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-inv-state</span>
+</code></pre></div>
+<h2 id="discovering-devices">Discovering devices</h2>
+<p><code>--dev-gaming</code> lists HID devices the client considers game controllers. <code>--dev-all</code> drops that filter — use it when a vendor used a custom usage page and the pad is missing from the gaming list.</p>
+<p>Output is JSON: an array of containers, each with a <code>friendlyName</code> and a <code>devices</code> array. Typical fields on a device:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>present</code></td>
+<td>Whether Windows currently has the instance</td>
+</tr>
+<tr>
+<td><code>gamingDevice</code></td>
+<td>Gaming-usage heuristic</td>
+</tr>
+<tr>
+<td><code>vendor</code> / <code>product</code> / <code>serialNumber</code> / <code>description</code> / <code>usage</code></td>
+<td>Identification</td>
+</tr>
+<tr>
+<td><code>deviceInstancePath</code></td>
+<td>Path to pass to <code>--dev-hide</code> for the HID node</td>
+</tr>
+<tr>
+<td><code>baseContainerDeviceInstancePath</code></td>
+<td>Parent container, usually <code>USB\...</code> — required for XInput</td>
+</tr>
+<tr>
+<td><code>xusbDeviceInstancePath</code></td>
+<td>Companion XUSB/XInput node when one exists</td>
+</tr>
+<tr>
+<td><code>baseContainerDeviceCount</code></td>
+<td>How many functions share that container</td>
+</tr>
+<tr>
+<td><code>symbolicLink</code></td>
+<td>Device interface symlink</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-dev-gaming</span> <span class="p">|</span> <span class="nb">Set-Content</span> <span class="n">-Encoding</span> <span class="n">utf8</span> <span class="n">gaming-hid</span><span class="p">.</span><span class="n">json</span>
+</code></pre></div>
+<p>Pick the instance that matches the connection you are about to cloak. Composite devices expose several HID children under one container; hide each child you want gone, and for Xbox / XInput also hide the container itself (see below).</p>
+<p>If <code>--dev-gaming</code> is an empty array while the pad is plugged in, retry with <code>--dev-all</code>, then confirm the configuration client is closed so the CLI can open the driver.</p>
+<h2 id="hiding-xbox-xinput-controllers">Hiding Xbox / XInput controllers</h2>
+<p>The configuration client often marks only the <code>HID\...</code> child. That is enough for DirectInput. XInput (Xbox 360, Xbox One, many "XInput compatible" pads, and some virtual Xbox devices) can open the <strong>USB base-container</strong> device instead and walk around the HID cloak.</p>
+<p>This is the <a href="https://github.com/nefarius/HidHide/issues/39">known client limitation</a>. The workaround is to hide <strong>both</strong> instance paths through the CLI.</p>
+<ol>
+<li>Close HidHide Configuration Client.</li>
+<li>Plug the controller in the way you will use it (USB or wireless dongle). Repeat the procedure later for the other transport if it has one.</li>
+<li>
+<p>Inventory the device:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-dev-gaming</span>
+</code></pre></div>
+</li>
+<li>
+<p>From the matching object, copy <code>deviceInstancePath</code> (starts with <code>HID\</code>) and <code>baseContainerDeviceInstancePath</code> (starts with <code>USB\</code>). If <code>xusbDeviceInstancePath</code> is non-empty, hide that too.</p>
+</li>
+<li>
+<p>Apply both (or all three) hides and turn cloaking on:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-hide</span> <span class="s2">"HID\VID_045E&amp;PID_028E\6&amp;abcdef01&amp;0&amp;0000"</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-hide</span> <span class="s2">"USB\VID_045E&amp;PID_028E\5&amp;12345678&amp;0&amp;1"</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-cloak-on</span>
+</code></pre></div>
+</li>
+<li>
+<p>Confirm the pending list:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-dev-list</span> <span class="p">-</span><span class="n">-cloak-state</span>
+</code></pre></div>
+<p>You should see a <code>--dev-hide</code> line for every instance you added and <code>--cloak-on</code>.
+7. Reconnect the controller or rebuild the parent stack so the filter attaches. Then test with <code>joy.cpl</code> and with a game that uses XInput.</p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Do not hide only the USB node on a generic HID device</p>
+<p>USB-instance hiding is the XInput workaround. A regular DirectInput joystick, wheel, or HOTAS is cloaked by its <code>HID\...</code> path. Hiding a random <code>USB\VID_...</code> parent can take out every function of that composite device.</p>
+</div>
+<p>Device Manager can supply the same two paths if JSON output is awkward: switch <strong>View</strong> to <strong>Devices by container</strong>, select the Xbox pad, then <strong>View → Devices by connection</strong> and expand it. The HID child and the USB parent are the two instance paths <code>--dev-hide</code> needs. After an interactive session, <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-z">Z</kbd></span> then <span class="keys"><kbd class="key-enter">Enter</kbd></span> commits; then reconnect.</p>
+<h2 id="inspecting-backing-up-and-restoring">Inspecting, backing up, and restoring</h2>
+<p>List commands print <strong>replayable</strong> CLI text, not a private dump format:</p>
+<div class="highlight"><pre><span></span><code>--app-reg "C:\Tools\UCR\UCR.exe"
+--dev-hide "HID\VID_054C&amp;PID_0CE6\6&amp;1bce44cb&amp;0&amp;0000"
+--cloak-on
+--inv-off
+</code></pre></div>
+<p>Capture a snapshot:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-inv-state</span> <span class="p">-</span><span class="n">-cloak-state</span> <span class="p">-</span><span class="n">-dev-list</span> <span class="p">-</span><span class="n">-app-list</span> <span class="p">|</span>
+  <span class="nb">Set-Content</span> <span class="n">-Encoding</span> <span class="n">utf8</span> <span class="n">hidhide-backup</span><span class="p">.</span><span class="n">txt</span>
+</code></pre></div>
+<p>Restore by feeding that file back in (after reviewing it — do not blindly wipe another tool's entries):</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-Content</span> <span class="n">hidhide-backup</span><span class="p">.</span><span class="n">txt</span> <span class="p">|</span> <span class="p">&amp;</span> <span class="nv">$cli</span>
+</code></pre></div>
+<p><code>--dev-hide</code> and <code>--app-reg</code> merge into the existing sets. They do not clear unrelated entries. If you need a device or application gone, <code>--dev-unhide</code> / <code>--app-unreg</code> that path explicitly.</p>
+<h2 id="end-to-end-recipes">End-to-end recipes</h2>
+<h3 id="remap-a-generic-pad-and-hide-it-from-games">Remap a generic pad and hide it from games</h3>
+<div class="highlight"><pre><span></span><code><span class="nv">$cli</span> <span class="p">=</span> <span class="nb">Join-Path</span> <span class="nv">$env:ProgramFiles</span> <span class="s1">'Nefarius Software Solutions\HidHide\HidHideCLI.exe'</span>
+<span class="nv">$remap</span> <span class="p">=</span> <span class="s1">'C:\Tools\UCR\UCR.exe'</span>
+
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-dev-gaming</span>   <span class="c"># copy the HID instance path of the real pad</span>
+
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-inv-off</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-app-reg</span> <span class="nv">$remap</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-hide</span> <span class="s2">"HID\VID_0810&amp;PID_0001\6&amp;aabbccdd&amp;0&amp;0000"</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-cloak-on</span>
+</code></pre></div>
+<p>Reconnect the pad. The remapper should still see it; <code>joy.cpl</code> and games should not.</p>
+<h3 id="steam-controller-stats">Show the real pad to Steam, the emulated pad to everything else</h3>
+<p>A common ask: games should see only the remapper's emulated USB controller, while Steam's controller settings / stats should see the real Bluetooth pad and not the virtual one.</p>
+<p>That is two opposite hide lists. Inverse cloak does not help — it still applies the same polarity to every hidden device. Keep inverse <strong>off</strong> and switch profiles with the CLI.</p>
+<p>Use <code>--dev-gaming</code> to copy:</p>
+<ul>
+<li>every Bluetooth instance of the physical pad (<code>HID\...</code>, plus a second path if it also appears as a Bluetooth enumerator). Both profile commands must hide or unhide <strong>all</strong> of those paths together</li>
+<li>the emulated controller's <code>HID\...</code> path, plus its <code>USB\...</code> / <code>xusbDeviceInstancePath</code> if it is an XInput device (see <a href="#hiding-xbox-xinput-controllers">Hiding Xbox / XInput controllers</a>)</li>
+</ul>
+<p>Leave the remapper on the application list in both profiles so it can keep reading the real pad.</p>
+<p><strong>Games (default):</strong> hide the Bluetooth pad, unhide the emulated pad.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$cli</span> <span class="p">=</span> <span class="nb">Join-Path</span> <span class="nv">$env:ProgramFiles</span> <span class="s1">'Nefarius Software Solutions\HidHide\HidHideCLI.exe'</span>
+<span class="nv">$remap</span> <span class="p">=</span> <span class="s1">'C:\Tools\UCR\UCR.exe'</span>
+<span class="nv">$bt</span>     <span class="p">=</span> <span class="s1">'HID\VID_054C&amp;PID_0CE6\7&amp;btinstance&amp;0&amp;0000'</span>
+<span class="nv">$btEnum</span> <span class="p">=</span> <span class="s1">'BTHENUM\{00001124-0000-1000-8000-00805f9b34fb}_VID&amp;0002054C_PID&amp;0CE6\7&amp;btparent&amp;0&amp;0'</span>  <span class="c"># second BT path; omit if --dev-gaming shows only one</span>
+<span class="nv">$virt</span>   <span class="p">=</span> <span class="s1">'HID\VID_045E&amp;PID_028E\6&amp;virtpad&amp;0&amp;0000'</span>
+<span class="nv">$virtUsb</span> <span class="p">=</span> <span class="s1">'USB\VID_045E&amp;PID_028E\5&amp;virtpad&amp;0&amp;1'</span>   <span class="c"># XInput virtual pad only; omit if not present</span>
+
+<span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-inv-off</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-app-reg</span> <span class="nv">$remap</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-hide</span> <span class="nv">$bt</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-hide</span> <span class="nv">$btEnum</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-unhide</span> <span class="nv">$virt</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-unhide</span> <span class="nv">$virtUsb</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-cloak-on</span>
+</code></pre></div>
+<p>Do <strong>not</strong> add <code>steam.exe</code> to the application list here. A whitelist entry would let Steam see the hidden Bluetooth pad <em>and</em> the emulated pad at once.</p>
+<p><strong>Steam stats:</strong> hide the emulated pad, unhide the Bluetooth pad. Steam does not need a whitelist entry while the real pad is unhidden.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-inv-off</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-unhide</span> <span class="nv">$bt</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-unhide</span> <span class="nv">$btEnum</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-hide</span> <span class="nv">$virt</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-dev-hide</span> <span class="nv">$virtUsb</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-cloak-on</span>
+</code></pre></div>
+<p>After each switch, reconnect or rebuild the stacks you changed, then confirm with <code>--dev-list</code>. Switch back to the games profile before playing; a Steam game launched while the stats profile is active will see the Bluetooth pad again.</p>
+<p>Only one profile is live at a time. HidHide cannot give Steam the Bluetooth pad and a game the emulated pad in the same session.</p>
+<h3 id="cloak-an-xbox-pad-that-the-gui-could-not-hide">Cloak an Xbox pad that the GUI could not hide</h3>
+<p>Follow <a href="#hiding-xbox-xinput-controllers">Hiding Xbox / XInput controllers</a>. The important part is both <code>HID\...</code> and <code>USB\...</code> on the hide list, then a stack rebuild.</p>
+<h3 id="temporarily-disable-hiding-without-losing-the-lists">Temporarily disable hiding without losing the lists</h3>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-cloak-off</span>
+</code></pre></div>
+<p>Turn it back on with <code>--cloak-on</code>. Lists stay as they were.</p>
+<h3 id="drop-stale-application-entries-after-moving-tools">Drop stale application entries after moving tools</h3>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-app-clean</span> <span class="p">-</span><span class="n">-app-list</span>
+</code></pre></div>
+<h3 id="dry-run-a-command-line">Dry-run a command line</h3>
+<div class="highlight"><pre><span></span><code><span class="p">&amp;</span> <span class="nv">$cli</span> <span class="p">-</span><span class="n">-dev-hide</span> <span class="s2">"HID\VID_054C&amp;PID_0CE6\6&amp;1bce44cb&amp;0&amp;0000"</span> <span class="p">-</span><span class="n">-cancel</span>
+</code></pre></div>
+<p>The path is validated. <code>--cancel</code> discards the staged hide and skips the exit-time write; it does not undo the CLI's immediate self-whitelist adjustment.</p>
+<h2 id="errors-exit-codes-and-quoting">Errors, exit codes, and quoting</h2>
+<p>On success the process exits <code>0</code>. Failures (driver not found, access denied because the GUI holds the handle, unhandled exceptions) print to stderr and return a Win32 status.</p>
+<p>Parser messages:</p>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>The syntax of this command is not correct.</code></td>
+<td>Unbalanced quotes or leftover text the parser could not split</td>
+</tr>
+<tr>
+<td><code>The command is not recognized.</code></td>
+<td>Unknown verb</td>
+</tr>
+<tr>
+<td><code>The number of command arguments is not correct.</code></td>
+<td>Extra or missing argument</td>
+</tr>
+<tr>
+<td><code>The device instance path has too many characters.</code></td>
+<td>Path exceeds <code>MAX_DEVICE_ID_LEN</code></td>
+</tr>
+</tbody>
+</table>
+<p>PowerShell passes <code>--dev-hide</code> and similar flags to a native executable as ordinary arguments. Always quote instance paths so characters such as <code>&amp;</code> in a hardware ID stay inside the string. <code>--%</code> is only needed if you leave the remainder of the line unquoted and PowerShell would otherwise split it (for example <code>&amp; $cli --% --dev-hide HID\VID_054C&amp;PID_0CE6\6&amp;1bce44cb&amp;0&amp;0000</code>). Prefer quoting; or call through <code>cmd.exe /c</code>.</p>
+<h2 id="automation-notes">Automation notes</h2>
+<ul>
+<li>Add commands are idempotent: registering the same app or hiding the same instance twice is safe. <code>--cloak-toggle</code> flips state on every invocation; retryable scripts should use <code>--cloak-on</code> or <code>--cloak-off</code>.</li>
+<li>Do <strong>not</strong> treat the configuration as yours alone. Feeder apps may whitelist themselves through the <a href="../API-Documentation/">public API</a>. Prefer add/remove of the entries you own.</li>
+<li>Kaspersky can break process matching for the application list; that is independent of the CLI. See the note on the <a href="../">HidHide overview</a>.</li>
+<li>Inverse cloak, Raw Input, and mice/keyboards are still out of scope — the <a href="../FAQ/">FAQ</a> covers those limits.</li>
+<li>After a scripted change, rebuild the device stack before declaring success.</li>
+</ul>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="../Simple-Setup-Guide/">Simple setup guide</a> — GUI walkthrough</li>
+<li><a href="../FAQ/">FAQ</a> — stack rebuild, inverse cloak, Xbox client limitation</li>
+<li><a href="../API-Documentation/">API documentation</a> — IOCTL contract used by this CLI</li>
+<li><a href="https://github.com/nefarius/HidHide/tree/master/HidHideCLI">HidHideCLI source</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2020 - 2026 <a href="https://github.com/nefarius" target="_blank" rel="noopener">Benjamin Höglinger-Stelzer</a> - <a href="#__consent">Change cookie settings</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/nefarius" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.nefarius.at" target="_blank" rel="noopener" title="discord.nefarius.at" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"></path></svg>
+    </a>
+  
+    
+    
+      
+    
+    
+    
+      
+      
+    
+    <a href="https://fosstodon.org/@Nefarius" target="_blank" rel="noopener me" title="fosstodon.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M433 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.6-28.4-290.5 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54-.6-4.6-.9-9.3-.9-13.9 85.6 20.9 158.7 9.1 178.7 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zm-75.1 125.2h-46.6V190.1c0-49.7-64-51.6-64 6.9v62.5H201V197c0-58.5-64-56.6-64-6.9v114.2H90.3c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden="">
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.</p>
+<input class="md-toggle" type="checkbox" id="__settings">
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+    
+      
+    
+    
+      
+        
+  
+  
+    
+    
+  
+  <li class="task-list-item">
+    <label class="task-list-control">
+      <input type="checkbox" name="github" checked="">
+      <span class="task-list-indicator"></span>
+      GitHub
+    </label>
+  </li>
+
+      
+    
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+  <!-- Add scripts that need to run before here -->
+  
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/main.js"></script>
+      
+    
+  <!-- Add scripts that need to run afterwards here -->
+  <script type="module" src="https://esm.sh/emfed"></script>
+
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
