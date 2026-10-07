@@ -190,6 +190,8 @@ Leave inverse cloak **off** unless you know you need it.
 
 The second mode looks like "HidHide does nothing" if you expected games to lose the pad. Confirm with `--inv-state` before debugging anything else.
 
+HidHide cannot hide device A from one application and device B from another at the same time. The hide list is global and the application-list polarity is global. Different visibility per app means switching profiles, not a single static config.
+
 ```powershell
 & $cli --inv-off
 & $cli --inv-state
@@ -303,6 +305,54 @@ $remap = 'C:\Tools\UCR\UCR.exe'
 
 Reconnect the pad. The remapper should still see it; `joy.cpl` and games should not.
 
+### Show the real pad to Steam, the emulated pad to everything else {#steam-controller-stats}
+
+A common ask: games should see only the remapper's emulated USB controller, while Steam's controller settings / stats should see the real Bluetooth pad and not the virtual one.
+
+That is two opposite hide lists. Inverse cloak does not help — it still applies the same polarity to every hidden device. Keep inverse **off** and switch profiles with the CLI.
+
+Use `--dev-gaming` to copy:
+
+- the Bluetooth instance of the physical pad (`HID\...`, and a second path if it also appears as a Bluetooth enumerator)
+- the emulated controller's `HID\...` path, plus its `USB\...` / `xusbDeviceInstancePath` if it is an XInput device (see [Hiding Xbox / XInput controllers](#hiding-xbox-xinput-controllers))
+
+Leave the remapper on the application list in both profiles so it can keep reading the real pad.
+
+**Games (default):** hide the Bluetooth pad, unhide the emulated pad.
+
+```powershell
+$cli = Join-Path $env:ProgramFiles 'Nefarius Software Solutions\HidHide\HidHideCLI.exe'
+$remap = 'C:\Tools\UCR\UCR.exe'
+$bt   = 'HID\VID_054C&PID_0CE6\7&btinstance&0&0000'
+$virt = 'HID\VID_045E&PID_028E\6&virtpad&0&0000'
+$virtUsb = 'USB\VID_045E&PID_028E\5&virtpad&0&1'   # XInput virtual pad only; omit if not present
+
+& $cli `
+  --inv-off `
+  --app-reg $remap `
+  --dev-hide $bt `
+  --dev-unhide $virt `
+  --dev-unhide $virtUsb `
+  --cloak-on
+```
+
+Do **not** add `steam.exe` to the application list here. A whitelist entry would let Steam see the hidden Bluetooth pad *and* the emulated pad at once.
+
+**Steam stats:** hide the emulated pad, unhide the Bluetooth pad. Steam does not need a whitelist entry while the real pad is unhidden.
+
+```powershell
+& $cli `
+  --inv-off `
+  --dev-unhide $bt `
+  --dev-hide $virt `
+  --dev-hide $virtUsb `
+  --cloak-on
+```
+
+After each switch, reconnect or rebuild the stacks you changed, then confirm with `--dev-list`. Switch back to the games profile before playing; a Steam game launched while the stats profile is active will see the Bluetooth pad again.
+
+Only one profile is live at a time. HidHide cannot give Steam the Bluetooth pad and a game the emulated pad in the same session.
+
 ### Cloak an Xbox pad that the GUI could not hide
 
 Follow [Hiding Xbox / XInput controllers](#hiding-xbox-xinput-controllers). The important part is both `HID\...` and `USB\...` on the hide list, then a stack rebuild.
@@ -342,13 +392,7 @@ Parser messages:
 | `The number of command arguments is not correct.` | Extra or missing argument |
 | `The device instance path has too many characters.` | Path exceeds `MAX_DEVICE_ID_LEN` |
 
-PowerShell passes `--dev-hide` and similar flags to a native executable as ordinary arguments. Use `--%` only when you need to stop PowerShell from parsing the rest of the line (for example, so `&` inside a hardware ID is not treated as a call operator):
-
-```powershell
-& $cli --% --dev-hide "HID\VID_054C&PID_0CE6\6&1bce44cb&0&0000" --cloak-on
-```
-
-Or call through `cmd.exe /c`. Always quote instance paths.
+PowerShell passes `--dev-hide` and similar flags to a native executable as ordinary arguments. Always quote instance paths so characters such as `&` in a hardware ID stay inside the string. `--%` is only needed if you leave the remainder of the line unquoted and PowerShell would otherwise split it (for example `& $cli --% --dev-hide HID\VID_054C&PID_0CE6\6&1bce44cb&0&0000`). Prefer quoting; or call through `cmd.exe /c`.
 
 ## Automation notes
 
