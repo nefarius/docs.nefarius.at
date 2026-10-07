@@ -313,7 +313,7 @@ That is two opposite hide lists. Inverse cloak does not help — it still applie
 
 Use `--dev-gaming` to copy:
 
-- the Bluetooth instance of the physical pad (`HID\...`, and a second path if it also appears as a Bluetooth enumerator)
+- every Bluetooth instance of the physical pad (`HID\...`, plus a second path if it also appears as a Bluetooth enumerator). Both profile commands must hide or unhide **all** of those paths together
 - the emulated controller's `HID\...` path, plus its `USB\...` / `xusbDeviceInstancePath` if it is an XInput device (see [Hiding Xbox / XInput controllers](#hiding-xbox-xinput-controllers))
 
 Leave the remapper on the application list in both profiles so it can keep reading the real pad.
@@ -323,14 +323,16 @@ Leave the remapper on the application list in both profiles so it can keep readi
 ```powershell
 $cli = Join-Path $env:ProgramFiles 'Nefarius Software Solutions\HidHide\HidHideCLI.exe'
 $remap = 'C:\Tools\UCR\UCR.exe'
-$bt   = 'HID\VID_054C&PID_0CE6\7&btinstance&0&0000'
-$virt = 'HID\VID_045E&PID_028E\6&virtpad&0&0000'
+$bt     = 'HID\VID_054C&PID_0CE6\7&btinstance&0&0000'
+$btEnum = 'BTHENUM\{00001124-0000-1000-8000-00805f9b34fb}_VID&0002054C_PID&0CE6\7&btparent&0&0'  # second BT path; omit if --dev-gaming shows only one
+$virt   = 'HID\VID_045E&PID_028E\6&virtpad&0&0000'
 $virtUsb = 'USB\VID_045E&PID_028E\5&virtpad&0&1'   # XInput virtual pad only; omit if not present
 
 & $cli `
   --inv-off `
   --app-reg $remap `
   --dev-hide $bt `
+  --dev-hide $btEnum `
   --dev-unhide $virt `
   --dev-unhide $virtUsb `
   --cloak-on
@@ -344,6 +346,7 @@ Do **not** add `steam.exe` to the application list here. A whitelist entry would
 & $cli `
   --inv-off `
   --dev-unhide $bt `
+  --dev-unhide $btEnum `
   --dev-hide $virt `
   --dev-hide $virtUsb `
   --cloak-on
