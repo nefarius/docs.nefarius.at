@@ -34,13 +34,13 @@ Check these in order; more than one can be true at the same time.
 
 **Inverse application cloak.** On the Applications tab, inverse cloak hides the marked devices *only* from the programs on that list and leaves them visible to everything else. If games still see the pad, turn inverse cloak **off**. The normal mode is the opposite: hidden from every process except the ones you whitelist.
 
-**Xbox / XInput devices.** Cloaking Xbox 360, Xbox One, and similar XInput controllers through the configuration client is a [known limitation](https://github.com/nefarius/HidHide/issues/39) and is not reliable. If an Xbox pad stays visible after a stack rebuild, that is this issue, not a missed checkbox.
+**Xbox / XInput devices.** Cloaking Xbox 360, Xbox One, and similar XInput controllers through the configuration client is a [known limitation](https://github.com/nefarius/HidHide/issues/39) and is not reliable. DirectInput opens the `HID\...` node; XInput can open the `USB\...` base container instead. Hide **both** instance paths with the [CLI](CLI-Usage.md#hiding-xbox-xinput-controllers). If an Xbox pad stays visible after a stack rebuild and only the HID child is listed, that is this issue, not a missed checkbox.
 
 **Raw Input.** Some applications never use the HID/XInput path HidHide can intercept. Those apps will keep seeing the device; see [Can it hide mice, keyboards, touch- or trackpads?](#hide-mice-keyboards).
 
 **Stale device stack after install.** HidHide's filter driver only attaches to device stacks that are created **after** the driver was registered. If you configured cloaking immediately after installing HidHide, devices that were already enumerated are still running on a stack with no filter attached, so they remain visible even though the configuration looks correct.
 
-Confirm with `HidHideCLI.exe --cloak-state` and `--dev-list`; if the device is listed as hidden but an unauthorized application still sees it, the stack needs rebuilding.
+Confirm with `HidHideCLI.exe --cloak-state` and `--dev-list` ([CLI usage](CLI-Usage.md)); if the device is listed as hidden but an unauthorized application still sees it, the stack needs rebuilding.
 
 The fix is to force the device stack to be rebuilt. In order of convenience:
 
