@@ -1,17 +1,58 @@
 # Steam, SXS, and rumble
 
 !!! note "Which build this describes"
-    Motor rumble over SIXAXIS commands was confirmed on the signed **3.25.0** driver, with current stock Steam, once the steps below were in place. Player-LED decoding, and the ControlApp checkbox that writes the environment variable, ship in the driver and ControlApp build that include the sixaxis command fix. Until that build is installed, set the variable yourself. On **3.25.0**, player LEDs turn off when Steam opens the pad.
+    Motor rumble over SIXAXIS commands was confirmed on the signed **3.25.0** driver, with current stock Steam's `SDL3.dll`, once the steps below were in place. Player-LED decoding and the ControlApp checkbox that writes the environment variable ship in **3.25.1**. On **3.25.0**, player LEDs turn off when Steam opens the pad.
 
-SXS mode speaks the same output commands as Sony's `sixaxis.sys`. Steam can use that path, and the motors will move, without replacing Steam's `SDL3.dll`. Two separate switches decide whether anything is sent, and whether the pad acts on it.
+!!! warning "Steam Input itself does not rumble a DualShock 3"
+    Everything below makes the SXS path *able* to rumble, and any program that calls SDL3 rumble will move the motors. Steam Input is not such a program for this pad. Steam files every `054C:0268` device under its own PS3 controller type and never forwards game rumble to that type, whatever SDL reports and whatever HID mode the driver is in. Details are in [What Steam Input does with a PS3 type](#what-steam-input-does-with-a-ps3-type). For rumble inside a Steam game, disable Steam Input for that game and let the game drive the pad directly.
+
+SXS mode speaks the same output commands as Sony's `sixaxis.sys`. SDL3 can use that path, and the motors will move, without replacing Steam's `SDL3.dll`. Two separate switches decide whether anything is sent, and whether the pad acts on it.
 
 ## What to do
+
+For rumble in a Steam game:
+
+1. In the game's Steam properties, under **Controller**, set the override to **Disable Steam Input**.
+2. Pick the mode the game speaks natively: **XInput** for games with Xbox controller support, **SDF**, **GPJ** or **CGP** for DirectInput games that use force feedback. Steam's own XInput emulation is out of the loop, so the game's rumble reaches the driver unchanged.
+
+For SXS with applications that use SDL3 directly, and to have Steam read the pad over the SIXAXIS driver instead of DirectInput:
 
 1. In ControlApp, set the controller to **SXS**. In Steam, leave **PlayStation Configuration Support** enabled.
 2. In ControlApp **Settings**, enable **Let Steam talk to SXS controllers natively**. The same switch is the user environment variable `SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER=1`. Fully quit Steam, including the tray icon, and start it again. Steam reads the variable when its process starts.
 3. On the device, set **USB output transport** to **Auto** (or **InterruptOut** if you want to force that pipe). Unplug the controller and plug it back in. The running device keeps the transport it opened with.
 
-After that, a program that calls SDL rumble moves the motors. Steam's controller tester still has no Rumble control. That control appears when SDL tells Steam the device can rumble. Stock Steam does not, and the environment variable cannot change that bit inside Steam's DLL.
+After that, a program that calls SDL rumble moves the motors. Steam's controller tester still has no Rumble control. That control appears when SDL tells Steam the device can rumble. Stock Steam does not, and the environment variable cannot change that bit inside Steam's DLL. Even with the bit set, Steam does not rumble the pad; see below.
+
+## What Steam Input does with a PS3 type
+
+Steam classifies controllers from its own vendor and product id table, not from the transport SDL picked. A DsHidMini pad reports `054C:0268` in SXS, SDF, GPJ and CGP, so in all of them `controller.txt` says `Product: PS3 Controller`, `controller_ui.txt` says `Type: 33`, and the config set file is `configset_controller_ps3.vdf`. Only XInput mode, with its Xbox vendor and product id, lands in a different type.
+
+With an SDL3 build that advertises rumble, Steam reads `SDL.joystick.cap.rumble -> 1`, records a rumble capability flag for the pad, and shows the Rumble control in the tester. It then sends nothing. Over three Steam sessions and a game with Steam Input forced on, Steam called `SDL_RumbleGamepad` zero times for the DualShock 3:
+
+- in SXS over the SIXAXIS HIDAPI driver,
+- in SDF over DirectInput, where the PID descriptor gives SDL a working force-feedback path,
+- in both of those again with Steam started as `steam.exe -steamdeck`.
+
+In the same client, same `SDL3.dll` and same game, a DualSense plugged in next to it received 111 `SDL_RumbleGamepad` calls, each one ending in a HID write, and the game rumbled it. Steam's SDL rumble path is intact. The gate sits in steamclient's handling of its PS3 type.
+
+Steam's own settings were not the cause. The per-controller file `preferences_54c-268-….vdf` has `"rumble" "1"`, both config set files are empty, and there is no rumble key for the pad in `localconfig.vdf` or the registry. The same symptom, native rumble working and Steam Input never rumbling a DualShock 3, has been reported against Steam on Linux as [steam-for-linux#7594](https://github.com/ValveSoftware/steam-for-linux/issues/7594). A DsHidMini or SDL change cannot lift it.
+
+Two side effects of that classification are worth knowing:
+
+- Steam applies the SDL mapping database entry for `054C:0268` to every mode. That entry describes the `sixaxis.sys` button order, which is the SXS layout. Under Steam Input, SDF, GPJ and CGP get the wrong buttons. Without Steam Input the game reads the HID device itself and is unaffected.
+- The tester's Rumble control is not a test of anything. In the same sessions it also did nothing for the DualSense, and no SDL rumble call was logged for either pad while it was pressed. Use a game.
+
+### How this was measured
+
+SDL3 has a built-in override: when the environment variable `SDL3_DYNAMIC_API` points at another `SDL3.dll`, Steam's own copy forwards every SDL call to that file at startup. A local SDL build with logging in `SDL_RumbleGamepad`, `SDL_RumbleJoystick`, `SDL_SendJoystickEffect`, `SDL_hid_write` and the capability property reads was started this way:
+
+```powershell
+$env:SDL3_DYNAMIC_API = 'D:\path\to\SDL3.dll'
+$env:SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER = '1'
+Start-Process 'C:\Program Files (x86)\Steam\steam.exe'
+```
+
+Steam's `SDL3.dll` stays untouched, which matters because Steam restores that file on start. Child processes inherit the variable, so a game shipping its own `SDL3.dll` is redirected too; clear it afterwards. The log showed Steam opening the pad, polling the SIXAXIS feature report for input, writing two player-LED commands at open, reading the four `SDL.joystick.cap.*` properties, and nothing else for the DualShock 3. Driver traces taken earlier with stock Steam, one during a game with Steam Input on and one while the tester was open, had already shown zero output reports arriving from Steam. The SDL log is the reason: nothing is lost between SDL and the driver, Steam never calls.
 
 ## Why DirectInput never rumbles
 
@@ -42,9 +83,9 @@ A captured rumble pulse on the wire was `00 FF 01 FF FF`, then `00 FF 00 FF 00` 
 
 ## Why the tester still hides Rumble
 
-`HIDAPI_DriverPS3SonySixaxis_GetJoystickCapabilities` in current Steam returns no capabilities. Steam's tester draws a Rumble control only when `SDL.joystick.cap.rumble` is set, so the button stays hidden. The same driver already implements rumble (command 2) and the four player LEDs (command 1). Advertising `SDL_JOYSTICK_CAP_RUMBLE` and `SDL_JOYSTICK_CAP_PLAYER_LED` from that function is what makes the tester show the control. A local SDL build with that change reported both properties. Steam's own DLL does not, until Valve ships it.
+`HIDAPI_DriverPS3SonySixaxis_GetJoystickCapabilities` in current Steam returns no capabilities. Steam's tester draws a Rumble control only when `SDL.joystick.cap.rumble` is set, so the button stays hidden. The same driver already implements rumble (command 2) and the four player LEDs (command 1). Advertising `SDL_JOYSTICK_CAP_RUMBLE` and `SDL_JOYSTICK_CAP_PLAYER_LED` from that function is what makes the tester show the control. A local SDL build with that change reported both properties, and Steam drew the control when run against it through `SDL3_DYNAMIC_API`. Pressing it did nothing, for the reason given above. The capability fix is still the right thing for SDL, since every other SDL3 program gains the two properties, but it is not what stands between a Steam game and this pad.
 
-Leave Steam's `SDL3.dll` where the installer put it. Dropping another DLL into the Steam directory is overwritten by the next Steam update and is not required for the motors.
+Leave Steam's `SDL3.dll` where the installer put it. Steam puts its own copy back on start, and the file is not required for the motors.
 
 ## Why the pad can ignore a correct rumble packet
 

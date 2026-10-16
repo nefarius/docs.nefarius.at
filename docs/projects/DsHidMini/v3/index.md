@@ -33,7 +33,7 @@ The following features are considered done and have been tested to the best of t
 - [V3 installation and removal](How-to-Install.md)
 - [ControlApp overview](ControlApp-Overview.md)
 - [HID Device Modes explained](HID-Device-Modes-Explained.md) — SXS, XInput, DS4Windows, SDF, GPJ, CGP
-- [Steam, SXS, and rumble](Steam-SXS-Rumble.md) — why Steam stays silent, and what actually moves the motors
+- [Steam, SXS, and rumble](Steam-SXS-Rumble.md) — why Steam Input stays silent on a PS3 type, what actually moves the motors, and how it was measured
 - [XInput mode (default) — setup and Steam](XInput-Mode-Explained.md)
 - [DS4Windows mode user guide](DS4-Mode-User-Guide.md)
 - [PS1/PS2 USB adapters](PS1-PS2-USB-Adapters.md)
