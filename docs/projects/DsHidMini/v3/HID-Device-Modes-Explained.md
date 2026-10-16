@@ -58,7 +58,9 @@ The default LED behavior in this mode is the charging animation and can't be alt
 
 **SIXAXIS.SYS** mode. In this mode, the driver emulates the behavior of the official Sony `sixaxis.sys` driver shipped with the PS Now application. Use this mode to ensure compatibility with [Steam](https://store.steampowered.com/), the [PS Now](https://www.playstation.com/en-us/ps-now/) application or the [RPCS3 PlayStation 3 Emulator](https://rpcs3.net/).
 
-The default LED behavior in this mode is the charging animation. If a compatible application sends output reports to the device, the driver will "hand over" control to the application and stops the charging indicator until the device has been restarted.
+Steam's default for an SXS controller is DirectInput. That layout has no force-feedback descriptor, so Steam reads buttons and sticks and sends no rumble or player LEDs. In ControlApp **Settings**, enable **Let Steam talk to SXS controllers natively** (or set the user environment variable `SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER=1`), then fully quit Steam, including the tray icon, and start it again. Steam then uses SDL's SIXAXIS driver. Rumble on that path works with stock Steam. The controller tester still hides its Rumble control until SDL advertises the capability. If the motors stay still, set **USB output transport** to **Auto** and replug. The full write-up is [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
+
+The default LED behavior in this mode is the charging animation. If a compatible application sends output reports to the device, the driver hands LED control to that application and stops the charging indicator until the device is restarted. LED authority **Driver** keeps the pattern selected in ControlApp. On the signed **3.25.0** driver, Steam's player-LED command clears the LEDs. Driver builds that decode sixaxis command 1 let those LEDs follow Steam when authority is **Automatic** or **Application**. RPCS3 keeps its existing output report.
 
 ### DS4Windows
 
