@@ -4,7 +4,7 @@
     Motor rumble over SIXAXIS commands was confirmed on the signed **3.25.0** driver, with current stock Steam's `SDL3.dll`, once the steps below were in place. Player-LED decoding and the ControlApp checkbox that writes the environment variable ship in **3.25.1**. On **3.25.0**, player LEDs turn off when Steam opens the pad.
 
 !!! warning "Use XInput mode for Steam"
-    SXS is the mode for [RPCS3](FAQ.md#how-do-i-use-dshidmini-with-rpcs3) and the [SCP XInput Bridge](SCP-XInput-Bridge.md) proxy DLL. It is not the mode for Steam. Steam files every `054C:0268` device under its own PS3 controller type and never forwards game rumble to that type, whatever SDL reports and whatever HID mode the driver is in. **XInput** mode presents an Xbox controller, and Steam rumbles that with or without Steam Input; setup is in [XInput mode — Setting up Steam](XInput-Mode-Explained.md#setting-up-steam). This page explains why the SXS route is a dead end, for the curious and for anyone who has to use SXS with an SDL3 program outside Steam.
+    SXS is the mode for [RPCS3](FAQ.md#how-do-i-use-dshidmini-with-rpcs3) and the [SCP XInput Bridge](SCP-XInput-Bridge.md) proxy DLL. It is not the mode for Steam. Steam files every `054C:0268` device under its own PS3 controller type and, in the tested SXS and SDF configurations, never forwarded game rumble to it, whatever SDL reported. **XInput** mode presents an Xbox controller, which Steam treats like any other Xbox pad, with or without Steam Input; rumble then depends on the game supporting Xbox-controller rumble. Setup is in [XInput mode — Setting up Steam](XInput-Mode-Explained.md#setting-up-steam). This page explains why the SXS route is a dead end, for the curious and for anyone who has to use SXS with an SDL3 program outside Steam.
 
 SXS mode speaks the same output commands as Sony's `sixaxis.sys`. SDL3 can use that path, and the motors will move, without replacing Steam's `SDL3.dll`. Two separate switches decide whether anything is sent, and whether the pad acts on it. Steam Input is the one SDL3 consumer that never sends; see [What Steam Input does with a PS3 type](#what-steam-input-does-with-a-ps3-type).
 
@@ -22,7 +22,7 @@ After that, a program that calls SDL rumble moves the motors. Steam's controller
 
 ## What Steam Input does with a PS3 type
 
-Steam classifies controllers from its own vendor and product id table, not from the transport SDL picked. A DsHidMini pad reports `054C:0268` in SXS, SDF, GPJ and CGP, so in all of them `controller.txt` says `Product: PS3 Controller`, `controller_ui.txt` says `Type: 33`, and the config set file is `configset_controller_ps3.vdf`. Only XInput mode, with its Xbox vendor and product id, lands in a different type.
+Steam classifies controllers from its own vendor and product id table, not from the transport SDL picked. In both SXS and SDF, `controller.txt` said `Product: PS3 Controller`, `controller_ui.txt` said `Type: 33`, and the config set file was `configset_controller_ps3.vdf`. GPJ and CGP report the same `054C:0268` and so land in the same table entry, but rumble under Steam Input was not measured in those modes. Only XInput mode, with its Xbox vendor and product id, lands in a different type.
 
 With an SDL3 build that advertises rumble, Steam reads `SDL.joystick.cap.rumble -> 1`, records a rumble capability flag for the pad, and shows the Rumble control in the tester. It then sends nothing. Over three Steam sessions and a game with Steam Input forced on, Steam called `SDL_RumbleGamepad` zero times for the DualShock 3:
 

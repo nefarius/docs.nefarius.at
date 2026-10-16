@@ -100,7 +100,7 @@ Set the controller to `DS4Windows Mode` and use it with **Ryochan7's DS4Windows*
 
 If, for whatever reason, you don't want to use DS4Windows and prefer to choose your own remapping tool, then you have the following options:
 
-- **Using the controller in `XInput Mode` + Steam:** this is the recommended Steam setup. Steam and every Steam game see an Xbox One controller with working rumble, with or without Steam Input. Setup: [XInput mode — Setting up Steam](XInput-Mode-Explained.md#setting-up-steam). If Steam lists **one** pad as **two** Xbox controllers, see [Steam lists the same pad twice](XInput-Mode-Explained.md#steam-lists-the-same-pad-twice). Steam does also detect `SXS Mode` as a PlayStation 3 controller, but Steam Input never forwards rumble to that type, so SXS is not recommended for Steam; the background is in [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
+- **Using the controller in `XInput Mode` + Steam:** this is the recommended Steam setup. Steam recognizes the pad as an Xbox One controller, with or without Steam Input, and rumble is available in games whose input path supports Xbox-controller rumble. Setup: [XInput mode — Setting up Steam](XInput-Mode-Explained.md#setting-up-steam). If Steam lists **one** pad as **two** Xbox controllers, see [Steam lists the same pad twice](XInput-Mode-Explained.md#steam-lists-the-same-pad-twice). Steam does also detect `SXS Mode` as a PlayStation 3 controller, but Steam Input never forwards rumble to that type, so SXS is not recommended for Steam; the background is in [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
 
 - **Using the controller in `SDF`, `GPJ`, or `CGP Mode` + another remapping software:** in these modes the controller is presented as a generic gamepad which can then be used with remapping tools like x360ce, UCR etc. Prefer `CGP Mode` for older games that get confused by the extra pressure-sensitive axes `SDF`/`GPJ` expose (see [_HID Device Modes explained_](HID-Device-Modes-Explained.md#cgp)).
 
@@ -113,7 +113,7 @@ You need to verify which `Input API` is supported in whatever you are using and 
 | "I want to..." | How to use your DS3 (recommendation) | Notes |
 | :---: | :---: | :---: |
 | Play modern PC games | `XInput` or `DualShock 4`  | Check the [_How do I use my controller as a Xbox 360 or DualShock 4?_ section](#how-do-i-use-my-controller-as-a-xbox-360-or-dualshock-4). Not all modern games support DS4 controllers, and those that do support it sometimes don't support its rumble |
-| Use Steam and Steam games | `XInput` | Steam Input treats the pad as an Xbox controller and rumble works. Do not use `SXS Mode` for Steam; see [_Why doesn't SXS rumble in Steam?_](#why-doesnt-sxs-rumble-in-steam) |
+| Use Steam and Steam games | `XInput` | Steam recognizes the pad as an Xbox controller; rumble is available in games that support Xbox-controller rumble through their input path. Do not use `SXS Mode` for Steam; see [_Why doesn't SXS rumble in Steam?_](#why-doesnt-sxs-rumble-in-steam) |
 | Use the DS3 as a common gamepad for most emulators | `XInput` or `GPJ Mode` | The gamepad part of `GPJ Mode` should be compatible with emulators that support only `DirectInput` |
 | Use RetroArch | `XInput` | Though RetroArch does support `DirectInput`, its rumble support is currently broken. `XInput` should be used instead to have working rumble |
 | Use RPCS3 | `SXS Mode` | Check the [_How do I use DsHidMini with RPCS3?_ section](#how-do-i-use-dshidmini-with-rpcs3) |
@@ -217,7 +217,7 @@ If `%AppData%\ControlApp.json` is empty or not valid JSON, current ControlApp bu
 
 ## Why doesn't SXS rumble in Steam?
 
-Because Steam Input never sends rumble to a controller it classifies as a PlayStation 3 pad, and every DsHidMini mode except XInput carries the PS3 vendor and product id. That holds with the SIXAXIS hint, with a DirectInput FFB mode, and with an SDL build that advertises rumble; the same Steam rumbles a DualSense through the same code path. Use **XInput** mode for Steam. SXS is for RPCS3 and the SCP XInput Bridge proxy DLL. `SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER=1` (ControlApp **Settings** does this) plus **USB output transport** **Auto** and a replug gives rumble to programs that call SDL3 directly, not to Steam Input. The tester's Rumble control is not a test. Background: [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
+Because Steam Input does not send rumble to a controller it classifies as a PlayStation 3 pad, which is what the SXS and SDF layouts are with their PS3 vendor and product id. Measured in SXS with the SIXAXIS hint, in SDF over DirectInput force feedback, and with an SDL build that advertises rumble; the same Steam rumbles a DualSense through the same code path. Use **XInput** mode for Steam. SXS is for RPCS3 and the SCP XInput Bridge proxy DLL. `SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER=1` (ControlApp **Settings** does this) plus **USB output transport** **Auto** and a replug gives rumble to programs that call SDL3 directly, not to Steam Input. The tester's Rumble control is not a test. Background: [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
 
 ## Steam shows two Xbox controllers for one pad
 
