@@ -99,7 +99,7 @@ Steam can show **two** "Xbox One Controller" (or similar) entries for **one** Ds
 
 Until Steam ships an SDL build that ignores GameInput when that backend is disabled, pick one:
 
-1. Switch the pad to **SXS mode** in ControlApp for Steam use. Steam has native DualShock 3 support in that layout, so the XInput / GameInput overlap does not exist. This is the cleanest option.
+1. Switch the pad to **SXS mode** in ControlApp for Steam use. Steam has native DualShock 3 support in that layout, so the XInput / GameInput overlap does not exist. This is the cleanest option. Rumble there needs the SIXAXIS hint. In **Auto** mode, USB output uses the interrupt OUT pipe when usable and falls back to **ControlEndpoint** otherwise; see [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
 2. Uninstall **Microsoft GameInput** from Apps & Features. Steam then falls back to XInput-only enumeration. A game that depends on GameInput may reinstall it later.
 3. In Steam, disable Steam Input for Xbox controllers (**Settings → Controller**). Steam stops binding either entry; XInput games keep talking to the pad directly.
 

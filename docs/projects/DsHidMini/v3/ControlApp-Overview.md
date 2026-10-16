@@ -69,7 +69,7 @@ For wireless connection issues also read the [BthPS3 FAQ](../../BthPS3/Frequentl
 ## Profiles and settings
 
 - **Profiles** — per-device overrides plus a global default used for new devices
-- **Settings** — tray behavior, Defender Bluetooth auto-switch, driver IPC, BthPS3 status/repair, and update checks
+- **Settings** — tray behavior, Defender Bluetooth auto-switch, the Steam SXS hint (`SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER`), driver IPC, BthPS3 status/repair, and update checks. See [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
 
 Application preferences live in `%AppData%\ControlApp.json`. Driver configuration lives under `%ProgramData%\DsHidMini`.
 

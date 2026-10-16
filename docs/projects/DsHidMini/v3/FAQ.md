@@ -100,7 +100,7 @@ Set the controller to `DS4Windows Mode` and use it with **Ryochan7's DS4Windows*
 
 If, for whatever reason, you don't want to use DS4Windows and prefer to choose your own remapping tool, then you have the following options:
 
-- **Using the Controller in `SXS Mode` + Steam:** Steam will detect the controller as an official PlayStation 3 controller as long as `PlayStation configuration support` is enabled. XInput and DS4 emulation are then done automatically according to what Steam thinks the game supports. If Steam lists **one** XInput-mode pad as **two** Xbox controllers, use SXS or see [Steam lists the same pad twice](XInput-Mode-Explained.md#steam-lists-the-same-pad-twice).
+- **Using the Controller in `SXS Mode` + Steam:** Steam will detect the controller as an official PlayStation 3 controller as long as `PlayStation configuration support` is enabled. XInput and DS4 emulation are then done automatically according to what Steam thinks the game supports. Rumble needs SDL's SIXAXIS driver: enable **Let Steam talk to SXS controllers natively** in ControlApp Settings, or set `SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER=1`, then fully restart Steam. Details, including a silent pad and LEDs that turn off, are in [Steam, SXS, and rumble](Steam-SXS-Rumble.md). If Steam lists **one** XInput-mode pad as **two** Xbox controllers, use SXS or see [Steam lists the same pad twice](XInput-Mode-Explained.md#steam-lists-the-same-pad-twice).
 
 - **Using the controller in `SDF`, `GPJ`, or `CGP Mode` + another remapping software:** in these modes the controller is presented as a generic gamepad which can then be used with remapping tools like x360ce, UCR etc. Prefer `CGP Mode` for older games that get confused by the extra pressure-sensitive axes `SDF`/`GPJ` expose (see [_HID Device Modes explained_](HID-Device-Modes-Explained.md#cgp)).
 
@@ -212,6 +212,10 @@ ControlApp's **Info** tab shows the same OUI check plus an identification-patter
 ## ControlApp crashes or will not start
 
 If `%AppData%\ControlApp.json` is empty or not valid JSON, current ControlApp builds copy the broken file to a `ControlApp.json.corrupt-...` backup and continue with defaults. Delete the backup when you no longer need it. If ControlApp still will not start, install any [.NET Desktop Runtime 10.0.x (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) and try again.
+
+## Why doesn't SXS rumble in Steam?
+
+Steam's default for SXS is DirectInput, which sends no rumble. Set `SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER=1` (ControlApp **Settings** does this), fully restart Steam, and use **USB output transport** **Auto** with a replug. The tester can still hide its Rumble control. Walkthrough: [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
 
 ## Steam shows two Xbox controllers for one pad
 
