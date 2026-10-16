@@ -54,11 +54,11 @@ The default LED behavior in this mode is the charging animation and can't be alt
 ### SXS
 
 !!! important "TL;DR:"
-    Use this mode with [Steam](https://store.steampowered.com/) or the [RPCS3 PlayStation 3 Emulator](https://rpcs3.net/).
+    Use this mode with the [RPCS3 PlayStation 3 Emulator](https://rpcs3.net/) and with the [SCP XInput Bridge proxy DLL](SCP-XInput-Bridge.md) (PCSX2 Qt, GInput and similar). For Steam and Steam games, use [XInput](#xinput) instead.
 
-**SIXAXIS.SYS** mode. In this mode, the driver emulates the behavior of the official Sony `sixaxis.sys` driver shipped with the PS Now application. Use this mode to ensure compatibility with [Steam](https://store.steampowered.com/), the [PS Now](https://www.playstation.com/en-us/ps-now/) application or the [RPCS3 PlayStation 3 Emulator](https://rpcs3.net/).
+**SIXAXIS.SYS** mode. In this mode, the driver emulates the behavior of the official Sony `sixaxis.sys` driver shipped with the PS Now application. Its known working consumers are [RPCS3](https://rpcs3.net/), which drives LEDs, rumble, pressure buttons and motion over this layout, the [SCP XInput Bridge](SCP-XInput-Bridge.md) proxy DLL, and the [PS Now](https://www.playstation.com/en-us/ps-now/) application.
 
-Steam's default for an SXS controller is DirectInput. That layout has no force-feedback descriptor, so Steam reads buttons and sticks and sends no rumble or player LEDs. In ControlApp **Settings**, enable **Let Steam talk to SXS controllers natively** (or set the user environment variable `SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER=1`), then fully quit Steam, including the tray icon, and start it again. Steam then uses SDL's SIXAXIS driver, and programs that call SDL3 rumble move the motors with stock Steam. Steam Input itself does not: it never forwards game rumble to a controller it files under its PlayStation 3 type, which is every DsHidMini mode other than XInput, regardless of what SDL reports. For rumble in a Steam game, disable Steam Input for that game and use a mode the game speaks directly. If the motors stay still for an SDL3 program, set **USB output transport** to **Auto** and replug. The full write-up is [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
+Steam also recognizes this layout as a PlayStation 3 controller, but that is not a reason to pick it. Steam Input never forwards game rumble to a controller it files under its PlayStation 3 type, whatever the driver or SDL report, and by default it reads the pad over DirectInput with no output at all. **XInput** mode is the Steam recommendation. If you still need SXS visible to Steam or to another SDL3 program, ControlApp **Settings** has **Let Steam talk to SXS controllers natively** (the user environment variable `SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER=1`); that makes SDL3 use its SIXAXIS driver, which gives SDL3 programs rumble and player LEDs after a full restart of that program and, if the motors stay still, **USB output transport** **Auto** plus a replug. The full write-up is [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
 
 The default LED behavior in this mode is the charging animation. If a compatible application sends output reports to the device, the driver hands LED control to that application and stops the charging indicator until the device is restarted. LED authority **Driver** keeps the pattern selected in ControlApp. On the signed **3.25.0** driver, Steam's player-LED command clears the LEDs. Driver builds that decode sixaxis command 1 let those LEDs follow Steam when authority is **Automatic** or **Application**. RPCS3 keeps its existing output report.
 
@@ -76,7 +76,7 @@ The default LED behavior in this mode is the charging animation. Once the contro
 ### XInput
 
 !!! important "TL;DR:"
-    Use this mode with [RetroArch](https://www.retroarch.com/), [Steam](https://store.steampowered.com/) or any game with Xbox Controller support. [Read here for details](XInput-Mode-Explained.md).
+    Use this mode with [Steam](https://store.steampowered.com/) and Steam games, [RetroArch](https://www.retroarch.com/) or any game with Xbox Controller support. [Read here for details](XInput-Mode-Explained.md).
 
 **Xbox One Controller** mode. This is the driver default when shipped. In this mode, the controller is emulating an Xbox One Controller with an artificial Vendor & Product ID. This mode guarantees the best potential compatibility with pretty much all modern PC games with Xbox (360/One) Controller support either standalone or shipped through Steam.
 

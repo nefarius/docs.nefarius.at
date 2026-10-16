@@ -97,10 +97,9 @@ Here's an example of the controller working like an Xbox Controller in a game wi
 
 Steam can show **two** "Xbox One Controller" (or similar) entries for **one** DsHidMini device in XInput mode and bind the same input twice. ControlApp still shows a single pad. This is a Steam / SDL enumeration bug when **Microsoft GameInput** and the XInput backend both claim `VID_045E` / `PID_02FF`. It is not a DsHidMini or BthPS3 defect, and it is not Bluetooth-only — wireless just hits the race more often.
 
-Until Steam ships an SDL build that ignores GameInput when that backend is disabled, pick one:
+Until Steam ships an SDL build that ignores GameInput when that backend is disabled, stay in XInput mode and pick one:
 
-1. Switch the pad to **SXS mode** in ControlApp for Steam use. Steam has native DualShock 3 support in that layout, so the XInput / GameInput overlap does not exist. This is the cleanest option for input. Steam Input does not forward rumble to a PlayStation 3 type, so games that need rumble should run with Steam Input disabled instead; see [Steam, SXS, and rumble](Steam-SXS-Rumble.md).
-2. Uninstall **Microsoft GameInput** from Apps & Features. Steam then falls back to XInput-only enumeration. A game that depends on GameInput may reinstall it later.
-3. In Steam, disable Steam Input for Xbox controllers (**Settings → Controller**). Steam stops binding either entry; XInput games keep talking to the pad directly.
+1. Uninstall **Microsoft GameInput** from Apps & Features. Steam then falls back to XInput-only enumeration. A game that depends on GameInput may reinstall it later.
+2. In Steam, disable Steam Input for Xbox controllers (**Settings → Controller**). Steam stops binding either entry; XInput games keep talking to the pad directly, rumble included.
 
-Changing DsHidMini serials, container IDs, or HID descriptors will not merge the two Steam entries. Background and a `controller.txt` fingerprint: [Steam GameInput duplicates](https://github.com/nefarius/DsHidMini/blob/master/docs/STEAM_GAMEINPUT_DUPLICATES.md).
+Switching to **SXS mode** avoids the duplicate because Steam then sees a PlayStation 3 controller, but Steam Input never forwards rumble to that type, so it trades one problem for another; see [Steam, SXS, and rumble](Steam-SXS-Rumble.md). Changing DsHidMini serials, container IDs, or HID descriptors will not merge the two Steam entries. Background and a `controller.txt` fingerprint: [Steam GameInput duplicates](https://github.com/nefarius/DsHidMini/blob/master/docs/STEAM_GAMEINPUT_DUPLICATES.md).

@@ -3,22 +3,19 @@
 !!! note "Which build this describes"
     Motor rumble over SIXAXIS commands was confirmed on the signed **3.25.0** driver, with current stock Steam's `SDL3.dll`, once the steps below were in place. Player-LED decoding and the ControlApp checkbox that writes the environment variable ship in **3.25.1**. On **3.25.0**, player LEDs turn off when Steam opens the pad.
 
-!!! warning "Steam Input itself does not rumble a DualShock 3"
-    Everything below makes the SXS path *able* to rumble, and any program that calls SDL3 rumble will move the motors. Steam Input is not such a program for this pad. Steam files every `054C:0268` device under its own PS3 controller type and never forwards game rumble to that type, whatever SDL reports and whatever HID mode the driver is in. Details are in [What Steam Input does with a PS3 type](#what-steam-input-does-with-a-ps3-type). For rumble inside a Steam game, disable Steam Input for that game and let the game drive the pad directly.
+!!! warning "Use XInput mode for Steam"
+    SXS is the mode for [RPCS3](FAQ.md#how-do-i-use-dshidmini-with-rpcs3) and the [SCP XInput Bridge](SCP-XInput-Bridge.md) proxy DLL. It is not the mode for Steam. Steam files every `054C:0268` device under its own PS3 controller type and never forwards game rumble to that type, whatever SDL reports and whatever HID mode the driver is in. **XInput** mode presents an Xbox controller, and Steam rumbles that with or without Steam Input; setup is in [XInput mode — Setting up Steam](XInput-Mode-Explained.md#setting-up-steam). This page explains why the SXS route is a dead end, for the curious and for anyone who has to use SXS with an SDL3 program outside Steam.
 
-SXS mode speaks the same output commands as Sony's `sixaxis.sys`. SDL3 can use that path, and the motors will move, without replacing Steam's `SDL3.dll`. Two separate switches decide whether anything is sent, and whether the pad acts on it.
+SXS mode speaks the same output commands as Sony's `sixaxis.sys`. SDL3 can use that path, and the motors will move, without replacing Steam's `SDL3.dll`. Two separate switches decide whether anything is sent, and whether the pad acts on it. Steam Input is the one SDL3 consumer that never sends; see [What Steam Input does with a PS3 type](#what-steam-input-does-with-a-ps3-type).
 
 ## What to do
 
-For rumble in a Steam game:
+For Steam and Steam games: switch the pad to **XInput** in ControlApp and replug. Nothing else on this page is needed.
 
-1. In the game's Steam properties, under **Controller**, set the override to **Disable Steam Input**.
-2. Pick the mode the game speaks natively: **XInput** for games with Xbox controller support, **SDF**, **GPJ** or **CGP** for DirectInput games that use force feedback. Steam's own XInput emulation is out of the loop, so the game's rumble reaches the driver unchanged.
+For SXS with a program that uses SDL3 directly, for example an SDL3 game or tool started outside Steam Input:
 
-For SXS with applications that use SDL3 directly, and to have Steam read the pad over the SIXAXIS driver instead of DirectInput:
-
-1. In ControlApp, set the controller to **SXS**. In Steam, leave **PlayStation Configuration Support** enabled.
-2. In ControlApp **Settings**, enable **Let Steam talk to SXS controllers natively**. The same switch is the user environment variable `SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER=1`. Fully quit Steam, including the tray icon, and start it again. Steam reads the variable when its process starts.
+1. In ControlApp, set the controller to **SXS**.
+2. In ControlApp **Settings**, enable **Let Steam talk to SXS controllers natively**. The same switch is the user environment variable `SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER=1`. Fully quit the program (for Steam, including the tray icon) and start it again; SDL reads the variable when the process starts.
 3. On the device, set **USB output transport** to **Auto** (or **InterruptOut** if you want to force that pipe). Unplug the controller and plug it back in. The running device keeps the transport it opened with.
 
 After that, a program that calls SDL rumble moves the motors. Steam's controller tester still has no Rumble control. That control appears when SDL tells Steam the device can rumble. Stock Steam does not, and the environment variable cannot change that bit inside Steam's DLL. Even with the bit set, Steam does not rumble the pad; see below.
