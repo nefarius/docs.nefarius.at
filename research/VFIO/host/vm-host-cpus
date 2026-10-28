@@ -1,0 +1,3 @@
+# Host CPUs for user.slice and system.slice.
+# Use the complement of the guest <vcpu cpuset="...">.
+HOST_CPUS=0-7
