@@ -68,7 +68,7 @@ can instead be distinguished by its fixed client size of 300×350 pixels.
 On Debian and Ubuntu based distributions:
 
 ```bash
-sudo apt install python3-xlib xdotool
+sudo apt install python3-xlib x11-xserver-utils wmctrl xdotool
 ```
 
 ## Add the window rule
