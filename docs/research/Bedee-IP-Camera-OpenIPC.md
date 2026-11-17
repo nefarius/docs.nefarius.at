@@ -1,25 +1,25 @@
 # Bedee 2 MP IP camera: hardware, firmware backup and OpenIPC
 
-An old Bedee camera turned into a small firmware archaeology project: identify the board, get past a password-protected serial console without needing its password, back up the entire flash, install OpenIPC, and recover working infrared night vision.
+Investigating an old Bedee camera became a small firmware archaeology project: identifying the board, gaining recovery access without the stock console password, backing up the entire flash, installing OpenIPC, and restoring infrared night vision.
 
 The result is a working **Hi3518EV200 / SC2235 camera running OpenIPC**, with Ethernet, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. A normal reboot and a full night/day cycle were verified after the final changes.
 
 These notes describe **one physical unit tested on 17 November 2026**. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.
 
 !!! warning "Board-specific research, not a generic upgrade recipe"
-    The flash offsets, DDR configuration and register addresses below belong to this board and the recorded image versions. Flashing replaces the stock bootloader and configuration. Obtain and verify your own full backup and recovery path before writing anything. The stock restoration procedure is prepared but has **not** been exercised end to end.
+    The flash offsets, DDR configuration and register addresses below are specific to this board and the recorded image versions. Flashing replaces the stock bootloader and configuration. Make and verify a full backup, and confirm that you can access the recovery bootloader, before writing anything. The stock restoration procedure has been prepared but has **not** been tested end to end.
 
 ## Product identity and verified hardware
 
 The stock camera reported model **`C6F0SgZ3N0P6L2`** and firmware **`V11.1.34.5.3-20180829`**. Its services exposed HiChip/Hipcam RTSP on TCP 554, Mongoose HTTP on TCP 80, and ONVIF on TCP 8080. RTSP paths `/11` and `/12` worked.
 
-Opening the housing, reading the boot log, examining the stock dump, and finally booting OpenIPC established the useful hardware identity:
+Opening the housing, reading the boot log, examining the stock dump, and booting OpenIPC identified the following hardware:
 
 - **SoC:** HiSilicon Hi3518EV200. The package marking reads `Hi3518` / `ERBCV200`.
 - **Image sensor:** SmartSens **SC2235**, confirmed by the stock software and successful OpenIPC sensor initialization.
 - **RAM:** **64 MiB, DDR2**. The compared DDR initialization table includes `0x20111050 = 0x15`.
 - **Flash:** **XM25QH64A**, **8 MiB SPI NOR**, reported JEDEC ID `20 70 17`.
-- **PCB:** the visible silkscreen includes `18EV2_2235AF`. The complete revision suffix is not confidently readable in the photograph.
+- **PCB:** the visible silkscreen includes `18EV2_2235AF`. The complete revision suffix is not clear enough to read with confidence in the photograph.
 - **Networking:** wired Ethernet and an **MT7601U** Wi-Fi module. The OpenIPC image contains the Wi-Fi driver and firmware; association was not tested during this work.
 - **Other hardware:** microSD slot, infrared LED ring with a separate visible photocell and a three-wire connection, and a mechanically actuated IR-cut filter.
 
@@ -27,19 +27,19 @@ Opening the housing, reading the boot log, examining the stock dump, and finally
 
 ![Processor side showing the HiSilicon package, microSD slot and four unpopulated serial pads](images/bedee-openipc/board-processor-side.jpg)
 
-The microSD controller recognized a 64 GB card during recovery. That is evidence of card detection, not a test of recording, filesystem reliability, or supported maximum capacity.
+The microSD controller recognized a 64 GB card during recovery. Recording, filesystem reliability and the maximum supported card capacity were not tested.
 
 ### OpenIPC support versus a vendor-compatible upgrade package
 
-OpenIPC has a [Hi3518EV200 target](https://openipc.org/cameras/vendors/hisilicon/socs/hi3518ev200), and the inspected image contained `libsns_sc2235.so`, an SC2235 profile and loader support. On this unit that became stronger evidence when the sensor initialized and produced video.
+OpenIPC has a [Hi3518EV200 target](https://openipc.org/cameras/vendors/hisilicon/socs/hi3518ev200), and the inspected image contained `libsns_sc2235.so`, an SC2235 profile and loader support. Successful sensor initialization and live video confirmed that the driver worked on this unit.
 
-[Coupler](https://github.com/OpenIPC/coupler) lists CamHi/HiChip/Xin, but its vendor-family listing did not establish a matching transition image for this exact Bedee model, stock firmware and board. No Coupler package was flashed or validated here. The successful route was **ROM UART recovery followed by a manually verified raw NOR image**.
+[Coupler](https://github.com/OpenIPC/coupler) lists CamHi/HiChip/Xin, but that listing alone did not confirm that a suitable transition image existed for this exact Bedee model, stock firmware and board. No Coupler package was flashed or validated here. The successful route was **ROM UART recovery followed by a manually verified raw NOR image**.
 
 OpenIPC also includes vendor components. The running streamer, Majestic, presented a licence agreement during initial setup; the owner accepted it personally and chose a new root password. Installing OpenIPC does not make every component an unrestricted open-source replacement.
 
 ## UART access
 
-The adapter was an **FTDI TTL-232R-3V3**, enumerating on Linux as `0403:6001` (`FT232 Serial (UART) IC`). The working serial format was **115200 baud, 8 data bits, no parity, one stop bit, no flow control**.
+The adapter was an **FTDI TTL-232R-3V3**, identified by Linux as `0403:6001` (`FT232 Serial (UART) IC`). The working serial format was **115200 baud, 8 data bits, no parity, one stop bit, no flow control**.
 
 For this adapter:
 
@@ -50,20 +50,20 @@ orange  -> camera RX  (adapter TX)
 red     -> DISCONNECTED
 ```
 
-The camera kept its own power supply. The adapter's 3.3 V logic label is not permission to connect its power lead to the board.
+Power the camera from its own supply. The adapter’s “3.3 V” label refers to its UART logic levels, not its power output. Leave the adapter’s power lead disconnected.
 
-On this board, the **second pad counting from the microSD-slot end of the four-pad row** had continuity to ground. The remaining pads all initially measured about 3.3 V, which did not identify their functions. Idle UART lines can be high. This investigation did not retain a sufficiently certain complete pad-order diagram to publish one.
+On this board, the **second pad counting from the microSD-slot end of the four-pad row** had continuity to ground. The remaining pads all initially measured about 3.3 V, which did not identify their functions. Idle UART lines can be high. The complete pad order was not confirmed, so only the ground-pad identification is documented here.
 
-Early serial output was unreliable until the wires, pads and connectors were properly soldered. Stable text followed. A multimeter finding alone was not a substitute for a sound connection.
+Early serial output was unreliable. Properly soldering the wires, pads and connectors resolved the problem; the voltage readings alone had not ruled out poor connections.
 
-The Linux listening command was:
+To read and log the serial output on Linux:
 
 ```sh
 sudo picocom -b 115200 -d 8 -p n -f n --stopbits 1 \
   --logfile camera-boot.log /dev/ttyUSB0
 ```
 
-Only one program should own the serial device at a time. Stop `picocom` before using the recovery uploader. Its terminal can display the later Linux console, but the RAM-upload operation itself is not something to rerun for every normal camera boot.
+Only one program should open the serial device at a time. Stop `picocom` before using the recovery uploader. The uploader’s terminal can continue to display the Linux console after boot. The RAM upload is only needed when loading the temporary recovery bootloader.
 
 ### What the stock console revealed
 
@@ -76,11 +76,11 @@ Block:64KB Chip:8MB Name:"xm25qh64a"
 SPI Nor total size: 8MB
 ```
 
-Interrupting autoboot produced an **U-Boot password prompt**. Letting Linux boot produced a separate `(none) login:` prompt. Working web credentials did not establish a usable serial root login. A stock shell password was not recovered; neither a successful Telnet shell nor an exploit-based shell is a prerequisite for the method below.
+Interrupting autoboot produced a **U-Boot password prompt**. Letting Linux boot produced a separate `(none) login:` prompt. The web login did not provide access to the serial root console, and the stock shell password was not recovered. The recovery method below requires neither Telnet access nor an exploit-based shell.
 
 ## A recovery path before a flash write
 
-The useful alternative to buying an SPI programmer was [OpenIPC defib](https://github.com/OpenIPC/defib), using the HiSilicon ROM download protocol to load a recovery bootloader into RAM. The session recorded defib revision `5167b2a8669a604ce546adb1bffc6da20cf5c1a3`.
+[OpenIPC defib](https://github.com/OpenIPC/defib) provided recovery access over UART by using the HiSilicon ROM download protocol to load a bootloader into RAM. This session used defib revision `5167b2a8669a604ce546adb1bffc6da20cf5c1a3`.
 
 From the private recovery kit directory on the Linux host:
 
@@ -92,11 +92,11 @@ sudo ../camera-recovery-env/bin/defib burn \
   --break --terminal
 ```
 
-The camera was powered on when the uploader waited for it. The transfer sent the DDR step, SPL and U-Boot, then reached `OpenIPC #`.
+Once the uploader was waiting for a device, the camera was powered on. The uploader transferred the DDR initialization data, SPL and U-Boot, then opened a console at the `OpenIPC #` prompt.
 
-**For this command and recovery file, `burn` loaded RAM; it did not program the SPI flash.** Do not generalize that statement to defib's other commands. In particular, automatic installation/restoration operations have different write behavior.
+**With this command and recovery file, `burn` loaded the bootloader into RAM; it did not program the SPI flash.** Do not generalize that statement to defib's other commands. In particular, automatic installation/restoration operations have different write behavior.
 
-The working recovery binary was 127,459 bytes and displayed **U-Boot 2010.06, built 4 October 2026**. The shared version string does not mean it is identical to the stock November 2017 bootloader.
+The working recovery binary was 127,459 bytes and displayed **U-Boot 2010.06, built 4 October 2026**. Although both report U-Boot 2010.06, the recovery and stock bootloaders are different builds.
 
 ### Ethernet: configure it before the first network command
 
@@ -130,9 +130,9 @@ eth0 : phy status change : LINK=UP : DUPLEX=FULL : SPEED=100M
 host 192.168.2.115 is alive
 ```
 
-An earlier attempt reported `PHY not link`. Changing settings after the driver had already registered MDIO devices produced repeated `No such device` and `PHY_PHYIDR1 read failed` messages. Starting recovery again and setting RMII / PHY 0 and 1 **before the first network operation** fixed it.
+An earlier attempt reported `PHY not link`. Changing settings after the driver had already registered MDIO devices produced repeated `No such device` and `PHY_PHYIDR1 read failed` messages. Starting a fresh recovery session and selecting RMII with PHY addresses 0 and 1 **before the first network operation** fixed the problem.
 
-Read-only `mii` inspection had reported devices `'0:1'` and `'1:2'`, and a PHY with OUI `0x90c3`, model `0x05`, revision `0x04`. This did not justify cycling through arbitrary PHY addresses.
+Read-only `mii` inspection had reported devices `'0:1'` and `'1:2'`, and a PHY with OUI `0x90c3`, model `0x05`, revision `0x04`.
 
 !!! danger "Do not save the recovery environment over stock firmware"
     The temporary OpenIPC bootloader saves its environment at **`0x40000`**. The stock firmware's kernel starts at **`0x40000`**. Running `saveenv` while retaining stock firmware overwrites part of that kernel. All networking changes above belong in RAM only.
@@ -151,7 +151,7 @@ crc32 0x82000000 0x800000
 tftp 0x82000000 bedee-stock-A.bin 0x800000
 ```
 
-The CRC was **`dc96fe13`**, and the transfer reported **8.000 MB upload ok**. The whole sequence, including clearing RAM and reading flash again, was repeated into `bedee-stock-B.bin`.
+The CRC was **`dc96fe13`**, and the transfer reported **8.000 MB upload ok**. The entire sequence, including clearing RAM and reading flash again, was repeated to create `bedee-stock-B.bin`.
 
 This bootloader's TFTP convention matters:
 
@@ -186,7 +186,7 @@ SHA256: 9003857fc480dad37dfb7f44e0a02a6d389e3fd2244e3247c8458f3046c77637
 IDENTICAL: True
 ```
 
-These hashes identify this particular captured image. Another camera, or another normal stock boot which writes settings, can legitimately produce different hashes.
+These hashes identify this particular captured image. A different camera, or a later backup taken after the stock firmware has written settings, can legitimately produce different hashes.
 
 The dump includes the bootloader, environment, kernel, filesystems and configuration. It can contain passwords and device identifiers. **The dump and the private full recovery kit are deliberately not included in this documentation repository.**
 
@@ -198,7 +198,7 @@ The tested combination was:
 - **Legacy universal U-Boot**, asset published 4 October 2026, for installation in flash.
 - The matching **recovery U-Boot**, for ROM/UART loading into RAM.
 
-The firmware booted Linux **4.9.37**, identified the sensor as SC2235, and presented OpenIPC **`master+03d1125`, `2.6.11.17-lite`**. The video preview reported **H.264, 1920×1080, 20 fps**.
+The firmware booted Linux **4.9.37**, identified the sensor as SC2235, and reported OpenIPC version **`master+03d1125`, `2.6.11.17-lite`**. The video preview reported **H.264, 1920×1080, 20 fps**.
 
 ### Pin the files, not the word “latest”
 
@@ -222,7 +222,7 @@ recovery:  0x2c00  (inside the ROM's 0x3b00 SRAM window)
 universal: 0x4400  (use for flash, not the ROM UART download)
 ```
 
-This ruled out casually substituting a DDR3 bootloader, the newer `2022.10` NOR bootloader, a NAND image, or a different layout. Matching the DDR table was a preflight check; the eventual successful hardware boot was the confirmation.
+These files were treated as a matched set. No DDR3 bootloader, newer `2022.10` NOR bootloader, NAND image or alternative layout was substituted. Matching the DDR table provided an initial compatibility check; the successful boot later confirmed that this combination worked on the board.
 
 ### Stock layout
 
@@ -266,7 +266,7 @@ netaddr_fallback=192.168.2.113
 
 `osmem=32M` leaves the other half of the physical RAM for the media subsystem. The release's default boot commands and helper variables were retained.
 
-The [offline image builder](assets/bedee-openipc/assemble-image.py) records this process using the pinned inputs. It requires a caller-supplied stock backup and the unit's actual wired MAC, performs no downloads, and never contacts a camera. Keep its output outside a public repository. Its defaults reproduce the lab addresses; a different MAC or environment changes the final checksums.
+The [offline image builder](assets/bedee-openipc/assemble-image.py) reproduces this assembly process using the pinned inputs. Supply your own stock backup and the unit’s original wired Ethernet MAC. The builder performs no downloads and never contacts a camera. Keep its output outside a public repository. Its defaults reproduce the lab addresses; a different MAC or environment changes the final checksums.
 
 ```sh
 python3 assemble-image.py \
@@ -278,7 +278,7 @@ python3 assemble-image.py \
   --out /private/bedee-openipc-image
 ```
 
-The original unit-specific candidate's fingerprints were:
+The size and checksums of the candidate built for this unit were:
 
 ```text
 full size:             8388608 bytes
@@ -291,7 +291,7 @@ This is a raw flash image, **not** a package for the stock web updater. The came
 
 ## The actual flash session
 
-Before the write phase, the local kit verifier passed, the host route was checked, `/dev/ttyUSB0` existed, the recovery bootloader reported 64 MiB RAM and 8 MiB NOR, and another whole-flash read still matched the stock CRC.
+Before writing, the local kit verifier passed, the host route was checked, and `/dev/ttyUSB0` was available. The recovery bootloader reported 64 MiB RAM and 8 MiB NOR, and a fresh read of the entire flash still matched the stock CRC.
 
 The host served the kit's TFTP directory. For example, with the existing `tftpy` environment:
 
@@ -312,7 +312,7 @@ printenv filesize
 crc32 0x82000000 0x800000
 ```
 
-The actual transfer was **8,388,608 bytes**, `filesize=800000`, CRC **`892a4b0a`**.
+The transfer contained **8,388,608 bytes**, with `filesize=800000` and CRC **`892a4b0a`**.
 
 !!! danger "Destructive commands: historical record for the verified candidate"
     The following writes were executed on this camera. Do not paste them for a different image based only on a similar filename. Use the size and checksums calculated for the exact image in RAM, maintain stable power, and stop at any readback mismatch.
@@ -335,17 +335,17 @@ sf read 0x82000000 0x0 0x800000
 crc32 0x82000000 0x800000
 ```
 
-The **entire flash readback** matched **`892a4b0a`**, and only then was `reset` issued. Reading back into the same RAM buffer was paired with comparing against the separately recorded expected CRC.
+The **entire flash readback** matched **`892a4b0a`**, and only then was `reset` issued. The readback overwrote the original RAM buffer, so its CRC was compared with the expected value recorded before writing.
 
-One mistake in the session deserves recording: `saveenv` was entered before the non-boot erase/write, and it wrote the sector at `0x40000`. The subsequent verified full candidate write replaced that sector. It caused no residual mismatch in this installation, but it is exactly why `saveenv` must not be part of stock-preserving recovery or rollback instructions.
+One mistake in the session deserves recording: `saveenv` was entered before the non-boot erase/write, and it wrote the sector at `0x40000`. The subsequent verified full candidate write replaced that sector. The final full-image CRC matched, but this mistake demonstrates why `saveenv` must not be used when preserving or restoring stock firmware.
 
-OpenIPC booted, the owner completed first-run setup, and the board was reassembled after reconnecting the Wi-Fi antenna and IR ring. The address changed from `.113` to `.119` through DHCP. The bootloader's temporary recovery IP was not proof of the later Linux address.
+OpenIPC booted, the owner completed first-run setup, and the board was reassembled after reconnecting the Wi-Fi antenna and IR ring. The address changed from `.113` to `.119` through DHCP. Check the DHCP lease after Linux boots rather than assuming it will use the recovery address.
 
-The initial whole-image CRC is not expected to stay unchanged once Linux starts writing the overlay.
+The whole-image CRC will change once Linux writes to the overlay.
 
 ## A booting camera with an almost black image
 
-There was recognizable movement, but stationary objects could become almost completely black even with the room light on and the lens uncovered. A mechanical click alone did not prove that the filter or exposure was correct.
+There was recognizable movement, but stationary objects could become almost completely black even with the room light on and the lens uncovered. Hearing a click did not establish that the filter was in the correct position or that exposure was working correctly.
 
 With the default slow-shutter setting, exposure reached about **125 ms**, with analog gain around **62×** and additional ISP gain. The working change was:
 
@@ -364,7 +364,7 @@ The stock dump contained an ARM `ipc_server` with exported function names, plus 
 
 ### The click is an IR-cut actuator
 
-The stock call chain established:
+The stock application and driver code showed how the filter was controlled:
 
 ```text
 HI_IRCut_Switch(1) -> colour/day
@@ -374,7 +374,7 @@ day:   ioctl 0 high -> wait 300000 us -> ioctl 0 low -> GPIO0_1
 night: ioctl 1 high -> wait 300000 us -> ioctl 1 low -> GPIO0_2
 ```
 
-Thus **global GPIO 1 moves to day**, and **global GPIO 2 moves to night**. These are the two drive directions of the IR-cut mechanism. The noise was not evidence of two relays, nor evidence that the clicking part supplied LED power.
+Pulsing **global GPIO 1 moves the filter to its day position**, while pulsing **global GPIO 2 moves it to its night position**. These pins drive the IR-cut mechanism in opposite directions. The click alone did not establish that there were two relays or that the clicking mechanism supplied power to the LEDs.
 
 The stock IR-cut module clears the low two mux bits at `0x200f0074` and `0x200f0078`; the observed values were already zero. Brief manual pulses were used during diagnosis, not sustained coil power.
 
@@ -386,7 +386,7 @@ nightMode:
   irCutPin2: 1  # closing/day
 ```
 
-An earlier opening/closing assignment was reversed. The recovered stock code settled the direction; the final full cycle confirmed it physically.
+An earlier opening/closing assignment was reversed. The recovered stock code identified the correct direction for each pin, which was then verified by testing a complete day/night cycle.
 
 ### The infrared lamp has a separate control
 
@@ -398,9 +398,9 @@ nightMode:
   backlightInvert: false
 ```
 
-The other stock modules had different purposes: `light.ko` touched GPIO 9 and 64, while `relay.ko` used GPIO 53. Their names were not a reason to drive those pins during IR diagnosis.
+The other stock modules controlled different pins: `light.ko` used GPIO 9 and 64, while `relay.ko` used GPIO 53. The module names alone did not identify these as infrared controls, so those pins were not driven during IR diagnosis.
 
-The ring visibly glowed when shaded, even during earlier manual-mode testing. That observation alone did not establish every part of the ring's local circuitry or prove that software could force illumination in bright ambient light. The later integrated night-vision test is the operational result that matters.
+The ring visibly glowed when shaded, even during earlier manual-mode testing. That observation did not fully explain the ring’s circuitry or prove that software could force the LEDs on in bright ambient light. The later night-vision test confirmed that the filter and illumination worked together.
 
 ## Why native automatic night mode did not return to day
 
@@ -415,15 +415,15 @@ night_enabled             1
 night_transitions_day_total 0
 ```
 
-The actual `/api/v1/config.schema.json` allowed `autoDayGain` only from **1 to 16**, with a default of 2. The lit scene was still using about **62× analog gain**. No allowed day threshold could reach that reading in this scene.
+The actual `/api/v1/config.schema.json` allowed `autoDayGain` only from **1 to 16**, with a default of 2. The lit scene was still using about **62× analog gain**. Even the highest permitted day threshold was below the gain measured in the lit room.
 
 This build also had **no native ADC photocell configuration keys**. Generic documentation mentioning `adcReadout` did not mean the installed Hi3518EV200 binary supported it. The [Majestic documentation](https://github.com/OpenIPC/wiki/blob/master/en/majestic-streamer.md) describes several decision sources; the running binary's schema and measurements determined which were usable here.
 
-A generic CamHi GPIO table suggested investigating GPIO 48 as a light-sensor input. Reading its entire GPIO bank at `0x201a03fc` returned zero with the photocell exposed and covered. GPIO 48 was **not assigned or driven** on that basis.
+A generic CamHi GPIO table suggested investigating GPIO 48 as a light-sensor input. Reading its entire GPIO bank at `0x201a03fc` returned zero with the photocell exposed and covered. GPIO 48 was left **unassigned and was not driven**.
 
 ## Reading the original analogue photocell
 
-The stock application instead opens **`/dev/saradc`**. Its module revealed the initialization and conversion sequence for an **8-bit reading from channel 0**.
+The stock application reads the photocell through **`/dev/saradc`**. Its driver module revealed the initialization and conversion sequence for an **8-bit reading from channel 0**.
 
 OpenIPC had no `/dev/*adc*` node. Before initialization, the observed registers were:
 
@@ -435,9 +435,9 @@ OpenIPC had no `/dev/*adc*` node. Before initialization, the observed registers 
 0x200b000c = 0x00000000
 ```
 
-The stock module's open routine clears bit 0 of each mux register, writes `0xff0201ff` to `0x200b0000`, and writes 1 to `0x200b0010`. Its read ioctl starts conversion with 15 at `0x200b001c`, waits **10 ms** (`msleep`, confirmed from the relocation), reads `0x200b000c`, acknowledges with 1 at `0x200b0018`, and returns the **low byte**.
+The stock module's open routine clears bit 0 of each mux register, writes `0xff0201ff` to `0x200b0000`, and writes 1 to `0x200b0010`. Its read ioctl writes 15 to `0x200b001c` to start a conversion, waits **10 ms** (`msleep`, confirmed by the module’s relocation entry), reads `0x200b000c`, acknowledges the conversion by writing 1 to `0x200b0018`, and returns the **low byte**.
 
-The controlled shell test used a slightly longer 100 ms wait:
+The shell test used a longer wait of 100 ms:
 
 ```sh
 # Board-specific volatile register writes, recovered from the stock driver.
@@ -452,7 +452,7 @@ adc_sample() {
 }
 ```
 
-Covering only the small photocell by hand produced fluctuating values, so the decisive experiment used the actual room light:
+Covering only the small photocell by hand produced fluctuating values, so the next experiment switched the room light on and off:
 
 ```text
 LIGHT ON:       0 0 0 0 0 0 0 0
@@ -460,9 +460,9 @@ LIGHT OFF:    255 255 255 255 255 255 255 255
 LIGHT ON AGAIN: 17 0 0 0 0 0 0 0
 ```
 
-That established a usable signal and its direction: **low means bright, high means dark**. The stock configuration supplied hysteresis thresholds of **30 for black-and-white to colour** and **90 for colour to black-and-white**.
+That established a usable signal and its direction: **low means bright, high means dark**. The stock configuration used hysteresis thresholds of **30 for black-and-white to colour** and **90 for colour to black-and-white**.
 
-The old Linux 3.4 stock module was not loaded into the OpenIPC 4.9 kernel. The workaround reproduces its small register sequence in userspace instead.
+The old Linux 3.4 stock module was not loaded into the OpenIPC 4.9 kernel. The workaround reproduces the conversion sequence in userspace instead.
 
 ## Persistent photocell-driven day/night
 
@@ -482,7 +482,7 @@ nightMode:
   colorToGray: true
 ```
 
-This is a relevant-settings fragment, **not a replacement for the entire configuration file**. `irCut` and `backlight` follow the requested night state; `lightMonitor: false` disables the competing native decision loop.
+This fragment shows only the relevant settings. **Do not use it to replace the entire configuration file.** `irCut` and `backlight` follow the requested night state; `lightMonitor: false` disables the competing native decision loop.
 
 Local API checks succeeded without putting a password in a command or script:
 
@@ -494,7 +494,7 @@ curl -fsS http://127.0.0.1/night/off  # returned 0; click and colour confirmed
 curl -fsS http://127.0.0.1/night/on   # returned 1 during the night test
 ```
 
-No global authentication setting was weakened. These requests were made from the camera itself to loopback.
+Authentication remained enabled. These requests were sent from the camera itself to its loopback address.
 
 ### Downloadable service
 
@@ -502,9 +502,9 @@ No global authentication setting was weakened. These requests were made from the
 - [S96bedee-photocell](assets/bedee-openipc/S96bedee-photocell) → `/etc/init.d/S96bedee-photocell`
 - [Offline behavior checks](assets/bedee-openipc/test-photocell.sh), for reviewing the controller without camera access.
 
-The controller uses the measured 0–255 reading and stock thresholds, with **15 continuous seconds at or above 90 before night**, and **60 continuous seconds at or below 30 before day**. Intermediate readings reset the countdown and retain the current mode. Timing uses monotonic uptime.
+The controller uses the measured 0–255 range and the stock thresholds. The reading must remain **at or above 90 for 15 seconds to enter night mode**, or **at or below 30 for 60 seconds to enter day mode**. Intermediate readings reset the countdown and retain the current mode. Timing uses monotonic uptime.
 
-It checks the ADC mux without changing it, saves/restores the ADC control words, takes a single-instance lock, and calls `/night/on` or `/night/off`. It does not repeatedly save YAML or write firmware partitions. If the API temporarily disappears, it holds the current mode and restarts the delay after recovery. An ADC read failure or a competing native automatic source stops the service.
+It checks the ADC pin mux without changing it, saves the original ADC control values and restores them on exit, and uses a lock to prevent multiple instances from running. Mode changes use `/night/on` or `/night/off`; they do not repeatedly save YAML or write firmware partitions. If the API becomes unavailable, the controller keeps the current mode and restarts the delay when the API responds again. The service stops if an ADC read fails or native automatic switching is enabled.
 
 The installed file hashes were:
 
@@ -534,14 +534,14 @@ For a clean installation, copy the two files to `/tmp` on the camera first. Keep
 )
 ```
 
-The existing boot sequence executes `S??*` scripts in order, so S96 runs after S95majestic. Startup can precede Majestic's API becoming ready; the controller handles that delay.
+The existing boot sequence executes `S??*` scripts in order, so S96 runs after S95majestic. The controller may start before Majestic’s API is ready; it waits until the API responds.
 
 !!! note "The WebUI reports the native decision source as manual"
     `night_mode_source` remains **0** because the external photocell service makes the decisions. Automatic behavior is still active. Leave the WebUI's gain-based automatic monitor **off** while this service runs.
 
-### Validation and stopping it
+### Verification and service controls
 
-Eight offline scenarios passed: day/night delays, a brief shadow, hysteresis resetting the timer, API outage recovery, a rejected request, a competing automatic source, and ADC failure. The mocks replaced hardware, API and time boundaries; they did not substitute for the camera test.
+Eight offline scenarios passed: day/night delays, a brief shadow, hysteresis resetting the timer, API outage recovery, a rejected request, a competing automatic source, and ADC failure. These tests simulated the hardware, API responses and elapsed time. The camera was tested separately.
 
 On the camera, both files passed shell syntax and SHA256 checks. After a normal reboot, their hashes were unchanged and the service started automatically. Its log showed the initial API outage and recovery, then a night request at **ADC 255**. Metrics showed night, IR-cut and lamp all enabled. After turning the light on, the owner confirmed normal colour and metrics showed all three disabled. Both physical transitions were verified after reboot.
 
@@ -561,11 +561,11 @@ touch /etc/bedee-photocell.disabled
 curl -fsS http://127.0.0.1/night/off
 ```
 
-Remove `/etc/bedee-photocell.disabled` and start the service to re-enable it. These are normal overlay files. A full reflash or overlay reset requires reinstalling the service and reapplying the exposure and pin settings; the original flashed candidate did not contain these later fixes.
+Remove `/etc/bedee-photocell.disabled` and start the service to re-enable it. Both scripts and the disable marker are stored in the writable overlay. A full reflash or overlay reset requires reinstalling the service and reapplying the exposure and pin settings; the original flashed candidate did not contain these later fixes.
 
 ## Returning to the stock firmware
 
-The original dump remains the recovery authority. Re-enter the same **ROM UART recovery**, which does not depend on the flashed Linux system or the installed bootloader's console password. Configure RMII and PHY addresses before network access, then download the private stock image:
+Use the original full flash dump to restore the stock firmware. Load the temporary bootloader again through **ROM UART recovery**, which does not depend on the installed Linux system or the bootloader’s console password. Configure RMII and PHY addresses before network access, then download the private stock image:
 
 ```text
 sf probe 0
@@ -574,7 +574,7 @@ printenv filesize
 crc32 0x82000000 0x800000
 ```
 
-For **this recorded backup**, require 8,388,608 bytes and **`dc96fe13`** before any erase. Use your independently verified values for a different backup.
+For **this recorded backup**, confirm a transfer size of 8,388,608 bytes and CRC **`dc96fe13`** before erasing flash. Use your independently verified values for a different backup.
 
 !!! danger "Prepared restoration procedure — not hardware-tested end to end"
     The following would replace the entire installed system. The ROM recovery, flash reads, Ethernet transfer, and OpenIPC flash-write path worked. A complete stock restore and subsequent stock boot were not performed. Do not present that untested final step as a guaranteed recovery.
@@ -597,9 +597,9 @@ sf read 0x82000000 0x0 0x800000
 crc32 0x82000000 0x800000
 ```
 
-Require full readback CRC **`dc96fe13`**. An optional TFTP upload of the full readback permits a host SHA256 comparison with the original before resetting. **Do not run `saveenv` after restoring stock**: the temporary bootloader would overwrite the restored kernel at `0x40000`. The original bootloader reads its own environment at `0x30000` after reset.
+Require full readback CRC **`dc96fe13`**. You can also upload the full readback over TFTP and compare its SHA256 with the original backup on the host before resetting. **Do not run `saveenv` after restoring stock**: the temporary bootloader would overwrite the restored kernel at `0x40000`. The original bootloader reads its own environment at `0x30000` after reset.
 
-If the ROM recovery path cannot be re-established, an appropriate **3.3 V SPI programmer** is the remaining hardware fallback. None was needed or tested in this session. Power and in-circuit isolation would need checking before connecting one.
+If the ROM recovery path cannot be re-established, an appropriate **3.3 V SPI programmer** is the remaining hardware fallback. No external SPI programmer was needed or tested in this session. Check the board’s power connections and whether the flash chip needs to be isolated from the rest of the circuit before connecting a programmer.
 
 ## What is verified, and what is still open
 
