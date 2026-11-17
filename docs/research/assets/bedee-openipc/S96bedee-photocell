@@ -1,0 +1,48 @@
+#!/bin/sh
+# Install only after the foreground photocell trial passes.
+DAEMON=/etc/bedee-photocell.sh
+LOCK=/tmp/bedee-photocell.lock
+
+running() {
+    pid=$(cat "$LOCK/pid" 2>/dev/null) || return 1
+    case "$pid" in ''|*[!0-9]*) return 1;; esac
+    kill -0 "$pid" 2>/dev/null || return 1
+    args=$(tr '\000' ' ' < "/proc/$pid/cmdline" 2>/dev/null) || return 1
+    case "$args" in *"$DAEMON"*) return 0;; *) return 1;; esac
+}
+case "${1:-}" in
+    start)
+        if [ -e /etc/bedee-photocell.disabled ]; then echo 'Photocell controller disabled.'; exit 0; fi
+        if running; then echo 'Photocell controller already running.'; exit 0; fi
+        if [ -d "$LOCK" ]; then
+            echo "Stale or unverified lock: $LOCK. Inspect it before restarting." >&2
+            exit 1
+        fi
+        [ -r "$DAEMON" ] || { echo "Missing $DAEMON" >&2; exit 1; }
+        # The controller ignores SIGHUP and records its own PID under an atomic lock.
+        (
+            trap '' HUP
+            exec /bin/sh "$DAEMON"
+        ) </dev/null >/dev/null 2>&1 &
+        child=$!
+        sleep 1
+        if running; then echo "Photocell controller started (PID $pid)."
+        else wait "$child"; echo 'Controller failed to start; see logread.' >&2; exit 1
+        fi;;
+    stop)
+        if ! running; then echo 'No verified photocell controller is running.'; exit 0; fi
+        kill -TERM "$pid" || exit 1
+        for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            sleep 1
+            if ! running; then echo 'Photocell controller stopped; current day/night mode retained.'; exit 0; fi
+        done
+        echo 'Controller is still stopping; inspect logread before retrying.' >&2
+        exit 1;;
+    restart)
+        "$0" stop && "$0" start;;
+    status)
+        if running; then echo "Photocell controller running (PID $pid)."
+        else echo 'Photocell controller stopped.'; exit 1
+        fi;;
+    *) echo "Usage: $0 {start|stop|restart|status}" >&2; exit 2;;
+esac
