@@ -2,9 +2,9 @@
 
 Investigating an old Bedee camera became a small firmware archaeology project: identifying the board, gaining recovery access without the stock console password, backing up the entire flash, installing OpenIPC, and restoring infrared night vision.
 
-The result is a working **Hi3518EV200 / SC2235 camera running OpenIPC**, with Ethernet, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. A normal reboot and a full night/day cycle were verified after the final changes.
+The result is a working **Hi3518EV200 / SC2235 camera running OpenIPC**, with Ethernet, Wi-Fi, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. Reboot persistence, a full night/day cycle, and live video over Wi-Fi with Ethernet unplugged were verified.
 
-These notes describe **one physical unit tested on 17 November 2026**. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.
+These notes describe **one physical unit tested on 17–18 November 2026**. The Wi-Fi investigation was completed on 18 November. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.
 
 !!! warning "Board-specific research, not a generic upgrade recipe"
     The flash offsets, DDR configuration and register addresses below are specific to this board and the recorded image versions. Flashing replaces the stock bootloader and configuration. Make and verify a full backup, and confirm that you can access the recovery bootloader, before writing anything. The stock restoration procedure has been prepared but has **not** been tested end to end.
@@ -20,7 +20,7 @@ Opening the housing, reading the boot log, examining the stock dump, and booting
 - **RAM:** **64 MiB, DDR2**. The compared DDR initialization table includes `0x20111050 = 0x15`.
 - **Flash:** **XM25QH64A**, **8 MiB SPI NOR**, reported JEDEC ID `20 70 17`.
 - **PCB:** the visible silkscreen includes `18EV2_2235AF`. The complete revision suffix is not clear enough to read with confidence in the photograph.
-- **Networking:** wired Ethernet and an **MT7601U** Wi-Fi module. The OpenIPC image contains the Wi-Fi driver and firmware; association was not tested during this work.
+- **Networking:** wired Ethernet and an **MT7601U** USB Wi-Fi module, USB ID **`148f:7601`**. Both worked under OpenIPC; Wi-Fi association and live video were verified after reboot and with Ethernet unplugged. The adapter supports **2.4 GHz 802.11b/g/n**, not 5 GHz.
 - **Other hardware:** microSD slot, infrared LED ring with a separate visible photocell and a three-wire connection, and a mechanically actuated IR-cut filter.
 
 ![Lens side of the board, including the partially readable board identifier](images/bedee-openipc/board-lens-side.jpg)
@@ -105,7 +105,8 @@ The lab used these private addresses:
 ```text
 camera in recovery: 192.168.2.113
 Linux TFTP host:    192.168.2.115/24 on br0
-camera in OpenIPC:  192.168.2.119 after DHCP
+camera on Ethernet: 192.168.2.119 after DHCP
+camera on Wi-Fi:    192.168.2.108 after DHCP
 ```
 
 On the host, `ip -4 route get 192.168.2.113` confirmed the correct interface and source address.
@@ -563,6 +564,130 @@ curl -fsS http://127.0.0.1/night/off
 
 Remove `/etc/bedee-photocell.disabled` and start the service to re-enable it. Both scripts and the disable marker are stored in the writable overlay. A full reflash or overlay reset requires reinstalling the service and reapplying the exposure and pin settings; the original flashed candidate did not contain these later fixes.
 
+## Enabling Wi-Fi
+
+Wi-Fi was investigated after the wired camera and automatic night mode were working. Ethernet remained connected during setup so a failed wireless connection would not interrupt access to the camera.
+
+### The adapter was present, but its driver was not loaded
+
+The initial checks showed USB device **`148f:7601`**, but no `wlan0` interface and no driver bound to the USB device. The bootloader environment had **no `wlandev` value** and retained **`netmode=eth`**. The Network page showed **None — wired Ethernet only** as the adapter selection.
+
+The driver was already included in the installed image:
+
+```text
+/lib/modules/4.9.37/kernel/drivers/net/wireless/mediatek/mt7601u/mt7601u.ko
+```
+
+Useful diagnostic commands, run on the OpenIPC camera, were:
+
+```sh
+lsusb
+ip link show
+fw_printenv wlandev netmode
+find /lib/modules -iname '*7601*'
+```
+
+The BusyBox version of `ip` did not support `ip -br link`; `ip link show` worked. An unset `wlandev` produced an environment-variable error, but the USB device and driver file were both present.
+
+Loading the driver manually created `wlan0`:
+
+```sh
+modprobe mt7601u
+ip link show wlan0
+dmesg | grep -Ei 'mt7601|mt76|wlan|firmware'
+```
+
+The driver initialized successfully and reported:
+
+```text
+ASIC revision: 76010001 MAC revision: 76010500
+Firmware Version: 0.1.00 Build: 7640 Build time: 201302052146____
+EEPROM ver:0c fae:00
+Selected rate control algorithm 'minstrel_ht'
+usbcore: registered new interface driver mt7601u
+```
+
+No extra GPIO power control was needed. The adapter already enumerated on USB, and the generic driver initialized it without changing any GPIOs.
+
+### Selecting the adapter and fitting the antenna
+
+In **System → Network → Wireless adapter**, the working selection was **`mt7601u-generic — no pad`**, followed by **Save radio**. Reading back the relevant environment values confirmed:
+
+```text
+wlandev=mt7601u-generic
+netmode=eth
+```
+
+The Ethernet fallback address remained `192.168.2.113`. The board-specific alternatives which toggle a power GPIO were unnecessary for this unit.
+
+The setting was saved immediately. The UI's restart notice meant that the driver selection would be applied during the next boot; rebooting was not required to save it. The manually loaded driver allowed testing to continue in the current session.
+
+The first scans found no networks. The owner then noticed that the **Wi-Fi antenna was missing**. The wireless interface was taken down while the antenna was fitted, leaving Ethernet available:
+
+```sh
+ip link set wlan0 down
+```
+
+After fitting the antenna, another scan found **six networks**, including two with strong signals around **−21 and −23 dBm**. The empty scan before fitting the antenna was therefore not sufficient evidence of a driver or radio fault.
+
+The [Linux Wireless documentation](https://wireless.docs.kernel.org/en/latest/en/users/drivers/mediatek.html) identifies MT7601U as a **2.4 GHz 802.11b/g/n** device. Select a network available on that band; a 5 GHz-only network is not suitable. The networks found in this test advertised WPA2. Other security modes were not tested.
+
+### Saving the network credentials
+
+In **System → Network → Wi-Fi**, the owner selected the intended network from the scan results, entered the password directly in the camera's form, left the IP setting on **Automatic**, and clicked **Save Changes**. The password was not shared in chat or copied into these notes, scripts or the repository.
+
+The camera associated with the access point on **channel 13, 2.472 GHz**. The first successful link check reported **−24 dBm** signal strength and **70/70** link quality. A ping explicitly bound to Wi-Fi reached the router:
+
+```sh
+iwconfig wlan0
+ip -4 addr show wlan0
+ip -4 route show
+ping -I wlan0 -c 3 -W 2 192.168.2.1
+```
+
+All three packets received replies, with **0% packet loss** and round-trip times of roughly **2–4 ms**. Binding the test to `wlan0` established that it was using Wi-Fi even while Ethernet was still connected.
+
+During application of the settings, `wlan0` briefly showed `192.168.2.113`; DHCP subsequently assigned **`192.168.2.108`**. The Ethernet interface remained at **`192.168.2.119`**. Check the current interface address or router lease rather than assuming that the recovery or fallback address is the Wi-Fi address.
+
+### A misleading `wpa_cli` error
+
+`wpa_cli` and `wpa_supplicant` were both installed. `iwlist` was also present as a symlink to `iwconfig`. The WebUI's scan handler brings the interface up, tries `wpa_cli scan` and `scan_results`, and falls back to `iwlist` if necessary.
+
+Before configuration, `wpa_cli -i wlan0 status` reported:
+
+```text
+Failed to connect to non-global ctrl_ifname: wlan0 error: No such file or directory
+```
+
+The same error remained after association because the generated WPA configuration had **no `ctrl_interface` entry**. The absence of a control socket prevented this diagnostic command from working; it did not mean that the camera had failed to connect. The link state, Wi-Fi address and interface-bound ping confirmed a working connection.
+
+When collecting diagnostics, use narrowly scoped reads such as `fw_printenv wlandev netmode`. A complete environment dump or generated WPA configuration can expose the saved password. Checking only for a `ctrl_interface` entry does not require printing the rest of that file.
+
+### Reboot and Ethernet-unplug tests
+
+After saving the adapter and credentials, the camera was rebooted once. Without another manual `modprobe` or credential entry, it loaded the driver, associated with the access point, and obtained **`192.168.2.108/24`** again. Another Wi-Fi-bound router ping returned three replies with no packet loss. The photocell service also started automatically and remained running.
+
+With both interfaces connected, the routing table preferred Ethernet; the Wi-Fi routes had **metric 10**. Keeping `netmode=eth` did not disable Wi-Fi. The existing `S40network` script manages Ethernet alongside the wireless connection and removes the Ethernet routes when the cable is unplugged.
+
+The owner then signed in to the live view at the Wi-Fi address and unplugged **only the Ethernet cable**, leaving the camera powered. Video continued. A separate console session through the Wi-Fi address confirmed the following results; device identifiers have been omitted:
+
+```text
+Ethernet carrier: 0
+wlan0: UP, LOWER_UP
+IPv4 address: 192.168.2.108/24
+default via 192.168.2.1 dev wlan0 metric 10
+192.168.2.0/24 dev wlan0 scope link src 192.168.2.108 metric 10
+Bit Rate=28.9 Mb/s
+Link Quality=70/70  Signal level=-22 dBm
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 2.507/3.233/3.945 ms
+Photocell controller running
+```
+
+Only Wi-Fi routes remained, so the continued video and console access did not depend on Ethernet. The camera's current wireless live-view address was `http://192.168.2.108/cgi-bin/live.cgi`; future DHCP leases may differ.
+
+The reported **28.9 Mb/s is a PHY link rate**, not a throughput measurement. The wireless live view was **H.264 at 1920×1080**, with WebRTC reporting **13 fps** during the test. Adaptive playback/encoding was not tuned, and this was not a fixed-20-fps throughput or long-term stability test.
+
 ## Returning to the stock firmware
 
 Use the original full flash dump to restore the stock firmware. Load the temporary bootloader again through **ROM UART recovery**, which does not depend on the installed Linux system or the bootloader’s console password. Configure RMII and PHY addresses before network access, then download the private stock image:
@@ -608,6 +733,7 @@ Verified on this physical camera:
 - Serial communication and a working ROM-to-RAM recovery route.
 - Two independent, byte-identical full flash backups, with matching target and host CRCs.
 - Ethernet/TFTP in recovery and Ethernet networking under OpenIPC.
+- MT7601U Wi-Fi scanning and association, automatic connection after reboot, and live video with Ethernet unplugged.
 - The complete OpenIPC flash write and full-image readback, followed by a successful boot.
 - SC2235 1080p video, the slow-shutter workaround, IR-cut direction, night vision and return to colour.
 - Photocell-driven automatic operation and service startup after reboot.
@@ -615,14 +741,15 @@ Verified on this physical camera:
 Still unverified or incomplete:
 
 - An end-to-end restoration and boot of the saved stock image.
-- OpenIPC Wi-Fi association, audio, recording, buttons, and any motor/PTZ functions.
+- Audio, recording, buttons, and any motor/PTZ functions under OpenIPC.
 - Exact PCB revision suffix, a complete four-pad UART pinout, and the full schematic of the IR ring.
 - A vendor-web-updater/Coupler transition for this exact model.
 - Long-term stability, outdoor switching thresholds, and behavior under unusual IR reflections or changing ambient lighting.
+- Sustained Wi-Fi throughput, fixed-frame-rate wireless video, and long-term wireless reliability.
 
 ## References and evidence
 
-The board photographs, boot logs, two matching backups, extracted stock modules, release hashes, actual camera schema, and the final reboot/light-cycle test are the primary evidence for this unit. Private dumps, credentials, camera-specific environment files and raw flash images are intentionally excluded.
+The board photographs, boot logs, two matching backups, extracted stock modules, release hashes, actual camera schema, reboot/light-cycle tests, and Wi-Fi tests with Ethernet unplugged are the primary evidence for this unit. Private dumps, credentials, camera-specific environment files and raw flash images are intentionally excluded.
 
 - [OpenIPC Hi3518EV200 target](https://openipc.org/cameras/vendors/hisilicon/socs/hi3518ev200)
 - [OpenIPC firmware releases](https://github.com/OpenIPC/firmware/releases/tag/latest)
@@ -631,3 +758,4 @@ The board photographs, boot logs, two matching backups, extracted stock modules,
 - [OpenIPC Coupler](https://github.com/OpenIPC/coupler)
 - [Supported sensor drivers](https://github.com/OpenIPC/wiki/blob/master/en/guide-supported-sensors.md)
 - [Majestic configuration](https://github.com/OpenIPC/wiki/blob/master/en/majestic-config.md) and [streamer documentation](https://github.com/OpenIPC/wiki/blob/master/en/majestic-streamer.md)
+- [Linux Wireless: MediaTek drivers and supported bands](https://wireless.docs.kernel.org/en/latest/en/users/drivers/mediatek.html)
