@@ -516,7 +516,7 @@ S96bedee-photocell
   71cf9495464550e6be177ea83d0dc6dff92a7d53b80bb7ccb9888e508f351c58
 ```
 
-These hashes identify the versions installed during the hardware tests. The downloadable init script now polls for a verified controller PID for up to ten seconds and reports early exits or a startup timeout. That revision was checked offline; it has not been deployed to the camera or reboot-tested there.
+These hashes identify the versions installed during the initial hardware tests. The revised init script polls for a verified controller PID for up to ten seconds and reports early exits or a startup timeout. After offline checks passed, that revision was deployed and verified through another camera reboot, as described below.
 
 For a clean installation, copy the two files to `/tmp` on the camera first. Keep Unix LF line endings; the companion directory's Git attributes enforce them on checkout. Legacy `scp -O` can be needed when the camera has no SFTP subsystem. Stop any temporary test loop, apply the settings above, and inspect the files before installing:
 
@@ -547,6 +547,14 @@ The existing boot sequence executes `S??*` scripts in order, so S96 runs after S
 Eight offline scenarios passed: day/night delays, a brief shadow, hysteresis resetting the timer, API outage recovery, a rejected request, a competing automatic source, and ADC failure. These tests simulated the hardware, API responses and elapsed time. The camera was tested separately.
 
 On the camera, both files passed shell syntax and SHA256 checks. After a normal reboot, their hashes were unchanged and the service started automatically. Its log showed the initial API outage and recovery, then a night request at **ADC 255**. Metrics showed night, IR-cut and lamp all enabled. After turning the light on, the owner confirmed normal colour and metrics showed all three disabled. Both physical transitions were verified after reboot.
+
+The revised init script was subsequently installed on **18 November 2026**. The upload and staged file passed shell syntax and SHA256 checks before the installed script was replaced with an atomic rename and permissions **`0755`**. The original was retained at `/etc/S96bedee-photocell.before-readiness-fix`. The revised init script's SHA256 is:
+
+```text
+8657ac6479f6d1f02639765008a881a1a88e768b374666e8be1726678cfef115
+```
+
+A changed kernel boot ID confirmed the subsequent reboot. Wi-Fi returned at `192.168.2.105`, and the installed script retained its hash and executable permissions. The photocell controller started automatically as **PID 1038**, without a manual service start. Its logs showed the expected thresholds and delays, a brief wait for Majestic's API, and recovery when the API became available. A later status check confirmed that the same controller process was still running. Day-mode metrics reported night mode, IR-cut and lamp all disabled. This deployment check did **not** repeat the physical light-cycle test performed with the earlier revision.
 
 Useful checks:
 
@@ -758,7 +766,9 @@ isp:
   slowShutter: disabled
 ```
 
-This is an excerpt of the relevant settings, **not a replacement configuration file**. The earlier slow-shutter workaround remained in place. These final performance settings were saved, but were not followed by another reboot-persistence test during this investigation.
+This is an excerpt of the relevant settings, **not a replacement configuration file**. The earlier slow-shutter workaround remained in place. A subsequent reboot after installing the revised photocell init script confirmed that all three settings persisted. Runtime tables also showed **VPSS 30 → 30**, four common YUV buffers and one raw buffer, with **5,040 KiB** of media memory still free.
+
+After that reboot, the encoded-frame counter advanced from **1,533 to 1,746** over **10.51 seconds**, measuring approximately **20.3 fps** with no WebRTC viewer connected. This confirmed continued frame production after reboot; it was a short measurement, separate from the longer wireless live-view test below.
 
 To undo only the buffer override, use `cli -d .isp.blkCnt`. To restore the original automatic rate selection, use `cli -s .video0.fps 0`; on this tested configuration that selected 20 and produced the extra VPSS discard again.
 
@@ -840,6 +850,7 @@ Verified on this physical camera:
 - The complete OpenIPC flash write and full-image readback, followed by a successful boot.
 - SC2235 1080p video, the slow-shutter workaround, IR-cut direction, night vision and return to colour.
 - Photocell-driven automatic operation and service startup after reboot.
+- Deployment and automatic startup of the revised photocell init script after reboot, with the final frame-rate, buffer and slow-shutter settings retained and approximately 20.3 fps measured afterward.
 
 Still unverified or incomplete:
 
@@ -849,7 +860,7 @@ Still unverified or incomplete:
 - A vendor-web-updater/Coupler transition for this exact model.
 - Long-term stability, outdoor switching thresholds, and behavior under unusual IR reflections or changing ambient lighting.
 - The cause of the earlier hangs and reboots, long-term wireless reliability, and sustained wireless throughput beyond the short upload and live-view tests.
-- The maximum reliable frame rate, higher-rate 720p modes, and reboot persistence of the final frame-rate and buffer overrides.
+- The maximum reliable frame rate and higher-rate 720p modes.
 
 ## References and evidence
 
