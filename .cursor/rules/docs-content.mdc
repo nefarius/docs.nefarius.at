@@ -19,13 +19,15 @@ Published pages are linked from releases, posts, and bookmarks. Renaming a file 
 
 - Do not rename, move, or delete a published page during ordinary editing.
 - Do not reword a linked heading unless the old anchor still resolves.
-- For an intentional move, add every old path to `redirect_maps` in `mkdocs.yml` before removing the old file. Include the old and new anchors when a section moves.
+- For an intentional move, add the moved page's old path to `redirect_maps` in `mkdocs.yml` before removing the old file. Update every existing entry that targets that page so each previous URL resolves to its current location.
+- Use page paths only in `redirect_maps`. Before changing a linked heading, keep its anchor resolvable at the new location. If that section leaves a page which remains published, leave the old anchor there as a link to the new section.
 - Point internal links at the new location. Run `mkdocs build --strict`; a missing page or anchor means the move is incomplete.
 - Keep the redirect permanently. Do not put a new page back at the old path.
 
 ```yaml
 # mkdocs.yml
-redirect_maps:
-  'projects/Example/Old-Name.md': 'projects/Example/New-Name.md'
-  'projects/Example/Old-Name.md#old-heading': 'projects/Example/New-Name.md#new-heading'
+plugins:
+  - redirects:
+      redirect_maps:
+        'projects/Example/Old-Name.md': 'projects/Example/New-Name.md'
 ```
