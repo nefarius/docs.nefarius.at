@@ -10,14 +10,38 @@ Source repository for **[docs.nefarius.at](https://docs.nefarius.at)** — the d
 
 ## Local build
 
-Pinned Python packages live in [`requirements.txt`](requirements.txt). Local preview is easiest with [Docker](https://www.docker.com/). From the repo root:
+Pinned Python packages live in [`requirements.txt`](requirements.txt). Production still deploys with Material for MkDocs. [compose.yaml](compose.yaml) also starts a pinned Zensical 0.1.0 preview from the same sources and `mkdocs.yml`.
+
+From the repo root:
 
 ```bash
-docker build -t mkdocs .
-docker run -it --rm -v "${PWD}:/docs" -p "8000:8000" mkdocs:latest
+docker compose up --build
 ```
 
-The site is served at **http://localhost:8000**.
+- Material for MkDocs: http://localhost:8000
+- Zensical 0.1.0: http://localhost:8001
+
+Set `MATERIAL_PORT` or `ZENSICAL_PORT` before `docker compose up` when either default port is already in use.
+
+Both previews reload when documentation files change. After changing `requirements.txt`, rebuild the Material image and start again:
+
+```bash
+docker compose build material
+docker compose up
+```
+
+Stop the previews and remove their isolated build volumes:
+
+```bash
+docker compose down --volumes
+```
+
+Run the same checks used before deployment without leaving the preview servers running:
+
+```bash
+docker compose run --rm material build --strict
+docker compose run --rm zensical build --strict
+```
 
 ---
 
