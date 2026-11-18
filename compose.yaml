@@ -3,7 +3,7 @@ services:
     build: .
     command: ["serve", "--dev-addr=0.0.0.0:8000"]
     ports:
-      - "${MATERIAL_PORT:-8000}:8000"
+      - "127.0.0.1:${MATERIAL_PORT:-8000}:8000"
     volumes:
       - .:/docs
       - material-site:/docs/site
@@ -12,7 +12,7 @@ services:
   zensical:
     image: zensical/zensical:0.1.0
     ports:
-      - "${ZENSICAL_PORT:-8001}:8000"
+      - "127.0.0.1:${ZENSICAL_PORT:-8001}:8000"
     volumes:
       - .:/docs
       - zensical-site:/docs/site
