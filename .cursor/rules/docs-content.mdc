@@ -1,0 +1,31 @@
+---
+description: Style and stable public links for documentation edits
+alwaysApply: true
+---
+
+# Documentation content
+
+Match the page you are editing. These are instructions for installers and troubleshooters.
+
+- Use one H1 as the page title, then short task-oriented sections.
+- Choose the admonition that matches the risk: `note`, `warning`, or `danger`.
+- Link between docs with relative Markdown paths. Add an explicit anchor, such as `{#hide-mice-keyboards}`, when other pages link to a section.
+- Place a screenshot immediately after the step it illustrates.
+- A directory marked `hide: true` stays out of the navigation and remains reachable by its URL. Do not add it to the navigation.
+
+# Public links are stable
+
+Published pages are linked from releases, posts, and bookmarks. Renaming a file or heading changes that URL.
+
+- Do not rename, move, or delete a published page during ordinary editing.
+- Do not reword a linked heading unless the old anchor still resolves.
+- For an intentional move, add every old path to `redirect_maps` in `mkdocs.yml` before removing the old file. Include the old and new anchors when a section moves.
+- Point internal links at the new location. Run `mkdocs build --strict`; a missing page or anchor means the move is incomplete.
+- Keep the redirect permanently. Do not put a new page back at the old path.
+
+```yaml
+# mkdocs.yml
+redirect_maps:
+  'projects/Example/Old-Name.md': 'projects/Example/New-Name.md'
+  'projects/Example/Old-Name.md#old-heading': 'projects/Example/New-Name.md#new-heading'
+```
