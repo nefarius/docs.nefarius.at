@@ -145,7 +145,7 @@ def main():
             "pinned_source_sha256": PINNED,
         }
         # Refuse an existing directory, so a previous backup is never replaced.
-        args.out.mkdir(parents=True, exist_ok=False)
+        args.out.mkdir(mode=0o700, parents=True, exist_ok=False)
         (args.out / "bedee-stock-8m.bin").write_bytes(stock)
         (args.out / "bedee-openipc-lite-8m-candidate.bin").write_bytes(image)
         (args.out / "u-boot-hi3518ev200-recovery.bin").write_bytes(recovery)

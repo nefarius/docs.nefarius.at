@@ -516,6 +516,8 @@ S96bedee-photocell
   71cf9495464550e6be177ea83d0dc6dff92a7d53b80bb7ccb9888e508f351c58
 ```
 
+These hashes identify the versions installed during the hardware tests. The downloadable init script now polls for a verified controller PID for up to ten seconds and reports early exits or a startup timeout. That revision was checked offline; it has not been deployed to the camera or reboot-tested there.
+
 For a clean installation, copy the two files to `/tmp` on the camera first. Keep Unix LF line endings; the companion directory's Git attributes enforce them on checkout. Legacy `scp -O` can be needed when the camera has no SFTP subsystem. Stop any temporary test loop, apply the settings above, and inspect the files before installing:
 
 ```sh

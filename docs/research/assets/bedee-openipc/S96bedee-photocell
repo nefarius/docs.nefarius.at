@@ -25,10 +25,17 @@ case "${1:-}" in
             exec /bin/sh "$DAEMON"
         ) </dev/null >/dev/null 2>&1 &
         child=$!
-        sleep 1
-        if running; then echo "Photocell controller started (PID $pid)."
-        else wait "$child"; echo 'Controller failed to start; see logread.' >&2; exit 1
-        fi;;
+        for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            sleep 1
+            if running; then echo "Photocell controller started (PID $pid)."; exit 0; fi
+            if ! kill -0 "$child" 2>/dev/null; then
+                wait "$child"
+                echo 'Controller exited before becoming ready; see logread.' >&2
+                exit 1
+            fi
+        done
+        echo 'Controller startup timed out; inspect logread and the lock before retrying.' >&2
+        exit 1;;
     stop)
         if ! running; then echo 'No verified photocell controller is running.'; exit 0; fi
         kill -TERM "$pid" || exit 1
