@@ -12,10 +12,11 @@ scenario() (
     echo "$2" > "$fixture/state"
     : > "$fixture/calls"
     : > "$fixture/registers"
+    : > "$fixture/log"
     test_case=$1
     duration=$3
     id() { echo 0; }
-    log() { :; }
+    log() { printf '%s\n' "$*" >> "$fixture/log"; }
     devmem() {
         if [ "$#" -eq 2 ]; then echo 0x00000000
         else printf '%s\n' "$*" >> "$fixture/registers"
@@ -34,6 +35,15 @@ scenario() (
                 else echo 255
                 fi;;
             adc-fail) return 1;;
+            adc-transient)
+                [ "$tick" -ne 5 ] || return 1
+                echo 255;;
+            adc-transient-day)
+                [ "$tick" -ne 5 ] || return 1
+                echo 0;;
+            adc-recover)
+                [ "$tick" -ge 10 ] || return 1
+                echo 255;;
         esac
     }
     http() {
@@ -85,7 +95,17 @@ assert_calls 'rejected request is retried with delay' "15 /night/on
 36 /night/on"
 if scenario foreign 0 40; then echo 'FAIL competing controller accepted'; exit 1; fi
 assert_calls 'competing controller stops' ''
-if scenario adc-fail 0 40; then echo 'FAIL failed ADC accepted'; exit 1; fi
-assert_calls 'ADC failure stops' ''
-rm "$fixture/clock" "$fixture/state" "$fixture/calls" "$fixture/registers" "$fixture/restored" "$fixture/expected"
+scenario adc-fail 0 28
+assert_calls 'persistent ADC failure holds mode without stopping' ''
+[ "$(grep -c 'ADC reads failed' "$fixture/log")" -eq 1 ] || { echo 'FAIL ADC failure log spam'; exit 1; }
+scenario adc-transient 0 25
+assert_calls 'transient ADC failure resets night delay' '21 /night/on'
+grep -q 'ADC reads recovered' "$fixture/log"
+scenario adc-transient-day 1 70
+assert_calls 'transient ADC failure resets day delay' '66 /night/off'
+scenario adc-recover 0 35
+assert_calls 'ADC recovery resumes automatic switching' '29 /night/on'
+grep -q 'ADC reads failed' "$fixture/log"
+grep -q 'ADC reads recovered' "$fixture/log"
+rm "$fixture/clock" "$fixture/state" "$fixture/calls" "$fixture/registers" "$fixture/restored" "$fixture/expected" "$fixture/log"
 rmdir "$fixture"

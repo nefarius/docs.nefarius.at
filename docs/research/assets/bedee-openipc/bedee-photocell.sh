@@ -74,6 +74,7 @@ run() {
     pending=hold
     since=0
     unavailable=0
+    adc_failures=0
     log "Photocell controller started: day <=$DAY_LIMIT for ${DAY_DELAY}s; night >=$NIGHT_LIMIT for ${NIGHT_DELAY}s."
     while :; do
         if ! metrics=$(http /metrics/night); then
@@ -92,7 +93,26 @@ run() {
             return 1
         }
         case "$state" in 0|1) ;; *) log 'Invalid night-mode status; stopping.'; return 1;; esac
-        value=$(adc_read) || { log 'ADC read failed; stopping without switching.'; return 1; }
+        # A failed conversion must not end monitoring or count toward a switch.
+        value=
+        for attempt in 1 2 3; do
+            if value=$(adc_read); then break; fi
+            pending=hold
+            value=
+            [ "$attempt" = 3 ] || sleep 1
+        done
+        if [ -z "$value" ]; then
+            if [ "$((adc_failures % 12))" = 0 ]; then
+                log 'ADC reads failed after three attempts; holding the current mode and retrying after 5 seconds.'
+            fi
+            adc_failures=$((adc_failures + 1))
+            sleep 5
+            continue
+        fi
+        if [ "$adc_failures" != 0 ] || [ "$attempt" != 1 ]; then
+            log 'ADC reads recovered; restarting the switching delay.'
+        fi
+        adc_failures=0
         target=$(classify "$value")
         now=$(now_seconds) || return 1
         if [ "$target" = hold ] || [ "$target" = "$state" ]; then

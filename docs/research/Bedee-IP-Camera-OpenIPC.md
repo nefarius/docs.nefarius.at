@@ -505,7 +505,7 @@ Authentication remained enabled. These requests were sent from the camera itself
 
 The controller uses the measured 0–255 range and the stock thresholds. The reading must remain **at or above 90 for 15 seconds to enter night mode**, or **at or below 30 for 60 seconds to enter day mode**. Intermediate readings reset the countdown and retain the current mode. Timing uses monotonic uptime.
 
-It checks the ADC pin mux without changing it, saves the original ADC control values and restores them on exit, and uses a lock to prevent multiple instances from running. Mode changes use `/night/on` or `/night/off`; they do not repeatedly save YAML or write firmware partitions. If the API becomes unavailable, the controller keeps the current mode and restarts the delay when the API responds again. The service stops if an ADC read fails or native automatic switching is enabled.
+It checks the ADC pin mux without changing it, saves the original ADC control values and restores them on exit, and uses a lock to prevent multiple instances from running. Mode changes use `/night/on` or `/night/off`; they do not repeatedly save YAML or write firmware partitions. If the API becomes unavailable, the controller keeps the current mode and restarts the delay when the API responds again. Failed ADC reads are retried without ending monitoring, as described below. The service still stops if native automatic switching is enabled or its decision source is unknown.
 
 The installed file hashes were:
 
@@ -544,7 +544,7 @@ The existing boot sequence executes `S??*` scripts in order, so S96 runs after S
 
 ### Verification and service controls
 
-Eight offline scenarios passed: day/night delays, a brief shadow, hysteresis resetting the timer, API outage recovery, a rejected request, a competing automatic source, and ADC failure. These tests simulated the hardware, API responses and elapsed time. The camera was tested separately.
+Eleven regression scenarios passed: day/night delays, a brief shadow, hysteresis resetting the timer, API outage recovery, a rejected request, a competing automatic source, persistent ADC failure, transient ADC failures resetting each switching delay, and recovery after an ADC outage. These tests simulated the hardware, API responses and elapsed time. All eleven also passed in an isolated fixture under the camera's BusyBox shell, with the hardware and API functions replaced by mocks. Actual light switching was tested separately.
 
 On the camera, both files passed shell syntax and SHA256 checks. After a normal reboot, their hashes were unchanged and the service started automatically. Its log showed the initial API outage and recovery, then a night request at **ADC 255**. Metrics showed night, IR-cut and lamp all enabled. After turning the light on, the owner confirmed normal colour and metrics showed all three disabled. Both physical transitions were verified after reboot.
 
@@ -573,6 +573,20 @@ curl -fsS http://127.0.0.1/night/off
 ```
 
 Remove `/etc/bedee-photocell.disabled` and start the service to re-enable it. Both scripts and the disable marker are stored in the writable overlay. A full reflash or overlay reset requires reinstalling the service and reapplying the exposure and pin settings; the original flashed candidate did not contain these later fixes.
+
+### Recovering from intermittent ADC read failures
+
+A later status check found that the original controller had exited after logging `ADC read failed; stopping without switching.` A single failed conversion could therefore leave automatic day/night switching stopped until the service was restarted. The underlying cause of that occasional read failure was not established.
+
+The revised controller tries each reading up to **three times**, with a one-second pause between failed attempts. Any failed read clears the pending day/night countdown. If all three attempts fail, the controller **retains the current mode, waits five seconds, and tries again**. It emits periodic warnings during a sustained fault and logs recovery when valid readings resume. Switching then requires a fresh, uninterrupted interval of valid readings; an ADC outage cannot count toward the 15-second night or 60-second day delay. A persistent hardware fault still prevents reliable light measurement, but no longer makes this error path terminate the process.
+
+The revised controller was hash-checked, installed with an atomic rename and permissions `0755`, and started through the existing init script. The previous controller was retained at `/etc/bedee-photocell.before-adc-retry.sh`. The revised `bedee-photocell.sh` SHA256 is:
+
+```text
+7e2b6f92ca7ce6c6c415b1b1b2649427025cd42abf2f3103e7852a0e325179c6
+```
+
+With this revision running, the owner turned the room light off and on. Logs recorded an accepted night request at **ADC 255**, followed by an accepted day request at **ADC 0** after the bright-light delay. Metrics confirmed the corresponding night-mode, IR-cut and lamp states, and the same controller process remained running throughout. ADC failures and recovery were injected only in the mocked tests; the real light-cycle check did not deliberately disturb ADC hardware. This controller revision was verified through a service restart and light cycle, without another reboot.
 
 ## Enabling Wi-Fi
 
