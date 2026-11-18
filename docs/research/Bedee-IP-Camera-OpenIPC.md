@@ -2,9 +2,9 @@
 
 Investigating an old Bedee camera became a small firmware archaeology project: identifying the board, gaining recovery access without the stock console password, backing up the entire flash, installing OpenIPC, and restoring infrared night vision.
 
-The result is a working **Hi3518EV200 / SC2235 camera running OpenIPC**, with Ethernet, Wi-Fi, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. Reboot persistence, a full night/day cycle, and live video over Wi-Fi with Ethernet unplugged were verified.
+The result is a working **Hi3518EV200 / SC2235 camera running OpenIPC**, with Ethernet, Wi-Fi, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. Reboot persistence, a full night/day cycle, and live video over Wi-Fi with Ethernet unplugged were verified. Later tuning raised measured video output from about **13 to 21 fps**; a wireless-only test then ran for **5 minutes 34 seconds** without a hang or reboot.
 
-These notes describe **one physical unit tested on 17–18 November 2026**. The Wi-Fi investigation was completed on 18 November. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.
+These notes describe **one physical unit tested on 17–18 November 2026**. Wi-Fi setup and the subsequent performance investigation took place on 18 November. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.
 
 !!! warning "Board-specific research, not a generic upgrade recipe"
     The flash offsets, DDR configuration and register addresses below are specific to this board and the recorded image versions. Flashing replaces the stock bootloader and configuration. Make and verify a full backup, and confirm that you can access the recovery bootloader, before writing anything. The stock restoration procedure has been prepared but has **not** been tested end to end.
@@ -686,7 +686,107 @@ Photocell controller running
 
 Only Wi-Fi routes remained, so the continued video and console access did not depend on Ethernet. The camera's current wireless live-view address was `http://192.168.2.108/cgi-bin/live.cgi`; future DHCP leases may differ.
 
-The reported **28.9 Mb/s is a PHY link rate**, not a throughput measurement. The wireless live view was **H.264 at 1920×1080**, with WebRTC reporting **13 fps** during the test. Adaptive playback/encoding was not tuned, and this was not a fixed-20-fps throughput or long-term stability test.
+The reported **28.9 Mb/s is a PHY link rate**, not a throughput measurement. The wireless live view was **H.264 at 1920×1080**, with WebRTC reporting **13 fps** during this initial test. The later investigation below measured the encoder directly, improved frame delivery, and tested wireless throughput separately.
+
+## Investigating low frame rate and apparent Wi-Fi hangs
+
+After Wi-Fi was enabled, the owner reported a lower frame rate, a sluggish WebUI, and eventually a camera which appeared unresponsive. Reconnecting Ethernet provided a recovery path, although HTTP sometimes accepted a TCP connection without returning any headers. SSH remained accessible during part of the incident.
+
+The camera did reboot: two metric snapshots had boot times **333 seconds apart**, and an SSH uptime check confirmed a recent system start. Majestic reported a **300-second watchdog**, fed every 150 seconds. That timing was consistent with a watchdog reset, but did not establish what stopped the service from responding. The available logs contained no matching out-of-memory or crash report, and `/etc/crash` was empty. The cause of those earlier hangs remains unresolved.
+
+The owner installed an SSH public key for subsequent diagnostics. Passwords and private keys were not copied into these notes. Narrowly scoped SSH reads avoided relying on the WebUI's console while its service was stalled.
+
+### Separating frame production from network throughput
+
+With no browser viewers, deltas of `venc0_encoded_frames_total` in `/metrics` measured approximately **13.3 fps**. The saved video rate was initially automatic (`video0.fps=0`), which selected 20 fps on this configuration. Explicitly setting 20 did not improve delivery. Taking Wi-Fi down and unloading its driver also left the encoder at approximately **13.4 fps**.
+
+This established that the low frame rate existed before network transmission. It did not rule out an additional wireless problem or explain the reboots.
+
+Useful read-only diagnostics were:
+
+```sh
+cat /proc/umap/vi
+cat /proc/umap/vpss
+cat /proc/umap/venc
+cat /proc/umap/vb
+cat /proc/media-mem
+curl -fsS http://127.0.0.1/metrics
+```
+
+On this build, media-memory allocation was available at **`/proc/media-mem`**; `/proc/umap/mmz` did not exist. Restrict any metrics or log excerpts before publishing them, since they can include device or network identifiers.
+
+The encoder reported no overload or full-buffer errors. Capture did report buffer failures: one snapshot showed **2,267 `VbFail` events from 9,090 interrupts**. More importantly, the video-processing subsystem (VPSS) exposed another discard step:
+
+```text
+VI channel output:             about 20 fps
+VPSS channel SrcFRate:         30
+VPSS channel DstFRate:         20
+VPSS/VENC delivered output:    about 13 fps
+```
+
+VPSS was keeping only two out of every three incoming frames even though capture was already delivering about 20. The source/destination fields in the VENC table were both `-1`; the decisive rate-control values were in **the VPSS table**, not the encoder table.
+
+### Removing the extra discard and adding buffer headroom
+
+Setting the requested video rate to 30 changed VPSS to **30 → 30**, removing that additional discard:
+
+```sh
+cli -s .video0.fps 30
+```
+
+Measured output rose to approximately **19.5 fps**. This setting did not make the camera capture 30 frames per second; it allowed more of the frames it was already producing to reach the encoder.
+
+The board splits its 64 MiB RAM into **32 MiB for Linux and 32 MiB for media buffers**. Before the buffer experiment, the media allocator had **8,076 KiB free**. Its common pools held three 3,110,400-byte YUV frames and one 4,147,200-byte raw frame. Majestic described this as four automatic blocks.
+
+The pool was increased by one block:
+
+```sh
+cli -s .isp.blkCnt 5
+```
+
+The common YUV pool then held four frames alongside the raw frame. Media-memory use rose to **27,728 KiB**, leaving **5,040 KiB free**. Measured output reached approximately **21 fps**. Capture failures decreased but remained present: a later interval recorded 120 failures from 562 interrupts. The change improved delivery without eliminating every capture loss.
+
+The final saved settings were read back and flushed with `sync`:
+
+```yaml
+video0:
+  fps: 30
+isp:
+  blkCnt: 5
+  slowShutter: disabled
+```
+
+This is an excerpt of the relevant settings, **not a replacement configuration file**. The earlier slow-shutter workaround remained in place. These final performance settings were saved, but were not followed by another reboot-persistence test during this investigation.
+
+To undo only the buffer override, use `cli -d .isp.blkCnt`. To restore the original automatic rate selection, use `cli -s .video0.fps 0`; on this tested configuration that selected 20 and produced the extra VPSS discard again.
+
+### Measuring the wireless path
+
+Restoring the existing `mt7601u` driver briefly caused USB disconnects, re-enumeration and two probe failures with error `-5` before the adapter associated successfully. An initial `ifup wlan0` ran before the device was ready; a later attempt worked. These events occurred during driver reload and do not prove that USB faults caused the earlier spontaneous hangs. Avoid repeated driver unloading and reloading as a routine fix.
+
+DHCP now assigned **`192.168.2.105`** to Wi-Fi. Power management was already **off** after association, with signal strength around **−47 to −51 dBm**.
+
+A temporary receiver on the local computer accepted identical **1 MiB dummy uploads**, with the camera's `curl` explicitly bound to `eth0` or `wlan0`. Client-reported upload rates were approximately **75.8 Mb/s over Ethernet** and **14.3 Mb/s over Wi-Fi**. The wireless gateway ping returned all three packets with an average round-trip time of **2.2 ms**. These were short throughput tests, not sustained capacity measurements.
+
+OpenIPC's [Wi-Fi driver notes](https://github.com/OpenIPC/wiki/blob/master/en/adding-wifi-driver.md) describe poor upload performance with mainline `mt7601u` on another Hi3518EV200 camera, and improved results with the alternative `mt7601sta` driver. This unit's short upload test did not reproduce that throughput limit. No alternative driver was installed, and no firmware change was made during the performance investigation.
+
+Opening the page at the wireless address was **not sufficient proof that WebRTC video used Wi-Fi**. With Ethernet connected, interface counters showed the video traffic leaving through `eth0` while almost no data left through `wlan0`. WebRTC had selected the wired path even though the page was opened at the wireless address.
+
+The owner therefore unplugged only Ethernet, leaving power connected. SSH monitoring continued through the wireless address. Across **32 samples spanning 333.58 seconds**, the single live WebRTC viewer produced:
+
+- **21.01 fps** at 1920×1080, measured from encoded-frame counter deltas.
+- **1.70 Mb/s** of encoded video; Wi-Fi transmitted **1.885 Mb/s** including overhead.
+- **Zero Ethernet transmit bytes**, confirming the wireless path.
+- At least **10.23 MiB of available Linux memory**.
+- Unchanged system and application boot counters, and no new USB error messages.
+
+The owner also reported noticeably less video delay. This was a successful **5½-minute wireless-only run**, not proof of long-term reliability or a demonstrated fix for the earlier hangs. If another stall occurs, reconnect Ethernet and collect logs before rebooting, since a reset can discard the evidence.
+
+### Practical frame-rate limit
+
+Approximately **20–21 fps at 1080p** is the best measured result from this session. Neither the requested 30 fps nor the SC2235's nominal mode establishes that this complete board can sustain 30 fps through capture, processing and encoding. Capture still reported losses, and the absolute hardware limit was not established.
+
+A longer stability run is the next useful check. Lower-resolution video, such as 720p at 25–30 fps, remains a possible experiment; that mode and those rates were **not tested** on this unit.
 
 ## Returning to the stock firmware
 
@@ -734,6 +834,7 @@ Verified on this physical camera:
 - Two independent, byte-identical full flash backups, with matching target and host CRCs.
 - Ethernet/TFTP in recovery and Ethernet networking under OpenIPC.
 - MT7601U Wi-Fi scanning and association, automatic connection after reboot, and live video with Ethernet unplugged.
+- Frame-rate and buffer tuning from roughly 13.3 to 21 fps, followed by a 5½-minute wireless-only live-view test with stable memory and no new USB errors or reboot.
 - The complete OpenIPC flash write and full-image readback, followed by a successful boot.
 - SC2235 1080p video, the slow-shutter workaround, IR-cut direction, night vision and return to colour.
 - Photocell-driven automatic operation and service startup after reboot.
@@ -745,7 +846,8 @@ Still unverified or incomplete:
 - Exact PCB revision suffix, a complete four-pad UART pinout, and the full schematic of the IR ring.
 - A vendor-web-updater/Coupler transition for this exact model.
 - Long-term stability, outdoor switching thresholds, and behavior under unusual IR reflections or changing ambient lighting.
-- Sustained Wi-Fi throughput, fixed-frame-rate wireless video, and long-term wireless reliability.
+- The cause of the earlier hangs and reboots, long-term wireless reliability, and sustained wireless throughput beyond the short upload and live-view tests.
+- The maximum reliable frame rate, higher-rate 720p modes, and reboot persistence of the final frame-rate and buffer overrides.
 
 ## References and evidence
 
@@ -759,3 +861,5 @@ The board photographs, boot logs, two matching backups, extracted stock modules,
 - [Supported sensor drivers](https://github.com/OpenIPC/wiki/blob/master/en/guide-supported-sensors.md)
 - [Majestic configuration](https://github.com/OpenIPC/wiki/blob/master/en/majestic-config.md) and [streamer documentation](https://github.com/OpenIPC/wiki/blob/master/en/majestic-streamer.md)
 - [Linux Wireless: MediaTek drivers and supported bands](https://wireless.docs.kernel.org/en/latest/en/users/drivers/mediatek.html)
+- [OpenIPC Wi-Fi driver notes](https://github.com/OpenIPC/wiki/blob/master/en/adding-wifi-driver.md)
+- [OpenIPC media-memory and buffer tuning](https://github.com/OpenIPC/wiki/blob/master/en/memory-tuning.md)
