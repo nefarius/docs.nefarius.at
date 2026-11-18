@@ -2,7 +2,7 @@
 
 Investigating an old Bedee camera became a small firmware archaeology project: identifying the board, gaining recovery access without the stock console password, backing up the entire flash, installing OpenIPC, and restoring infrared night vision.
 
-The result is a working **Hi3518EV200 / SC2235 camera running OpenIPC**, with Ethernet, Wi-Fi, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. Reboot persistence, a full night/day cycle, and live video over Wi-Fi with Ethernet unplugged were verified. Later tuning raised measured video output from about **13 to 21 fps**; a wireless-only test then ran for **5 minutes 34 seconds** without a hang or reboot.
+The result is a working **Hi3518EV200 / SC2235 camera running OpenIPC**, with Ethernet, Wi-Fi, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. Reboot persistence, a full night/day cycle, and live video over Wi-Fi with Ethernet unplugged were verified. Later tuning raised measured video output from about **13 to 21 fps**; a wireless-only test then ran for **5 minutes 34 seconds** without a hang or reboot. Subsequent browser-navigation tests exposed another stall and full reboot. Selecting **MSE** gave smooth playback and a successful return to Dashboard, providing a workaround while the underlying fault remains unresolved.
 
 These notes describe **one physical unit tested on 17–18 November 2026**. Wi-Fi setup and the subsequent performance investigation took place on 18 November. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.
 
@@ -586,7 +586,9 @@ The revised controller was hash-checked, installed with an atomic rename and per
 7e2b6f92ca7ce6c6c415b1b1b2649427025cd42abf2f3103e7852a0e325179c6
 ```
 
-With this revision running, the owner turned the room light off and on. Logs recorded an accepted night request at **ADC 255**, followed by an accepted day request at **ADC 0** after the bright-light delay. Metrics confirmed the corresponding night-mode, IR-cut and lamp states, and the same controller process remained running throughout. ADC failures and recovery were injected only in the mocked tests; the real light-cycle check did not deliberately disturb ADC hardware. This controller revision was verified through a service restart and light cycle, without another reboot.
+With this revision running, the owner turned the room light off and on. Logs recorded an accepted night request at **ADC 255**, followed by an accepted day request at **ADC 0** after the bright-light delay. Metrics confirmed the corresponding night-mode, IR-cut and lamp states, and the same controller process remained running throughout. ADC failures and recovery were injected only in the mocked tests; the real light-cycle check did not deliberately disturb ADC hardware.
+
+A subsequent intentional reboot confirmed automatic startup of this ADC-retry revision, with no manual service start. Both controller and init-script hashes matched, the controller remained running through the check, and the logs showed recovery from the initial API outage without a new ADC error. The saved `video0.fps=30`, `isp.blkCnt=5` and `isp.slowShutter=disabled` settings persisted; runtime tables confirmed VPSS **30 → 30** and four YUV buffers plus one raw buffer. Encoded-frame counter deltas measured approximately **20.5 fps** after reboot.
 
 ## Enabling Wi-Fi
 
@@ -814,6 +816,51 @@ Approximately **20–21 fps at 1080p** is the best measured result from this ses
 
 A longer stability run is the next useful check. Lower-resolution video, such as 720p at 25–30 fps, remains a possible experiment; that mode and those rates were **not tested** on this unit.
 
+## Investigating Live and Dashboard reboots
+
+Later on **18 November 2026**, the owner reported that live view had run overnight, but switching to Dashboard caused a long delay. When the page returned, it showed **system uptime of five minutes and Majestic uptime of four minutes**. A changed kernel boot ID confirmed a full camera reboot. This was more than a dashboard page or streamer restart.
+
+### Capture evidence before another reset
+
+Ethernet was connected for recovery, and logs were streamed to the local computer before trying another transition. The following reads help distinguish a process restart from a system reboot:
+
+```sh
+cat /proc/sys/kernel/random/boot_id
+cat /proc/uptime
+uptime
+/etc/init.d/S96bedee-photocell status
+```
+
+To preserve logs across a camera reboot, run this on the host rather than saving the only copy in the camera's RAM:
+
+```sh
+ssh root@192.168.2.119 'logread -f' > camera-live.log
+```
+
+Keep that log private until network identifiers and other personal details have been removed. An SSH timeout alone does not establish that the whole system has frozen: one diagnostic connection also timed out while other camera requests remained responsive. Comparing boot IDs provided the stronger evidence here.
+
+During the controlled attempt, the owner encountered heavy lag while **opening Live**, before completing the intended return to Dashboard. The off-camera log recorded a native WebRTC session opening, followed about twelve seconds later by API unavailability and an encoder warning reporting **1.489 fps**. HTTP stopped responding, and new SSH connections on both the wired and wireless addresses stalled before receiving the server banner.
+
+The owner closed the camera tabs to prevent automatic reconnection. The camera later returned with another changed boot ID and **18 seconds uptime**, without a requested reboot or power-cycle. The configured 300-second watchdog was a plausible recovery mechanism, but no direct reset-cause report established that. No out-of-memory or panic message was captured, and no complete thread dump from the stalled interval was obtained. The sequence narrows the investigation; it does not establish the exact backend defect.
+
+### Separate slow page generation from a snapshot failure
+
+The dashboard's JavaScript requests `/image.jpg` every five seconds. Installed dashboard file hashes matched the inspected release files, and the log showed JPEG snapshots being served normally before the stall. An isolated local JPEG request after recovery returned **HTTP 200 in approximately 0.26 seconds**.
+
+An isolated Dashboard HTML request returned HTTP 200 headers but reached a five-second client timeout after receiving only part of the page. This exposed a separate page-generation delay without reproducing the reboot. Neither observation proved that the JPEG encoder or Dashboard alone caused the system failure.
+
+### Use MSE as the current workaround
+
+With previous camera tabs closed, the owner opened Live and selected **MSE**. Playback was reported as smooth. Switching from that MSE view to **Dashboard** then loaded normally, while monitoring showed unchanged system and application boot identifiers and the same Majestic process.
+
+On this build, **MSE can still use WebRTC underneath**. Metrics and logs confirmed a DTLS/SCTP data channel carrying the video during this test. Selecting MSE therefore bypassed native WebRTC RTP video; it did not disable every WebRTC component. The earlier successful wireless live-view test also shows that native WebRTC was not consistently failing. These observations implicate the native video path or its transitions, without proving which part is faulty.
+
+For this unit, keep **MSE** selected in Live and use one camera tab while investigating. The WebUI stores the playback selection in the browser's local storage, so another browser profile or clearing site data can require selecting it again. This workaround required no firmware, driver or camera-configuration change.
+
+CPU use was high during an MSE playback sample, but HTTP and SSH remained responsive and available Linux memory stayed around **10–11 MiB**. After the successful Dashboard transition, encoded-frame deltas still measured approximately **20.9 fps**, and the photocell controller was running. These healthy-interval measurements do not rule out a different resource failure during the earlier stall.
+
+The MSE comparison was a short controlled test, not another overnight reliability test or a permanent fix. If the problem returns, preserve logs off the camera, record the boot ID, and collect evidence before rebooting.
+
 ## Returning to the stock firmware
 
 Use the original full flash dump to restore the stock firmware. Load the temporary bootloader again through **ROM UART recovery**, which does not depend on the installed Linux system or the bootloader’s console password. Configure RMII and PHY addresses before network access, then download the private stock image:
@@ -865,6 +912,8 @@ Verified on this physical camera:
 - SC2235 1080p video, the slow-shutter workaround, IR-cut direction, night vision and return to colour.
 - Photocell-driven automatic operation and service startup after reboot.
 - Deployment and automatic startup of the revised photocell init script after reboot, with the final frame-rate, buffer and slow-shutter settings retained and approximately 20.3 fps measured afterward.
+- Automatic startup of the ADC-retry controller after a subsequent reboot, with the same video settings retained and approximately 20.5 fps measured afterward.
+- A later full-camera reboot during browser testing, followed by smooth MSE playback and a successful MSE-to-Dashboard transition without another restart in that controlled comparison.
 
 Still unverified or incomplete:
 
@@ -873,7 +922,7 @@ Still unverified or incomplete:
 - Exact PCB revision suffix, a complete four-pad UART pinout, and the full schematic of the IR ring.
 - A vendor-web-updater/Coupler transition for this exact model.
 - Long-term stability, outdoor switching thresholds, and behavior under unusual IR reflections or changing ambient lighting.
-- The cause of the earlier hangs and reboots, long-term wireless reliability, and sustained wireless throughput beyond the short upload and live-view tests.
+- The underlying cause of the hangs and browser-associated reboots, long-term reliability of the MSE workaround, and sustained wireless throughput beyond the short upload and live-view tests.
 - The maximum reliable frame rate and higher-rate 720p modes.
 
 ## References and evidence
