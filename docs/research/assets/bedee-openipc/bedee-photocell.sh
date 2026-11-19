@@ -9,8 +9,19 @@ DAY_DELAY=60
 NIGHT_DELAY=15
 LOCK=/tmp/bedee-photocell.lock
 API=http://127.0.0.1
+LOG=/tmp/bedee-photocell.log
 
-log() { printf '%s\n' "$*"; logger -t bedee-photocell "$*"; }
+log() {
+    umask 077
+    if [ -f "$LOG" ] && [ "$(wc -c < "$LOG")" -ge 16384 ]; then
+        mv -f "$LOG" "$LOG.1"
+    fi
+    log_uptime=unknown
+    read -r log_uptime log_rest < /proc/uptime || log_uptime=unknown
+    printf 'uptime=%s %s\n' "${log_uptime%%.*}" "$*" >> "$LOG" || :
+    printf '%s\n' "$*"
+    logger -t bedee-photocell "$*" || :
+}
 http() { curl -fsS --connect-timeout 2 --max-time 4 "$API$1"; }
 word() {
     case "$1" in
@@ -20,7 +31,9 @@ word() {
 }
 now_seconds() {
     read -r uptime remainder < /proc/uptime || return 1
-    printf '%s\n' "${uptime%%.*}"
+    uptime=${uptime%%.*}
+    case "$uptime" in ''|*[!0-9]*) return 1;; esac
+    printf '%s\n' "$uptime"
 }
 adc_read() {
     devmem 0x200b001c 32 15 >/dev/null || return 1
@@ -37,18 +50,27 @@ classify() {
     fi
 }
 cleanup() {
+    exit_status=$?
     trap - EXIT INT TERM
+    log "Controller exiting with status $exit_status."
     if [ "$adc_started" = 1 ]; then
         devmem 0x200b0010 32 0 >/dev/null
         devmem 0x200b0000 32 "$saved_ctrl" >/dev/null
         devmem 0x200b0010 32 "$saved_enable" >/dev/null
     fi
-    rm -f "$LOCK/pid"
-    rmdir "$LOCK"
+    if [ "$(cat "$LOCK/pid" 2>/dev/null)" = "$$" ]; then
+        rm -f "$LOCK/pid"
+        rmdir "$LOCK"
+    fi
 }
 run() {
+    umask 077
     [ "$(id -u)" = 0 ] || { echo 'Run as root.' >&2; return 1; }
+    stop_pending=0
+    trap 'stop_pending=1' INT TERM
+    trap '' HUP
     mkdir "$LOCK" 2>/dev/null || {
+        trap - INT TERM HUP
         echo "Lock exists: $LOCK. Check for a running controller before removing it." >&2
         return 1
     }
@@ -56,7 +78,7 @@ run() {
     adc_started=0
     trap cleanup EXIT
     trap 'exit 0' INT TERM
-    trap '' HUP
+    [ "$stop_pending" = 0 ] || exit 0
     for addr in 0x200f015c 0x200f0160; do
         mux=$(devmem "$addr" 32) || return 1
         word "$mux" || return 1
@@ -75,6 +97,8 @@ run() {
     since=0
     unavailable=0
     adc_failures=0
+    paused=
+    clock_failed=0
     log "Photocell controller started: day <=$DAY_LIMIT for ${DAY_DELAY}s; night >=$NIGHT_LIMIT for ${NIGHT_DELAY}s."
     while :; do
         if ! metrics=$(http /metrics/night); then
@@ -88,11 +112,26 @@ run() {
         unavailable=0
         source=$(printf '%s\n' "$metrics" | awk '$1=="night_mode_source" {print $2; exit}')
         state=$(printf '%s\n' "$metrics" | awk '$1=="night_enabled" {print $2; exit}')
-        [ "$source" = 0 ] || {
-            log 'Majestic automatic switching is enabled or its source is unknown; stopping to avoid competing controllers.'
-            return 1
-        }
-        case "$state" in 0|1) ;; *) log 'Invalid night-mode status; stopping.'; return 1;; esac
+        if [ "$source" != 0 ]; then
+            if [ "$paused" != source ]; then
+                log "Night-mode source is '$source'; pausing until the manual source returns."
+            fi
+            paused=source
+            pending=hold
+            sleep 5
+            continue
+        fi
+        case "$state" in
+            0|1) ;;
+            *)
+                [ "$paused" = status ] || log 'Invalid night-mode status; holding and retrying.'
+                paused=status
+                pending=hold
+                sleep 5
+                continue;;
+        esac
+        [ -z "$paused" ] || log 'Night-mode status recovered; restarting the switching delay.'
+        paused=
         # A failed conversion must not end monitoring or count toward a switch.
         value=
         for attempt in 1 2 3; do
@@ -114,7 +153,15 @@ run() {
         fi
         adc_failures=0
         target=$(classify "$value")
-        now=$(now_seconds) || return 1
+        if ! now=$(now_seconds); then
+            [ "$clock_failed" = 1 ] || log 'Uptime read failed; holding and retrying.'
+            clock_failed=1
+            pending=hold
+            sleep 5
+            continue
+        fi
+        [ "$clock_failed" = 0 ] || log 'Uptime reads recovered; restarting the switching delay.'
+        clock_failed=0
         if [ "$target" = hold ] || [ "$target" = "$state" ]; then
             pending=hold
         elif [ "$pending" != "$target" ]; then

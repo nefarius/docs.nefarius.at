@@ -4,7 +4,7 @@ Investigating an old Bedee camera became a small firmware archaeology project: i
 
 The result is a working **Hi3518EV200 / SC2235 camera running OpenIPC**, with Ethernet, Wi-Fi, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. Reboot persistence, a full night/day cycle, and live video over Wi-Fi with Ethernet unplugged were verified. Later tuning raised measured video output from about **13 to 21 fps**; a wireless-only test then ran for **5 minutes 34 seconds** without a hang or reboot. Subsequent browser-navigation tests exposed another stall and full reboot. Selecting **MSE** gave smooth playback and a successful return to Dashboard, providing a workaround while the underlying fault remains unresolved.
 
-These notes describe **one physical unit tested on 17–18 November 2026**. Wi-Fi setup and the subsequent performance investigation took place on 18 November. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.
+These notes describe **one physical unit tested on 17–19 November 2026**. Wi-Fi setup and the subsequent performance investigation took place on 18 November, with another photocell-service failure investigated on 19 November. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.
 
 !!! warning "Board-specific research, not a generic upgrade recipe"
     The flash offsets, DDR configuration and register addresses below are specific to this board and the recorded image versions. Flashing replaces the stock bootloader and configuration. Make and verify a full backup, and confirm that you can access the recovery bootloader, before writing anything. The stock restoration procedure has been prepared but has **not** been tested end to end.
@@ -502,10 +502,11 @@ Authentication remained enabled. These requests were sent from the camera itself
 - [bedee-photocell.sh](assets/bedee-openipc/bedee-photocell.sh) → `/etc/bedee-photocell.sh`
 - [S96bedee-photocell](assets/bedee-openipc/S96bedee-photocell) → `/etc/init.d/S96bedee-photocell`
 - [Offline behavior checks](assets/bedee-openipc/test-photocell.sh), for reviewing the controller without camera access.
+- [Isolated startup and recovery checks](assets/bedee-openipc/test-photocell-service.sh), which launch temporary dummy controllers rather than the installed hardware service.
 
 The controller uses the measured 0–255 range and the stock thresholds. The reading must remain **at or above 90 for 15 seconds to enter night mode**, or **at or below 30 for 60 seconds to enter day mode**. Intermediate readings reset the countdown and retain the current mode. Timing uses monotonic uptime.
 
-It checks the ADC pin mux without changing it, saves the original ADC control values and restores them on exit, and uses a lock to prevent multiple instances from running. Mode changes use `/night/on` or `/night/off`; they do not repeatedly save YAML or write firmware partitions. If the API becomes unavailable, the controller keeps the current mode and restarts the delay when the API responds again. Failed ADC reads are retried without ending monitoring, as described below. The service still stops if native automatic switching is enabled or its decision source is unknown.
+It checks the ADC pin mux without changing it, saves the original ADC control values and restores them on graceful exit, and uses a lock to prevent multiple instances from running. Mode changes use `/night/on` or `/night/off`; they do not repeatedly save YAML or write firmware partitions. If the API becomes unavailable, the controller keeps the current mode and restarts the delay when the API responds again. Failed ADC reads are retried without ending monitoring, as described below. The current revision also pauses when status is incomplete or another automatic controller is active, then resumes only after valid manual-source status returns.
 
 The installed file hashes were:
 
@@ -544,7 +545,7 @@ The existing boot sequence executes `S??*` scripts in order, so S96 runs after S
 
 ### Verification and service controls
 
-Eleven regression scenarios passed: day/night delays, a brief shadow, hysteresis resetting the timer, API outage recovery, a rejected request, a competing automatic source, persistent ADC failure, transient ADC failures resetting each switching delay, and recovery after an ADC outage. These tests simulated the hardware, API responses and elapsed time. All eleven also passed in an isolated fixture under the camera's BusyBox shell, with the hardware and API functions replaced by mocks. Actual light switching was tested separately.
+The controller regression suite covers seventeen cases, including the day/night delays, API and ADC outages, incomplete status, temporary native-controller ownership, clock-read failure, and retained logging. A separate nine-scenario process suite checks delayed readiness, automatic restart, deliberate stop, disable markers, lock ownership and log rotation. These checks use simulated hardware/API responses and temporary dummy processes. Actual light switching was tested separately.
 
 On the camera, both files passed shell syntax and SHA256 checks. After a normal reboot, their hashes were unchanged and the service started automatically. Its log showed the initial API outage and recovery, then a night request at **ADC 255**. Metrics showed night, IR-cut and lamp all enabled. After turning the light on, the owner confirmed normal colour and metrics showed all three disabled. Both physical transitions were verified after reboot.
 
@@ -589,6 +590,37 @@ The revised controller was hash-checked, installed with an atomic rename and per
 With this revision running, the owner turned the room light off and on. Logs recorded an accepted night request at **ADC 255**, followed by an accepted day request at **ADC 0** after the bright-light delay. Metrics confirmed the corresponding night-mode, IR-cut and lamp states, and the same controller process remained running throughout. ADC failures and recovery were injected only in the mocked tests; the real light-cycle check did not deliberately disturb ADC hardware.
 
 A subsequent intentional reboot confirmed automatic startup of this ADC-retry revision, with no manual service start. Both controller and init-script hashes matched, the controller remained running through the check, and the logs showed recovery from the initial API outage without a new ADC error. The saved `video0.fps=30`, `isp.blkCnt=5` and `isp.slowShutter=disabled` settings persisted; runtime tables confirmed VPSS **30 → 30** and four YUV buffers plus one raw buffer. Encoded-frame counter deltas measured approximately **20.5 fps** after reboot.
+
+### Recovering a stopped controller
+
+On **19 November 2026**, the camera had remained up for approximately **7½ hours**, but the room was dark and night mode had not engaged. The controller was stopped, night mode and the lamp were off, and the ADC registers had returned to their inactive values. The installed script hashes were unchanged. Its earlier messages had rotated out of the shared system log, so the reason for this exit could not be established.
+
+Restarting the controller restored automatic night operation at **ADC 255**. This confirmed that the photocell and switching path still worked, while exposing a separate service-lifecycle problem. Retrying ADC conversions alone had not covered every way the process could end.
+
+The revised controller treats missing API fields, invalid night-mode status and failed uptime reads as temporary faults: it holds the current filter position, clears the switching countdown and retries. It also pauses while a native automatic decision source is active, avoiding competing mode requests, and resumes with a fresh delay when the source returns to manual. Unsafe startup pin-mux checks still fail without changing those pins.
+
+The init script now supervises the controller and restarts an unexpected child exit after **five seconds**. Deliberate `stop` terminates the supervisor and child without respawning them, and the existing disable marker still prevents startup. Readiness checks remain bounded to ten seconds. Lock cleanup is restricted to the supervisor's own reaped child; an unrelated or unverified lock is preserved for inspection.
+
+Controller events and exit statuses are retained separately from the shared syslog:
+
+```sh
+/etc/init.d/S96bedee-photocell status
+tail -n 40 /tmp/bedee-photocell.log
+tail -n 40 /tmp/bedee-photocell.log.1
+```
+
+The service keeps a current log and one rotated copy, each approximately **16 KiB**, with owner-only permissions. Entries include monotonic uptime. These files survive controller restarts but are stored in RAM and disappear on a camera reboot; the controller does not write a growing log to flash. Status distinguishes a supervised controller, an older unsupervised process, and a supervisor waiting to restart its child.
+
+All seventeen controller cases and nine process scenarios passed locally and under the camera's BusyBox shell. The installed scripts were backed up at `/etc/bedee-photocell.before-supervision.sh` and `/etc/S96bedee-photocell.before-supervision`, then replaced with hash-checked files and permissions `0755`. The supervised revisions have these SHA256 hashes:
+
+```text
+bedee-photocell.sh
+  cc47c3448fa0a84eb7fdffbb67d4eda29d9195e6e8a3e2b1340e195c88f8ac0e
+S96bedee-photocell
+  661658fc22044ec98f8e98f042d3abb5a35b4d829f2cb4ae3707a1fd0b77b309
+```
+
+A controlled test sent TERM only to the verified controller worker. The same supervisor automatically started a replacement after five seconds, without a manual `start`, and the dedicated log recorded both the exit status and recovery. The owner then turned the room light off: that replacement worker requested night at **ADC 255**, and metrics confirmed night mode, IR-cut and lamp enabled. The camera itself remained up. This revision was tested through service startup, worker replacement and a real night transition; it was not followed by another camera reboot or a long-term overnight test. The cause of the earlier exit remains unknown.
 
 ## Enabling Wi-Fi
 
