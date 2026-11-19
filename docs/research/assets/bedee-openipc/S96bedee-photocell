@@ -54,10 +54,16 @@ supervise() {
         /bin/sh "$DAEMON" </dev/null >/dev/null 2>&1 &
         child=$!
         waiting=$child
+        [ "$stopping" = 0 ] || kill -TERM "$waiting" 2>/dev/null
         wait "$child"
         rc=$?
+        if [ "$stopping" != 0 ]; then
+            # A trapped signal can interrupt wait before worker cleanup finishes.
+            while kill -0 "$child" 2>/dev/null; do wait "$child"; done
+            waiting=
+            break
+        fi
         waiting=
-        [ "$stopping" = 0 ] || break
         printf '%s\n' "$rc" > "$SUPERVISOR/last-exit"
         log "Controller exited with status $rc; restarting in 5 seconds."
         # Only reclaim a lock belonging to the child this supervisor reaped.

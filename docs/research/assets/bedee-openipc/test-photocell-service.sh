@@ -10,7 +10,8 @@ cleanup() {
     rmdir "$fixture/lock" "$fixture/supervisor" 2>/dev/null || :
     rm -f "$fixture/init.sh" "$fixture/daemon.sh" "$fixture/bin/logger" \
         "$fixture/mode" "$fixture/count" "$fixture/child" "$fixture/output" \
-        "$fixture/service.log" "$fixture/service.log.1" "$fixture/disabled"
+        "$fixture/service.log" "$fixture/service.log.1" "$fixture/disabled" \
+        "$fixture/init-original.sh" "$fixture/stopping" "$fixture/stopped"
     rmdir "$fixture/bin" "$fixture"
 }
 trap cleanup EXIT
@@ -45,6 +46,8 @@ case "$(cat "$fixture/mode")" in
     crash-once) [ "$count" -ne 1 ] || exit 7;;
     delayed) sleep 2;;
     never) while :; do sleep 0.1; done;;
+    stop-before-wait|stop-during-wait)
+        trap 'touch "$fixture/stopping"; sleep 2; touch "$fixture/stopped"; exit 0' TERM INT;;
 esac
 mkdir "$fixture/lock" || exit 2
 echo $$ > "$fixture/lock/pid"
@@ -142,3 +145,38 @@ touch "$fixture/disabled"
 ctl start
 [ "$(cat "$fixture/count")" -eq 0 ] && [ ! -d "$fixture/supervisor" ]
 echo 'PASS disable marker prevents startup'
+
+# Inject signals at the two supervisor wait boundaries without touching hardware.
+cp "$fixture/init.sh" "$fixture/init-original.sh"
+for mode in stop-before-wait stop-during-wait; do
+    reset "$mode"
+    rm -f "$fixture/stopping" "$fixture/stopped"
+    awk -v mode="$mode" '
+        /        waiting=\$child/ {
+            print "        while [ ! -f \"$LOCK/pid\" ]; do sleep 0.1; done"
+            if (mode == "stop-before-wait") print "        kill -TERM \"$$\""
+        }
+        { print }
+        /        waiting=\$child/ {
+            if (mode == "stop-during-wait") print "        (sleep 0.2; kill -TERM \"$$\") &"
+        }
+    ' "$fixture/init-original.sh" > "$fixture/init.sh"
+    /bin/sh "$fixture/init.sh" supervise &
+    test_supervisor=$!
+    for attempt in 1 2 3 4 5; do
+        [ ! -f "$fixture/stopping" ] || break
+        sleep 0.2
+    done
+    [ -f "$fixture/stopping" ]
+    kill -0 "$test_supervisor"
+    [ -f "$fixture/supervisor/pid" ]
+    for attempt in 1 2 3 4 5; do
+        [ ! -f "$fixture/stopped" ] || break
+        sleep 1
+    done
+    [ -f "$fixture/stopped" ]
+    wait "$test_supervisor"
+    [ ! -d "$fixture/lock" ] && [ ! -d "$fixture/supervisor" ]
+    [ "$(cat "$fixture/count")" -eq 1 ]
+    echo "PASS $mode signals worker and waits for cleanup"
+done
