@@ -22,12 +22,16 @@ scenario() (
         else printf '%s\n' "$*" >> "$fixture/registers"
         fi
     }
-    now_seconds() { cat "$fixture/clock"; }
+    now_seconds() {
+        tick=$(cat "$fixture/clock")
+        [ "$test_case" != clock-fail ] || [ "$tick" -ge 5 ] || return 1
+        echo "$tick"
+    }
     adc_read() {
         tick=$(cat "$fixture/clock")
         case "$test_case" in
             day|api-down) echo 0;;
-            night|reject|foreign) echo 255;;
+            night|reject|foreign|foreign-recover|missing-source|invalid-state|clock-fail) echo 255;;
             shadow) if [ "$tick" -lt 5 ]; then echo 255; else echo 0; fi;;
             hysteresis)
                 if [ "$tick" -lt 8 ]; then echo 255
@@ -51,8 +55,11 @@ scenario() (
         case "$1" in
             /metrics/night)
                 [ "$test_case" != api-down ] || [ "$tick" -ge 10 ] || return 1
-                printf 'night_enabled %s\n' "$(cat "$fixture/state")"
-                if [ "$test_case" = foreign ]; then echo 'night_mode_source 4'
+                if [ "$test_case" = invalid-state ] && [ "$tick" -lt 10 ]; then echo 'night_enabled invalid'
+                else printf 'night_enabled %s\n' "$(cat "$fixture/state")"
+                fi
+                if [ "$test_case" = missing-source ] && [ "$tick" -lt 10 ]; then :
+                elif [ "$test_case" = foreign ] || { [ "$test_case" = foreign-recover ] && [ "$tick" -lt 10 ]; }; then echo 'night_mode_source 4'
                 else echo 'night_mode_source 0'
                 fi;;
             /night/on|/night/off)
@@ -93,14 +100,34 @@ assert_calls 'API outage resets delay' '70 /night/off'
 scenario reject 0 40
 assert_calls 'rejected request is retried with delay' "15 /night/on
 36 /night/on"
-if scenario foreign 0 40; then echo 'FAIL competing controller accepted'; exit 1; fi
-assert_calls 'competing controller stops' ''
+scenario foreign 0 30
+assert_calls 'competing controller pauses switching' ''
 scenario adc-fail 0 28
 assert_calls 'persistent ADC failure holds mode without stopping' ''
 [ "$(grep -c 'ADC reads failed' "$fixture/log")" -eq 1 ] || { echo 'FAIL ADC failure log spam'; exit 1; }
 scenario adc-transient 0 25
 assert_calls 'transient ADC failure resets night delay' '21 /night/on'
 grep -q 'ADC reads recovered' "$fixture/log"
+scenario missing-source 0 30
+assert_calls 'missing API source recovers without exiting' '25 /night/on'
+scenario invalid-state 0 30
+assert_calls 'invalid API state recovers without exiting' '25 /night/on'
+scenario foreign-recover 0 30
+assert_calls 'manual source resumes after native switching' '25 /night/on'
+scenario clock-fail 0 25
+assert_calls 'clock read failure recovers with a fresh delay' '20 /night/on'
+( read() { uptime=invalid; }; if now_seconds >/dev/null; then echo 'FAIL invalid uptime accepted'; exit 1; fi )
+echo 'PASS invalid uptime rejected'
+(
+    LOG="$fixture/service.log"
+    logger() { return 1; }
+    awk 'BEGIN { for (i=0; i<17000; i++) printf "x" }' > "$LOG"
+    log 'Retained event despite failed syslog.' >/dev/null
+    [ -f "$LOG.1" ] && [ "$(wc -c < "$LOG")" -lt 16384 ]
+    grep -q 'Retained event' "$LOG"
+)
+echo 'PASS bounded service log survives syslog failure'
+rm -f "$fixture/service.log" "$fixture/service.log.1"
 scenario adc-transient-day 1 70
 assert_calls 'transient ADC failure resets day delay' '66 /night/off'
 scenario adc-recover 0 35
