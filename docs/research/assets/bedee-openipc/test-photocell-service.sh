@@ -38,6 +38,14 @@ cleanup() {
         rmdir "$fixture/lock"
     fi
 }
+# Match production startup: publish the lock before installing cleanup traps.
+case "$(cat "$fixture/mode")" in
+    startup-stop)
+        mkdir "$fixture/lock" || exit 2
+        echo $$ > "$fixture/lock/pid"
+        # Hold this trap-free window until the test stops the worker.
+        while :; do sleep 0.1; done;;
+esac
 trap cleanup EXIT
 trap 'exit 0' TERM INT
 case "$(cat "$fixture/mode")" in
@@ -104,6 +112,30 @@ for mode in early-zero early-error; do
     grep -q 'exited before becoming ready' "$fixture/output"
     ctl stop
     echo "PASS $mode fails promptly and stop cancels restart"
+done
+
+# TERM before the worker installs its traps must not prevent a later start.
+for ownership in own foreign; do
+    reset startup-stop
+    ctl start
+    startup_child=$(cat "$fixture/child")
+    if [ "$ownership" = foreign ]; then echo 1 > "$fixture/lock/pid"; fi
+    ctl stop
+    if kill -0 "$startup_child" 2>/dev/null; then
+        echo 'FAIL startup worker survived stop' >&2
+        exit 1
+    fi
+    [ ! -d "$fixture/supervisor" ]
+    if [ "$ownership" = own ]; then
+        [ ! -d "$fixture/lock" ]
+        reset ready
+        ctl start
+        ctl stop
+        echo 'PASS startup stop reclaims own lock and permits restart'
+    else
+        [ "$(cat "$fixture/lock/pid")" = 1 ]
+        echo 'PASS startup stop preserves a foreign lock'
+    fi
 done
 
 reset never

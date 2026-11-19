@@ -61,6 +61,11 @@ supervise() {
             # A trapped signal can interrupt wait before worker cleanup finishes.
             while kill -0 "$child" 2>/dev/null; do wait "$child"; done
             waiting=
+            # Startup can stop before the worker installs its cleanup traps.
+            if [ "$(cat "$LOCK/pid" 2>/dev/null)" = "$child" ] && ! kill -0 "$child" 2>/dev/null; then
+                rm -f "$LOCK/pid"
+                rmdir "$LOCK" || break
+            fi
             break
         fi
         waiting=
