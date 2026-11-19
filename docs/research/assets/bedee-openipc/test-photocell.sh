@@ -6,6 +6,30 @@ set -- library
 . "$controller"
 set --
 fixture=$(mktemp -d "${TMPDIR:-/tmp}/bedee-photocell-test.XXXXXX")
+# Exercise the actual startup code with TERM on either side of lock creation.
+for boundary in before-mkdir before-pid; do
+    /bin/sh -s "$controller" "$fixture" "$boundary" <<'STARTUP'
+controller=$1
+fixture=$2
+boundary=$3
+set -- library
+. "$controller"
+LOCK="$fixture/startup-lock"
+id() { echo 0; }
+log() { :; }
+devmem() { echo 'FAIL startup stop reached hardware access' >&2; return 1; }
+mkdir() {
+    if [ "$boundary" = before-mkdir ]; then kill -TERM "$$"; fi
+    command mkdir "$@" || return 1
+    if [ "$boundary" = before-pid ]; then kill -TERM "$$"; fi
+}
+run
+echo 'FAIL pending startup stop was not honored' >&2
+exit 1
+STARTUP
+    [ ! -d "$fixture/startup-lock" ] || { echo "FAIL $boundary leaked a lock"; exit 1; }
+    echo "PASS TERM $boundary is deferred and owned lock removed"
+done
 scenario() (
     LOCK="$fixture/lock"
     echo 0 > "$fixture/clock"
