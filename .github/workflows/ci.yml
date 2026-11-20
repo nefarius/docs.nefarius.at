@@ -19,6 +19,9 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - run: mkdocs build --strict
+      - run: python -m venv .venv-zensical
+      - run: .venv-zensical/bin/pip install --disable-pip-version-check zensical==0.1.0
+      - run: .venv-zensical/bin/zensical build --strict
   deploy:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
