@@ -23,17 +23,25 @@ A Windows 11 VFIO guest booted quickly and showed low CPU, RAM, and disk utiliza
 - Downloads and network tools paused for ~24 seconds before transferring data.
 - Small `.msi` installers took 20–30+ minutes or timed out.
 
-The symptoms looked like failing virtual storage or KVM thread contention. Measuring the host storage path ruled that out first; the stalls turned out to be **four independent bottlenecks** stacked on top of each other across VirtIO-FS, leftover Defender drivers, LAN IPv6 DNS, and Windows 11 24H2/25H2 Smart App Control Evaluation Mode, plus a missing SPICE channel blocking `spice-vdagent`.
+The symptoms looked like failing virtual storage or KVM thread contention. Measuring completed host block I/O ruled out slow completed disk transfers first; the stalls turned out to be **four independent bottlenecks** stacked on top of each other across VirtIO-FS, leftover Defender drivers, LAN IPv6 DNS, and Windows 11 24H2/25H2 Smart App Control Evaluation Mode, plus a missing SPICE channel blocking `spice-vdagent`.
 
 ## 1. Rule out host storage and KVM
 
-Before changing guest storage or CPU tuning, measure actual block-device latency from QEMU via QMP so you know whether the stall happens below or inside Windows.
+Before changing guest storage or CPU tuning, measure actual block-device latency from QEMU via QMP so you know whether completed I/O is stalling below or inside Windows.
 
-Enable latency histograms on the running domain's block devices:
+List the domain's block devices first to find each disk's QMP `qdev` device ID (such as `virtio-disk0` and `virtio-disk1`):
 
 ```bash
-virsh qemu-monitor-command <domain> \
-  '{"execute":"block-latency-histogram-set","arguments":{"id":"virtio-disk0","boundaries":[1000000,5000000,20000000,100000000]}}'
+virsh qemu-monitor-command <domain> '{"execute":"query-block"}'
+```
+
+Enable latency histograms on every disk under test:
+
+```bash
+for id in virtio-disk0 virtio-disk1; do
+  virsh qemu-monitor-command <domain> \
+    "{\"execute\":\"block-latency-histogram-set\",\"arguments\":{\"id\":\"$id\",\"boundaries\":[1000000,5000000,20000000,100000000]}}"
+done
 ```
 
 Trigger a stall in the guest, then query counters and histograms:
@@ -47,7 +55,7 @@ On this guest, both `virtio-blk` disks averaged **~115 µs** per read and **~88 
 !!! note "Looking Glass and virtiofsd"
     `virtiofsd` 1.10 exits with `Illegal seek` if the domain also maps `/dev/kvmfr0` (see [Looking Glass B7 with IVSHMEM](./Looking-Glass-B7.md)). This guest already used `/dev/shm/looking-glass`, so Looking Glass was not crashing `virtiofsd`.
 
-With host I/O proven fast, every remaining stall lived in software layers above the disk.
+With completed host I/O fast, the remaining stalls appeared to lie in software layers above the disk. QEMU latency histograms record only completed or failed requests, so they do not by themselves exclude a request that remains outstanding in flight during a hang.
 
 ## 2. Wedged VirtIO-FS / WinFsp mount
 
@@ -116,20 +124,38 @@ The OpenWrt router (`odhcpd`) advertised a stale IPv6 ULA DNS address via `dhcp.
 
 ### Fix
 
-Pin the DNS server's IPv6 interface identifier (`hostid`) in OpenWrt and advertise the pinned ULA (replace `<index>`, `<hostid>`, and `<ula-prefix>` with your router's values):
+1. Pin the DNS server's IPv6 interface identifier (`hostid`) on its DHCPv6 static lease in OpenWrt and reload `odhcpd`:
 
-```sh
-uci set dhcp.@host[<index>].hostid='<hostid>'
-uci set dhcp.lan.dns='<ula-prefix>::<hostid>'
-uci commit dhcp
-/etc/init.d/odhcpd reload
-```
+    ```sh
+    uci set dhcp.@host[<index>].hostid='<hostid>'
+    uci commit dhcp
+    /etc/init.d/odhcpd reload
+    ```
 
-Re-enable or renew the guest interface and re-test:
+2. Renew the DNS server's DHCPv6 lease (if it does not already hold the pinned address), confirm that the server has acquired the pinned IPv6 address, and verify that its DNS service answers queries on that address before advertising it to LAN clients.
 
-```powershell
-Measure-Command { Resolve-DnsName example.com }
-```
+3. Inspect the current `dhcp.lan.dns` entries so you preserve any existing fallback resolvers:
+
+    ```sh
+    uci show dhcp.lan
+    ```
+
+4. Remove only the stale ULA entry and add the verified complete IPv6 address (avoid `uci set`, which overwrites the entire `dns` list), then reload `odhcpd`:
+
+    ```sh
+    uci del_list dhcp.lan.dns='<stale-ula-address>'
+    uci add_list dhcp.lan.dns='<pinned-ula-address>'
+    uci commit dhcp
+    /etc/init.d/odhcpd reload
+    ```
+
+    Write the complete IPv6 address for `<pinned-ula-address>`. Because `odhcpd` accepts `hostid` values longer than four hex digits, split any longer `hostid` into 16-bit colon-separated groups (for example, `hostid` `123456` with prefix `fd00:0:0:1::/64` becomes `fd00:0:0:1::12:3456`).
+
+5. Re-enable or renew the guest interface and re-test:
+
+    ```powershell
+    Measure-Command { Resolve-DnsName example.com }
+    ```
 
 With IPv6 enabled, uncached lookups dropped from **~24,291 ms** to **~2.2 ms**.
 
