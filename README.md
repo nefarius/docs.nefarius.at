@@ -10,14 +10,30 @@ Source repository for **[docs.nefarius.at](https://docs.nefarius.at)** — the d
 
 ## Local build
 
-Pinned Python packages live in [`requirements.txt`](requirements.txt). Local preview is easiest with [Docker](https://www.docker.com/). From the repo root:
+The site is built with [Zensical](https://zensical.org/) (pinned in [`requirements.txt`](requirements.txt) and [`compose.yaml`](compose.yaml)) using [`zensical.toml`](zensical.toml).
+
+Start a live-reloading preview from the repo root with [Docker](https://www.docker.com/):
 
 ```bash
-docker build -t mkdocs .
-docker run -it --rm -v "${PWD}:/docs" -p "8000:8000" mkdocs:latest
+docker compose up
 ```
 
-The site is served at **http://localhost:8000**.
+The site is served at **http://localhost:8000**. Set `ZENSICAL_PORT` before `docker compose up` when port 8000 is already in use.
+
+Stop the preview and remove its isolated build volumes:
+
+```bash
+docker compose down --volumes
+```
+
+Run a clean strict build check (matching CI without leaving the preview server running):
+
+```bash
+docker compose down --volumes
+docker compose run --rm zensical build --strict
+```
+
+Because `compose.yaml` mounts `/docs/.cache` as a named volume, `zensical build --clean` cannot remove that directory directly; resetting the volumes with `docker compose down --volumes` runs the same clean build without writing root-owned cache files into the workspace.
 
 ---
 
@@ -38,9 +54,7 @@ Found a typo, unclear step, or missing info? [Open a pull request](https://githu
 
 ## Built with
 
-- [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
+- [Zensical](https://zensical.org/)
 - [PyMdown Extensions](https://facelessuser.github.io/pymdown-extensions/)
 - [Python-Markdown](https://python-markdown.github.io/)
 - [Emfed](https://github.com/sampsyo/emfed)
-- [mkdocs-glightbox](https://github.com/Blueswen/mkdocs-glightbox)
-- [mkdocs-redirects](https://github.com/mkdocs/mkdocs-redirects)

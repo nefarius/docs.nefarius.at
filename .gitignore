@@ -1,3 +1,5 @@
 /test
 *.bak
 /site
+/.cache
+/.zensical
