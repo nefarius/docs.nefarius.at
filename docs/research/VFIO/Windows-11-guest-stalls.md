@@ -134,15 +134,15 @@ The OpenWrt router (`odhcpd`) advertised a stale IPv6 ULA DNS address via `dhcp.
 
 2. Renew the DNS server's DHCPv6 lease (if it does not already hold the pinned address), confirm that the server has acquired the pinned IPv6 address, and verify that its DNS service answers queries on that address before advertising it to LAN clients.
 
-3. Inspect the current `dhcp.lan.dns` entries so you preserve any existing fallback resolvers:
+3. Inspect the current `dhcp.lan.dns` entries so you preserve any existing fallback resolvers and can tell whether UCI stores them as separate list tokens (`'addr1' 'addr2'`) or a single quoted string (`'addr1'` or space-separated `'addr1 addr2'`):
 
     ```sh
     uci show dhcp.lan
     ```
 
-4. Remove only the stale ULA entry and add the verified complete IPv6 address (avoid `uci set`, which overwrites all configured resolvers), then commit and reload `odhcpd`:
+4. Replace the stale ULA entry with the verified complete IPv6 address (avoid `uci set`, which overwrites all configured resolvers), then commit and reload `odhcpd`:
 
-    - **If `dhcp.lan.dns` is a list** (multiple entries) or holds a **single value that is another resolver**, do not delete the option; remove only the stale entry and add the pinned address:
+    - **If `uci show dhcp.lan` prints multiple separately quoted values** (a UCI `list`), do not delete the option; remove only the stale entry and add the pinned address:
 
         ```sh
         uci del_list dhcp.lan.dns='<stale-ula-address>'
@@ -151,11 +151,13 @@ The OpenWrt router (`odhcpd`) advertised a stale IPv6 ULA DNS address via `dhcp.
         /etc/init.d/odhcpd reload
         ```
 
-    - **If `dhcp.lan.dns` holds only the single stale ULA address**, delete the option first before adding the pinned address (`uci del_list` does not remove a scalar UCI option, so skipping `uci delete` would keep the stale address alongside the new one):
+    - **If `uci show dhcp.lan` prints a single quoted string** (a single-value option or a space-separated scalar such as `'fd00:0:0:1::10 fd00:0:0:1::53'`), `uci del_list` will not remove a scalar option and `uci add_list` would turn a space-separated scalar into a single invalid entry. Delete the option first, then add the pinned address and any fallback resolvers you want to keep as separate `uci add_list` entries (omitting the stale address):
 
         ```sh
         uci delete dhcp.lan.dns
         uci add_list dhcp.lan.dns='<pinned-ula-address>'
+        # Repeat add_list for each fallback resolver to preserve, e.g.:
+        # uci add_list dhcp.lan.dns='<fallback-resolver-address>'
         uci commit dhcp
         /etc/init.d/odhcpd reload
         ```
