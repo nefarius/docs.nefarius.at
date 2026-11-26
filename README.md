@@ -10,36 +10,25 @@ Source repository for **[docs.nefarius.at](https://docs.nefarius.at)** — the d
 
 ## Local build
 
-Pinned Python packages live in [`requirements.txt`](requirements.txt). Production still deploys with Material for MkDocs. [compose.yaml](compose.yaml) also starts a pinned Zensical 0.1.0 preview from the same sources and `mkdocs.yml`.
+The site is built with [Zensical](https://zensical.org/) (pinned in [`requirements.txt`](requirements.txt) and [`compose.yaml`](compose.yaml)) using [`zensical.toml`](zensical.toml).
 
-From the repo root:
-
-```bash
-docker compose up --build
-```
-
-- Material for MkDocs: http://localhost:8000
-- Zensical 0.1.0: http://localhost:8001
-
-Set `MATERIAL_PORT` or `ZENSICAL_PORT` before `docker compose up` when either default port is already in use.
-
-Both previews reload when documentation files change. After changing `requirements.txt`, rebuild the Material image and start again:
+Start a live-reloading preview from the repo root with [Docker](https://www.docker.com/):
 
 ```bash
-docker compose build material
 docker compose up
 ```
 
-Stop the previews and remove their isolated build volumes:
+The site is served at **http://localhost:8000**. Set `ZENSICAL_PORT` before `docker compose up` when port 8000 is already in use.
+
+Stop the preview and remove its isolated build volumes:
 
 ```bash
 docker compose down --volumes
 ```
 
-Run the same checks used before deployment without leaving the preview servers running:
+Run the same strict build check used in CI without leaving the preview server running:
 
 ```bash
-docker compose run --rm material build --strict
 docker compose run --rm zensical build --strict
 ```
 
@@ -62,9 +51,7 @@ Found a typo, unclear step, or missing info? [Open a pull request](https://githu
 
 ## Built with
 
-- [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
+- [Zensical](https://zensical.org/)
 - [PyMdown Extensions](https://facelessuser.github.io/pymdown-extensions/)
 - [Python-Markdown](https://python-markdown.github.io/)
 - [Emfed](https://github.com/sampsyo/emfed)
-- [mkdocs-glightbox](https://github.com/Blueswen/mkdocs-glightbox)
-- [mkdocs-redirects](https://github.com/mkdocs/mkdocs-redirects)

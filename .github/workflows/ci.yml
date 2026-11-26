@@ -18,13 +18,13 @@ jobs:
           python-version: 3.x
           cache: pip
       - run: pip install -r requirements.txt
-      - run: mkdocs build --strict
-      - run: python -m venv .venv-zensical
-      - run: .venv-zensical/bin/pip install --disable-pip-version-check zensical==0.1.0
-      - run: .venv-zensical/bin/zensical build --strict
+      - run: zensical build --clean --strict
   deploy:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    concurrency:
+      group: gh-pages
+      cancel-in-progress: false
     permissions:
       contents: write
     steps:
@@ -33,12 +33,20 @@ jobs:
         with:
           python-version: 3.x
           cache: pip
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-      - uses: actions/cache@v6
-        with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
       - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force --strict
+      - run: zensical build --clean --strict
+      - name: Deploy to gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -f site/CNAME
+          touch site/.nojekyll
+          git -C site init -b gh-pages
+          git -C site config user.name "github-actions[bot]"
+          git -C site config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C site add -A
+          git -C site commit -m "Deploy ${GITHUB_SHA}"
+          AUTH_HEADER="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 | tr -d '\n')"
+          git -C site -c "http.https://github.com/.extraheader=AUTHORIZATION: basic ${AUTH_HEADER}" \
+            push --force "https://github.com/${GITHUB_REPOSITORY}.git" HEAD:gh-pages

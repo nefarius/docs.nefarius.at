@@ -1,0 +1,104 @@
+[project]
+site_name = "Nefarius™ Project Documentation"
+site_url = "https://docs.nefarius.at/"
+repo_url = "https://github.com/nefarius/docs.nefarius.at"
+site_description = "Projects devoted to USB input device emulation and game peripherals reverse engineering"
+copyright = 'Copyright &copy; 2020 - 2026 <a href="https://github.com/nefarius" target="_blank" rel="noopener">Benjamin Höglinger-Stelzer</a> - <a href="#__consent">Change cookie settings</a>'
+
+extra_css = [
+  "stylesheets/extra.css",
+  "stylesheets/toots.css",
+  "stylesheets/video.css",
+]
+
+extra_javascript = [
+  "javascripts/main.js",
+]
+
+[project.theme]
+variant = "modern"
+language = "en"
+favicon = "images/favicon.png"
+custom_dir = "overrides"
+features = [
+  "navigation.tabs",
+]
+
+# Palette toggle for light mode
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+primary = "deep purple"
+toggle.icon = "material/brightness-7"
+toggle.name = "Switch to dark mode"
+
+# Palette toggle for dark mode
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+primary = "deep purple"
+toggle.icon = "material/brightness-4"
+toggle.name = "Switch to light mode"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/nefarius"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/discord"
+link = "https://discord.nefarius.at"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/mastodon"
+link = "https://fosstodon.org/@Nefarius"
+
+[project.extra.consent]
+title = "Cookie consent"
+description = """
+We use cookies to recognize your repeated visits and preferences, as well
+as to measure the effectiveness of our documentation and whether users
+find what they're searching for. With your consent, you're helping us to
+make our documentation better.
+"""
+
+[project.plugins.search]
+enabled = true
+
+[project.plugins.awesome-nav]
+enabled = true
+
+[project.plugins.glightbox]
+auto_caption = false
+caption_position = "bottom"
+
+# Keeps old links working after moving original DsHidMini docs to v2/v3 sub-directories
+[project.plugins.redirects.redirect_maps]
+"projects/DsHidMini/How-to-Install.md" = "projects/DsHidMini/v2/How-to-Install.md"
+"projects/DsHidMini/HID-Device-Modes-Explained.md" = "projects/DsHidMini/v2/HID-Device-Modes-Explained.md"
+"projects/DsHidMini/DS4-Mode-User-Guide.md" = "projects/DsHidMini/v2/DS4-Mode-User-Guide.md"
+"projects/DsHidMini/FAQ.md" = "projects/DsHidMini/v2/FAQ.md"
+"projects/DsHidMini/Output-Rate-Control-Explained.md" = "projects/DsHidMini/v2/Output-Rate-Control-Explained.md"
+"projects/DsHidMini/SCP-XInput-Bridge.md" = "projects/DsHidMini/v2/SCP-XInput-Bridge.md"
+"projects/DsHidMini/SIXAXIS.SYS-to-DsHidMini-Guide.md" = "projects/DsHidMini/v2/SIXAXIS.SYS-to-DsHidMini-Guide.md"
+"projects/DsHidMini/XInput-Mode-Explained.md" = "projects/DsHidMini/v2/XInput-Mode-Explained.md"
+"projects/DsHidMini/Experimental/Version-3-Beta.md" = "projects/DsHidMini/v3/index.md"
+
+[project.validation]
+invalid_links = true
+invalid_link_anchors = true
+
+[project.markdown_extensions]
+admonition = {}
+attr_list = {}
+tables = {}
+pymdownx.emoji.emoji_index = "zensical.extensions.emoji.twemoji"
+pymdownx.emoji.emoji_generator = "zensical.extensions.emoji.to_svg"
+pymdownx.highlight = {}
+pymdownx.tabbed.alternate_style = true
+pymdownx.superfences = {}
+pymdownx.keys = {}
+pymdownx.tasklist.custom_checkbox = true
+pymdownx.details = {}
+pymdownx.tilde = {}
+pymdownx.magiclink.repo_url_shorthand = true
+pymdownx.magiclink.social_url_shorthand = true
