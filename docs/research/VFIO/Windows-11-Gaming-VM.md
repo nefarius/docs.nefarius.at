@@ -10,7 +10,7 @@ Distribution | Linux Mint 22.3
 QEMU | 8.2.2
 libvirt | 10.0.0
 
-Related: [Looking Glass B7 with IVSHMEM](./Looking-Glass-B7.md), [Guest CPU topology vs pin map](./Guest-CPU-topology-vs-pin-map.md), [CPU governor for pinned KVM vCPUs](./CPU-governor-for-pinned-vCPUs.md), [Host CPU affinity for pinned VMs](./Host-CPU-affinity-for-pinned-VMs.md), [Raw virtio-blk boot disk](./Raw-virtio-blk-boot-disk.md).
+Related: [Looking Glass B7 with IVSHMEM](./Looking-Glass-B7.md), [Guest CPU topology vs pin map](./Guest-CPU-topology-vs-pin-map.md), [CPU governor for pinned KVM vCPUs](./CPU-governor-for-pinned-vCPUs.md), [Host CPU affinity for pinned VMs](./Host-CPU-affinity-for-pinned-VMs.md), [Raw virtio-blk boot disk](./Raw-virtio-blk-boot-disk.md), [Debugging Windows 11 guest stalls](./Windows-11-guest-stalls.md).
 
 ## Hardware
 
