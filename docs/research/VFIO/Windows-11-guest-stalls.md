@@ -140,14 +140,25 @@ The OpenWrt router (`odhcpd`) advertised a stale IPv6 ULA DNS address via `dhcp.
     uci show dhcp.lan
     ```
 
-4. Remove only the stale ULA entry and add the verified complete IPv6 address (avoid `uci set`, which overwrites the entire `dns` list), then reload `odhcpd`:
+4. Remove only the stale ULA entry and add the verified complete IPv6 address (avoid `uci set`, which overwrites all configured resolvers), then commit and reload `odhcpd`:
 
-    ```sh
-    uci del_list dhcp.lan.dns='<stale-ula-address>'
-    uci add_list dhcp.lan.dns='<pinned-ula-address>'
-    uci commit dhcp
-    /etc/init.d/odhcpd reload
-    ```
+    - **If `dhcp.lan.dns` is a list** (multiple entries) or holds a **single value that is another resolver**, do not delete the option; remove only the stale entry and add the pinned address:
+
+        ```sh
+        uci del_list dhcp.lan.dns='<stale-ula-address>'
+        uci add_list dhcp.lan.dns='<pinned-ula-address>'
+        uci commit dhcp
+        /etc/init.d/odhcpd reload
+        ```
+
+    - **If `dhcp.lan.dns` holds only the single stale ULA address**, delete the option first before adding the pinned address (`uci del_list` does not remove a scalar UCI option, so skipping `uci delete` would keep the stale address alongside the new one):
+
+        ```sh
+        uci delete dhcp.lan.dns
+        uci add_list dhcp.lan.dns='<pinned-ula-address>'
+        uci commit dhcp
+        /etc/init.d/odhcpd reload
+        ```
 
     Write the complete IPv6 address for `<pinned-ula-address>`. Because `odhcpd` accepts `hostid` values longer than four hex digits, split any longer `hostid` into 16-bit colon-separated groups (for example, `hostid` `123456` with prefix `fd00:0:0:1::/64` becomes `fd00:0:0:1::12:3456`).
 
