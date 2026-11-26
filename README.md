@@ -26,11 +26,14 @@ Stop the preview and remove its isolated build volumes:
 docker compose down --volumes
 ```
 
-Run the same strict build check used in CI without leaving the preview server running:
+Run a clean strict build check (matching CI without leaving the preview server running):
 
 ```bash
+docker compose down --volumes
 docker compose run --rm zensical build --strict
 ```
+
+Because `compose.yaml` mounts `/docs/.cache` as a named volume, `zensical build --clean` cannot remove that directory directly; resetting the volumes with `docker compose down --volumes` runs the same clean build without writing root-owned cache files into the workspace.
 
 ---
 
