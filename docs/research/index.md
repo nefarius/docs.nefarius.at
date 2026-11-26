@@ -21,6 +21,7 @@ This is a general-purpose section where mixed content ends up that doesn't reall
 - [CPU governor for pinned KVM vCPUs](VFIO/CPU-governor-for-pinned-vCPUs.md) — Hold the performance governor on the host CPUs reserved for pinned guest threads.
 - [Host CPU affinity for pinned VMs](VFIO/Host-CPU-affinity-for-pinned-VMs.md) — Keep the desktop and host services off the CPUs reserved for pinned vCPU threads.
 - [Raw virtio-blk boot disk](VFIO/Raw-virtio-blk-boot-disk.md) — Boot the Windows guest from virtio-blk instead of an emulated SATA qcow2 disk.
+- [Debugging Windows 11 guest stalls that look like slow disk I/O](VFIO/Windows-11-guest-stalls.md) — Isolate wedged VirtIO-FS/WinFsp mounts, stale IPv6 DNS, leftover Defender filters, and Windows 11 24H2/25H2 Smart App Control MSI stalls.
 
 ## Windows development
 

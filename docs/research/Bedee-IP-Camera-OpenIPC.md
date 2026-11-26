@@ -2,9 +2,9 @@
 
 Investigating an old Bedee camera became a small firmware archaeology project: identifying the board, gaining recovery access without the stock console password, backing up the entire flash, installing OpenIPC, and restoring infrared night vision.
 
-The result is a working **Hi3518EV200 / SC2235 camera running OpenIPC**, with Ethernet, Wi-Fi, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. Reboot persistence, a full night/day cycle, and live video over Wi-Fi with Ethernet unplugged were verified. Later tuning raised measured video output from about **13 to 21 fps**; a wireless-only test then ran for **5 minutes 34 seconds** without a hang or reboot.
+The result is a working **Hi3518EV200 / SC2235 camera running OpenIPC**, with Ethernet, Wi-Fi, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. Reboot persistence, a full night/day cycle, and live video over Wi-Fi with Ethernet unplugged were verified. Later tuning raised measured video output from about **13 to 21 fps**; a wireless-only test then ran for **5 minutes 34 seconds** without a hang or reboot. Subsequent browser-navigation tests exposed another stall and full reboot. Selecting **MSE** gave smooth playback and a successful return to Dashboard, providing a workaround while the underlying fault remains unresolved.
 
-These notes describe **one physical unit tested on 17–18 November 2026**. Wi-Fi setup and the subsequent performance investigation took place on 18 November. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.
+These notes describe **one physical unit tested on 17–19 November 2026**. Wi-Fi setup and the subsequent performance investigation took place on 18 November, with another photocell-service failure investigated on 19 November. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.
 
 !!! warning "Board-specific research, not a generic upgrade recipe"
     The flash offsets, DDR configuration and register addresses below are specific to this board and the recorded image versions. Flashing replaces the stock bootloader and configuration. Make and verify a full backup, and confirm that you can access the recovery bootloader, before writing anything. The stock restoration procedure has been prepared but has **not** been tested end to end.
@@ -502,10 +502,11 @@ Authentication remained enabled. These requests were sent from the camera itself
 - [bedee-photocell.sh](assets/bedee-openipc/bedee-photocell.sh) → `/etc/bedee-photocell.sh`
 - [S96bedee-photocell](assets/bedee-openipc/S96bedee-photocell) → `/etc/init.d/S96bedee-photocell`
 - [Offline behavior checks](assets/bedee-openipc/test-photocell.sh), for reviewing the controller without camera access.
+- [Isolated startup and recovery checks](assets/bedee-openipc/test-photocell-service.sh), which launch temporary dummy controllers rather than the installed hardware service.
 
 The controller uses the measured 0–255 range and the stock thresholds. The reading must remain **at or above 90 for 15 seconds to enter night mode**, or **at or below 30 for 60 seconds to enter day mode**. Intermediate readings reset the countdown and retain the current mode. Timing uses monotonic uptime.
 
-It checks the ADC pin mux without changing it, saves the original ADC control values and restores them on exit, and uses a lock to prevent multiple instances from running. Mode changes use `/night/on` or `/night/off`; they do not repeatedly save YAML or write firmware partitions. If the API becomes unavailable, the controller keeps the current mode and restarts the delay when the API responds again. Failed ADC reads are retried without ending monitoring, as described below. The service still stops if native automatic switching is enabled or its decision source is unknown.
+It checks the ADC pin mux without changing it, saves the original ADC control values and restores them on graceful exit, and uses a lock to prevent multiple instances from running. Mode changes use `/night/on` or `/night/off`; they do not repeatedly save YAML or write firmware partitions. If the API becomes unavailable, the controller keeps the current mode and restarts the delay when the API responds again. Failed ADC reads are retried without ending monitoring, as described below. The current revision also pauses when status is incomplete or another automatic controller is active, then resumes only after valid manual-source status returns.
 
 The installed file hashes were:
 
@@ -544,7 +545,7 @@ The existing boot sequence executes `S??*` scripts in order, so S96 runs after S
 
 ### Verification and service controls
 
-Eleven regression scenarios passed: day/night delays, a brief shadow, hysteresis resetting the timer, API outage recovery, a rejected request, a competing automatic source, persistent ADC failure, transient ADC failures resetting each switching delay, and recovery after an ADC outage. These tests simulated the hardware, API responses and elapsed time. All eleven also passed in an isolated fixture under the camera's BusyBox shell, with the hardware and API functions replaced by mocks. Actual light switching was tested separately.
+The controller regression suite covers seventeen cases, including the day/night delays, API and ADC outages, incomplete status, temporary native-controller ownership, clock-read failure, and retained logging. A separate nine-scenario process suite checks delayed readiness, automatic restart, deliberate stop, disable markers, lock ownership and log rotation. These checks use simulated hardware/API responses and temporary dummy processes. Actual light switching was tested separately.
 
 On the camera, both files passed shell syntax and SHA256 checks. After a normal reboot, their hashes were unchanged and the service started automatically. Its log showed the initial API outage and recovery, then a night request at **ADC 255**. Metrics showed night, IR-cut and lamp all enabled. After turning the light on, the owner confirmed normal colour and metrics showed all three disabled. Both physical transitions were verified after reboot.
 
@@ -586,7 +587,40 @@ The revised controller was hash-checked, installed with an atomic rename and per
 7e2b6f92ca7ce6c6c415b1b1b2649427025cd42abf2f3103e7852a0e325179c6
 ```
 
-With this revision running, the owner turned the room light off and on. Logs recorded an accepted night request at **ADC 255**, followed by an accepted day request at **ADC 0** after the bright-light delay. Metrics confirmed the corresponding night-mode, IR-cut and lamp states, and the same controller process remained running throughout. ADC failures and recovery were injected only in the mocked tests; the real light-cycle check did not deliberately disturb ADC hardware. This controller revision was verified through a service restart and light cycle, without another reboot.
+With this revision running, the owner turned the room light off and on. Logs recorded an accepted night request at **ADC 255**, followed by an accepted day request at **ADC 0** after the bright-light delay. Metrics confirmed the corresponding night-mode, IR-cut and lamp states, and the same controller process remained running throughout. ADC failures and recovery were injected only in the mocked tests; the real light-cycle check did not deliberately disturb ADC hardware.
+
+A subsequent intentional reboot confirmed automatic startup of this ADC-retry revision, with no manual service start. Both controller and init-script hashes matched, the controller remained running through the check, and the logs showed recovery from the initial API outage without a new ADC error. The saved `video0.fps=30`, `isp.blkCnt=5` and `isp.slowShutter=disabled` settings persisted; runtime tables confirmed VPSS **30 → 30** and four YUV buffers plus one raw buffer. Encoded-frame counter deltas measured approximately **20.5 fps** after reboot.
+
+### Recovering a stopped controller
+
+On **19 November 2026**, the camera had remained up for approximately **7½ hours**, but the room was dark and night mode had not engaged. The controller was stopped, night mode and the lamp were off, and the ADC registers had returned to their inactive values. The installed script hashes were unchanged. Its earlier messages had rotated out of the shared system log, so the reason for this exit could not be established.
+
+Restarting the controller restored automatic night operation at **ADC 255**. This confirmed that the photocell and switching path still worked, while exposing a separate service-lifecycle problem. Retrying ADC conversions alone had not covered every way the process could end.
+
+The revised controller treats missing API fields, invalid night-mode status and failed uptime reads as temporary faults: it holds the current filter position, clears the switching countdown and retries. It also pauses while a native automatic decision source is active, avoiding competing mode requests, and resumes with a fresh delay when the source returns to manual. Unsafe startup pin-mux checks still fail without changing those pins.
+
+The init script now supervises the controller and restarts an unexpected child exit after **five seconds**. Deliberate `stop` terminates the supervisor and child without respawning them, and the existing disable marker still prevents startup. Readiness checks remain bounded to ten seconds. Lock cleanup is restricted to the supervisor's own reaped child; an unrelated or unverified lock is preserved for inspection.
+
+Controller events and exit statuses are retained separately from the shared syslog:
+
+```sh
+/etc/init.d/S96bedee-photocell status
+tail -n 40 /tmp/bedee-photocell.log
+tail -n 40 /tmp/bedee-photocell.log.1
+```
+
+The service keeps a current log and one rotated copy, each approximately **16 KiB**, with owner-only permissions. Entries include monotonic uptime. These files survive controller restarts but are stored in RAM and disappear on a camera reboot; the controller does not write a growing log to flash. Status distinguishes a supervised controller, an older unsupervised process, and a supervisor waiting to restart its child.
+
+All seventeen controller cases and nine process scenarios passed locally and under the camera's BusyBox shell. The installed scripts were backed up at `/etc/bedee-photocell.before-supervision.sh` and `/etc/S96bedee-photocell.before-supervision`, then replaced with hash-checked files and permissions `0755`. The supervised revisions have these SHA256 hashes:
+
+```text
+bedee-photocell.sh
+  cc47c3448fa0a84eb7fdffbb67d4eda29d9195e6e8a3e2b1340e195c88f8ac0e
+S96bedee-photocell
+  661658fc22044ec98f8e98f042d3abb5a35b4d829f2cb4ae3707a1fd0b77b309
+```
+
+A controlled test sent TERM only to the verified controller worker. The same supervisor automatically started a replacement after five seconds, without a manual `start`, and the dedicated log recorded both the exit status and recovery. The owner then turned the room light off: that replacement worker requested night at **ADC 255**, and metrics confirmed night mode, IR-cut and lamp enabled. The camera itself remained up. This revision was tested through service startup, worker replacement and a real night transition; it was not followed by another camera reboot or a long-term overnight test. The cause of the earlier exit remains unknown.
 
 ## Enabling Wi-Fi
 
@@ -814,6 +848,51 @@ Approximately **20–21 fps at 1080p** is the best measured result from this ses
 
 A longer stability run is the next useful check. Lower-resolution video, such as 720p at 25–30 fps, remains a possible experiment; that mode and those rates were **not tested** on this unit.
 
+## Investigating Live and Dashboard reboots
+
+Later on **18 November 2026**, the owner reported that live view had run overnight, but switching to Dashboard caused a long delay. When the page returned, it showed **system uptime of five minutes and Majestic uptime of four minutes**. A changed kernel boot ID confirmed a full camera reboot. This was more than a dashboard page or streamer restart.
+
+### Capture evidence before another reset
+
+Ethernet was connected for recovery, and logs were streamed to the local computer before trying another transition. The following reads help distinguish a process restart from a system reboot:
+
+```sh
+cat /proc/sys/kernel/random/boot_id
+cat /proc/uptime
+uptime
+/etc/init.d/S96bedee-photocell status
+```
+
+To preserve logs across a camera reboot, run this on the host rather than saving the only copy in the camera's RAM:
+
+```sh
+ssh root@192.168.2.119 'logread -f' > camera-live.log
+```
+
+Keep that log private until network identifiers and other personal details have been removed. An SSH timeout alone does not establish that the whole system has frozen: one diagnostic connection also timed out while other camera requests remained responsive. Comparing boot IDs provided the stronger evidence here.
+
+During the controlled attempt, the owner encountered heavy lag while **opening Live**, before completing the intended return to Dashboard. The off-camera log recorded a native WebRTC session opening, followed about twelve seconds later by API unavailability and an encoder warning reporting **1.489 fps**. HTTP stopped responding, and new SSH connections on both the wired and wireless addresses stalled before receiving the server banner.
+
+The owner closed the camera tabs to prevent automatic reconnection. The camera later returned with another changed boot ID and **18 seconds uptime**, without a requested reboot or power-cycle. The configured 300-second watchdog was a plausible recovery mechanism, but no direct reset-cause report established that. No out-of-memory or panic message was captured, and no complete thread dump from the stalled interval was obtained. The sequence narrows the investigation; it does not establish the exact backend defect.
+
+### Separate slow page generation from a snapshot failure
+
+The dashboard's JavaScript requests `/image.jpg` every five seconds. Installed dashboard file hashes matched the inspected release files, and the log showed JPEG snapshots being served normally before the stall. An isolated local JPEG request after recovery returned **HTTP 200 in approximately 0.26 seconds**.
+
+An isolated Dashboard HTML request returned HTTP 200 headers but reached a five-second client timeout after receiving only part of the page. This exposed a separate page-generation delay without reproducing the reboot. Neither observation proved that the JPEG encoder or Dashboard alone caused the system failure.
+
+### Use MSE as the current workaround
+
+With previous camera tabs closed, the owner opened Live and selected **MSE**. Playback was reported as smooth. Switching from that MSE view to **Dashboard** then loaded normally, while monitoring showed unchanged system and application boot identifiers and the same Majestic process.
+
+On this build, **MSE can still use WebRTC underneath**. Metrics and logs confirmed a DTLS/SCTP data channel carrying the video during this test. Selecting MSE therefore bypassed native WebRTC RTP video; it did not disable every WebRTC component. The earlier successful wireless live-view test also shows that native WebRTC was not consistently failing. These observations implicate the native video path or its transitions, without proving which part is faulty.
+
+For this unit, keep **MSE** selected in Live and use one camera tab while investigating. The WebUI stores the playback selection in the browser's local storage, so another browser profile or clearing site data can require selecting it again. This workaround required no firmware, driver or camera-configuration change.
+
+CPU use was high during an MSE playback sample, but HTTP and SSH remained responsive and available Linux memory stayed around **10–11 MiB**. After the successful Dashboard transition, encoded-frame deltas still measured approximately **20.9 fps**, and the photocell controller was running. These healthy-interval measurements do not rule out a different resource failure during the earlier stall.
+
+The MSE comparison was a short controlled test, not another overnight reliability test or a permanent fix. If the problem returns, preserve logs off the camera, record the boot ID, and collect evidence before rebooting.
+
 ## Returning to the stock firmware
 
 Use the original full flash dump to restore the stock firmware. Load the temporary bootloader again through **ROM UART recovery**, which does not depend on the installed Linux system or the bootloader’s console password. Configure RMII and PHY addresses before network access, then download the private stock image:
@@ -865,6 +944,8 @@ Verified on this physical camera:
 - SC2235 1080p video, the slow-shutter workaround, IR-cut direction, night vision and return to colour.
 - Photocell-driven automatic operation and service startup after reboot.
 - Deployment and automatic startup of the revised photocell init script after reboot, with the final frame-rate, buffer and slow-shutter settings retained and approximately 20.3 fps measured afterward.
+- Automatic startup of the ADC-retry controller after a subsequent reboot, with the same video settings retained and approximately 20.5 fps measured afterward.
+- A later full-camera reboot during browser testing, followed by smooth MSE playback and a successful MSE-to-Dashboard transition without another restart in that controlled comparison.
 
 Still unverified or incomplete:
 
@@ -873,7 +954,7 @@ Still unverified or incomplete:
 - Exact PCB revision suffix, a complete four-pad UART pinout, and the full schematic of the IR ring.
 - A vendor-web-updater/Coupler transition for this exact model.
 - Long-term stability, outdoor switching thresholds, and behavior under unusual IR reflections or changing ambient lighting.
-- The cause of the earlier hangs and reboots, long-term wireless reliability, and sustained wireless throughput beyond the short upload and live-view tests.
+- The underlying cause of the hangs and browser-associated reboots, long-term reliability of the MSE workaround, and sustained wireless throughput beyond the short upload and live-view tests.
 - The maximum reliable frame rate and higher-rate 720p modes.
 
 ## References and evidence
