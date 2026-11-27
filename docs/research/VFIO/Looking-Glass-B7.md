@@ -36,7 +36,14 @@ IVSHMEM size | Max resolution (SDR, 32-bit) | Max resolution (HDR, 16-bit float)
 `128` MiB | 3840×2160 (4K) | 2560×1440
 `256` MiB | 5120×2880+ | 3840×2160 (4K)
 
-Use `128` MiB if you want 1440p HDR or 4K SDR headroom without re-editing the XML later. Keep the `<shmem>` size identical across every domain that shares `/dev/shm/looking-glass`, and perform a full domain shutdown and start (not an in-guest reboot) after resizing so QEMU updates the backing file size.
+Use `128` MiB if you want 1440p HDR or 4K SDR headroom without re-editing the XML later. Keep the `<shmem>` size identical across every domain that shares `/dev/shm/looking-glass`, and perform a full domain shutdown and start (not an in-guest reboot) after resizing.
+
+!!! warning "Resizing an existing `/dev/shm/looking-glass` file"
+    QEMU only sizes an empty (0-byte) backing file automatically. If `/dev/shm/looking-glass` still has the previous size (for example 32 MiB from an earlier boot), starting the domain fails with `backing store size 0x2000000 does not match 'size' option 0x8000000`. Close `looking-glass-client` and reset the file to 0 bytes before starting the VM:
+
+    ```bash
+    truncate -s 0 /dev/shm/looking-glass
+    ```
 
 ```text
 # /etc/tmpfiles.d/10-looking-glass.conf
