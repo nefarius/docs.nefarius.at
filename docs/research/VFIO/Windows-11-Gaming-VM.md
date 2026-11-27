@@ -176,7 +176,7 @@ Hide KVM from the NVIDIA Windows driver (`Code 43`) and keep the Hyper-V enlight
 </features>
 ```
 
-Windows 11 boots from OVMF with Secure Boot and an emulated TPM 2.0. The clock uses local time with a native TSC and Hyper-V clock:
+Windows 11 boots from OVMF (`OVMF_CODE_4M.secboot.fd`) with an emulated TPM 2.0. `secure-boot` is on but `enrolled-keys` is off and the NVRAM template is empty `OVMF_VARS_4M.fd`, so firmware does not enforce signatures and Windows reports Secure Boot as off. Leave that as-is on this guest: regenerating NVRAM would wipe existing EFI variables. A new VM that needs enforcement should set `enrolled-keys` to `yes` and use `OVMF_VARS_4M.ms.fd`. The clock uses local time with a native TSC and Hyper-V clock:
 
 ```xml
 <os firmware="efi">
@@ -186,6 +186,7 @@ Windows 11 boots from OVMF with Secure Boot and an emulated TPM 2.0. The clock u
     <feature enabled="yes" name="secure-boot"/>
   </firmware>
   <loader readonly="yes" secure="yes" type="pflash">/usr/share/OVMF/OVMF_CODE_4M.secboot.fd</loader>
+  <nvram template="/usr/share/OVMF/OVMF_VARS_4M.fd"/>
 </os>
 
 <tpm model="tpm-crb">
@@ -230,7 +231,7 @@ sudo systemctl restart irqbalance
 
 ## Bridge
 
-One way to put the guest on the LAN is a oneshot that builds `br0` on the I211. Adding the VIA USB card moved that NIC from `enp5s0` to `enp6s0`, so the unit resolves the first `e*` interface instead of hard-coding the name:
+One way to put the guest on the LAN is a oneshot that builds `br0` on the I211 (`04:d9:f5:60:f0:0a`). Adding the VIA USB card renamed that NIC from `enp5s0` to `enp6s0`, so the unit selects the NIC by MAC instead of interface name. `addbr`/`addif` are ignored when `br0` or the membership already exists, so a failed run can restart without deleting the bridge first:
 
 ```ini
 # /lib/systemd/system/qemu-startup.service
@@ -241,8 +242,8 @@ After=network-online.target
 [Service]
 Type=oneshot
 Restart=on-failure
-ExecStart=brctl addbr br0
-ExecStart=/bin/sh -c 'brctl addif br0 $(ip -o link show | awk -F": " "/^[0-9]+: e/{print \\$2}")'
+ExecStart=/bin/sh -c 'brctl addbr br0 || true'
+ExecStart=/bin/sh -c 'nic=$(ip -o link | awk -F": " "/04:d9:f5:60:f0:0a/{print \\$2; exit}"); brctl addif br0 "$nic" || true'
 ExecStart=dhclient br0
 ExecStart=ip link set br0 up
 ExecStart=iptables -I FORWARD -m physdev --physdev-is-bridged -j ACCEPT
