@@ -142,7 +142,7 @@ preset=Upscaling
 
 ### Cause
 
-Looking Glass B7 (`27fe47cb`, 2025-03-06) compiles its EGL post-processing shaders as GLSL ES 3.00 (`#version 300 es`) with `precision highp float;` only, leaving `int` and `uint` at GLSL ES's default `mediump` (16-bit). Mesa 25.x on AMD (`radeonsi`) began honoring 16-bit `mediump int` in fragment shaders ([Mesa #12990](https://gitlab.freedesktop.org/mesa/mesa/-/issues/12990#note_3038479)).
+Looking Glass B7 (`27fe47cb`, 2025-03-06) compiles its EGL post-processing shaders as GLSL ES 3.00 (`#version 300 es`) with `precision highp float;` only, leaving `int` and `uint` at GLSL ES's default `mediump` (16-bit). Mesa 25.x on the **host** AMD GPU (`radeonsi`, here the RX 6900 XT driving the Linux client) began honoring 16-bit `mediump int` in fragment shaders ([Mesa #12990](https://gitlab.freedesktop.org/mesa/mesa/-/issues/12990#note_3038479)). This is independent of the guest GPU (NVIDIA or AMD).
 
 AMD FidelityFX FSR1 (`ffx_fsr1_easu.frag`, `ffx_fsr1_rcas.frag`) and CAS (`ffx_cas.frag`) pass packed 32-bit IEEE-754 float parameters through `uvec4 uConsts` and unpack them with 32-bit integer operations. Truncating those constants to 16-bit zeroes or corrupts them, producing a black frame.
 
@@ -186,11 +186,11 @@ Relaunch `looking-glass-client`, enable **AMD FidelityFX FSR** in the **EGL Filt
 
 Host log on failure: `%ProgramData%\Looking Glass (host)\looking-glass-host.txt`.
 
-## Guest needs a display sink (AMD)
+## Guest needs a display sink {#guest-needs-a-display-sink-amd}
 
-Post-GCN AMD GPUs power down the display block when nothing is plugged in. DXGI then has no desktop to capture, so the Linux client stays on the splash / blank even though both Looking Glass processes are running.
+NVIDIA and post-GCN AMD GPUs power down the display block when nothing is plugged in. DXGI then has no desktop to capture, so the Linux client stays on the splash / blank even though both Looking Glass processes are running.
 
-`video none` plus GPU passthrough does **not** count as a monitor. Attach a real display to the guest GPU, or a DisplayPort/HDMI dummy plug. After the sink appears, restart the Looking Glass host service (or reboot the guest) and reopen the client.
+`video none` plus GPU passthrough does **not** count as a monitor. Attach a real display to the guest GPU, or a DisplayPort/HDMI dummy plug. This guest uses an HDMI dummy on the passed-through RTX 2080 SUPER. After the sink appears, restart the Looking Glass host service (or reboot the guest) and reopen the client.
 
 Stable B7 has no Indirect Display Driver. Bleeding-edge builds ship a Windows IDD if you want a virtual sink later.
 
