@@ -16,7 +16,7 @@ This is a general-purpose section where mixed content ends up that doesn't reall
 ## Virtual machines (VFIO)
 
 - [Windows 11 Gaming VM with GPU pass-thru](VFIO/Windows-11-Gaming-VM.md) — Pass an AMD Radeon RX 6900 XT and a USB controller through to a Windows 11 gaming guest.
-- [Looking Glass B7 with IVSHMEM](VFIO/Looking-Glass-B7.md) — Show the passed-through guest framebuffer on the Linux desktop through Looking Glass and kvmfr.
+- [Looking Glass B7 with IVSHMEM](VFIO/Looking-Glass-B7.md) — Show the passed-through guest framebuffer on the Linux desktop through Looking Glass, IVSHMEM sizing, and the Mesa 25 EGL FSR1 shader fix.
 - [Guest CPU topology vs pin map](VFIO/Guest-CPU-topology-vs-pin-map.md) — Keep the guest CPU topology aligned with the host pin map so Windows does not invent SMT siblings.
 - [CPU governor for pinned KVM vCPUs](VFIO/CPU-governor-for-pinned-vCPUs.md) — Hold the performance governor on the host CPUs reserved for pinned guest threads.
 - [Host CPU affinity for pinned VMs](VFIO/Host-CPU-affinity-for-pinned-VMs.md) — Keep the desktop and host services off the CPUs reserved for pinned vCPU threads.
