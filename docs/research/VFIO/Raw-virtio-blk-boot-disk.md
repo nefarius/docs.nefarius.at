@@ -93,6 +93,20 @@ Inside Windows, the boot volume should appear as a Red Hat VirtIO disk (`VEN_1AF
 
 Keep the qcow2 until the guest has completed **two** clean boots. Then rename or delete it. Do not delete it to “free space” on the first attempt.
 
+## Secondary virtio-blk data disks
+
+If the domain already defines a second pinned IOThread (such as `<iothreadpin iothread="2" cpuset="2-3"/>`), apply the same `io_uring` and `discard="unmap"` driver flags to any dedicated block data disk (for example, a passed-through SATA SSD for games):
+
+```xml
+<disk type="block" device="disk">
+  <driver name="qemu" type="raw" cache="none" io="io_uring" discard="unmap" iothread="2"/>
+  <source dev="/dev/sdX"/>
+  <target dev="vdc" bus="virtio"/>
+</disk>
+```
+
+Define the updated inactive XML and perform a full domain shutdown and start so QEMU applies the new driver parameters.
+
 ## Notes
 
 - This is not virtio-scsi. Use SCSI only after `vioscsi` is a Boot-start driver.
