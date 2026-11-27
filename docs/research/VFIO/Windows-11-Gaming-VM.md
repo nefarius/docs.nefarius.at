@@ -231,7 +231,7 @@ sudo systemctl restart irqbalance
 
 ## Bridge
 
-One way to put the guest on the LAN is a oneshot that builds `br0` on the I211 (`04:d9:f5:60:f0:0a`). Adding the VIA USB card renamed that NIC from `enp5s0` to `enp6s0`, so the unit selects the NIC by MAC instead of interface name. Create `br0` only if it is missing, and attach the I211 only if it is not already a member. Any other `brctl` failure still fails the unit so `Restart=on-failure` can run:
+One way to put the guest on the LAN is a oneshot that builds `br0` on the I211 (`04:d9:f5:60:f0:0a`). Adding the VIA USB card renamed that NIC from `enp5s0` to `enp6s0`, so the unit selects the NIC by MAC instead of interface name. Match that MAC only on a physical netdev (`/sys/class/net/<iface>/device`) so `br0` cannot steal the lookup if it later copies the port MAC. Create `br0` only if it is missing, and attach the I211 only if it is not already a member. Any other `brctl` failure still fails the unit so `Restart=on-failure` can run:
 
 ```ini
 # /lib/systemd/system/qemu-startup.service
@@ -243,7 +243,7 @@ After=network-online.target
 Type=oneshot
 Restart=on-failure
 ExecStart=/bin/sh -c '[ -d /sys/class/net/br0 ] || brctl addbr br0'
-ExecStart=/bin/sh -c 'nic=$(ip -o link | awk -F": " "/04:d9:f5:60:f0:0a/{print \\$2; exit}"); [ -n "$nic" ] || exit 1; [ -e /sys/class/net/br0/brif/"$nic" ] || brctl addif br0 "$nic"'
+ExecStart=/bin/sh -c 'nic=$(ip -o link | awk -F": " "/04:d9:f5:60:f0:0a/{print \\$2}" | while read i; do [ -e /sys/class/net/$i/device ] && echo "$i" && break; done); [ -n "$nic" ] || exit 1; [ -e /sys/class/net/br0/brif/"$nic" ] || brctl addif br0 "$nic"'
 ExecStart=dhclient br0
 ExecStart=ip link set br0 up
 ExecStart=iptables -I FORWARD -m physdev --physdev-is-bridged -j ACCEPT
