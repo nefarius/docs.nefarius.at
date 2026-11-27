@@ -1,0 +1,13 @@
+[Unit]
+Description=Set cpufreq governor on host CPUs reserved for KVM guests
+After=cpufrequtils.service
+After=loadcpufreq.service
+Wants=loadcpufreq.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/set-vm-cpu-governor
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

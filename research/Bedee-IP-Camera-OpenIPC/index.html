@@ -1,0 +1,6286 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Projects devoted to USB input device emulation and game peripherals reverse engineering">
+      
+      
+      
+        <link rel="canonical" href="https://docs.nefarius.at/research/Bedee-IP-Camera-OpenIPC/">
+      
+      
+      
+      
+        <link rel="prev" href="../ASUS-PG278Q-Monitor-on-Linux/">
+      
+      
+        <link rel="next" href="../CORSAIR-GLAIVE-RGB-native-HID-Report-Descriptor/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/favicon.png">
+      <meta name="generator" content="zensical-0.1.3">
+    
+    
+      
+        <title>Bedee 2 MP IP camera: hardware, firmware backup and OpenIPC - Nefarius™ Project Documentation</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.e2cf241e.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/toots.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/video.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+  
+
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nefarius™ Project Documentation" class="md-header__button md-logo" aria-label="Nefarius™ Project Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nefarius™ Project Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bedee 2 MP IP camera: hardware, firmware backup and OpenIPC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/nefarius/docs.nefarius.at" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  Welcome
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Community-Support/" class="md-tabs__link">
+        
+  
+  Community and Support
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Donations/" class="md-tabs__link">
+        
+  
+  Donations
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Downloads/" class="md-tabs__link">
+        
+  
+  Downloads
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../projects/" class="md-tabs__link">
+          
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  Research
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nefarius™ Project Documentation" class="md-nav__button md-logo" aria-label="Nefarius™ Project Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 5v16M20.001 19A2 2 0 0 0 22 17V5a2 2 0 0 0-1.999-2L16 3.002A5 5 0 0 0 12 5a5 5 0 0 0-4-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 1.999 2H8a5 5 0 0 1 4 2 5 5 0 0 1 4-2z"/></svg>
+
+    </a>
+    Nefarius™ Project Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nefarius/docs.nefarius.at" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Welcome
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Community-Support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Community and Support
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Donations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Donations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Downloads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Downloads
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Projects
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Projects
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About Projects
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AirBender
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  AirBender
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/AirBender/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About AirBender
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/AirBender/Removal-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AirBender Removal Guide
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  BthPS3
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  BthPS3
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About BthPS3
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/API-Documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  API Documentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/About-Controller-Compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About Controller Compatibility
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/Amazon-Choice-Pro-Controller/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Amazon's Choice "Pro Controller" Compatibility
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/Compatible-Bluetooth-Devices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Compatible Bluetooth Devices
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/Debugging-the-drivers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Debugging the Drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/Driver-Configuration-Utility-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Driver Configuration Utility Explained
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/DualShock-4-FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  DualShock 4 FAQ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/Frequently-Asked-Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Frequently Asked Questions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/How-to-Install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Install
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/BthPS3/Installation-Guide-Shibari-Edition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Installation Guide (Shibari Edition)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  DsHidMini
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  DsHidMini
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About DsHidMini
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4_2" id="__nav_5_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  V2
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_4_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  V2
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Major Version 2
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v2/DS4-Mode-User-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  DS4Windows Mode User Guide
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v2/FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Frequently Asked Questions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v2/HID-Device-Modes-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HID Device Modes Explained
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v2/How-to-Install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Install/Remove
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v2/Output-Rate-Control-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Output Rate Control Explained
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v2/SCP-XInput-Bridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SCP XInput Bridge (Proxy DLL)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v2/SIXAXIS.SYS-to-DsHidMini-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Switch from SIXAXIS.SYS to DsHidMini
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v2/XInput-Mode-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  XInput Mode Explained
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4_3" id="__nav_5_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  V3
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_4_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_4_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  V3
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Major Version 3
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/Collecting-Diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collecting Diagnostics
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/ControlApp-Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ControlApp Overview
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/DS4-Mode-User-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  DS4Windows Mode User Guide
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/Debugging-the-drivers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Debugging the Drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Frequently Asked Questions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/HID-Device-Modes-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HID Device Modes Explained
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/How-to-Install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Install/Remove
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/Output-Rate-Control-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Output Rate Control Explained
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/PCSX2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PCSX2 Full Controller Support
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/PS1-PS2-USB-Adapters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PS1/PS2 USB Adapters
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/RPCS3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  RPCS3 Full Controller Support
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/SCP-XInput-Bridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SCP XInput Bridge (Proxy DLL)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/SIXAXIS.SYS-to-DsHidMini-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Switch from SIXAXIS.SYS to DsHidMini
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/Steam-SXS-Rumble/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Steam, SXS, and rumble
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/DsHidMini/v3/XInput-Mode-Explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  XInput Mode Explained
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FireShock
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  FireShock
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/FireShock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About FireShock
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/FireShock/Removal-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FireShock Removal Guide
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HidGuardian
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  HidGuardian
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidGuardian/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About HidGuardian
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidGuardian/Hall-of-fame/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Users of HidGuardian
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidGuardian/HidGuardian-Gen1-Installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HidGuardian (Gen1) Installation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidGuardian/Taming-HidGuardian-Gen1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Taming HidGuardian (Gen1)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HidHide
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_7">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  HidHide
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidHide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About HidHide
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidHide/API-Documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  API Documentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidHide/CLI-Usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line Interface
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidHide/FAQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Frequently Asked Questions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidHide/Manual-Installation-ARM64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Manual installation on ARM64
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidHide/Simple-Setup-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Simple setup guide
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/HidHide/fixing-a-bricked-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Fixing an improper removal of HidHide
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Identinator
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_8">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Identinator
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Identinator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About Nefarius' Identinator
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ScpToolkit
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_9">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  ScpToolkit
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/ScpToolkit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About ScpToolkit
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/ScpToolkit/History/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  History of SCP
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/ScpToolkit/ScpToolkit-Removal-Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Manual removal of ScpToolkit residue
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Shibari
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_10">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Shibari
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Shibari/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About Shibari
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_11" id="__nav_5_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ViGEm
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_11_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_11">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  ViGEm
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/ViGEm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About ViGEm
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/ViGEm/End-of-Life/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  End of Life Statement
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/ViGEm/How-to-Install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to Install/Remove
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_12" id="__nav_5_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vicius
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_12_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_12">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Vicius
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About Vīcĭus
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Command-Line-Arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Command Line Arguments
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Common-Errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Common Errors
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Download-Integrity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Download Integrity
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Emergency-Feature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Emergency Feature
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Exit-Codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Possible Exit Codes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Inja-Templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Inja Templates
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Integrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Integrations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Local-Configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Local Configuration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Logging
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Product-Detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Product Detection
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Remote-Configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Remote Configuration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Server-Discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server Discovery
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Setup-Exit-Codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Setup Exit Code Handling
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Signature-Verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Signature &amp; Manifest Verification
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/Terminate-Process-before-Update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Process Termination on Update
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/Vicius/ZIP-Archives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ZIP Archives
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_13" id="__nav_5_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  VirtuaLED
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_13_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_13">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  VirtuaLED
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/VirtuaLED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About VirtuaLED
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_14" id="__nav_5_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  VirtualPad
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_14_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_14">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  VirtualPad
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/VirtualPad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About Nefarius VirtualPad Framework
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_15" id="__nav_5_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WireShock
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_15_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5_15">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  WireShock
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/WireShock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About WireShock
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Research
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Research
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Research area
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ASUS-PG278Q-Monitor-on-Linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ASUS PG278Q Monitor on Linux
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Bedee 2 MP IP camera: hardware, firmware backup and OpenIPC
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Bedee 2 MP IP camera: hardware, firmware backup and OpenIPC
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#product-identity-and-verified-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Product identity and verified hardware
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Product identity and verified hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openipc-support-versus-a-vendor-compatible-upgrade-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OpenIPC support versus a vendor-compatible upgrade package
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uart-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        UART access
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UART access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-the-stock-console-revealed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What the stock console revealed
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-recovery-path-before-a-flash-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A recovery path before a flash write
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A recovery path before a flash write">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethernet-configure-it-before-the-first-network-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ethernet: configure it before the first network command
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backing-up-the-whole-spi-nor" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Backing up the whole SPI NOR
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-and-constructing-the-openipc-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Choosing and constructing the OpenIPC image
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choosing and constructing the OpenIPC image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pin-the-files-not-the-word-latest" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pin the files, not the word “latest”
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stock-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Stock layout
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installed-openipc-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Installed OpenIPC layout
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-actual-flash-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The actual flash session
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-booting-camera-with-an-almost-black-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A booting camera with an almost black image
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovering-the-stock-ir-cut-and-lamp-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recovering the stock IR-cut and lamp wiring
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recovering the stock IR-cut and lamp wiring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-click-is-an-ir-cut-actuator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The click is an IR-cut actuator
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-infrared-lamp-has-a-separate-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The infrared lamp has a separate control
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-native-automatic-night-mode-did-not-return-to-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Why native automatic night mode did not return to day
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-the-original-analogue-photocell" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reading the original analogue photocell
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#persistent-photocell-driven-daynight" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Persistent photocell-driven day/night
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Persistent photocell-driven day&#x2f;night">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#downloadable-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Downloadable service
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-and-service-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Verification and service controls
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovering-from-intermittent-adc-read-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recovering from intermittent ADC read failures
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovering-a-stopped-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recovering a stopped controller
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-wi-fi" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Enabling Wi-Fi
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enabling Wi-Fi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-adapter-was-present-but-its-driver-was-not-loaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The adapter was present, but its driver was not loaded
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-the-adapter-and-fitting-the-antenna" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Selecting the adapter and fitting the antenna
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saving-the-network-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saving the network credentials
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-misleading-wpa_cli-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A misleading <code>wpa_cli</code> error
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reboot-and-ethernet-unplug-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reboot and Ethernet-unplug tests
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#investigating-low-frame-rate-and-apparent-wi-fi-hangs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Investigating low frame rate and apparent Wi-Fi hangs
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Investigating low frame rate and apparent Wi-Fi hangs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#separating-frame-production-from-network-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Separating frame production from network throughput
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removing-the-extra-discard-and-adding-buffer-headroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Removing the extra discard and adding buffer headroom
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#measuring-the-wireless-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Measuring the wireless path
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-frame-rate-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Practical frame-rate limit
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#investigating-live-and-dashboard-reboots" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Investigating Live and Dashboard reboots
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Investigating Live and Dashboard reboots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capture-evidence-before-another-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Capture evidence before another reset
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separate-slow-page-generation-from-a-snapshot-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Separate slow page generation from a snapshot failure
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-mse-as-the-current-workaround" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Use MSE as the current workaround
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#returning-to-the-stock-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Returning to the stock firmware
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-verified-and-what-is-still-open" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What is verified, and what is still open
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-and-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References and evidence
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CORSAIR-GLAIVE-RGB-native-HID-Report-Descriptor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CORSAIR GLAIVE RGB native HID Report Descriptor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Force-X11-windows-onto-the-primary-monitor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Force specific X11 windows onto the primary monitor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How-to-check-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How to check which architecture I'm running
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PDB-in-WinDbg-Session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Fix Symbol loading for Kernel Driver minidump analysis
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SIXAXIS-native-HID-Report-Descriptor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SIXAXIS/DualShock 3 native HID Report Descriptor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Sign-dotnet-assemblies-on-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sign .NET assemblies during build
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Virtual-VID-PID-used-by-NSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Vendor and Product IDs used by NSS drivers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nmake-in-PowerShell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Have MSBuild/nmake available in PowerShell
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vJoy-HID-Report-Descriptor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  vJoy HID Report Descriptor
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_13" id="__nav_6_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  VFIO
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_13_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6_13">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  VFIO
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VFIO/CPU-governor-for-pinned-vCPUs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CPU governor for pinned KVM vCPUs
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VFIO/Guest-CPU-topology-vs-pin-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Guest CPU topology vs pin map
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VFIO/Host-CPU-affinity-for-pinned-VMs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Host CPU affinity for pinned VMs
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VFIO/Looking-Glass-B7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Looking Glass B7 with IVSHMEM
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VFIO/Raw-virtio-blk-boot-disk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Raw virtio-blk boot disk
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VFIO/Windows-11-Gaming-VM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Windows 11 Gaming VM with GPU pass-thru
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VFIO/Windows-11-guest-stalls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Debugging Windows 11 guest stalls that look like slow disk I/O
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_13_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_13_8" id="__nav_6_13_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Host
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_13_8_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6_13_8">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Host
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VFIO/host/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Host helper files
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#product-identity-and-verified-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Product identity and verified hardware
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Product identity and verified hardware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openipc-support-versus-a-vendor-compatible-upgrade-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        OpenIPC support versus a vendor-compatible upgrade package
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uart-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        UART access
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UART access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-the-stock-console-revealed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What the stock console revealed
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-recovery-path-before-a-flash-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A recovery path before a flash write
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A recovery path before a flash write">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ethernet-configure-it-before-the-first-network-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ethernet: configure it before the first network command
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backing-up-the-whole-spi-nor" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Backing up the whole SPI NOR
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-and-constructing-the-openipc-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Choosing and constructing the OpenIPC image
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choosing and constructing the OpenIPC image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pin-the-files-not-the-word-latest" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Pin the files, not the word “latest”
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stock-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Stock layout
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installed-openipc-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Installed OpenIPC layout
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-actual-flash-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The actual flash session
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-booting-camera-with-an-almost-black-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A booting camera with an almost black image
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovering-the-stock-ir-cut-and-lamp-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recovering the stock IR-cut and lamp wiring
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recovering the stock IR-cut and lamp wiring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-click-is-an-ir-cut-actuator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The click is an IR-cut actuator
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-infrared-lamp-has-a-separate-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The infrared lamp has a separate control
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-native-automatic-night-mode-did-not-return-to-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Why native automatic night mode did not return to day
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-the-original-analogue-photocell" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reading the original analogue photocell
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#persistent-photocell-driven-daynight" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Persistent photocell-driven day/night
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Persistent photocell-driven day&#x2f;night">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#downloadable-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Downloadable service
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-and-service-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Verification and service controls
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovering-from-intermittent-adc-read-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recovering from intermittent ADC read failures
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovering-a-stopped-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recovering a stopped controller
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-wi-fi" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Enabling Wi-Fi
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enabling Wi-Fi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-adapter-was-present-but-its-driver-was-not-loaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The adapter was present, but its driver was not loaded
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-the-adapter-and-fitting-the-antenna" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Selecting the adapter and fitting the antenna
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saving-the-network-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Saving the network credentials
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-misleading-wpa_cli-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A misleading <code>wpa_cli</code> error
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reboot-and-ethernet-unplug-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Reboot and Ethernet-unplug tests
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#investigating-low-frame-rate-and-apparent-wi-fi-hangs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Investigating low frame rate and apparent Wi-Fi hangs
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Investigating low frame rate and apparent Wi-Fi hangs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#separating-frame-production-from-network-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Separating frame production from network throughput
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removing-the-extra-discard-and-adding-buffer-headroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Removing the extra discard and adding buffer headroom
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#measuring-the-wireless-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Measuring the wireless path
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-frame-rate-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Practical frame-rate limit
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#investigating-live-and-dashboard-reboots" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Investigating Live and Dashboard reboots
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Investigating Live and Dashboard reboots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#capture-evidence-before-another-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Capture evidence before another reset
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separate-slow-page-generation-from-a-snapshot-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Separate slow page generation from a snapshot failure
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-mse-as-the-current-workaround" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Use MSE as the current workaround
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#returning-to-the-stock-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Returning to the stock firmware
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-verified-and-what-is-still-open" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What is verified, and what is still open
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-and-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References and evidence
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+  
+  
+
+
+<h1 id="bedee-2-mp-ip-camera-hardware-firmware-backup-and-openipc">Bedee 2 MP IP camera: hardware, firmware backup and OpenIPC</h1>
+<p>Investigating an old Bedee camera became a small firmware archaeology project: identifying the board, gaining recovery access without the stock console password, backing up the entire flash, installing OpenIPC, and restoring infrared night vision.</p>
+<p>The result is a working <strong>Hi3518EV200 / SC2235 camera running OpenIPC</strong>, with Ethernet, Wi-Fi, 1080p video, a working IR-cut filter, and automatic day/night switching from the original photocell. The complete flash was backed up twice before installation. Reboot persistence, a full night/day cycle, and live video over Wi-Fi with Ethernet unplugged were verified. Later tuning raised measured video output from about <strong>13 to 21 fps</strong>; a wireless-only test then ran for <strong>5 minutes 34 seconds</strong> without a hang or reboot. Subsequent browser-navigation tests exposed another stall and full reboot. Selecting <strong>MSE</strong> gave smooth playback and a successful return to Dashboard, providing a workaround while the underlying fault remains unresolved.</p>
+<p>These notes describe <strong>one physical unit tested on 17–19 November 2026</strong>. Wi-Fi setup and the subsequent performance investigation took place on 18 November, with another photocell-service failure investigated on 19 November. A Bedee badge, a similar enclosure, or a matching HTTP banner does not establish that another camera has the same board.</p>
+<div class="admonition warning">
+<p class="admonition-title">Board-specific research, not a generic upgrade recipe</p>
+<p>The flash offsets, DDR configuration and register addresses below are specific to this board and the recorded image versions. Flashing replaces the stock bootloader and configuration. Make and verify a full backup, and confirm that you can access the recovery bootloader, before writing anything. The stock restoration procedure has been prepared but has <strong>not</strong> been tested end to end.</p>
+</div>
+<h2 id="product-identity-and-verified-hardware">Product identity and verified hardware</h2>
+<p>The stock camera reported model <strong><code>C6F0SgZ3N0P6L2</code></strong> and firmware <strong><code>V11.1.34.5.3-20180829</code></strong>. Its services exposed HiChip/Hipcam RTSP on TCP 554, Mongoose HTTP on TCP 80, and ONVIF on TCP 8080. RTSP paths <code>/11</code> and <code>/12</code> worked.</p>
+<p>Opening the housing, reading the boot log, examining the stock dump, and booting OpenIPC identified the following hardware:</p>
+<ul>
+<li><strong>SoC:</strong> HiSilicon Hi3518EV200. The package marking reads <code>Hi3518</code> / <code>ERBCV200</code>.</li>
+<li><strong>Image sensor:</strong> SmartSens <strong>SC2235</strong>, confirmed by the stock software and successful OpenIPC sensor initialization.</li>
+<li><strong>RAM:</strong> <strong>64 MiB, DDR2</strong>. The compared DDR initialization table includes <code>0x20111050 = 0x15</code>.</li>
+<li><strong>Flash:</strong> <strong>XM25QH64A</strong>, <strong>8 MiB SPI NOR</strong>, reported JEDEC ID <code>20 70 17</code>.</li>
+<li><strong>PCB:</strong> the visible silkscreen includes <code>18EV2_2235AF</code>. The complete revision suffix is not clear enough to read with confidence in the photograph.</li>
+<li><strong>Networking:</strong> wired Ethernet and an <strong>MT7601U</strong> USB Wi-Fi module, USB ID <strong><code>148f:7601</code></strong>. Both worked under OpenIPC; Wi-Fi association and live video were verified after reboot and with Ethernet unplugged. The adapter supports <strong>2.4 GHz 802.11b/g/n</strong>, not 5 GHz.</li>
+<li><strong>Other hardware:</strong> microSD slot, infrared LED ring with a separate visible photocell and a three-wire connection, and a mechanically actuated IR-cut filter.</li>
+</ul>
+<p><a class="glightbox" data-type="image" href="../images/bedee-openipc/board-lens-side.jpg"><img alt="Lens side of the board, including the partially readable board identifier" src="../images/bedee-openipc/board-lens-side.jpg" /></a></p>
+<p><a class="glightbox" data-type="image" href="../images/bedee-openipc/board-processor-side.jpg"><img alt="Processor side showing the HiSilicon package, microSD slot and four unpopulated serial pads" src="../images/bedee-openipc/board-processor-side.jpg" /></a></p>
+<p>The microSD controller recognized a 64 GB card during recovery. Recording, filesystem reliability and the maximum supported card capacity were not tested.</p>
+<h3 id="openipc-support-versus-a-vendor-compatible-upgrade-package">OpenIPC support versus a vendor-compatible upgrade package</h3>
+<p>OpenIPC has a <a href="https://openipc.org/cameras/vendors/hisilicon/socs/hi3518ev200">Hi3518EV200 target</a>, and the inspected image contained <code>libsns_sc2235.so</code>, an SC2235 profile and loader support. Successful sensor initialization and live video confirmed that the driver worked on this unit.</p>
+<p><a href="https://github.com/OpenIPC/coupler">Coupler</a> lists CamHi/HiChip/Xin, but that listing alone did not confirm that a suitable transition image existed for this exact Bedee model, stock firmware and board. No Coupler package was flashed or validated here. The successful route was <strong>ROM UART recovery followed by a manually verified raw NOR image</strong>.</p>
+<p>OpenIPC also includes vendor components. The running streamer, Majestic, presented a licence agreement during initial setup; the owner accepted it personally and chose a new root password. Installing OpenIPC does not make every component an unrestricted open-source replacement.</p>
+<h2 id="uart-access">UART access</h2>
+<p>The adapter was an <strong>FTDI TTL-232R-3V3</strong>, identified by Linux as <code>0403:6001</code> (<code>FT232 Serial (UART) IC</code>). The working serial format was <strong>115200 baud, 8 data bits, no parity, one stop bit, no flow control</strong>.</p>
+<p>For this adapter:</p>
+<div class="highlight"><pre><span></span><code>black   -&gt; camera ground
+yellow  -&gt; camera TX  (adapter RX)
+orange  -&gt; camera RX  (adapter TX)
+red     -&gt; DISCONNECTED
+</code></pre></div>
+<p>Power the camera from its own supply. The adapter’s “3.3 V” label refers to its UART logic levels, not its power output. Leave the adapter’s power lead disconnected.</p>
+<p>On this board, the <strong>second pad counting from the microSD-slot end of the four-pad row</strong> had continuity to ground. The remaining pads all initially measured about 3.3 V, which did not identify their functions. Idle UART lines can be high. The complete pad order was not confirmed, so only the ground-pad identification is documented here.</p>
+<p>Early serial output was unreliable. Properly soldering the wires, pads and connectors resolved the problem; the voltage readings alone had not ruled out poor connections.</p>
+<p>To read and log the serial output on Linux:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>picocom<span class="w"> </span>-b<span class="w"> </span><span class="m">115200</span><span class="w"> </span>-d<span class="w"> </span><span class="m">8</span><span class="w"> </span>-p<span class="w"> </span>n<span class="w"> </span>-f<span class="w"> </span>n<span class="w"> </span>--stopbits<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--logfile<span class="w"> </span>camera-boot.log<span class="w"> </span>/dev/ttyUSB0
+</code></pre></div>
+<p>Only one program should open the serial device at a time. Stop <code>picocom</code> before using the recovery uploader. The uploader’s terminal can continue to display the Linux console after boot. The RAM upload is only needed when loading the temporary recovery bootloader.</p>
+<h3 id="what-the-stock-console-revealed">What the stock console revealed</h3>
+<p>The stock bootloader identified itself as:</p>
+<div class="highlight"><pre><span></span><code>U-Boot 2010.06 (Nov 30 2017 - 15:05:15)
+SPI Nor(cs 0) ID: 0x20 0x70 0x17
+Block:64KB Chip:8MB Name:"xm25qh64a"
+SPI Nor total size: 8MB
+</code></pre></div>
+<p>Interrupting autoboot produced a <strong>U-Boot password prompt</strong>. Letting Linux boot produced a separate <code>(none) login:</code> prompt. The web login did not provide access to the serial root console, and the stock shell password was not recovered. The recovery method below requires neither Telnet access nor an exploit-based shell.</p>
+<h2 id="a-recovery-path-before-a-flash-write">A recovery path before a flash write</h2>
+<p><a href="https://github.com/OpenIPC/defib">OpenIPC defib</a> provided recovery access over UART by using the HiSilicon ROM download protocol to load a bootloader into RAM. This session used defib revision <code>5167b2a8669a604ce546adb1bffc6da20cf5c1a3</code>.</p>
+<p>From the private recovery kit directory on the Linux host:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>../camera-recovery-env/bin/defib<span class="w"> </span>burn<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--chip<span class="w"> </span>hi3518ev200<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--file<span class="w"> </span>recovery/u-boot-hi3518ev200-recovery.bin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--port<span class="w"> </span>/dev/ttyUSB0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--break<span class="w"> </span>--terminal
+</code></pre></div>
+<p>Once the uploader was waiting for a device, the camera was powered on. The uploader transferred the DDR initialization data, SPL and U-Boot, then opened a console at the <code>OpenIPC #</code> prompt.</p>
+<p><strong>With this command and recovery file, <code>burn</code> loaded the bootloader into RAM; it did not program the SPI flash.</strong> Do not generalize that statement to defib's other commands. In particular, automatic installation/restoration operations have different write behavior.</p>
+<p>The working recovery binary was 127,459 bytes and displayed <strong>U-Boot 2010.06, built 4 October 2026</strong>. Although both report U-Boot 2010.06, the recovery and stock bootloaders are different builds.</p>
+<h3 id="ethernet-configure-it-before-the-first-network-command">Ethernet: configure it before the first network command</h3>
+<p>The lab used these private addresses:</p>
+<div class="highlight"><pre><span></span><code>camera in recovery: 192.168.2.113
+Linux TFTP host:    192.168.2.115/24 on br0
+camera on Ethernet: 192.168.2.119 after DHCP
+camera on Wi-Fi:    192.168.2.108 after DHCP
+</code></pre></div>
+<p>On the host, <code>ip -4 route get 192.168.2.113</code> confirmed the correct interface and source address.</p>
+<p>In a <strong>fresh</strong> RAM recovery session, configure the PHY before the first <code>ping</code> or TFTP command:</p>
+<div class="highlight"><pre><span></span><code>setenv mdio_intf rmii
+setenv phyaddru 0
+setenv phyaddrd 1
+setenv ethaddr &lt;YOUR-CAMERA-ETHERNET-MAC&gt;
+setenv ipaddr 192.168.2.113
+setenv serverip 192.168.2.115
+setenv netmask 255.255.255.0
+ping 192.168.2.115
+</code></pre></div>
+<p>Replace the MAC placeholder with the unit's own wired MAC. The successful result included:</p>
+<div class="highlight"><pre><span></span><code>eth0 : phy status change : LINK=UP : DUPLEX=FULL : SPEED=100M
+host 192.168.2.115 is alive
+</code></pre></div>
+<p>An earlier attempt reported <code>PHY not link</code>. Changing settings after the driver had already registered MDIO devices produced repeated <code>No such device</code> and <code>PHY_PHYIDR1 read failed</code> messages. Starting a fresh recovery session and selecting RMII with PHY addresses 0 and 1 <strong>before the first network operation</strong> fixed the problem.</p>
+<p>Read-only <code>mii</code> inspection had reported devices <code>'0:1'</code> and <code>'1:2'</code>, and a PHY with OUI <code>0x90c3</code>, model <code>0x05</code>, revision <code>0x04</code>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Do not save the recovery environment over stock firmware</p>
+<p>The temporary OpenIPC bootloader saves its environment at <strong><code>0x40000</code></strong>. The stock firmware's kernel starts at <strong><code>0x40000</code></strong>. Running <code>saveenv</code> while retaining stock firmware overwrites part of that kernel. All networking changes above belong in RAM only.</p>
+</div>
+<h2 id="backing-up-the-whole-spi-nor">Backing up the whole SPI NOR</h2>
+<p>The recovery U-Boot could read all 8 MiB and <strong>upload</strong> the buffer to the host over TFTP. A writable TFTP server was running on the host; an upload needs write permission and a working UDP return path, not just the ability to download files.</p>
+<p>At the bootloader prompt:</p>
+<div class="highlight"><pre><span></span><code>sf probe 0
+mw.b 0x82000000 0xff 0x800000
+sf read 0x82000000 0x0 0x800000
+crc32 0x82000000 0x800000
+tftp 0x82000000 bedee-stock-A.bin 0x800000
+</code></pre></div>
+<p>The CRC was <strong><code>dc96fe13</code></strong>, and the transfer reported <strong>8.000 MB upload ok</strong>. The entire sequence, including clearing RAM and reading flash again, was repeated to create <code>bedee-stock-B.bin</code>.</p>
+<p>This bootloader's TFTP convention matters:</p>
+<div class="highlight"><pre><span></span><code>tftp ADDRESS FILENAME         -&gt; download from server into RAM
+tftp ADDRESS FILENAME LENGTH  -&gt; upload RAM to server
+</code></pre></div>
+<p>Both host files were verified independently:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zlib</span>
+
+<span class="n">copies</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"bedee-stock-A.bin"</span><span class="p">,</span> <span class="s2">"bedee-stock-B.bin"</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">"camera-backup"</span><span class="p">)</span> <span class="o">/</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
+    <span class="n">copies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">"bytes:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+          <span class="s2">"CRC32:"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">zlib</span><span class="o">.</span><span class="n">crc32</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xffffffff</span><span class="si">:</span><span class="s2">08x</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+          <span class="s2">"SHA256:"</span><span class="p">,</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"IDENTICAL:"</span><span class="p">,</span> <span class="n">copies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">copies</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div>
+<p>The result for <strong>both</strong> files was:</p>
+<div class="highlight"><pre><span></span><code>bytes: 8388608
+CRC32: dc96fe13
+SHA256: 9003857fc480dad37dfb7f44e0a02a6d389e3fd2244e3247c8458f3046c77637
+IDENTICAL: True
+</code></pre></div>
+<p>These hashes identify this particular captured image. A different camera, or a later backup taken after the stock firmware has written settings, can legitimately produce different hashes.</p>
+<p>The dump includes the bootloader, environment, kernel, filesystems and configuration. It can contain passwords and device identifiers. <strong>The dump and the private full recovery kit are deliberately not included in this documentation repository.</strong></p>
+<h2 id="choosing-and-constructing-the-openipc-image">Choosing and constructing the OpenIPC image</h2>
+<p>The tested combination was:</p>
+<ul>
+<li><strong>Hi3518EV200 fixed-partition NOR Lite</strong>, firmware asset published 17 November 2026.</li>
+<li><strong>Legacy universal U-Boot</strong>, asset published 4 October 2026, for installation in flash.</li>
+<li>The matching <strong>recovery U-Boot</strong>, for ROM/UART loading into RAM.</li>
+</ul>
+<p>The firmware booted Linux <strong>4.9.37</strong>, identified the sensor as SC2235, and reported OpenIPC version <strong><code>master+03d1125</code>, <code>2.6.11.17-lite</code></strong>. The video preview reported <strong>H.264, 1920×1080, 20 fps</strong>.</p>
+<h3 id="pin-the-files-not-the-word-latest">Pin the files, not the word “latest”</h3>
+<p>The upstream <a href="https://github.com/OpenIPC/firmware/releases/tag/latest">firmware release</a> is mutable. The actual input file hashes were:</p>
+<div class="highlight"><pre><span></span><code>openipc.hi3518ev200-nor-lite.tgz
+  SHA256 4cb90cfef7a75468e59bd26b2e9ffeaf50e7eb1da27054890bffe124c060857a
+u-boot-hi3518ev200-universal.bin
+  SHA256 1eb2b173e1f655fab77ee154886acd5076bd0a2b0df2212659daba73d7b830d3
+u-boot-hi3518ev200-recovery.bin
+  SHA256 f39203ddd7b92f8a7e74845af7ef85417fd820caa295731eac91fa8e03d99b88
+</code></pre></div>
+<p>The downloaded assets matched the GitHub asset digests. The archive's component MD5 checks and the kernel's uImage header/data CRCs also passed. The kernel occupied <strong>1,841,249 bytes</strong> of its 2 MiB slot; rootfs occupied <strong>5,070,848 bytes</strong> of its 5 MiB slot.</p>
+<p>The stock and universal bootloader DDR tables, byte range <strong><code>0x40..0x43f</code> inclusive</strong>, were identical. The recovery and universal files decompressed to the same U-Boot payload, but their compressed payload positions differed:</p>
+<div class="highlight"><pre><span></span><code>recovery:  0x2c00  (inside the ROM's 0x3b00 SRAM window)
+universal: 0x4400  (use for flash, not the ROM UART download)
+</code></pre></div>
+<p>These files were treated as a matched set. No DDR3 bootloader, newer <code>2022.10</code> NOR bootloader, NAND image or alternative layout was substituted. Matching the DDR table provided an initial compatibility check; the successful boot later confirmed that this combination worked on the board.</p>
+<h3 id="stock-layout">Stock layout</h3>
+<p>All offsets and lengths here are hexadecimal:</p>
+<div class="highlight"><pre><span></span><code>name    start       length
+boot    0x000000    0x040000  (stock environment at 0x030000)
+kernel  0x040000    0x150000
+rootfs  0x190000    0x260000
+ipc     0x3f0000    0x290000
+conf    0x680000    0x180000
+</code></pre></div>
+<h3 id="installed-openipc-layout">Installed OpenIPC layout</h3>
+<div class="highlight"><pre><span></span><code>name         start       length
+boot         0x000000    0x040000
+env          0x040000    0x010000
+kernel       0x050000    0x200000
+rootfs       0x250000    0x500000
+rootfs_data  0x750000    0x0b0000  (704 KiB writable overlay)
+</code></pre></div>
+<p>The private candidate was assembled offline as a full <strong>8 MiB raw NOR image</strong>. The universal bootloader, kernel and rootfs were retained unchanged. The default bootloader environment was extended with this board's sensor, memory, networking and original MAC, serialized into a 64 KiB CRC-protected environment sector. Padding and the initial overlay were <code>0xff</code>.</p>
+<p>The relevant board settings were:</p>
+<div class="highlight"><pre><span></span><code>soc=hi3518ev200
+sensor=sc2235
+totalmem=64M
+osmem=32M
+mdio_intf=rmii
+phyaddru=0
+phyaddrd=1
+netmode=eth
+netaddr_fallback=192.168.2.113
+</code></pre></div>
+<p><code>osmem=32M</code> leaves the other half of the physical RAM for the media subsystem. The release's default boot commands and helper variables were retained.</p>
+<p>The <a href="../assets/bedee-openipc/assemble-image.py">offline image builder</a> reproduces this assembly process using the pinned inputs. Supply your own stock backup and the unit’s original wired Ethernet MAC. The builder performs no downloads and never contacts a camera. Keep its output outside a public repository. Its defaults reproduce the lab addresses; a different MAC or environment changes the final checksums.</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>assemble-image.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--stock<span class="w"> </span>/private/camera-backup/bedee-stock-A.bin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--firmware<span class="w"> </span>/private/downloads/openipc.hi3518ev200-nor-lite.tgz<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--universal<span class="w"> </span>/private/downloads/u-boot-hi3518ev200-universal.bin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--recovery<span class="w"> </span>/private/downloads/u-boot-hi3518ev200-recovery.bin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mac<span class="w"> </span>YOUR-CAMERA-ETHERNET-MAC<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>/private/bedee-openipc-image
+</code></pre></div>
+<p>The size and checksums of the candidate built for this unit were:</p>
+<div class="highlight"><pre><span></span><code>full size:             8388608 bytes
+full CRC32:            892a4b0a
+full SHA256:           9253d8ebb644b5677a3e524bc9c7797f666af5fe27b7075ab7dc0a0a220f6e66
+non-boot area CRC32:   bee8ead0  (offset 0x40000, length 0x7c0000)
+</code></pre></div>
+<p>This is a raw flash image, <strong>not</strong> a package for the stock web updater. The camera-specific candidate itself is not distributed here.</p>
+<h2 id="the-actual-flash-session">The actual flash session</h2>
+<p>Before writing, the local kit verifier passed, the host route was checked, and <code>/dev/ttyUSB0</code> was available. The recovery bootloader reported 64 MiB RAM and 8 MiB NOR, and a fresh read of the entire flash still matched the stock CRC.</p>
+<p>The host served the kit's TFTP directory. For example, with the existing <code>tftpy</code> environment:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>/path/to/camera-recovery-env/bin/python<span class="w"> </span>-u<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;'PY'</span>
+<span class="s">from pathlib import Path</span>
+<span class="s">import tftpy</span>
+<span class="s">tftpy.TftpServer(str(Path('tftp').resolve())).listen('192.168.2.115', 69)</span>
+<span class="s">PY</span>
+</code></pre></div>
+<p>The candidate was downloaded to RAM and checked <strong>before</strong> erasing anything:</p>
+<div class="highlight"><pre><span></span><code>sf probe 0
+tftp 0x82000000 bedee-openipc-lite-8m-candidate.bin
+printenv filesize
+crc32 0x82000000 0x800000
+</code></pre></div>
+<p>The transfer contained <strong>8,388,608 bytes</strong>, with <code>filesize=800000</code> and CRC <strong><code>892a4b0a</code></strong>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Destructive commands: historical record for the verified candidate</p>
+<p>The following writes were executed on this camera. Do not paste them for a different image based only on a similar filename. Use the size and checksums calculated for the exact image in RAM, maintain stable power, and stop at any readback mismatch.</p>
+</div>
+<p>The non-boot area was written and read back first:</p>
+<div class="highlight"><pre><span></span><code>sf erase 0x40000 0x7c0000
+sf write 0x82040000 0x40000 0x7c0000
+sf read 0x82040000 0x40000 0x7c0000
+crc32 0x82040000 0x7c0000
+</code></pre></div>
+<p>Its CRC matched <strong><code>bee8ead0</code></strong>. Only then was the first 256 KiB replaced:</p>
+<div class="highlight"><pre><span></span><code>sf erase 0x0 0x40000
+sf write 0x82000000 0x0 0x40000
+sf read 0x82000000 0x0 0x800000
+crc32 0x82000000 0x800000
+</code></pre></div>
+<p>The <strong>entire flash readback</strong> matched <strong><code>892a4b0a</code></strong>, and only then was <code>reset</code> issued. The readback overwrote the original RAM buffer, so its CRC was compared with the expected value recorded before writing.</p>
+<p>One mistake in the session deserves recording: <code>saveenv</code> was entered before the non-boot erase/write, and it wrote the sector at <code>0x40000</code>. The subsequent verified full candidate write replaced that sector. The final full-image CRC matched, but this mistake demonstrates why <code>saveenv</code> must not be used when preserving or restoring stock firmware.</p>
+<p>OpenIPC booted, the owner completed first-run setup, and the board was reassembled after reconnecting the Wi-Fi antenna and IR ring. The address changed from <code>.113</code> to <code>.119</code> through DHCP. Check the DHCP lease after Linux boots rather than assuming it will use the recovery address.</p>
+<p>The whole-image CRC will change once Linux writes to the overlay.</p>
+<h2 id="a-booting-camera-with-an-almost-black-image">A booting camera with an almost black image</h2>
+<p>There was recognizable movement, but stationary objects could become almost completely black even with the room light on and the lens uncovered. Hearing a click did not establish that the filter was in the correct position or that exposure was working correctly.</p>
+<p>With the default slow-shutter setting, exposure reached about <strong>125 ms</strong>, with analog gain around <strong>62×</strong> and additional ISP gain. The working change was:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">isp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">slowShutter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">disabled</span>
+</code></pre></div>
+<p>In the tested UI this was <strong>Off · keep the frame rate</strong>. The image returned to normal, exposure settled around <strong>33.2 ms</strong>, and a reboot preserved the improvement. The temporary shadow-priority exposure experiment was reverted; normal automatic metering remained enabled.</p>
+<p>This is a verified workaround on this driver/board combination. The exact underlying long-exposure fault was not established. Changing GPIOs or repeatedly moving the IR-cut filter was not the solution to this particular darkness problem.</p>
+<h2 id="recovering-the-stock-ir-cut-and-lamp-wiring">Recovering the stock IR-cut and lamp wiring</h2>
+<p>The stock dump contained an ARM <code>ipc_server</code> with exported function names, plus <code>ircut.ko</code>, <code>rled.ko</code>, <code>light.ko</code>, <code>relay.ko</code> and <code>saradc.ko</code>. Static inspection of those exact files provided a better starting point than a GPIO assignment borrowed from a different camera.</p>
+<h3 id="the-click-is-an-ir-cut-actuator">The click is an IR-cut actuator</h3>
+<p>The stock application and driver code showed how the filter was controlled:</p>
+<div class="highlight"><pre><span></span><code>HI_IRCut_Switch(1) -&gt; colour/day
+HI_IRCut_Switch(0) -&gt; monochrome/night
+
+day:   ioctl 0 high -&gt; wait 300000 us -&gt; ioctl 0 low -&gt; GPIO0_1
+night: ioctl 1 high -&gt; wait 300000 us -&gt; ioctl 1 low -&gt; GPIO0_2
+</code></pre></div>
+<p>Pulsing <strong>global GPIO 1 moves the filter to its day position</strong>, while pulsing <strong>global GPIO 2 moves it to its night position</strong>. These pins drive the IR-cut mechanism in opposite directions. The click alone did not establish that there were two relays or that the clicking mechanism supplied power to the LEDs.</p>
+<p>The stock IR-cut module clears the low two mux bits at <code>0x200f0074</code> and <code>0x200f0078</code>; the observed values were already zero. Brief manual pulses were used during diagnosis, not sustained coil power.</p>
+<p>The correct mapping in the tested Majestic schema was:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">nightMode</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">irCutPin1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">  </span><span class="c1"># opening/night</span>
+<span class="w">  </span><span class="nt">irCutPin2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">  </span><span class="c1"># closing/day</span>
+</code></pre></div>
+<p>An earlier opening/closing assignment was reversed. The recovered stock code identified the correct direction for each pin, which was then verified by testing a complete day/night cycle.</p>
+<h3 id="the-infrared-lamp-has-a-separate-control">The infrared lamp has a separate control</h3>
+<p><code>HI_Infra_Switch</code> opens <code>/dev/rled</code>, with ioctl command 1 and argument 1 for on / 0 for off. <code>rled.ko</code> maps this to <strong>GPIO7_7</strong>, global <strong>GPIO 63</strong>, active high. Its stock mux setup sets bit 0 at <code>0x200f00fc</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">nightMode</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">backlightPin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63</span>
+<span class="w">  </span><span class="nt">backlightInvert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>The other stock modules controlled different pins: <code>light.ko</code> used GPIO 9 and 64, while <code>relay.ko</code> used GPIO 53. The module names alone did not identify these as infrared controls, so those pins were not driven during IR diagnosis.</p>
+<p>The ring visibly glowed when shaded, even during earlier manual-mode testing. That observation did not fully explain the ring’s circuitry or prove that software could force the LEDs on in bright ambient light. The later night-vision test confirmed that the filter and illumination worked together.</p>
+<h2 id="why-native-automatic-night-mode-did-not-return-to-day">Why native automatic night mode did not return to day</h2>
+<p>The first automatic configuration used the image's exposure/gain, enabled monochrome at night, and moved the filter and lamp together. It entered night mode and produced a night-vision image. Turning the room light back on and waiting 90 seconds did <strong>not</strong> restore colour.</p>
+<p>The running camera reported:</p>
+<div class="highlight"><pre><span></span><code>isp_again                 63488   # 62 * 1024
+night_auto_gain_milli      62000
+night_enabled             1
+night_transitions_day_total 0
+</code></pre></div>
+<p>The actual <code>/api/v1/config.schema.json</code> allowed <code>autoDayGain</code> only from <strong>1 to 16</strong>, with a default of 2. The lit scene was still using about <strong>62× analog gain</strong>. Even the highest permitted day threshold was below the gain measured in the lit room.</p>
+<p>This build also had <strong>no native ADC photocell configuration keys</strong>. Generic documentation mentioning <code>adcReadout</code> did not mean the installed Hi3518EV200 binary supported it. The <a href="https://github.com/OpenIPC/wiki/blob/master/en/majestic-streamer.md">Majestic documentation</a> describes several decision sources; the running binary's schema and measurements determined which were usable here.</p>
+<p>A generic CamHi GPIO table suggested investigating GPIO 48 as a light-sensor input. Reading its entire GPIO bank at <code>0x201a03fc</code> returned zero with the photocell exposed and covered. GPIO 48 was left <strong>unassigned and was not driven</strong>.</p>
+<h2 id="reading-the-original-analogue-photocell">Reading the original analogue photocell</h2>
+<p>The stock application reads the photocell through <strong><code>/dev/saradc</code></strong>. Its driver module revealed the initialization and conversion sequence for an <strong>8-bit reading from channel 0</strong>.</p>
+<p>OpenIPC had no <code>/dev/*adc*</code> node. Before initialization, the observed registers were:</p>
+<div class="highlight"><pre><span></span><code>0x200f015c = 0x00000000  # mux bit already clear
+0x200f0160 = 0x00000000  # mux bit already clear
+0x200b0000 = 0x000080ff
+0x200b0010 = 0x00000000
+0x200b000c = 0x00000000
+</code></pre></div>
+<p>The stock module's open routine clears bit 0 of each mux register, writes <code>0xff0201ff</code> to <code>0x200b0000</code>, and writes 1 to <code>0x200b0010</code>. Its read ioctl writes 15 to <code>0x200b001c</code> to start a conversion, waits <strong>10 ms</strong> (<code>msleep</code>, confirmed by the module’s relocation entry), reads <code>0x200b000c</code>, acknowledges the conversion by writing 1 to <code>0x200b0018</code>, and returns the <strong>low byte</strong>.</p>
+<p>The shell test used a longer wait of 100 ms:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Board-specific volatile register writes, recovered from the stock driver.</span>
+<span class="c1"># Only after verifying the mux bits above are already clear:</span>
+devmem<span class="w"> </span>0x200b0000<span class="w"> </span><span class="m">32</span><span class="w"> </span>0xff0201ff
+devmem<span class="w"> </span>0x200b0010<span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="m">1</span>
+adc_sample<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>devmem<span class="w"> </span>0x200b001c<span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="m">15</span>
+<span class="w">    </span>sleep<span class="w"> </span><span class="m">0</span>.1
+<span class="w">    </span>devmem<span class="w"> </span>0x200b000c<span class="w"> </span><span class="m">32</span>
+<span class="w">    </span>devmem<span class="w"> </span>0x200b0018<span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="m">1</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Covering only the small photocell by hand produced fluctuating values, so the next experiment switched the room light on and off:</p>
+<div class="highlight"><pre><span></span><code>LIGHT ON:       0 0 0 0 0 0 0 0
+LIGHT OFF:    255 255 255 255 255 255 255 255
+LIGHT ON AGAIN: 17 0 0 0 0 0 0 0
+</code></pre></div>
+<p>That established a usable signal and its direction: <strong>low means bright, high means dark</strong>. The stock configuration used hysteresis thresholds of <strong>30 for black-and-white to colour</strong> and <strong>90 for colour to black-and-white</strong>.</p>
+<p>The old Linux 3.4 stock module was not loaded into the OpenIPC 4.9 kernel. The workaround reproduces the conversion sequence in userspace instead.</p>
+<h2 id="persistent-photocell-driven-daynight">Persistent photocell-driven day/night</h2>
+<p>The final configuration keeps Majestic responsible for the actual filter, lamp and image profile, while a small shell service decides <em>when</em> to request day or night.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">isp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">slowShutter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">disabled</span>
+<span class="nt">nightMode</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">lightMonitor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">irCutPin1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">irCutPin2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">backlightPin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63</span>
+<span class="w">  </span><span class="nt">backlightInvert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">irCut</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+<span class="w">  </span><span class="nt">backlight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+<span class="w">  </span><span class="nt">colorToGray</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>This fragment shows only the relevant settings. <strong>Do not use it to replace the entire configuration file.</strong> <code>irCut</code> and <code>backlight</code> follow the requested night state; <code>lightMonitor: false</code> disables the competing native decision loop.</p>
+<p>Local API checks succeeded without putting a password in a command or script:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsS<span class="w"> </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data<span class="w"> </span><span class="s1">'{"nightMode":{"lightMonitor":false}}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://127.0.0.1/api/v1/config
+curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1/night/off<span class="w">  </span><span class="c1"># returned 0; click and colour confirmed</span>
+curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1/night/on<span class="w">   </span><span class="c1"># returned 1 during the night test</span>
+</code></pre></div>
+<p>Authentication remained enabled. These requests were sent from the camera itself to its loopback address.</p>
+<h3 id="downloadable-service">Downloadable service</h3>
+<ul>
+<li><a href="../assets/bedee-openipc/bedee-photocell.sh">bedee-photocell.sh</a> → <code>/etc/bedee-photocell.sh</code></li>
+<li><a href="../assets/bedee-openipc/S96bedee-photocell">S96bedee-photocell</a> → <code>/etc/init.d/S96bedee-photocell</code></li>
+<li><a href="../assets/bedee-openipc/test-photocell.sh">Offline behavior checks</a>, for reviewing the controller without camera access.</li>
+<li><a href="../assets/bedee-openipc/test-photocell-service.sh">Isolated startup and recovery checks</a>, which launch temporary dummy controllers rather than the installed hardware service.</li>
+</ul>
+<p>The controller uses the measured 0–255 range and the stock thresholds. The reading must remain <strong>at or above 90 for 15 seconds to enter night mode</strong>, or <strong>at or below 30 for 60 seconds to enter day mode</strong>. Intermediate readings reset the countdown and retain the current mode. Timing uses monotonic uptime.</p>
+<p>It checks the ADC pin mux without changing it, saves the original ADC control values and restores them on graceful exit, and uses a lock to prevent multiple instances from running. Mode changes use <code>/night/on</code> or <code>/night/off</code>; they do not repeatedly save YAML or write firmware partitions. If the API becomes unavailable, the controller keeps the current mode and restarts the delay when the API responds again. Failed ADC reads are retried without ending monitoring, as described below. The current revision also pauses when status is incomplete or another automatic controller is active, then resumes only after valid manual-source status returns.</p>
+<p>The installed file hashes were:</p>
+<div class="highlight"><pre><span></span><code>bedee-photocell.sh
+  b342a93d8892dff9f6aa0090fb52b32bcf81be1bf72cd4e4d04c201c3d13b252
+S96bedee-photocell
+  71cf9495464550e6be177ea83d0dc6dff92a7d53b80bb7ccb9888e508f351c58
+</code></pre></div>
+<p>These hashes identify the versions installed during the initial hardware tests. The revised init script polls for a verified controller PID for up to ten seconds and reports early exits or a startup timeout. After offline checks passed, that revision was deployed and verified through another camera reboot, as described below.</p>
+<p>For a clean installation, copy the two files to <code>/tmp</code> on the camera first. Keep Unix LF line endings; the companion directory's Git attributes enforce them on checkout. Legacy <code>scp -O</code> can be needed when the camera has no SFTP subsystem. Stop any temporary test loop, apply the settings above, and inspect the files before installing:</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="w">    </span><span class="nb">set</span><span class="w"> </span>-e
+<span class="w">    </span>sh<span class="w"> </span>-n<span class="w"> </span>/tmp/bedee-photocell.sh
+<span class="w">    </span>sh<span class="w"> </span>-n<span class="w"> </span>/tmp/S96bedee-photocell
+<span class="w">    </span><span class="nb">test</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>/etc/bedee-photocell.sh
+<span class="w">    </span><span class="nb">test</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>/etc/init.d/S96bedee-photocell
+<span class="w">    </span><span class="nb">test</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>/etc/bedee-photocell.disabled
+<span class="w">    </span>cp<span class="w"> </span>/tmp/bedee-photocell.sh<span class="w"> </span>/etc/bedee-photocell.sh
+<span class="w">    </span>cp<span class="w"> </span>/tmp/S96bedee-photocell<span class="w"> </span>/etc/init.d/S96bedee-photocell
+<span class="w">    </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/etc/bedee-photocell.sh<span class="w"> </span>/etc/init.d/S96bedee-photocell
+<span class="w">    </span>/etc/init.d/S96bedee-photocell<span class="w"> </span>start
+<span class="w">    </span>/etc/init.d/S96bedee-photocell<span class="w"> </span>status
+<span class="w">    </span>sync
+<span class="o">)</span>
+</code></pre></div>
+<p>The existing boot sequence executes <code>S??*</code> scripts in order, so S96 runs after S95majestic. The controller may start before Majestic’s API is ready; it waits until the API responds.</p>
+<div class="admonition note">
+<p class="admonition-title">The WebUI reports the native decision source as manual</p>
+<p><code>night_mode_source</code> remains <strong>0</strong> because the external photocell service makes the decisions. Automatic behavior is still active. Leave the WebUI's gain-based automatic monitor <strong>off</strong> while this service runs.</p>
+</div>
+<h3 id="verification-and-service-controls">Verification and service controls</h3>
+<p>The controller regression suite covers seventeen cases, including the day/night delays, API and ADC outages, incomplete status, temporary native-controller ownership, clock-read failure, and retained logging. A separate nine-scenario process suite checks delayed readiness, automatic restart, deliberate stop, disable markers, lock ownership and log rotation. These checks use simulated hardware/API responses and temporary dummy processes. Actual light switching was tested separately.</p>
+<p>On the camera, both files passed shell syntax and SHA256 checks. After a normal reboot, their hashes were unchanged and the service started automatically. Its log showed the initial API outage and recovery, then a night request at <strong>ADC 255</strong>. Metrics showed night, IR-cut and lamp all enabled. After turning the light on, the owner confirmed normal colour and metrics showed all three disabled. Both physical transitions were verified after reboot.</p>
+<p>The revised init script was subsequently installed on <strong>18 November 2026</strong>. The upload and staged file passed shell syntax and SHA256 checks before the installed script was replaced with an atomic rename and permissions <strong><code>0755</code></strong>. The original was retained at <code>/etc/S96bedee-photocell.before-readiness-fix</code>. The revised init script's SHA256 is:</p>
+<div class="highlight"><pre><span></span><code>8657ac6479f6d1f02639765008a881a1a88e768b374666e8be1726678cfef115
+</code></pre></div>
+<p>A changed kernel boot ID confirmed the subsequent reboot. Wi-Fi returned at <code>192.168.2.105</code>, and the installed script retained its hash and executable permissions. The photocell controller started automatically as <strong>PID 1038</strong>, without a manual service start. Its logs showed the expected thresholds and delays, a brief wait for Majestic's API, and recovery when the API became available. A later status check confirmed that the same controller process was still running. Day-mode metrics reported night mode, IR-cut and lamp all disabled. This deployment check did <strong>not</strong> repeat the physical light-cycle test performed with the earlier revision.</p>
+<p>Useful checks:</p>
+<div class="highlight"><pre><span></span><code>/etc/init.d/S96bedee-photocell<span class="w"> </span>status
+logread<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>bedee-photocell
+curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1/metrics/night
+</code></pre></div>
+<p>To disable automatic switching and leave the camera in day mode:</p>
+<div class="highlight"><pre><span></span><code>/etc/init.d/S96bedee-photocell<span class="w"> </span>stop
+touch<span class="w"> </span>/etc/bedee-photocell.disabled
+curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1/night/off
+</code></pre></div>
+<p>Remove <code>/etc/bedee-photocell.disabled</code> and start the service to re-enable it. Both scripts and the disable marker are stored in the writable overlay. A full reflash or overlay reset requires reinstalling the service and reapplying the exposure and pin settings; the original flashed candidate did not contain these later fixes.</p>
+<h3 id="recovering-from-intermittent-adc-read-failures">Recovering from intermittent ADC read failures</h3>
+<p>A later status check found that the original controller had exited after logging <code>ADC read failed; stopping without switching.</code> A single failed conversion could therefore leave automatic day/night switching stopped until the service was restarted. The underlying cause of that occasional read failure was not established.</p>
+<p>The revised controller tries each reading up to <strong>three times</strong>, with a one-second pause between failed attempts. Any failed read clears the pending day/night countdown. If all three attempts fail, the controller <strong>retains the current mode, waits five seconds, and tries again</strong>. It emits periodic warnings during a sustained fault and logs recovery when valid readings resume. Switching then requires a fresh, uninterrupted interval of valid readings; an ADC outage cannot count toward the 15-second night or 60-second day delay. A persistent hardware fault still prevents reliable light measurement, but no longer makes this error path terminate the process.</p>
+<p>The revised controller was hash-checked, installed with an atomic rename and permissions <code>0755</code>, and started through the existing init script. The previous controller was retained at <code>/etc/bedee-photocell.before-adc-retry.sh</code>. The revised <code>bedee-photocell.sh</code> SHA256 is:</p>
+<div class="highlight"><pre><span></span><code>7e2b6f92ca7ce6c6c415b1b1b2649427025cd42abf2f3103e7852a0e325179c6
+</code></pre></div>
+<p>With this revision running, the owner turned the room light off and on. Logs recorded an accepted night request at <strong>ADC 255</strong>, followed by an accepted day request at <strong>ADC 0</strong> after the bright-light delay. Metrics confirmed the corresponding night-mode, IR-cut and lamp states, and the same controller process remained running throughout. ADC failures and recovery were injected only in the mocked tests; the real light-cycle check did not deliberately disturb ADC hardware.</p>
+<p>A subsequent intentional reboot confirmed automatic startup of this ADC-retry revision, with no manual service start. Both controller and init-script hashes matched, the controller remained running through the check, and the logs showed recovery from the initial API outage without a new ADC error. The saved <code>video0.fps=30</code>, <code>isp.blkCnt=5</code> and <code>isp.slowShutter=disabled</code> settings persisted; runtime tables confirmed VPSS <strong>30 → 30</strong> and four YUV buffers plus one raw buffer. Encoded-frame counter deltas measured approximately <strong>20.5 fps</strong> after reboot.</p>
+<h3 id="recovering-a-stopped-controller">Recovering a stopped controller</h3>
+<p>On <strong>19 November 2026</strong>, the camera had remained up for approximately <strong>7½ hours</strong>, but the room was dark and night mode had not engaged. The controller was stopped, night mode and the lamp were off, and the ADC registers had returned to their inactive values. The installed script hashes were unchanged. Its earlier messages had rotated out of the shared system log, so the reason for this exit could not be established.</p>
+<p>Restarting the controller restored automatic night operation at <strong>ADC 255</strong>. This confirmed that the photocell and switching path still worked, while exposing a separate service-lifecycle problem. Retrying ADC conversions alone had not covered every way the process could end.</p>
+<p>The revised controller treats missing API fields, invalid night-mode status and failed uptime reads as temporary faults: it holds the current filter position, clears the switching countdown and retries. It also pauses while a native automatic decision source is active, avoiding competing mode requests, and resumes with a fresh delay when the source returns to manual. Unsafe startup pin-mux checks still fail without changing those pins.</p>
+<p>The init script now supervises the controller and restarts an unexpected child exit after <strong>five seconds</strong>. Deliberate <code>stop</code> terminates the supervisor and child without respawning them, and the existing disable marker still prevents startup. Readiness checks remain bounded to ten seconds. Lock cleanup is restricted to the supervisor's own reaped child; an unrelated or unverified lock is preserved for inspection.</p>
+<p>Controller events and exit statuses are retained separately from the shared syslog:</p>
+<div class="highlight"><pre><span></span><code>/etc/init.d/S96bedee-photocell<span class="w"> </span>status
+tail<span class="w"> </span>-n<span class="w"> </span><span class="m">40</span><span class="w"> </span>/tmp/bedee-photocell.log
+tail<span class="w"> </span>-n<span class="w"> </span><span class="m">40</span><span class="w"> </span>/tmp/bedee-photocell.log.1
+</code></pre></div>
+<p>The service keeps a current log and one rotated copy, each approximately <strong>16 KiB</strong>, with owner-only permissions. Entries include monotonic uptime. These files survive controller restarts but are stored in RAM and disappear on a camera reboot; the controller does not write a growing log to flash. Status distinguishes a supervised controller, an older unsupervised process, and a supervisor waiting to restart its child.</p>
+<p>All seventeen controller cases and nine process scenarios passed locally and under the camera's BusyBox shell. The installed scripts were backed up at <code>/etc/bedee-photocell.before-supervision.sh</code> and <code>/etc/S96bedee-photocell.before-supervision</code>, then replaced with hash-checked files and permissions <code>0755</code>. The supervised revisions have these SHA256 hashes:</p>
+<div class="highlight"><pre><span></span><code>bedee-photocell.sh
+  cc47c3448fa0a84eb7fdffbb67d4eda29d9195e6e8a3e2b1340e195c88f8ac0e
+S96bedee-photocell
+  661658fc22044ec98f8e98f042d3abb5a35b4d829f2cb4ae3707a1fd0b77b309
+</code></pre></div>
+<p>A controlled test sent TERM only to the verified controller worker. The same supervisor automatically started a replacement after five seconds, without a manual <code>start</code>, and the dedicated log recorded both the exit status and recovery. The owner then turned the room light off: that replacement worker requested night at <strong>ADC 255</strong>, and metrics confirmed night mode, IR-cut and lamp enabled. The camera itself remained up. This revision was tested through service startup, worker replacement and a real night transition; it was not followed by another camera reboot or a long-term overnight test. The cause of the earlier exit remains unknown.</p>
+<h2 id="enabling-wi-fi">Enabling Wi-Fi</h2>
+<p>Wi-Fi was investigated after the wired camera and automatic night mode were working. Ethernet remained connected during setup so a failed wireless connection would not interrupt access to the camera.</p>
+<h3 id="the-adapter-was-present-but-its-driver-was-not-loaded">The adapter was present, but its driver was not loaded</h3>
+<p>The initial checks showed USB device <strong><code>148f:7601</code></strong>, but no <code>wlan0</code> interface and no driver bound to the USB device. The bootloader environment had <strong>no <code>wlandev</code> value</strong> and retained <strong><code>netmode=eth</code></strong>. The Network page showed <strong>None — wired Ethernet only</strong> as the adapter selection.</p>
+<p>The driver was already included in the installed image:</p>
+<div class="highlight"><pre><span></span><code>/lib/modules/4.9.37/kernel/drivers/net/wireless/mediatek/mt7601u/mt7601u.ko
+</code></pre></div>
+<p>Useful diagnostic commands, run on the OpenIPC camera, were:</p>
+<div class="highlight"><pre><span></span><code>lsusb
+ip<span class="w"> </span>link<span class="w"> </span>show
+fw_printenv<span class="w"> </span>wlandev<span class="w"> </span>netmode
+find<span class="w"> </span>/lib/modules<span class="w"> </span>-iname<span class="w"> </span><span class="s1">'*7601*'</span>
+</code></pre></div>
+<p>The BusyBox version of <code>ip</code> did not support <code>ip -br link</code>; <code>ip link show</code> worked. An unset <code>wlandev</code> produced an environment-variable error, but the USB device and driver file were both present.</p>
+<p>Loading the driver manually created <code>wlan0</code>:</p>
+<div class="highlight"><pre><span></span><code>modprobe<span class="w"> </span>mt7601u
+ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>wlan0
+dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'mt7601|mt76|wlan|firmware'</span>
+</code></pre></div>
+<p>The driver initialized successfully and reported:</p>
+<div class="highlight"><pre><span></span><code>ASIC revision: 76010001 MAC revision: 76010500
+Firmware Version: 0.1.00 Build: 7640 Build time: 201302052146____
+EEPROM ver:0c fae:00
+Selected rate control algorithm 'minstrel_ht'
+usbcore: registered new interface driver mt7601u
+</code></pre></div>
+<p>No extra GPIO power control was needed. The adapter already enumerated on USB, and the generic driver initialized it without changing any GPIOs.</p>
+<h3 id="selecting-the-adapter-and-fitting-the-antenna">Selecting the adapter and fitting the antenna</h3>
+<p>In <strong>System → Network → Wireless adapter</strong>, the working selection was <strong><code>mt7601u-generic — no pad</code></strong>, followed by <strong>Save radio</strong>. Reading back the relevant environment values confirmed:</p>
+<div class="highlight"><pre><span></span><code>wlandev=mt7601u-generic
+netmode=eth
+</code></pre></div>
+<p>The Ethernet fallback address remained <code>192.168.2.113</code>. The board-specific alternatives which toggle a power GPIO were unnecessary for this unit.</p>
+<p>The setting was saved immediately. The UI's restart notice meant that the driver selection would be applied during the next boot; rebooting was not required to save it. The manually loaded driver allowed testing to continue in the current session.</p>
+<p>The first scans found no networks. The owner then noticed that the <strong>Wi-Fi antenna was missing</strong>. The wireless interface was taken down while the antenna was fitted, leaving Ethernet available:</p>
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>wlan0<span class="w"> </span>down
+</code></pre></div>
+<p>After fitting the antenna, another scan found <strong>six networks</strong>, including two with strong signals around <strong>−21 and −23 dBm</strong>. The empty scan before fitting the antenna was therefore not sufficient evidence of a driver or radio fault.</p>
+<p>The <a href="https://wireless.docs.kernel.org/en/latest/en/users/drivers/mediatek.html">Linux Wireless documentation</a> identifies MT7601U as a <strong>2.4 GHz 802.11b/g/n</strong> device. Select a network available on that band; a 5 GHz-only network is not suitable. The networks found in this test advertised WPA2. Other security modes were not tested.</p>
+<h3 id="saving-the-network-credentials">Saving the network credentials</h3>
+<p>In <strong>System → Network → Wi-Fi</strong>, the owner selected the intended network from the scan results, entered the password directly in the camera's form, left the IP setting on <strong>Automatic</strong>, and clicked <strong>Save Changes</strong>. The password was not shared in chat or copied into these notes, scripts or the repository.</p>
+<p>The camera associated with the access point on <strong>channel 13, 2.472 GHz</strong>. The first successful link check reported <strong>−24 dBm</strong> signal strength and <strong>70/70</strong> link quality. A ping explicitly bound to Wi-Fi reached the router:</p>
+<div class="highlight"><pre><span></span><code>iwconfig<span class="w"> </span>wlan0
+ip<span class="w"> </span>-4<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>wlan0
+ip<span class="w"> </span>-4<span class="w"> </span>route<span class="w"> </span>show
+ping<span class="w"> </span>-I<span class="w"> </span>wlan0<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>-W<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">192</span>.168.2.1
+</code></pre></div>
+<p>All three packets received replies, with <strong>0% packet loss</strong> and round-trip times of roughly <strong>2–4 ms</strong>. Binding the test to <code>wlan0</code> established that it was using Wi-Fi even while Ethernet was still connected.</p>
+<p>During application of the settings, <code>wlan0</code> briefly showed <code>192.168.2.113</code>; DHCP subsequently assigned <strong><code>192.168.2.108</code></strong>. The Ethernet interface remained at <strong><code>192.168.2.119</code></strong>. Check the current interface address or router lease rather than assuming that the recovery or fallback address is the Wi-Fi address.</p>
+<h3 id="a-misleading-wpa_cli-error">A misleading <code>wpa_cli</code> error</h3>
+<p><code>wpa_cli</code> and <code>wpa_supplicant</code> were both installed. <code>iwlist</code> was also present as a symlink to <code>iwconfig</code>. The WebUI's scan handler brings the interface up, tries <code>wpa_cli scan</code> and <code>scan_results</code>, and falls back to <code>iwlist</code> if necessary.</p>
+<p>Before configuration, <code>wpa_cli -i wlan0 status</code> reported:</p>
+<div class="highlight"><pre><span></span><code>Failed to connect to non-global ctrl_ifname: wlan0 error: No such file or directory
+</code></pre></div>
+<p>The same error remained after association because the generated WPA configuration had <strong>no <code>ctrl_interface</code> entry</strong>. The absence of a control socket prevented this diagnostic command from working; it did not mean that the camera had failed to connect. The link state, Wi-Fi address and interface-bound ping confirmed a working connection.</p>
+<p>When collecting diagnostics, use narrowly scoped reads such as <code>fw_printenv wlandev netmode</code>. A complete environment dump or generated WPA configuration can expose the saved password. Checking only for a <code>ctrl_interface</code> entry does not require printing the rest of that file.</p>
+<h3 id="reboot-and-ethernet-unplug-tests">Reboot and Ethernet-unplug tests</h3>
+<p>After saving the adapter and credentials, the camera was rebooted once. Without another manual <code>modprobe</code> or credential entry, it loaded the driver, associated with the access point, and obtained <strong><code>192.168.2.108/24</code></strong> again. Another Wi-Fi-bound router ping returned three replies with no packet loss. The photocell service also started automatically and remained running.</p>
+<p>With both interfaces connected, the routing table preferred Ethernet; the Wi-Fi routes had <strong>metric 10</strong>. Keeping <code>netmode=eth</code> did not disable Wi-Fi. The existing <code>S40network</code> script manages Ethernet alongside the wireless connection and removes the Ethernet routes when the cable is unplugged.</p>
+<p>The owner then signed in to the live view at the Wi-Fi address and unplugged <strong>only the Ethernet cable</strong>, leaving the camera powered. Video continued. A separate console session through the Wi-Fi address confirmed the following results; device identifiers have been omitted:</p>
+<div class="highlight"><pre><span></span><code>Ethernet carrier: 0
+wlan0: UP, LOWER_UP
+IPv4 address: 192.168.2.108/24
+default via 192.168.2.1 dev wlan0 metric 10
+192.168.2.0/24 dev wlan0 scope link src 192.168.2.108 metric 10
+Bit Rate=28.9 Mb/s
+Link Quality=70/70  Signal level=-22 dBm
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 2.507/3.233/3.945 ms
+Photocell controller running
+</code></pre></div>
+<p>Only Wi-Fi routes remained, so the continued video and console access did not depend on Ethernet. The camera's current wireless live-view address was <code>http://192.168.2.108/cgi-bin/live.cgi</code>; future DHCP leases may differ.</p>
+<p>The reported <strong>28.9 Mb/s is a PHY link rate</strong>, not a throughput measurement. The wireless live view was <strong>H.264 at 1920×1080</strong>, with WebRTC reporting <strong>13 fps</strong> during this initial test. The later investigation below measured the encoder directly, improved frame delivery, and tested wireless throughput separately.</p>
+<h2 id="investigating-low-frame-rate-and-apparent-wi-fi-hangs">Investigating low frame rate and apparent Wi-Fi hangs</h2>
+<p>After Wi-Fi was enabled, the owner reported a lower frame rate, a sluggish WebUI, and eventually a camera which appeared unresponsive. Reconnecting Ethernet provided a recovery path, although HTTP sometimes accepted a TCP connection without returning any headers. SSH remained accessible during part of the incident.</p>
+<p>The camera did reboot: two metric snapshots had boot times <strong>333 seconds apart</strong>, and an SSH uptime check confirmed a recent system start. Majestic reported a <strong>300-second watchdog</strong>, fed every 150 seconds. That timing was consistent with a watchdog reset, but did not establish what stopped the service from responding. The available logs contained no matching out-of-memory or crash report, and <code>/etc/crash</code> was empty. The cause of those earlier hangs remains unresolved.</p>
+<p>The owner installed an SSH public key for subsequent diagnostics. Passwords and private keys were not copied into these notes. Narrowly scoped SSH reads avoided relying on the WebUI's console while its service was stalled.</p>
+<h3 id="separating-frame-production-from-network-throughput">Separating frame production from network throughput</h3>
+<p>With no browser viewers, deltas of <code>venc0_encoded_frames_total</code> in <code>/metrics</code> measured approximately <strong>13.3 fps</strong>. The saved video rate was initially automatic (<code>video0.fps=0</code>), which selected 20 fps on this configuration. Explicitly setting 20 did not improve delivery. Taking Wi-Fi down and unloading its driver also left the encoder at approximately <strong>13.4 fps</strong>.</p>
+<p>This established that the low frame rate existed before network transmission. It did not rule out an additional wireless problem or explain the reboots.</p>
+<p>Useful read-only diagnostics were:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/proc/umap/vi
+cat<span class="w"> </span>/proc/umap/vpss
+cat<span class="w"> </span>/proc/umap/venc
+cat<span class="w"> </span>/proc/umap/vb
+cat<span class="w"> </span>/proc/media-mem
+curl<span class="w"> </span>-fsS<span class="w"> </span>http://127.0.0.1/metrics
+</code></pre></div>
+<p>On this build, media-memory allocation was available at <strong><code>/proc/media-mem</code></strong>; <code>/proc/umap/mmz</code> did not exist. Restrict any metrics or log excerpts before publishing them, since they can include device or network identifiers.</p>
+<p>The encoder reported no overload or full-buffer errors. Capture did report buffer failures: one snapshot showed <strong>2,267 <code>VbFail</code> events from 9,090 interrupts</strong>. More importantly, the video-processing subsystem (VPSS) exposed another discard step:</p>
+<div class="highlight"><pre><span></span><code>VI channel output:             about 20 fps
+VPSS channel SrcFRate:         30
+VPSS channel DstFRate:         20
+VPSS/VENC delivered output:    about 13 fps
+</code></pre></div>
+<p>VPSS was keeping only two out of every three incoming frames even though capture was already delivering about 20. The source/destination fields in the VENC table were both <code>-1</code>; the decisive rate-control values were in <strong>the VPSS table</strong>, not the encoder table.</p>
+<h3 id="removing-the-extra-discard-and-adding-buffer-headroom">Removing the extra discard and adding buffer headroom</h3>
+<p>Setting the requested video rate to 30 changed VPSS to <strong>30 → 30</strong>, removing that additional discard:</p>
+<div class="highlight"><pre><span></span><code>cli<span class="w"> </span>-s<span class="w"> </span>.video0.fps<span class="w"> </span><span class="m">30</span>
+</code></pre></div>
+<p>Measured output rose to approximately <strong>19.5 fps</strong>. This setting did not make the camera capture 30 frames per second; it allowed more of the frames it was already producing to reach the encoder.</p>
+<p>The board splits its 64 MiB RAM into <strong>32 MiB for Linux and 32 MiB for media buffers</strong>. Before the buffer experiment, the media allocator had <strong>8,076 KiB free</strong>. Its common pools held three 3,110,400-byte YUV frames and one 4,147,200-byte raw frame. Majestic described this as four automatic blocks.</p>
+<p>The pool was increased by one block:</p>
+<div class="highlight"><pre><span></span><code>cli<span class="w"> </span>-s<span class="w"> </span>.isp.blkCnt<span class="w"> </span><span class="m">5</span>
+</code></pre></div>
+<p>The common YUV pool then held four frames alongside the raw frame. Media-memory use rose to <strong>27,728 KiB</strong>, leaving <strong>5,040 KiB free</strong>. Measured output reached approximately <strong>21 fps</strong>. Capture failures decreased but remained present: a later interval recorded 120 failures from 562 interrupts. The change improved delivery without eliminating every capture loss.</p>
+<p>The final saved settings were read back and flushed with <code>sync</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">video0</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">fps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="nt">isp</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">blkCnt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">slowShutter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">disabled</span>
+</code></pre></div>
+<p>This is an excerpt of the relevant settings, <strong>not a replacement configuration file</strong>. The earlier slow-shutter workaround remained in place. A subsequent reboot after installing the revised photocell init script confirmed that all three settings persisted. Runtime tables also showed <strong>VPSS 30 → 30</strong>, four common YUV buffers and one raw buffer, with <strong>5,040 KiB</strong> of media memory still free.</p>
+<p>After that reboot, the encoded-frame counter advanced from <strong>1,533 to 1,746</strong> over <strong>10.51 seconds</strong>, measuring approximately <strong>20.3 fps</strong> with no WebRTC viewer connected. This confirmed continued frame production after reboot; it was a short measurement, separate from the longer wireless live-view test below.</p>
+<p>To undo only the buffer override, use <code>cli -d .isp.blkCnt</code>. To restore the original automatic rate selection, use <code>cli -s .video0.fps 0</code>; on this tested configuration that selected 20 and produced the extra VPSS discard again.</p>
+<h3 id="measuring-the-wireless-path">Measuring the wireless path</h3>
+<p>Restoring the existing <code>mt7601u</code> driver briefly caused USB disconnects, re-enumeration and two probe failures with error <code>-5</code> before the adapter associated successfully. An initial <code>ifup wlan0</code> ran before the device was ready; a later attempt worked. These events occurred during driver reload and do not prove that USB faults caused the earlier spontaneous hangs. Avoid repeated driver unloading and reloading as a routine fix.</p>
+<p>DHCP now assigned <strong><code>192.168.2.105</code></strong> to Wi-Fi. Power management was already <strong>off</strong> after association, with signal strength around <strong>−47 to −51 dBm</strong>.</p>
+<p>A temporary receiver on the local computer accepted identical <strong>1 MiB dummy uploads</strong>, with the camera's <code>curl</code> explicitly bound to <code>eth0</code> or <code>wlan0</code>. Client-reported upload rates were approximately <strong>75.8 Mb/s over Ethernet</strong> and <strong>14.3 Mb/s over Wi-Fi</strong>. The wireless gateway ping returned all three packets with an average round-trip time of <strong>2.2 ms</strong>. These were short throughput tests, not sustained capacity measurements.</p>
+<p>OpenIPC's <a href="https://github.com/OpenIPC/wiki/blob/master/en/adding-wifi-driver.md">Wi-Fi driver notes</a> describe poor upload performance with mainline <code>mt7601u</code> on another Hi3518EV200 camera, and improved results with the alternative <code>mt7601sta</code> driver. This unit's short upload test did not reproduce that throughput limit. No alternative driver was installed, and no firmware change was made during the performance investigation.</p>
+<p>Opening the page at the wireless address was <strong>not sufficient proof that WebRTC video used Wi-Fi</strong>. With Ethernet connected, interface counters showed the video traffic leaving through <code>eth0</code> while almost no data left through <code>wlan0</code>. WebRTC had selected the wired path even though the page was opened at the wireless address.</p>
+<p>The owner therefore unplugged only Ethernet, leaving power connected. SSH monitoring continued through the wireless address. Across <strong>32 samples spanning 333.58 seconds</strong>, the single live WebRTC viewer produced:</p>
+<ul>
+<li><strong>21.01 fps</strong> at 1920×1080, measured from encoded-frame counter deltas.</li>
+<li><strong>1.70 Mb/s</strong> of encoded video; Wi-Fi transmitted <strong>1.885 Mb/s</strong> including overhead.</li>
+<li><strong>Zero Ethernet transmit bytes</strong>, confirming the wireless path.</li>
+<li>At least <strong>10.23 MiB of available Linux memory</strong>.</li>
+<li>Unchanged system and application boot counters, and no new USB error messages.</li>
+</ul>
+<p>The owner also reported noticeably less video delay. This was a successful <strong>5½-minute wireless-only run</strong>, not proof of long-term reliability or a demonstrated fix for the earlier hangs. If another stall occurs, reconnect Ethernet and collect logs before rebooting, since a reset can discard the evidence.</p>
+<h3 id="practical-frame-rate-limit">Practical frame-rate limit</h3>
+<p>Approximately <strong>20–21 fps at 1080p</strong> is the best measured result from this session. Neither the requested 30 fps nor the SC2235's nominal mode establishes that this complete board can sustain 30 fps through capture, processing and encoding. Capture still reported losses, and the absolute hardware limit was not established.</p>
+<p>A longer stability run is the next useful check. Lower-resolution video, such as 720p at 25–30 fps, remains a possible experiment; that mode and those rates were <strong>not tested</strong> on this unit.</p>
+<h2 id="investigating-live-and-dashboard-reboots">Investigating Live and Dashboard reboots</h2>
+<p>Later on <strong>18 November 2026</strong>, the owner reported that live view had run overnight, but switching to Dashboard caused a long delay. When the page returned, it showed <strong>system uptime of five minutes and Majestic uptime of four minutes</strong>. A changed kernel boot ID confirmed a full camera reboot. This was more than a dashboard page or streamer restart.</p>
+<h3 id="capture-evidence-before-another-reset">Capture evidence before another reset</h3>
+<p>Ethernet was connected for recovery, and logs were streamed to the local computer before trying another transition. The following reads help distinguish a process restart from a system reboot:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/proc/sys/kernel/random/boot_id
+cat<span class="w"> </span>/proc/uptime
+uptime
+/etc/init.d/S96bedee-photocell<span class="w"> </span>status
+</code></pre></div>
+<p>To preserve logs across a camera reboot, run this on the host rather than saving the only copy in the camera's RAM:</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>root@192.168.2.119<span class="w"> </span><span class="s1">'logread -f'</span><span class="w"> </span>&gt;<span class="w"> </span>camera-live.log
+</code></pre></div>
+<p>Keep that log private until network identifiers and other personal details have been removed. An SSH timeout alone does not establish that the whole system has frozen: one diagnostic connection also timed out while other camera requests remained responsive. Comparing boot IDs provided the stronger evidence here.</p>
+<p>During the controlled attempt, the owner encountered heavy lag while <strong>opening Live</strong>, before completing the intended return to Dashboard. The off-camera log recorded a native WebRTC session opening, followed about twelve seconds later by API unavailability and an encoder warning reporting <strong>1.489 fps</strong>. HTTP stopped responding, and new SSH connections on both the wired and wireless addresses stalled before receiving the server banner.</p>
+<p>The owner closed the camera tabs to prevent automatic reconnection. The camera later returned with another changed boot ID and <strong>18 seconds uptime</strong>, without a requested reboot or power-cycle. The configured 300-second watchdog was a plausible recovery mechanism, but no direct reset-cause report established that. No out-of-memory or panic message was captured, and no complete thread dump from the stalled interval was obtained. The sequence narrows the investigation; it does not establish the exact backend defect.</p>
+<h3 id="separate-slow-page-generation-from-a-snapshot-failure">Separate slow page generation from a snapshot failure</h3>
+<p>The dashboard's JavaScript requests <code>/image.jpg</code> every five seconds. Installed dashboard file hashes matched the inspected release files, and the log showed JPEG snapshots being served normally before the stall. An isolated local JPEG request after recovery returned <strong>HTTP 200 in approximately 0.26 seconds</strong>.</p>
+<p>An isolated Dashboard HTML request returned HTTP 200 headers but reached a five-second client timeout after receiving only part of the page. This exposed a separate page-generation delay without reproducing the reboot. Neither observation proved that the JPEG encoder or Dashboard alone caused the system failure.</p>
+<h3 id="use-mse-as-the-current-workaround">Use MSE as the current workaround</h3>
+<p>With previous camera tabs closed, the owner opened Live and selected <strong>MSE</strong>. Playback was reported as smooth. Switching from that MSE view to <strong>Dashboard</strong> then loaded normally, while monitoring showed unchanged system and application boot identifiers and the same Majestic process.</p>
+<p>On this build, <strong>MSE can still use WebRTC underneath</strong>. Metrics and logs confirmed a DTLS/SCTP data channel carrying the video during this test. Selecting MSE therefore bypassed native WebRTC RTP video; it did not disable every WebRTC component. The earlier successful wireless live-view test also shows that native WebRTC was not consistently failing. These observations implicate the native video path or its transitions, without proving which part is faulty.</p>
+<p>For this unit, keep <strong>MSE</strong> selected in Live and use one camera tab while investigating. The WebUI stores the playback selection in the browser's local storage, so another browser profile or clearing site data can require selecting it again. This workaround required no firmware, driver or camera-configuration change.</p>
+<p>CPU use was high during an MSE playback sample, but HTTP and SSH remained responsive and available Linux memory stayed around <strong>10–11 MiB</strong>. After the successful Dashboard transition, encoded-frame deltas still measured approximately <strong>20.9 fps</strong>, and the photocell controller was running. These healthy-interval measurements do not rule out a different resource failure during the earlier stall.</p>
+<p>The MSE comparison was a short controlled test, not another overnight reliability test or a permanent fix. If the problem returns, preserve logs off the camera, record the boot ID, and collect evidence before rebooting.</p>
+<h2 id="returning-to-the-stock-firmware">Returning to the stock firmware</h2>
+<p>Use the original full flash dump to restore the stock firmware. Load the temporary bootloader again through <strong>ROM UART recovery</strong>, which does not depend on the installed Linux system or the bootloader’s console password. Configure RMII and PHY addresses before network access, then download the private stock image:</p>
+<div class="highlight"><pre><span></span><code>sf probe 0
+tftp 0x82000000 bedee-stock-8m.bin
+printenv filesize
+crc32 0x82000000 0x800000
+</code></pre></div>
+<p>For <strong>this recorded backup</strong>, confirm a transfer size of 8,388,608 bytes and CRC <strong><code>dc96fe13</code></strong> before erasing flash. Use your independently verified values for a different backup.</p>
+<div class="admonition danger">
+<p class="admonition-title">Prepared restoration procedure — not hardware-tested end to end</p>
+<p>The following would replace the entire installed system. The ROM recovery, flash reads, Ethernet transfer, and OpenIPC flash-write path worked. A complete stock restore and subsequent stock boot were not performed. Do not present that untested final step as a guaranteed recovery.</p>
+</div>
+<p>Restore the non-boot area first:</p>
+<div class="highlight"><pre><span></span><code>sf erase 0x40000 0x7c0000
+sf write 0x82040000 0x40000 0x7c0000
+sf read 0x82040000 0x40000 0x7c0000
+crc32 0x82040000 0x7c0000
+</code></pre></div>
+<p>The stock non-boot CRC must be <strong><code>28b590ad</code></strong>. Only after that matches, restore the original boot region and its environment:</p>
+<div class="highlight"><pre><span></span><code>sf erase 0x0 0x40000
+sf write 0x82000000 0x0 0x40000
+sf read 0x82000000 0x0 0x800000
+crc32 0x82000000 0x800000
+</code></pre></div>
+<p>Require full readback CRC <strong><code>dc96fe13</code></strong>. You can also upload the full readback over TFTP and compare its SHA256 with the original backup on the host before resetting. <strong>Do not run <code>saveenv</code> after restoring stock</strong>: the temporary bootloader would overwrite the restored kernel at <code>0x40000</code>. The original bootloader reads its own environment at <code>0x30000</code> after reset.</p>
+<p>If the ROM recovery path cannot be re-established, an appropriate <strong>3.3 V SPI programmer</strong> is the remaining hardware fallback. No external SPI programmer was needed or tested in this session. Check the board’s power connections and whether the flash chip needs to be isolated from the rest of the circuit before connecting a programmer.</p>
+<h2 id="what-is-verified-and-what-is-still-open">What is verified, and what is still open</h2>
+<p>Verified on this physical camera:</p>
+<ul>
+<li>Serial communication and a working ROM-to-RAM recovery route.</li>
+<li>Two independent, byte-identical full flash backups, with matching target and host CRCs.</li>
+<li>Ethernet/TFTP in recovery and Ethernet networking under OpenIPC.</li>
+<li>MT7601U Wi-Fi scanning and association, automatic connection after reboot, and live video with Ethernet unplugged.</li>
+<li>Frame-rate and buffer tuning from roughly 13.3 to 21 fps, followed by a 5½-minute wireless-only live-view test with stable memory and no new USB errors or reboot.</li>
+<li>The complete OpenIPC flash write and full-image readback, followed by a successful boot.</li>
+<li>SC2235 1080p video, the slow-shutter workaround, IR-cut direction, night vision and return to colour.</li>
+<li>Photocell-driven automatic operation and service startup after reboot.</li>
+<li>Deployment and automatic startup of the revised photocell init script after reboot, with the final frame-rate, buffer and slow-shutter settings retained and approximately 20.3 fps measured afterward.</li>
+<li>Automatic startup of the ADC-retry controller after a subsequent reboot, with the same video settings retained and approximately 20.5 fps measured afterward.</li>
+<li>A later full-camera reboot during browser testing, followed by smooth MSE playback and a successful MSE-to-Dashboard transition without another restart in that controlled comparison.</li>
+</ul>
+<p>Still unverified or incomplete:</p>
+<ul>
+<li>An end-to-end restoration and boot of the saved stock image.</li>
+<li>Audio, recording, buttons, and any motor/PTZ functions under OpenIPC.</li>
+<li>Exact PCB revision suffix, a complete four-pad UART pinout, and the full schematic of the IR ring.</li>
+<li>A vendor-web-updater/Coupler transition for this exact model.</li>
+<li>Long-term stability, outdoor switching thresholds, and behavior under unusual IR reflections or changing ambient lighting.</li>
+<li>The underlying cause of the hangs and browser-associated reboots, long-term reliability of the MSE workaround, and sustained wireless throughput beyond the short upload and live-view tests.</li>
+<li>The maximum reliable frame rate and higher-rate 720p modes.</li>
+</ul>
+<h2 id="references-and-evidence">References and evidence</h2>
+<p>The board photographs, boot logs, two matching backups, extracted stock modules, release hashes, actual camera schema, reboot/light-cycle tests, and Wi-Fi tests with Ethernet unplugged are the primary evidence for this unit. Private dumps, credentials, camera-specific environment files and raw flash images are intentionally excluded.</p>
+<ul>
+<li><a href="https://openipc.org/cameras/vendors/hisilicon/socs/hi3518ev200">OpenIPC Hi3518EV200 target</a></li>
+<li><a href="https://github.com/OpenIPC/firmware/releases/tag/latest">OpenIPC firmware releases</a></li>
+<li><a href="https://github.com/OpenIPC/u-boot-hi3516cv200/tree/f769967e4dd56e727ee948e6102ac7544d722460">OpenIPC legacy bootloader source</a></li>
+<li><a href="https://github.com/OpenIPC/defib">OpenIPC defib</a></li>
+<li><a href="https://github.com/OpenIPC/coupler">OpenIPC Coupler</a></li>
+<li><a href="https://github.com/OpenIPC/wiki/blob/master/en/guide-supported-sensors.md">Supported sensor drivers</a></li>
+<li><a href="https://github.com/OpenIPC/wiki/blob/master/en/majestic-config.md">Majestic configuration</a> and <a href="https://github.com/OpenIPC/wiki/blob/master/en/majestic-streamer.md">streamer documentation</a></li>
+<li><a href="https://wireless.docs.kernel.org/en/latest/en/users/drivers/mediatek.html">Linux Wireless: MediaTek drivers and supported bands</a></li>
+<li><a href="https://github.com/OpenIPC/wiki/blob/master/en/adding-wifi-driver.md">OpenIPC Wi-Fi driver notes</a></li>
+<li><a href="https://github.com/OpenIPC/wiki/blob/master/en/memory-tuning.md">OpenIPC media-memory and buffer tuning</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2020 - 2026 <a href="https://github.com/nefarius" target="_blank" rel="noopener">Benjamin Höglinger-Stelzer</a> - <a href="#__consent">Change cookie settings</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/nefarius" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M216.5 362.5c-66-8-112.5-55.5-112.5-117 0-25 9-52 24-70-6.5-16.5-5.5-51.5 2-66 20-2.5 47 8 63 22.5 19-6 39-9 63.5-9s44.5 3 62.5 8.5c15.5-14 43-24.5 63-22 7 13.5 8 48.5 1.5 65.5 16 19 24.5 44.5 24.5 70.5 0 61.5-46.5 108-113.5 116.5 17 11 28.5 35 28.5 62.5v52c0 15 12.5 23.5 27.5 17.5C441 459.5 512 369 512 257 512 115.5 397 0 255.5 0S0 115.5 0 257c0 111 70.5 203 165.5 237.5 13.5 5 26.5-4 26.5-17.5v-40c-7 3-16 5-24 5-33 0-52.5-18-66.5-51.5-5.5-13.5-11.5-21.5-23-23-6-.5-8-3-8-6 0-6 10-10.5 20-10.5 14.5 0 27 9 40 27.5 10 14.5 20.5 21 33 21s20.5-4.5 32-16c8.5-8.5 15-16 21-21"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.nefarius.at" target="_blank" rel="noopener" title="discord.nefarius.at" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+      
+    
+    
+    
+      
+      
+    
+    <a href="https://fosstodon.org/@Nefarius" target="_blank" rel="noopener me" title="fosstodon.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M433 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.6-28.4-290.5 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54-.6-4.6-.9-9.3-.9-13.9 85.6 20.9 158.7 9.1 178.7 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zm-75.1 125.2h-46.6V190.1c0-49.7-64-51.6-64 6.9v62.5H201V197c0-58.5-64-56.6-64-6.9v114.2H90.3c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+      <div class="md-consent" data-md-component="consent" id="__consent" hidden>
+        <div class="md-consent__overlay"></div>
+        <aside class="md-consent__inner">
+          <form class="md-consent__form md-grid md-typeset" name="consent">
+            
+
+
+  
+
+
+<h4>Cookie consent</h4>
+<p>We use cookies to recognize your repeated visits and preferences, as well
+as to measure the effectiveness of our documentation and whether users
+find what they're searching for. With your consent, you're helping us to
+make our documentation better.
+</p>
+<input class="md-toggle" type="checkbox" id="__settings" >
+<div class="md-consent__settings">
+  <ul class="task-list">
+    
+    
+      
+    
+    
+      
+        
+  
+  
+    
+    
+  
+  <li class="task-list-item">
+    <label class="task-list-control">
+      <input type="checkbox" name="github" checked>
+      <span class="task-list-indicator"></span>
+      GitHub
+    </label>
+  </li>
+
+      
+    
+    
+  </ul>
+</div>
+<div class="md-consent__controls">
+  
+    
+      <button class="md-button md-button--primary">Accept</button>
+    
+    
+    
+  
+    
+    
+    
+      <label class="md-button" for="__settings">Manage settings</label>
+    
+  
+</div>
+          </form>
+        </aside>
+      </div>
+      <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout((function(){document.querySelector("[data-md-component=consent]").hidden=!1}),250);var form=document.forms.consent;for(var action of["submit","reset"])form.addEventListener(action,(function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map((function(e){return[e,!0]})))),location.hash="",location.reload()}))</script>
+    
+    
+      
+      
+      
+      
+        
+        
+          
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.tabs"],"redirect":"../../redirect.json","search":"../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+  <!-- Add scripts that need to run before here -->
+  
+      <script src="../../assets/javascripts/bundle.9e76c64c.min.js"></script>
+      
+      
+        <script src="../../javascripts/main.js"></script>
+      
+    
+  <!-- Add scripts that need to run afterwards here -->
+  <script type="module" src="https://esm.sh/emfed"></script>
+
+  </body>
+</html>
